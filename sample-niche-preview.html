@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niche Preview Demo - Kwikezee</title>
+  <style>
+    :root {
+      --primary: #FF7A00;
+      --secondary: #111111;
+      --light-bg: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-main: #222222;
+      --text-muted: #666666;
+      --accent-soft: rgba(255, 122, 0, 0.1);
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      transition: all 0.3s ease;
+    }
+    
+    body {
+      background-color: var(--light-bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      font-size: 14px;
+    }
+
+    header {
+      background-color: #ffffff;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cta-btn {
+      background-color: var(--primary);
+      color: #ffffff;
+      padding: 6px 14px;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .cta-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 30px 20px;
+      text-align: center;
+      background: linear-gradient(180deg, #ffffff 0%, var(--light-bg) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .badge {
+      background-color: var(--accent-soft);
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: inline-block;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      color: var(--secondary);
+      margin-bottom: 12px;
+      line-height: 1.3;
+      font-weight: 800;
+      max-width: 600px;
+    }
+
+    .hero p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      max-width: 500px;
+    }
+
+    .hero-img {
+      width: 100%;
+      max-width: 160px;
+      height: 160px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    /* Floating illustration representation */
+    .icon-placeholder {
+      font-size: 4rem;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* Benefits Section */
+    .benefits {
+      padding: 30px 20px;
+      background-color: #ffffff;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--secondary);
+      margin-bottom: 20px;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .benefit-card {
+      background-color: var(--light-bg);
+      padding: 16px;
+      border-radius: 12px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .benefit-card h3 {
+      font-size: 0.95rem;
+      color: var(--secondary);
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+
+    .benefit-card p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Order / Booking Form Simulation */
+    .booking-section {
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .booking-card {
+      border: 1px solid rgba(0,0,0,0.06);
+      padding: 24px 20px;
+      border-radius: 16px;
+      background-color: #ffffff;
+      max-width: 380px;
+      margin: 0 auto;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+      text-align: left;
+    }
+
+    .price-tag {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 15px;
+    }
+    
+    .price-strike {
+      text-decoration: line-through;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    .price-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text-main);
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      outline: none;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--primary);
+    }
+
+    footer {
+      background-color: var(--secondary);
+      color: rgba(255,255,255,0.6);
+      padding: 15px;
+      text-align: center;
+      font-size: 0.7rem;
+    }
+
+    /* Grid for desktop layout simulation inside mockup */
+    @media (min-width: 600px) {
+      .hero {
+        padding: 40px 30px;
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .hero-content {
+        flex: 1.2;
+        padding-right: 20px;
+      }
+      .hero-img {
+        flex: 0.8;
+        margin-bottom: 0;
+        max-width: 180px;
+        height: 180px;
+      }
+      .benefits-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo" id="header-logo">🏢 BrandLogo</div>
+    <a href="#order" class="cta-btn" id="header-cta-btn">WhatsApp</a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="badge" id="hero-badge">Niche Category</div>
+      <h1 id="hero-title">Headline Website Niche</h1>
+      <p id="hero-desc">Subheadline description goes here. It tells the benefits of using this service or purchasing this product.</p>
+      <a href="#order" class="cta-btn" style="padding: 10px 20px; font-size: 0.9rem;" id="hero-cta-main">WhatsApp Kami</a>
+    </div>
+    <div class="hero-img">
+      <div class="icon-placeholder" id="hero-icon">📦</div>
+    </div>
+  </section>
+
+  <section class="benefits">
+    <h2 class="section-title" id="benefits-title">Kelebihan Kami</h2>
+    <div class="benefits-grid" id="benefits-grid">
+      <div class="benefit-card">
+        <h3 id="feat-title-1">Kelebihan 1</h3>
+        <p id="feat-desc-1">Keterangan ringkas tentang kelebihan pertama yang ditawarkan.</p>
+      </div>
+      <div class="benefit-card">
+        <h3 id="feat-title-2">Kelebihan 2</h3>
+        <p id="feat-desc-2">Keterangan ringkas tentang kelebihan kedua yang ditawarkan.</p>
+      </div>
+      <div class="benefit-card">
+        <h3 id="feat-title-3">Kelebihan 3</h3>
+        <p id="feat-desc-3">Keterangan ringkas tentang kelebihan ketiga yang ditawarkan.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking-section" id="order">
+    <h2 class="section-title" id="booking-title">Borang Tempahan</h2>
+    <div class="booking-card">
+      <div class="price-tag" id="price-container">
+        <span class="price-strike" id="price-old">RM000</span>
+        <span class="price-value" id="price-new">RM00</span>
+      </div>
+      
+      <form onsubmit="event.preventDefault(); alert('Ini adalah simulasi! Borang sebenar akan redirect ke WhatsApp anda.');">
+        <div class="form-group">
+          <label for="name">Nama Penuh</label>
+          <input type="text" id="name" placeholder="Nama anda" required>
+        </div>
+        <div class="form-group" id="form-field-dynamic">
+          <label for="detail">Pilihan Pakej / Kuantiti</label>
+          <select id="detail">
+            <option>Pakej Biasa</option>
+            <option>Pakej Premium</option>
+          </select>
+        </div>
+        <button type="submit" class="cta-btn" style="width: 100%; padding: 10px; font-size: 0.9rem;" id="form-btn">Hantar Tempahan</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p id="footer-text">&copy; 2026 Brand Name. Hak Cipta Terpelihara.</p>
+  </footer>
+
+  <script>
+    const data = {
+      'kek-pisang': {
+        primaryColor: '#D4A373',
+        secondaryColor: '#3F2F24',
+        accentSoft: 'rgba(212, 163, 115, 0.15)',
+        logo: '🍌 Kak Siti Banana Cakes',
+        badge: '🍌 Homemade & Fresh',
+        title: 'Kek Pisang Gula Melaka Moist & Kurang Manis!',
+        desc: 'Resipi turun-temurun Kak Siti menggunakan pisang emas segar dari kebun. Sangat lembut, wangi, dan dibakar segar setiap hari.',
+        icon: '🍞',
+        benefitsTitle: 'Mengapa Pilih Kek Pisang Kami?',
+        featTitle1: '100% Pisang Emas',
+        featDesc1: 'Tiada perisa tiruan, hanya kemanisan semulajadi pisang emas segar pilihan.',
+        featTitle2: 'Kurang Manis',
+        featDesc2: 'Diadun khas dengan gula melaka asli berkualiti tinggi untuk rasa yang seimbang.',
+        featTitle3: 'Sedia Pos / COD',
+        featDesc3: 'Dibakar segar setiap pagi dan sedia untuk dihantar terus ke pintu rumah anda.',
+        bookingTitle: 'Order Kek Pisang Anda',
+        priceOld: 'RM35.00',
+        priceNew: 'RM25.00',
+        formLabel: 'Kuantiti Bekas',
+        formOptions: ['1 Bekas (Original) - RM25', '2 Bekas (Kombo) - RM45', '1 Bekas (Extra Keju) - RM29'],
+        formBtn: 'Beli Sekarang (WhatsApp)',
+        footer: '© 2026 Kak Siti Banana Cakes Malaysia. Halal & Bersih.'
+      },
+      'renovation': {
+        primaryColor: '#FF7A00',
+        secondaryColor: '#1A1A1A',
+        accentSoft: 'rgba(255, 122, 0, 0.15)',
+        logo: '🛠️ Karya Renovasi',
+        badge: '🛠️ Kontraktor Berdaftar',
+        title: 'Ubah Suai Rumah Impian Anda Dengan Kontraktor Dipercayai',
+        desc: 'Kami menyediakan servis renovation rumah, dapur, bilik air, dan plaster siling secara profesional. Sebut harga (quotation) percuma & waranti 1 tahun.',
+        icon: '🏡',
+        benefitsTitle: 'Servis Ubah Suai Profesional',
+        featTitle1: 'Tukang Berpengalaman',
+        featDesc1: 'Dikerjakan oleh pakar binaan yang berpengalaman lebih 10 tahun di Malaysia.',
+        featTitle2: 'Jaminan Waranti',
+        featDesc2: 'Waranti pembaikan percuma diberikan selama 1 tahun selepas projek diserahkan.',
+        featTitle3: 'Bahan Berkualiti',
+        featDesc3: 'Menggunakan material premium berkelas tinggi untuk ketahanan maksimum.',
+        bookingTitle: 'Request Sebut Harga',
+        priceOld: 'Sebut Harga',
+        priceNew: 'PERCUMA',
+        formLabel: 'Jenis Ubah Suai',
+        formOptions: ['Ubah Suai Dapur (Kitchen Extension)', 'Renovasi Bilik Air (Toilet)', 'Pasang Plaster Siling / Cat', 'Ubah Suai Keseluruhan Rumah'],
+        formBtn: 'Dapatkan Quotation WhatsApp',
+        footer: '© 2026 Karya Renovasi Enterprise. Bangi & Kajang.'
+      },
+      'homestay': {
+        primaryColor: '#0ea5e9',
+        secondaryColor: '#0f172a',
+        accentSoft: 'rgba(14, 165, 233, 0.15)',
+        logo: '🏊 Sentosa Homestay',
+        badge: '🏊 3 Bilik Tidur & Pool',
+        title: 'Homestay Mewah & Selesa Untuk Seisi Keluarga',
+        desc: 'Terletak di Putrajaya dengan kelengkapan penuh: kolam renang infiniti, wifi laju, kelengkapan dapur, dan dekat dengan IOI City Mall.',
+        icon: '🏖️',
+        benefitsTitle: 'Kemudahan Yang Disediakan',
+        featTitle1: 'Pool & Gymnasium',
+        featDesc1: 'Akses percuma ke kolam renang bersaiz Olimpik dan gym untuk semua tetamu.',
+        featTitle2: 'Lengkap Berperabot',
+        featDesc2: 'Penghawa dingin di semua bilik, smart TV, Netflix, peti sejuk, dan mesin basuh.',
+        featTitle3: 'Lokasi Strategik',
+        featDesc3: 'Hanya 5 minit ke pusat pentadbiran Putrajaya dan 8 minit ke pusat membeli-belah.',
+        bookingTitle: 'Tempah Tarikh Homestay',
+        priceOld: 'RM350/Malam',
+        priceNew: 'RM250/Malam',
+        formLabel: 'Pilihan Bilangan Hari',
+        formOptions: ['2 Hari 1 Malam - RM250', '3 Hari 2 Malam (Paling Popular) - RM450', '4 Hari 3 Malam - RM650'],
+        formBtn: 'Check Tarikh Live (WhatsApp)',
+        footer: '© 2026 Sentosa Homestay Putrajaya. Cozy & Clean Stay.'
+      },
+      'hartanah': {
+        primaryColor: '#6366f1',
+        secondaryColor: '#1e1b4b',
+        accentSoft: 'rgba(99, 102, 241, 0.15)',
+        logo: '🏢 Zaim Properties',
+        badge: '🏢 Ejen Perunding Berdaftar',
+        title: 'Cari & Beli Rumah Idaman Anda Di Lembah Klang',
+        desc: 'Kami bantu anda cari rumah baru atau subsale, uruskan permohonan pinjaman bank, dan selesaikan dokumentasi guaman A-Z. Khidmat ejen adalah percuma untuk pembeli.',
+        icon: '🔑',
+        benefitsTitle: 'Mengapa Urus Dengan Kami?',
+        featTitle1: 'Semakan Kelayakan Loan',
+        featDesc1: 'Bantu semak DSR kelayakan loan bank dan LPPSA secara percuma sebelum submit.',
+        featTitle2: 'Pilihan Rumah Pelbagai',
+        featDesc2: 'Senarai penuh projek perumahan baru dengan tawaran rebat & diskaun menarik.',
+        featTitle3: 'Urusan Dokumentasi A-Z',
+        featDesc3: 'Penyediaan lawyer, jurunilai hartanah, dan bank officer disediakan sepenuhnya.',
+        bookingTitle: 'Semak Kelayakan Rumah',
+        priceOld: 'Consultation',
+        priceNew: 'PERCUMA',
+        formLabel: 'Anggaran Gaji Bersih',
+        formOptions: ['Bawah RM3,000 sebulan', 'RM3,000 - RM5,000 sebulan', 'RM5,000 - RM8,000 sebulan', 'Atas RM8,000 sebulan'],
+        formBtn: 'Uji Kelayakan Bank (WhatsApp)',
+        footer: '© 2026 Zaim Properties Agency. Registered Real Estate Negotiator.'
+      }
+    };
+
+    function updatePage() {
+      const hash = window.location.hash.replace('#', '') || 'kek-pisang';
+      const selected = data[hash] || data['kek-pisang'];
+
+      // Apply colors
+      document.documentElement.style.setProperty('--primary', selected.primaryColor);
+      document.documentElement.style.setProperty('--secondary', selected.secondaryColor);
+      document.documentElement.style.setProperty('--accent-soft', selected.accentSoft);
+
+      // Apply contents
+      document.getElementById('header-logo').innerHTML = selected.logo;
+      document.getElementById('hero-badge').innerHTML = selected.badge;
+      document.getElementById('hero-title').innerHTML = selected.title;
+      document.getElementById('hero-desc').innerHTML = selected.desc;
+      document.getElementById('hero-icon').innerHTML = selected.icon;
+      
+      document.getElementById('benefits-title').innerHTML = selected.benefitsTitle;
+      document.getElementById('feat-title-1').innerHTML = selected.featTitle1;
+      document.getElementById('feat-desc-1').innerHTML = selected.featDesc1;
+      document.getElementById('feat-title-2').innerHTML = selected.featTitle2;
+      document.getElementById('feat-desc-2').innerHTML = selected.featDesc2;
+      document.getElementById('feat-title-3').innerHTML = selected.featTitle3;
+      document.getElementById('feat-desc-3').innerHTML = selected.featDesc3;
+      
+      document.getElementById('booking-title').innerHTML = selected.bookingTitle;
+      document.getElementById('price-old').innerHTML = selected.priceOld;
+      document.getElementById('price-new').innerHTML = selected.priceNew;
+      
+      // Update form select field options
+      const dynamicField = document.getElementById('form-field-dynamic');
+      dynamicField.innerHTML = `
+        <label for="detail">${selected.formLabel}</label>
+        <select id="detail">
+          ${selected.formOptions.map(opt => `<option>${opt}</option>`).join('')}
+        </select>
+      `;
+      
+      document.getElementById('form-btn').innerHTML = selected.formBtn;
+      document.getElementById('footer-text').innerHTML = selected.footer;
+
+      // Update CTA links to WhatsApp template
+      const waText = encodeURIComponent(`Hai, saya melawat web demo ${selected.logo} dan mahu tahu lebih lanjut tentang ${selected.title}.`);
+      const waLink = `https://wa.me/60108118559?text=${waText}`;
+      
+      document.getElementById('header-cta-btn').setAttribute('href', waLink);
+      document.getElementById('hero-cta-main').setAttribute('href', waLink);
+    }
+
+    // Initialize & Listen to hashchange
+    window.addEventListener('hashchange', updatePage);
+    window.addEventListener('load', updatePage);
+  </script>
+</body>
+</html>
