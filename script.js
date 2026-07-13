@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFaqAccordion();
   initScrollReveal();
   initPwaInstall();
+  initDraggableWaFab();
 });
 
 /* ==========================================
@@ -479,3 +480,107 @@ function initPortfolioSlider() {
   });
 }
 
+/* ==========================================================================
+   DRAGGABLE FLOATING WHATSAPP BUTTON (FAB)
+   ========================================================================== */
+function initDraggableWaFab() {
+  const fab = document.querySelector('.wa-fab');
+  if (!fab) return;
+
+  let isDragging = false;
+  let wasDragged = false;
+  let offsetX = 0;
+  let offsetY = 0;
+  let startX = 0;
+  let startY = 0;
+
+  fab.addEventListener('mousedown', dragStart);
+  fab.addEventListener('touchstart', dragStart, { passive: true });
+
+  window.addEventListener('mousemove', drag);
+  window.addEventListener('touchmove', drag, { passive: false });
+
+  window.addEventListener('mouseup', dragEnd);
+  window.addEventListener('touchend', dragEnd);
+
+  // Click event listener to intercept navigation if dragged
+  fab.addEventListener('click', (e) => {
+    if (wasDragged) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  });
+
+  function dragStart(e) {
+    isDragging = true;
+    wasDragged = false;
+    
+    // Disable CSS transition during dragging for lag-free movement
+    fab.style.transition = 'none';
+
+    const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+    
+    const rect = fab.getBoundingClientRect();
+    
+    // Switch to absolute positioning with left/top instead of bottom/right
+    fab.style.right = 'auto';
+    fab.style.bottom = 'auto';
+    fab.style.left = `${rect.left}px`;
+    fab.style.top = `${rect.top}px`;
+
+    offsetX = clientX - rect.left;
+    offsetY = clientY - rect.top;
+    
+    startX = clientX;
+    startY = clientY;
+  }
+
+  function drag(e) {
+    if (!isDragging) return;
+
+    // Prevent screen scrolling on mobile while dragging the FAB
+    if (e.type === 'touchmove') {
+      e.preventDefault();
+    }
+
+    const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+
+    let newX = clientX - offsetX;
+    let newY = clientY - offsetY;
+
+    // Clamp coordinates inside the viewport boundaries
+    const margin = 16;
+    const rect = fab.getBoundingClientRect();
+    const maxLeft = window.innerWidth - rect.width - margin;
+    const maxTop = window.innerHeight - rect.height - margin;
+
+    if (newX < margin) newX = margin;
+    if (newX > maxLeft) newX = maxLeft;
+    if (newY < margin) newY = margin;
+    if (newY > maxTop) newY = maxTop;
+
+    fab.style.left = `${newX}px`;
+    fab.style.top = `${newY}px`;
+
+    // Determine if drag distance is large enough to classify as dragging instead of clicking
+    const dragDistance = Math.sqrt(Math.pow(clientX - startX, 2) + Math.pow(clientY - startY, 2));
+    if (dragDistance > 5) {
+      wasDragged = true;
+    }
+  }
+
+  function dragEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    
+    // Re-enable smooth hover scale transition
+    fab.style.transition = 'transform 0.2s ease, box-shadow 0.2s ease';
+
+    // Clear wasDragged flags shortly after touch/mouseup has bubbled to the click event
+    setTimeout(() => {
+      wasDragged = false;
+    }, 50);
+  }
+}
