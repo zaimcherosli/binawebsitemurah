@@ -2002,6 +2002,11 @@ input:focus, select:focus, textarea:focus {
     gap: 32px;
   }
 
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
   /* Show Mobile Bottom Navigation */
   .mobile-bottom-nav {
     display: flex;
