@@ -125,6 +125,8 @@ a {
   cursor: pointer;
   transition: var(--transition-smooth);
   outline: none;
+  padding: 12px 28px;
+  font-size: 14px;
 }
 
 .btn-primary {
