@@ -1,4 +1,4 @@
-const CACHE_NAME = 'auracraft-cache-v2';
+const CACHE_NAME = 'auracraft-cache-v3';
 const ASSETS_TO_CACHE = [
   './',
   './style.css',
