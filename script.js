@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initBeforeAfterSlider();
   initPortfolioFilter();
+  initPortfolioSlider();
   initFaqAccordion();
   initScrollReveal();
   initPwaInstall();
@@ -360,3 +361,104 @@ Sila maklum balas bila berkelapangan. Terima kasih!`;
   // Redirect client to WhatsApp API
   window.open(waUrl, '_blank');
 };
+
+/* ==========================================
+   PORTFOLIO HORIZONTAL CAROUSEL (MOBILE)
+   ========================================== */
+function initPortfolioSlider() {
+  const grid = document.querySelector('.portfolio-grid');
+  if (!grid) return;
+
+  let autoSlideInterval = null;
+  let isUserInteracting = false;
+  let resetTimer = null;
+
+  function getVisibleItems() {
+    return Array.from(grid.querySelectorAll('.portfolio-item')).filter(
+      item => item.style.display !== 'none'
+    );
+  }
+
+  function startAutoSlide() {
+    stopAutoSlide();
+    autoSlideInterval = setInterval(() => {
+      if (isUserInteracting || window.innerWidth > 768) return;
+      
+      const visibleItems = getVisibleItems();
+      if (visibleItems.length <= 1) return;
+
+      // Find which item is currently closest to the start of viewport
+      const gridLeft = grid.scrollLeft;
+      let closestIndex = 0;
+      let minDiff = Infinity;
+
+      visibleItems.forEach((item, index) => {
+        const itemLeft = item.offsetLeft - grid.offsetLeft;
+        const diff = Math.abs(itemLeft - gridLeft);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIndex = index;
+        }
+      });
+
+      // Scroll to the next item (looping back to 0)
+      const nextIndex = (closestIndex + 1) % visibleItems.length;
+      const nextItem = visibleItems[nextIndex];
+      const nextScrollLeft = nextItem.offsetLeft - grid.offsetLeft;
+      
+      grid.scrollTo({
+        left: nextScrollLeft,
+        behavior: 'smooth'
+      });
+    }, 4000);
+  }
+
+  function stopAutoSlide() {
+    if (autoSlideInterval) {
+      clearInterval(autoSlideInterval);
+      autoSlideInterval = null;
+    }
+  }
+
+  // Detect user touch/swipe interaction to temporarily pause auto-slide
+  grid.addEventListener('touchstart', () => {
+    isUserInteracting = true;
+    stopAutoSlide();
+    if (resetTimer) clearTimeout(resetTimer);
+  }, { passive: true });
+
+  grid.addEventListener('touchend', () => {
+    // Resume auto-slide after 5 seconds of inactivity
+    resetTimer = setTimeout(() => {
+      isUserInteracting = false;
+      if (window.innerWidth <= 768) {
+        startAutoSlide();
+      }
+    }, 5000);
+  }, { passive: true });
+
+  // Handle window resize to dynamically enable/disable auto-slide
+  window.addEventListener('resize', () => {
+    if (window.innerWidth <= 768) {
+      if (!autoSlideInterval) startAutoSlide();
+    } else {
+      stopAutoSlide();
+    }
+  });
+
+  // Initial activation
+  if (window.innerWidth <= 768) {
+    startAutoSlide();
+  }
+
+  // Smooth scroll back to 0 when filters (tabs) are clicked
+  const tabs = document.querySelectorAll('.tab-btn');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      setTimeout(() => {
+        grid.scrollTo({ left: 0, behavior: 'smooth' });
+      }, 350);
+    });
+  });
+}
+

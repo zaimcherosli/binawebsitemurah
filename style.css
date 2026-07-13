@@ -1945,8 +1945,48 @@ input:focus, select:focus, textarea:focus {
     grid-template-columns: 1fr;
   }
 
+  /* Mobile Tab Slider & Portfolio Carousel */
+  .portfolio-tabs-container {
+    justify-content: flex-start;
+    overflow-x: auto;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    padding: 8px 20px 16px;
+    margin-left: -20px;
+    margin-right: -20px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  
+  .portfolio-tabs-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .portfolio-tabs-container .tab-btn {
+    flex-shrink: 0;
+  }
+
   .portfolio-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding: 0 20px 24px;
+    margin-left: -20px;
+    margin-right: -20px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  
+  .portfolio-grid::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .portfolio-item {
+    flex: 0 0 86%;
+    scroll-snap-align: start;
+    transition: opacity 0.4s ease, transform 0.4s ease;
   }
 
   .casestudy-grid {
