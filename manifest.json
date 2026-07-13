@@ -2,7 +2,7 @@
   "name": "AuraCraft Studio - Premium Web & Landing Page",
   "short_name": "AuraCraft",
   "description": "Servis bina website dan landing page premium berprestasi tinggi untuk usahawan Malaysia.",
-  "start_url": "index.html",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#0A0A0C",
   "theme_color": "#0A0A0C",
@@ -24,12 +24,12 @@
   "shortcuts": [
     {
       "name": "Lihat Portfolio",
-      "url": "index.html#mockup-section",
+      "url": "./#mockup-section",
       "icons": [{"src": "icons/icon-192.png", "sizes": "192x192"}]
     },
     {
       "name": "Hubungi WhatsApp",
-      "url": "index.html#order-form",
+      "url": "./#order-form",
       "icons": [{"src": "icons/icon-192.png", "sizes": "192x192"}]
     }
   ]
