@@ -63,6 +63,22 @@ function initBeforeAfterSlider() {
   
   if (!slider || !handle || !afterPanel) return;
 
+  // Recalculate content wrapper width to match actual slider container width dynamically
+  function adjustWidths() {
+    const sliderWidth = slider.offsetWidth;
+    const contentWrappers = slider.querySelectorAll('.panel-content-wrapper');
+    contentWrappers.forEach(wrapper => {
+      wrapper.style.width = `${sliderWidth}px`;
+    });
+    
+    const mocks = slider.querySelectorAll('.cheap-page-mock, .premium-page-mock');
+    mocks.forEach(mock => {
+      mock.style.width = `${sliderWidth}px`;
+    });
+  }
+
+  adjustWidths();
+
   let isDragging = false;
 
   // Add event listeners for mouse
@@ -117,6 +133,7 @@ function initBeforeAfterSlider() {
     // Force recalculation
     afterPanel.style.transition = 'none';
     handle.style.transition = 'none';
+    adjustWidths();
   });
 }
 

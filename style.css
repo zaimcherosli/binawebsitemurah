@@ -1083,9 +1083,13 @@ a {
   font-weight: bold;
 }
 
-.pm-cta-row {
+.pm-cta-row, .cp-cta-row {
   display: flex;
   gap: 12px;
+}
+
+.cp-cta-row {
+  margin-top: 20px;
 }
 
 .pm-btn {
@@ -2007,6 +2011,11 @@ input:focus, select:focus, textarea:focus {
   .form-row {
     grid-template-columns: 1fr;
     gap: 0;
+  }
+
+  .cp-cta-row, .pm-cta-row {
+    flex-direction: column;
+    gap: 8px;
   }
 
   /* Show Mobile Bottom Navigation */
