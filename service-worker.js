@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kwikezee-cache-v1';
+const CACHE_NAME = 'auracraft-cache-v1';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -6,25 +6,22 @@ const ASSETS_TO_CACHE = [
   './script.js',
   './manifest.json',
   './offline.html',
-  './icons/favicon-16x16.png',
-  './icons/favicon-32x32.png',
-  './icons/icon-192x192.png',
-  './icons/icon-512x512.png',
-  './icons/icon-maskable.png',
-  './icons/apple-touch-icon.png'
+  './icons/icon-192.png',
+  './icons/icon-512.png'
 ];
 
-// Install Event
+// Install Event - Pre-cache core assets
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('[Service Worker] Pre-caching offline fallback and key assets');
+      console.log('[Service Worker] Caching app shell and offline assets');
       return cache.addAll(ASSETS_TO_CACHE);
-    }).then(() => self.skipWaiting())
+    })
   );
+  self.skipWaiting();
 });
 
-// Activate Event
+// Activate Event - Clean up old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -36,40 +33,47 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
-    }).then(() => self.clients.claim())
+    })
   );
+  self.clients.claim();
 });
 
-// Fetch Event with Network-First fallback to Offline Cache
+// Fetch Event - Cache first, fallback to network, then offline page
 self.addEventListener('fetch', (event) => {
-  // Only handle GET requests and local/same-origin requests
-  if (event.request.method !== 'GET' || !event.request.url.startsWith(self.location.origin)) {
-    return;
-  }
+  // Only cache GET requests from our origin
+  if (event.request.method !== 'GET') return;
+  if (!event.request.url.startsWith(self.location.origin)) return;
 
   event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        // If request is successful, clone and store it in cache
-        if (response && response.status === 200) {
-          const responseCopy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseCopy);
-          });
-        }
-        return response;
-      })
-      .catch(() => {
-        // If network request fails, search in cache
-        return caches.match(event.request).then((cachedResponse) => {
-          if (cachedResponse) {
-            return cachedResponse;
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        // Fetch new version in background (stale-while-revalidate style)
+        fetch(event.request).then((networkResponse) => {
+          if (networkResponse.status === 200) {
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
           }
-          // If the request is for an HTML page and not in cache, redirect to offline page
+        }).catch(() => {/* Ignore background sync failures */});
+        
+        return cachedResponse;
+      }
+
+      return fetch(event.request)
+        .then((networkResponse) => {
+          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+            return networkResponse;
+          }
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
+          return networkResponse;
+        })
+        .catch(() => {
+          // If offline and request is for a document (HTML page), show the cached offline.html
           if (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html')) {
             return caches.match('./offline.html');
           }
         });
-      })
+    })
   );
 });

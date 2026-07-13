@@ -1,50 +1,36 @@
 {
-  "name": "Bina Website Murah - Kwikezee Design Solution",
-  "short_name": "Kwikezee",
-  "description": "Bina website dan landing page profesional bermula RM99 sahaja.",
-  "start_url": "./",
+  "name": "AuraCraft Studio - Premium Web & Landing Page",
+  "short_name": "AuraCraft",
+  "description": "Servis bina website dan landing page premium berprestasi tinggi untuk usahawan Malaysia.",
+  "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#0B0F19",
-  "theme_color": "#2563EB",
+  "background_color": "#0A0A0C",
+  "theme_color": "#0A0A0C",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "icons/favicon-16x16.png",
-      "sizes": "16x16",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/favicon-32x32.png",
-      "sizes": "32x32",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/icon-maskable.png",
-      "sizes": "512x512",
+      "src": "icons/icon-192.png",
       "type": "image/png",
-      "purpose": "maskable"
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
   "shortcuts": [
     {
-      "name": "Borang Tempahan",
-      "url": "./#order-form",
-      "icons": [{ "src": "icons/icon-192x192.png", "sizes": "192x192" }]
+      "name": "Lihat Portfolio",
+      "url": "index.html#mockup-section",
+      "icons": [{"src": "icons/icon-192.png", "sizes": "192x192"}]
     },
     {
       "name": "Hubungi WhatsApp",
-      "url": "https://wa.me/60108118559",
-      "icons": [{ "src": "icons/icon-192x192.png", "sizes": "192x192" }]
+      "url": "index.html#order-form",
+      "icons": [{"src": "icons/icon-192.png", "sizes": "192x192"}]
     }
   ]
 }

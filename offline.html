@@ -3,100 +3,372 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tiada Talian | Kwikezee Design Solution</title>
+  <title>Offline | AuraCraft Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #2563EB;
-      --dark: #0B0F19;
-      --white: #FFFFFF;
-      --text-muted: #94A3B8;
-      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --bg-color: #FAFAF9;
+      --card-bg: #FFFFFF;
+      --gold-primary: #B8860B;
+      --gold-glow: rgba(184, 134, 11, 0.08);
+      --emerald-primary: #059669;
+      --text-main: #18181B;
+      --text-muted: #52525B;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-gold: rgba(184, 134, 11, 0.18);
     }
-    
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    
+
     body {
-      background-color: var(--dark);
-      color: var(--white);
-      font-family: var(--font-family);
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
-      text-align: center;
-      overflow: hidden;
-      background-image: radial-gradient(circle at 50% 30%, rgba(37, 99, 235, 0.12) 0%, transparent 60%);
+      padding: 24px;
+      overflow-x: hidden;
+      position: relative;
     }
-    
+
+    /* Radial Glowing Mesh background */
+    body::before {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(5, 150, 105, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+      top: -100px;
+      left: -100px;
+      z-index: -1;
+      filter: blur(40px);
+    }
+
+    body::after {
+      content: '';
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(184, 134, 11, 0.04) 0%, rgba(255, 255, 255, 0) 70%);
+      bottom: -150px;
+      right: -150px;
+      z-index: -1;
+      filter: blur(40px);
+    }
+
     .container {
-      max-width: 400px;
-      padding: 40px 30px;
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      background: var(--card-bg);
+      border: 1px solid var(--border-gold);
       border-radius: 20px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+      padding: 32px 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
     }
-    
-    .icon {
-      font-size: 4rem;
+
+    .logo-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 2px solid var(--gold-primary);
       margin-bottom: 20px;
-      display: inline-block;
-      animation: float 4s ease-in-out infinite;
+      box-shadow: 0 0 15px var(--gold-glow);
+      background: #FFFFFF;
     }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-    
-    h1 {
-      font-size: 1.6rem;
+
+    .logo-text {
+      color: var(--gold-primary);
+      font-size: 28px;
       font-weight: 800;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
       margin-bottom: 12px;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.5px;
     }
-    
-    p {
-      font-size: 0.9rem;
+
+    h1 span {
+      background: linear-gradient(135deg, var(--gold-primary) 0%, #F5E0A3 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      color: #F87171;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #EF4444;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.6; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.6; }
+    }
+
+    p.lead-text {
       color: var(--text-muted);
-      margin-bottom: 30px;
-      line-height: 1.5;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 24px;
     }
-    
-    .btn {
-      display: inline-block;
-      background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
-      color: var(--white);
-      padding: 12px 28px;
-      border-radius: 9999px;
+
+    /* Offline Calculator Section */
+    .calculator-box {
+      border-top: 1px solid var(--border-color);
+      margin-top: 24px;
+      padding-top: 24px;
+      text-align: left;
+    }
+
+    .calc-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gold-primary);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
       font-weight: 600;
-      font-size: 0.9rem;
-      text-decoration: none;
-      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    
-    .btn:hover {
+
+    select {
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.015);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-main);
+      padding: 10px 14px;
+      font-size: 14px;
+      outline: none;
+      transition: border 0.3s;
+    }
+
+    select:focus {
+      border-color: var(--gold-primary);
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.01);
+      border: 1px solid var(--border-color);
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.3s;
+    }
+
+    .checkbox-label:hover {
+      background: rgba(212, 175, 55, 0.03);
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+
+    .checkbox-label input {
+      accent-color: var(--emerald-primary);
+      width: 16px;
+      height: 16px;
+    }
+
+    .price-display {
+      background: rgba(16, 185, 129, 0.05);
+      border: 1px dashed var(--emerald-primary);
+      padding: 16px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 18px;
+    }
+
+    .price-display .price-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .price-display .price-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--emerald-primary);
+      margin-top: 4px;
+    }
+
+    .btn-retry {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold-primary) 0%, #AA7C11 100%);
+      color: #000;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-retry:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .offline-footer {
+      margin-top: 24px;
+      font-size: 12px;
+      color: var(--text-muted);
     }
   </style>
 </head>
 <body>
+
   <div class="container">
-    <div class="icon">🔌</div>
-    <h1>Anda Sedang Offline</h1>
-    <p>Sambungan internet anda terputus. Sila periksa rangkaian data atau Wi-Fi anda dan cuba sebentar lagi.</p>
-    <button onclick="window.location.reload();" class="btn">Cuba Semula</button>
+    <div class="logo-container">
+      <span class="logo-text">A</span>
+    </div>
+
+    <div>
+      <span class="status-badge">
+        <span class="status-dot"></span>
+        Tiada Sambungan Internet
+      </span>
+    </div>
+
+    <h1>AuraCraft <span>Studio</span></h1>
+    <p class="lead-text">
+      Anda sedang mengakses aplikasi ini secara luar talian (offline). Walau bagaimanapun, anda masih boleh meneroka anggaran kos di bawah.
+    </p>
+
+    <!-- Interactive Offline Tool -->
+    <div class="calculator-box">
+      <div class="calc-title">Kira Anggaran Projek Anda</div>
+      
+      <div class="form-group">
+        <label for="niche-select">Jenis Laman Web</label>
+        <select id="niche-select" onchange="calculateCost()">
+          <option value="landing-basic" data-price="299">Landing Page Asas (RM299)</option>
+          <option value="landing-business" data-price="499" selected>Landing Page Bisnes Premium (RM499)</option>
+          <option value="portfolio" data-price="699">Website Portfolio Khas (RM699)</option>
+          <option value="ecommerce" data-price="999">Website E-Commerce Mini (RM999)</option>
+        </select>
+      </div>
+
+      <label>Add-on / Ciri Tambahan</label>
+      <div class="checkbox-grid">
+        <label class="checkbox-label">
+          <input type="checkbox" id="addon-domain" value="120" onchange="calculateCost()">
+          <span>Domain Khas .com/.my (+RM120)</span>
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="addon-pwa" value="150" onchange="calculateCost()">
+          <span>Sokongan PWA Mudah Alih (+RM150)</span>
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="addon-pixel" value="80" onchange="calculateCost()">
+          <span>Tracking FB & TikTok Pixel (+RM80)</span>
+        </label>
+      </div>
+
+      <div class="price-display">
+        <div class="price-label">Anggaran Kos Pelaburan</div>
+        <div class="price-value" id="total-price">RM619.00</div>
+      </div>
+    </div>
+
+    <button class="btn-retry" onclick="checkConnection()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transform: rotate(0deg); transition: transform 0.5s;" id="retry-icon"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+      Cuba Sambung Semula
+    </button>
+
+    <div class="offline-footer">
+      AuraCraft Studio &copy; 2026. Aplikasi Luar Talian Sedia Ada.
+    </div>
   </div>
+
+  <script>
+    function calculateCost() {
+      const nicheSelect = document.getElementById('niche-select');
+      const basePrice = parseInt(nicheSelect.options[nicheSelect.selectedIndex].getAttribute('data-price')) || 0;
+      
+      const domainAddon = document.getElementById('addon-domain').checked ? parseInt(document.getElementById('addon-domain').value) : 0;
+      const pwaAddon = document.getElementById('addon-pwa').checked ? parseInt(document.getElementById('addon-pwa').value) : 0;
+      const pixelAddon = document.getElementById('addon-pixel').checked ? parseInt(document.getElementById('addon-pixel').value) : 0;
+      
+      const total = basePrice + domainAddon + pwaAddon + pixelAddon;
+      document.getElementById('total-price').innerText = 'RM' + total.toFixed(2);
+    }
+
+    function checkConnection() {
+      const icon = document.getElementById('retry-icon');
+      icon.style.transform = 'rotate(360deg)';
+      
+      setTimeout(() => {
+        if (navigator.onLine) {
+          window.location.reload();
+        } else {
+          icon.style.transform = 'rotate(0deg)';
+          alert('Anda masih di luar talian. Sila periksa sambungan wifi atau data mudah alih anda.');
+        }
+      }, 800);
+    }
+  </script>
 </body>
 </html>

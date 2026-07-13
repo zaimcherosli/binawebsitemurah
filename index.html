@@ -2,255 +2,822 @@
 <html lang="ms">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bina Website Murah &amp; Profesional | Servis Landing Page Malaysia</title>
-  <meta name="description" content="Pakar bina website murah, landing page premium dan website ejen hartanah dengan kos berpatutan dan siap cepat di Malaysia.">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap">
-  <style>
-    :root {
-      --primary: #2563EB;
-      --secondary: #0F172A;
-      --bg: #FFFFFF;
-      --bg-alt: #F8FAFC;
-      --text: #1E293B;
-      --text-muted: #64748B;
-      --border: #E2E8F0;
-      --radius: 16px;
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <!-- Primary SEO Meta Tags -->
+  <title>AuraCraft Studio | Servis Bina Landing Page &amp; PWA Premium Malaysia</title>
+  <meta name="title" content="AuraCraft Studio | Servis Bina Landing Page &amp; PWA Premium Malaysia">
+  <meta name="description" content="Tingkatkan jualan &amp; kredibiliti bisnes anda dengan landing page premium bertaraf PWA mudah alih. Reka bentuk obsidian-gold eksklusif, pantas, &amp; conversion-focused.">
+  <meta name="keywords" content="bina website premium, landing page premium malaysia, studio web design, mobile pwa developer, website ejen hartanah, website kontraktor, landing page whatsapp, auracraft studio">
+  <meta name="author" content="AuraCraft Studio">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://auracraft.my/">
+
+  <!-- PWA & Mobile Web Capabilities -->
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="AuraCraft">
+  
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Open Graph / Social Media Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://auracraft.my/">
+  <meta property="og:title" content="AuraCraft Studio | Landing Page &amp; PWA Premium Malaysia">
+  <meta property="og:description" content="Servis bina landing page eksklusif dengan prestasi luar biasa. Sesuai untuk usahawan yang inginkan reka bentuk bertaraf dunia.">
+  <meta property="og:image" content="icons/icon-512.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Schema LocalBusiness JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "AuraCraft Studio",
+    "image": "icons/icon-512.png",
+    "@id": "https://auracraft.my/",
+    "url": "https://auracraft.my/",
+    "telephone": "+60108118559",
+    "priceRange": "$$$",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Bangi",
+      "addressRegion": "Selangor",
+      "postalCode": "43650",
+      "addressCountry": "MY"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 2.9213,
+      "longitude": 101.7801
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "09:00",
+      "closes": "22:00"
     }
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    header {
-      padding: 1.5rem 2rem;
-      border-bottom: 1px solid var(--border);
-      background-color: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(8px);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-    .header-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .logo {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--secondary);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .logo span {
-      color: var(--primary);
-    }
-    .btn-wa {
-      background-color: #22C55E;
-      color: white;
-      text-decoration: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: 9999px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .btn-wa:hover {
-      background-color: #16A34A;
-      transform: translateY(-1px);
-    }
-    main {
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 5rem 0;
-    }
-    .hero {
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      color: var(--secondary);
-      line-height: 1.2;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.02em;
-    }
-    h1 span {
-      background: linear-gradient(135deg, var(--primary) 0%, #1D4ED8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero p {
-      font-size: 1.15rem;
-      color: var(--text-muted);
-      margin-bottom: 3rem;
-    }
-    .services-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-    @media (min-width: 768px) {
-      .services-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      h1 {
-        font-size: 3.5rem;
-      }
-    }
-    .card {
-      background-color: var(--bg-alt);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 2rem;
-      text-align: left;
-      transition: 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
-      border-color: var(--primary);
-    }
-    .card-icon {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-    .card h3 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--secondary);
-      margin-bottom: 0.5rem;
-    }
-    .card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 1.5rem;
-      flex-grow: 1;
-    }
-    .btn-card {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.65rem 1.2rem;
-      background-color: var(--primary);
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      border-radius: 8px;
-      transition: 0.2s ease;
-    }
-    .btn-card:hover {
-      background-color: #1D4ED8;
-    }
-    .btn-secondary {
-      background-color: var(--bg);
-      color: var(--secondary);
-      border: 1px solid var(--border);
-    }
-    .btn-secondary:hover {
-      background-color: var(--bg-alt);
-    }
-    footer {
-      background-color: var(--secondary);
-      color: #94A3B8;
-      padding: 2.5rem 0;
-      text-align: center;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      font-size: 0.9rem;
-    }
-    footer a {
-      color: white;
-      text-decoration: underline;
-    }
-  </style>
+  }
+  </script>
 </head>
 <body>
 
-  <header>
-    <div class="container header-container">
-      <a href="#" class="logo">
-        Bina Website <span>Murah</span>
+  <!-- Animated Glowing Mesh Latar Belakang -->
+  <div class="mesh-bg" aria-hidden="true">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+  </div>
+
+  <!-- PWA Elegant Custom Install Bottom Sheet -->
+  <div class="pwa-install-sheet" id="pwa-sheet" role="alert" aria-hidden="true">
+    <div class="pwa-sheet-drag-bar"></div>
+    <div class="pwa-sheet-content">
+      <div class="pwa-sheet-icon">A</div>
+      <div class="pwa-sheet-text">
+        <h3>Pasang Aplikasi AuraCraft</h3>
+        <p>Akses portfolio offline, kalkulator kos &amp; hubungi kami terus dari skrin utama telefon anda.</p>
+      </div>
+      <div class="pwa-sheet-actions">
+        <button class="btn btn-primary" id="pwa-btn-install">Pasang Sekarang</button>
+        <button class="btn btn-outline" id="pwa-btn-ignore">Nanti Dahulu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating WhatsApp Action Button -->
+  <a href="https://wa.me/60108118559?text=Hai%20AuraCraft%20Studio%20saya%20berminat%20nak%20bina%20landing%20page%20premium"
+     class="wa-fab" target="_blank" rel="noopener" aria-label="WhatsApp AuraCraft Studio" title="WhatsApp Sekarang">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24">
+      <path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+    </svg>
+    <span class="wa-fab-ripple"></span>
+  </a>
+
+  <!-- DESKTOP NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" aria-label="AuraCraft Studio Utama">
+        <div class="logo-icon">A</div>
+        <span class="logo-text">AuraCraft <em>Studio</em></span>
       </a>
-      <a href="https://wa.me/60108118559" class="btn-wa" target="_blank">
-        WhatsApp Admin
-      </a>
+
+      <nav class="nav-links" aria-label="Navigasi Utama">
+        <a href="#kelebihan" class="nav-link">Kelebihan</a>
+        <a href="#perbandingan" class="nav-link">Beza Kami</a>
+        <a href="#portfolio" class="nav-link">Portfolio</a>
+        <a href="#kajian-kes" class="nav-link">Kajian Kes</a>
+        <a href="#faq" class="nav-link">Soalan Lazim</a>
+      </nav>
+
+      <div class="nav-right">
+        <a href="#order-form" class="btn btn-primary btn-sm">Mula Projek</a>
+      </div>
+
+      <button class="hamburger" id="nav-hamburger" aria-label="Buka menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Overlay (Drawer) -->
+    <div class="nav-overlay" id="nav-mobile-menu" aria-hidden="true">
+      <div class="nav-overlay-inner">
+        <a href="#kelebihan" class="nav-mobile-link">Kelebihan</a>
+        <a href="#perbandingan" class="nav-mobile-link">Beza Rekaan</a>
+        <a href="#portfolio" class="nav-mobile-link">Portfolio</a>
+        <a href="#kajian-kes" class="nav-mobile-link">Kajian Kes</a>
+        <a href="#faq" class="nav-mobile-link">Soalan Lazim</a>
+        <a href="#order-form" class="nav-mobile-link nav-mobile-cta">Hubungi Kami</a>
+      </div>
     </div>
   </header>
 
-  <main class="container">
-    <div class="hero">
-      <h1>Dapatkan Website <span>Premium &amp; Murah</span> Untuk Bisnes Anda</h1>
-      <p>Penyedia servis landing page profesional, pantas, dan mesra SEO di Malaysia untuk mempercepatkan jualan produk atau perkhidmatan anda.</p>
+  <!-- ==========================================
+       SECTION 1: HERO
+       ========================================== -->
+  <section class="hero-section">
+    <div class="container hero-container">
       
-      <div class="services-grid">
-        <!-- Card 1 -->
-        <div class="card">
-          <div>
-            <div class="card-icon">🏠</div>
-            <h3>Website Ejen Hartanah</h3>
-            <p>Katalog listing profesional untuk REN & perunding projek baru mengumpul leads pembeli terus ke WhatsApp.</p>
-          </div>
-          <a href="/website-ejen-hartanah/" class="btn-card">Lihat Demo &amp; Pakej</a>
+      <div class="hero-content reveal">
+        <div class="hero-badge">
+          <span class="badge-pulse"></span>
+          &#10024; STUDIO DIGITAL HIGH-END
+        </div>
+        <h1 class="hero-title">
+          Ubah Trafik Iklan Kepada Jualan Dengan
+          <span class="hero-title-accent">Landing Page Premium</span>
+        </h1>
+        <p class="hero-lead">
+          Kami membina landing page berprestasi tinggi bertema gelap eksklusif &amp; PWA mudah alih. Direka khas untuk usahawan Malaysia yang mementingkan ROI dan kredibiliti penjenamaan mewah.
+        </p>
+        <div class="hero-cta-row">
+          <a href="#order-form" class="btn btn-primary btn-lg magnetic-btn">
+            <span>Runding Projek Percuma</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#perbandingan" class="btn btn-outline btn-lg">Lihat Perbezaan</a>
         </div>
         
-        <!-- Card 2 -->
-        <div class="card">
-          <div>
-            <div class="card-icon">🔨</div>
-            <h3>Website Renovasi</h3>
-            <p>Paparkan portfolio projek ubah suai rumah, review before & after dan kumpulkan prospek tempatan.</p>
+        <div class="hero-trust-bar">
+          <div class="trust-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--emerald-primary)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            Mobile-App (PWA) Sedia-Ada
           </div>
-          <a href="https://wa.me/60108118559?text=Salam%20admin%2C%20saya%20berminat%20tanya%20servis%20Website%20Renovasi" class="btn-card btn-secondary" target="_blank">Tanya Butiran</a>
+          <div class="trust-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--emerald-primary)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            Kelajuan Loading &lt; 1.0s
+          </div>
+          <div class="trust-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--emerald-primary)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            WhatsApp Sales Funnel
+          </div>
         </div>
-        
-        <!-- Card 3 -->
-        <div class="card">
-          <div>
-            <div class="card-icon">🛍️</div>
-            <h3>Landing Page Produk</h3>
-            <p>Halaman jualan berimpak tinggi yang direka khas untuk meningkatkan conversion rate jualan produk anda.</p>
-          </div>
-          <a href="https://wa.me/60108118559?text=Salam%20admin%2C%20saya%20berminat%20tanya%20servis%20Landing%20Page%20Produk" class="btn-card btn-secondary" target="_blank">Tanya Butiran</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SECTION 2: TRUST STATISTICS
+       ========================================== -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-num" data-target="97" data-suffix="%">0</div>
+          <div class="stat-title">Kadar Kepuasan Klien</div>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-item reveal">
+          <div class="stat-num" data-target="3" data-suffix="x">0</div>
+          <div class="stat-title">Gandaan Conversion Iklan</div>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat-item reveal">
+          <div class="stat-num" data-target="45" data-suffix="mms">0</div>
+          <div class="stat-title">Purata Masa Load Halaman</div>
         </div>
       </div>
     </div>
-  </main>
+  </section>
 
-  <footer>
+  <!-- ==========================================
+       SECTION 3: THE BEFORE/AFTER SHOWDOWN (SLIDER)
+       ========================================== -->
+  <section id="perbandingan" class="comparison-section">
     <div class="container">
-      <p>&copy; 2026 BinaWebsiteMurah. Hak Cipta Terpelihara. Dikuasai oleh <a href="https://binawebsitemurah-by.zaimrosli.my/">BinaWebsiteMurah</a></p>
+      <div class="section-header text-center reveal">
+        <span class="section-eyebrow">Rekaan Standard vs Reka Bentuk AuraCraft</span>
+        <h2 class="section-title">Beza Rekaan Murahan &amp; <span class="text-grad-gold">Hasil Premium</span></h2>
+        <p class="section-sub">Tarik slider secara interaktif untuk membezakan landing page templated biasa dengan standard eksklusif kami.</p>
+      </div>
+
+      <!-- The Drag Slider Container -->
+      <div class="comparison-slider-wrapper reveal" id="comparison-slider">
+        
+        <!-- PANEL BEFORE (Left / Cheap Template Layout) -->
+        <div class="panel before-panel">
+          <div class="panel-content-wrapper" style="width: 1000px;">
+            <div class="cheap-page-mock">
+              <div class="cp-header">
+                <div>LOGO MURAH</div>
+                <div style="display:flex; gap:10px;"><div class="cp-dot"></div><div class="cp-dot"></div></div>
+              </div>
+              <div class="cp-body">
+                <div class="cp-alert-banner">!!! PROMOSI MURAH RM99 BIASA !!!</div>
+                <h2 class="cp-title">Bina Web Murah RM99 Cepat Gila</h2>
+                <p class="cp-lead">Laman web template biasa yang menggunakan platform percuma. Iklan lambat loading, font buruk susah dibaca, tiada visual menarik, tiada pixel tracking yang betul.</p>
+                <div style="display:flex; gap:10px; margin-top:20px;">
+                  <button class="cp-btn">Beli Sekarang</button>
+                  <button class="cp-btn" style="background:#ddd; color:#000;">Tanya Dulu</button>
+                </div>
+                <div class="cp-spam-popup">
+                  <strong>Pemberitahuan:</strong> Muat turun PDF iklan percuma sekarang (Bising &amp; Mengganggu)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANEL AFTER (Right / AuraCraft Premium Layout) -->
+        <div class="panel after-panel">
+          <div class="panel-content-wrapper" style="width: 1000px;">
+            <div class="premium-page-mock">
+              <div class="pm-header">
+                <div class="pm-logo"><span class="logo-circle">A</span> AuraCraft</div>
+                <div class="pm-menu"><span>Kelebihan</span><span>Portfolio</span><span class="pm-cta-chip">Mula Projek</span></div>
+              </div>
+              <div class="pm-body">
+                <div class="pm-badge">&#10024; KREATIVE DIGITAL EXPERIENCE</div>
+                <h2 class="pm-title">Melangkaui Jangkaan, <br><span class="text-grad-gold">Maksimakan Jualan.</span></h2>
+                <p class="pm-lead">Reka bentuk minimalis gelap (obsidian) dihiasi dengan border emas mewah. Integrasi WhatsApp pintar, PWA responsif terus dipasang pada skrin utama telefon pelanggan.</p>
+                <div class="pm-benefits">
+                  <div class="pm-benefit"><span>&#10003;</span> Reka Bentuk Custom Eksklusif</div>
+                  <div class="pm-benefit"><span>&#10003;</span> Struktur Copywriting Psikologi Jualan</div>
+                  <div class="pm-benefit"><span>&#10003;</span> Zero Monthly Platform Fees</div>
+                </div>
+                <div class="pm-cta-row">
+                  <button class="pm-btn pm-btn-gold">Bina Landing Page Anda</button>
+                  <button class="pm-btn pm-btn-outline">Hubungi Studio</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- THE DRAG HANDLE BAR -->
+        <div class="slider-handle" id="slider-handle" aria-label="Tarik untuk membandingkan rekaan">
+          <div class="handle-line"></div>
+          <div class="handle-button">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <path d="M5 12h14M12 5l7 7-7 7M12 19l-7-7 7-7"/>
+            </svg>
+          </div>
+          <div class="handle-line"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SECTION 4: KEY ADVANTAGES (KELEBIHAN)
+       ========================================== -->
+  <section id="kelebihan" class="advantages-section">
+    <div class="container">
+      <div class="section-header text-center reveal">
+        <span class="section-eyebrow">Mengapa AuraCraft Studio?</span>
+        <h2 class="section-title">Direka Khas Untuk <span class="text-grad-emerald">Conversion</span> Tinggi</h2>
+        <p class="section-sub">Kami tidak membina website templated biasa. Setiap projek adalah karya seni digital khusus untuk bisnes anda.</p>
+      </div>
+
+      <div class="advantages-grid">
+        <!-- Card 1: PWA -->
+        <div class="advantage-card reveal">
+          <div class="card-glow"></div>
+          <div class="adv-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </div>
+          <h3>Progressive Web App (PWA)</h3>
+          <p>Laman web anda boleh dipasang seperti aplikasi native di telefon pelanggan. Boleh dilayari secara offline dan tiada browser tabs yang mengganggu.</p>
+        </div>
+
+        <!-- Card 2: Kelajuan -->
+        <div class="advantage-card reveal">
+          <div class="card-glow"></div>
+          <div class="adv-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3>Loading Super-Pantas</h3>
+          <p>Setiap saat kelewatan mengurangkan jualan anda sebanyak 20%. Halaman kami dioptimumkan untuk memuat kurang dari 1.0 saat, menjimatkan kos iklan anda.</p>
+        </div>
+
+        <!-- Card 3: Copywriting -->
+        <div class="advantage-card reveal">
+          <div class="card-glow"></div>
+          <div class="adv-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <h3>Copywriting Psikologi Jualan</h3>
+          <p>Bukan sekadar hiasan ayat. Kami menyusun struktur teks berdasarkan psikologi jualan (AIDA framework) bagi menukarkan pelawat santai menjadi pembeli tegar.</p>
+        </div>
+
+        <!-- Card 4: WhatsApp Funnel -->
+        <div class="advantage-card reveal">
+          <div class="card-glow"></div>
+          <div class="adv-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <h3>Automated Lead Capture</h3>
+          <p>Pelanggan mengisi borang pintar di landing page dahulu, data disimpan, dan butiran dihantar terus ke WhatsApp anda dengan kemas. Pengurusan jualan lebih teratur.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SECTION 5: INDUSTRIAL SOLUTIONS & PORTFOLIO
+       ========================================== -->
+  <section id="portfolio" class="portfolio-section">
+    <div class="container">
+      <div class="section-header text-center reveal">
+        <span class="section-eyebrow">Hasil Kerja AuraCraft</span>
+        <h2 class="section-title">Portfolio &amp; <span class="text-grad-gold">Niche Industri</span></h2>
+        <p class="section-sub">Semak kualiti hasil kerja kami. Klik butang <strong>"Buka Laman Web Live"</strong> untuk melihat kelajuan jualan dan kemasan kod sebenar di Cloudflare.</p>
+      </div>
+
+      <!-- Portfolio Interactive Tabs -->
+      <div class="portfolio-tabs-container reveal">
+        <button class="tab-btn active" data-filter="all">Semua Projek</button>
+        <button class="tab-btn" data-filter="property">Hartanah &amp; REN</button>
+        <button class="tab-btn" data-filter="renovation">Renovasi &amp; Kontraktor</button>
+        <button class="tab-btn" data-filter="service">Servis Tempatan</button>
+        <button class="tab-btn" data-filter="product">Produk &amp; E-Commerce</button>
+      </div>
+
+      <!-- Portfolio Grid -->
+      <div class="portfolio-grid">
+        
+        <!-- Item 1: Profile Hartanah -->
+        <div class="portfolio-item property reveal" data-category="property">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+              <div class="portfolio-mock-browser">
+                <div class="pm-dots"><span></span><span></span><span></span></div>
+                <div class="pm-mini-hero">
+                  <div class="pm-mini-tag" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-secondary);">EJEN PREMIUM</div>
+                  <div class="pm-mini-title">Profile Hartanah Ejen REN</div>
+                  <div class="pm-mini-btn" style="background: var(--gold-primary);">Hubungi Saya</div>
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">HARTANAH &amp; REN</span>
+              <h3>Profile Hartanah Ejen</h3>
+              <p>Website penjenamaan peribadi (personal branding) khusus untuk Ejen Hartanah mempamerkan portfolio, senarai rumah, dan pencapaian.</p>
+              <a href="https://profilehartanah.zaimrosli.my/" target="_blank" class="portfolio-link">Buka Laman Web Live &#8594;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2: Listing Hartanah -->
+        <div class="portfolio-item property reveal" data-category="property">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);">
+              <div class="portfolio-mock-browser">
+                <div class="pm-dots"><span></span><span></span><span></span></div>
+                <div class="pm-mini-hero">
+                  <div class="pm-mini-tag" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">LISTING RUMAH</div>
+                  <div class="pm-mini-title">Bungalow &amp; Semi-D Bangi</div>
+                  <div class="pm-mini-btn" style="background: #10b981; color: #fff;">Lihat Rumah</div>
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">HARTANAH &amp; REN</span>
+              <h3>Website Listing Ejen</h3>
+              <p>Landing page pengumpulan lead (lead generation) untuk menyenaraikan projek rumah dengan susun atur visual yang jelas.</p>
+              <a href="https://binawebsitemurah-by.zaimrosli.my/website-ejen-hartanah/" target="_blank" class="portfolio-link">Buka Laman Web Live &#8594;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3: Kwikezee Renovations -->
+        <div class="portfolio-item renovation reveal" data-category="renovation">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #3b2a0c 0%, #1e1503 100%);">
+              <div class="portfolio-mock-browser">
+                <div class="pm-dots"><span></span><span></span><span></span></div>
+                <div class="pm-mini-hero">
+                  <div class="pm-mini-tag" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-secondary);">HIASAN DALAMAN</div>
+                  <div class="pm-mini-title">Kwikezee Renovations</div>
+                  <div class="pm-mini-btn" style="background: var(--gold-primary);">Dapatkan Quote</div>
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">RENOVASI &amp; KONTRAKTOR</span>
+              <h3>Kwikezee Renovations &amp; ID</h3>
+              <p>Laman profil korporat bagi perkhidmatan hiasan dalaman, plaster siling, dan kontraktor dengan katalog projek visual premium.</p>
+              <a href="https://kwikezeerenovations-by.zaimrosli.my/" target="_blank" class="portfolio-link">Buka Laman Web Live &#8594;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4: Shah Renovation -->
+        <div class="portfolio-item renovation reveal" data-category="renovation">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #222 0%, #111 100%);">
+              <div class="portfolio-mock-browser">
+                <div class="pm-dots"><span></span><span></span><span></span></div>
+                <div class="pm-mini-hero">
+                  <div class="pm-mini-tag" style="background: rgba(255,255,255,0.1); color: #fff;">PLASTER SILING</div>
+                  <div class="pm-mini-title">Shah Plaster &amp; Renovation</div>
+                  <div class="pm-mini-btn" style="background: var(--gold-primary);">Hubungi Kontraktor</div>
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">RENOVASI &amp; KONTRAKTOR</span>
+              <h3>Shah Renovation &amp; Plaster</h3>
+              <p>Landing page ringkas yang berkesan tinggi, memaparkan senarai kerja pertukangan siling dengan borang tempahan WhatsApp.</p>
+              <a href="https://binawebsitemurah-by.zaimrosli.my/website-renovasi/" target="_blank" class="portfolio-link">Buka Laman Web Live &#8594;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 5: CCTV & Aircond -->
+        <div class="portfolio-item service reveal" data-category="service">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);">
+              <div class="portfolio-mock-browser">
+                <div class="pm-dots"><span></span><span></span><span></span></div>
+                <div class="pm-mini-hero">
+                  <div class="pm-mini-tag" style="background: rgba(59, 130, 246, 0.2); color: #93c5fd;">KESELAMATAN &amp; SERVIS</div>
+                  <div class="pm-mini-title">Semenyih CCTV &amp; Aircond</div>
+                  <div class="pm-mini-btn" style="background: #3b82f6; color: #fff;">Tempah Servis</div>
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">SERVIS TEMPATAN</span>
+              <h3>CCTV &amp; Aircond Semenyih</h3>
+              <p>Landing page responsif perkhidmatan memasang CCTV dan servis pendingin hawa di rumah &amp; kedai sekitar Selangor.</p>
+              <a href="https://semenyih-cctv-aircond.pages.dev/" target="_blank" class="portfolio-link">Buka Laman Web Live &#8594;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 6: Millennium Cleaning -->
+        <div class="portfolio-item service reveal" data-category="service">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #0d9488 0%, #0f172a 100%);">
+              <div class="portfolio-mock-browser">
+                <div class="pm-dots"><span></span><span></span><span></span></div>
+                <div class="pm-mini-hero">
+                  <div class="pm-mini-tag" style="background: rgba(13, 148, 136, 0.2); color: #2dd4bf;">CLEANING SERVICES</div>
+                  <div class="pm-mini-title">Millennium Metier Cleaning</div>
+                  <div class="pm-mini-btn" style="background: #0d9488; color: #fff;">Sebut Harga</div>
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">SERVIS TEMPATAN</span>
+              <h3>Millennium Cleaning Services</h3>
+              <p>Laman web perkhidmatan pembersihan pejabat dan bangunan korporat (commercial cleaning) bertaraf profesional.</p>
+              <a href="https://millennium-metier-cleaning.pages.dev/" target="_blank" class="portfolio-link">Buka Laman Web Live &#8594;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 7: Telekung Premium -->
+        <div class="portfolio-item product reveal" data-category="product">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #4c1d95 0%, #1e1b4b 100%);">
+              <div class="portfolio-mock-browser">
+                <div class="pm-dots"><span></span><span></span><span></span></div>
+                <div class="pm-mini-hero">
+                  <div class="pm-mini-tag" style="background: rgba(139, 92, 246, 0.2); color: #c084fc;">LUXURY PRODUCT</div>
+                  <div class="pm-mini-title">Telekung Premium Malaysia</div>
+                  <div class="pm-mini-btn" style="background: #8b5cf6; color: #fff;">Beli Sekarang</div>
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">PRODUK &amp; E-COMMERCE</span>
+              <h3>Telekung Premium Landing Page</h3>
+              <p>Laman web e-dagang (e-commerce) khusus untuk produk fesyen muslimah dengan jualan laju dan tracking pixel.</p>
+              <a href="https://telekung-premium.pages.dev/" target="_blank" class="portfolio-link">Buka Laman Web Live &#8594;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 8: Biskut D'Lekir -->
+        <div class="portfolio-item product reveal" data-category="product">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #7c2d12 0%, #1c1917 100%);">
+              <div class="portfolio-mock-browser">
+                <div class="pm-dots"><span></span><span></span><span></span></div>
+                <div class="pm-mini-hero">
+                  <div class="pm-mini-tag" style="background: rgba(249, 115, 22, 0.2); color: #fdba74;">HOMEMADE COOKIES</div>
+                  <div class="pm-mini-title">Biskut D'Lekir Homemade</div>
+                  <div class="pm-mini-btn" style="background: #f97316; color: #fff;">Order WhatsApp</div>
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">PRODUK &amp; E-COMMERCE</span>
+              <h3>Biskut D'Lekir E-Store</h3>
+              <p>Landing page produk makanan ringan buatan sendiri dengan reka bentuk mesra visual dan butang tempahan pantas WhatsApp.</p>
+              <a href="https://biskut-d-lekir.pages.dev/" target="_blank" class="portfolio-link">Buka Laman Web Live &#8594;</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 9: Misi Pintar -->
+        <div class="portfolio-item product reveal" data-category="product">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #d97706 0%, #7c2d12 100%);">
+              <div class="portfolio-mock-browser">
+                <div class="pm-dots"><span></span><span></span><span></span></div>
+                <div class="pm-mini-hero">
+                  <div class="pm-mini-tag" style="background: rgba(251, 191, 36, 0.2); color: #fde047;">EDUCATION KIDS</div>
+                  <div class="pm-mini-title">Misi Pintar Kids Pakej</div>
+                  <div class="pm-mini-btn" style="background: #fbbf24; color: #000; font-weight: 700;">Dapatkan Pakej</div>
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">PRODUK &amp; E-COMMERCE</span>
+              <h3>Misi Pintar Kids Landing Page</h3>
+              <p>Laman web jualan produk pendidikan kanak-kanak dengan rekaan ceria, copywriting persuasif, dan borang tempahan.</p>
+              <a href="https://misi-pintar.pages.dev/" target="_blank" class="portfolio-link">Buka Laman Web Live &#8594;</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SECTION 6: CASE STUDIES (KAJIAN KES)
+       ========================================== -->
+  <section id="kajian-kes" class="casestudy-section">
+    <div class="container">
+      <div class="section-header text-center reveal">
+        <span class="section-eyebrow">Bukti Impak Rekaan Kami</span>
+        <h2 class="section-title">Kajian Kes &amp; <span class="text-grad-gold">Hasil Jualan Sebenar</span></h2>
+        <p class="section-sub">Bagaimana laman web premium AuraCraft membantu usahawan tempatan menjimatkan kos iklan dan meningkatkan penukaran leads.</p>
+      </div>
+
+      <div class="casestudy-grid">
+        
+        <!-- Case Study 1: Property -->
+        <div class="casestudy-card reveal">
+          <div class="card-glow"></div>
+          <div class="cs-badge">HARTANAH / REAL ESTATE</div>
+          <div class="cs-client-profile">
+            <h3>Ejen Hartanah REN (Listing Bungalow Bangi)</h3>
+            <p class="cs-duration">Tempoh Ujian: 14 Hari Kempen FB Ads</p>
+          </div>
+          
+          <div class="cs-metrics-row">
+            <div class="cs-metric-chip">
+              <span class="cs-metric-label">WhatsApp Leads</span>
+              <span class="cs-metric-val">+150%</span>
+            </div>
+            <div class="cs-metric-chip">
+              <span class="cs-metric-label">Kos Per Lead (CPL)</span>
+              <span class="cs-metric-val emerald-val">-40%</span>
+            </div>
+          </div>
+          
+          <div class="cs-details">
+            <div class="cs-detail-box">
+              <strong>Masalah Sebelum:</strong>
+              <p>Menggunakan borang templated standard pihak ketiga. Halaman loading lambat (4.5 saat) menyebabkan pembaziran klik iklan, dan prospek WhatsApp tidak berkualiti.</p>
+            </div>
+            <div class="cs-detail-box">
+              <strong>Solusi AuraCraft:</strong>
+              <p>Landing page PWA obsidian gelap berstruktur tinggi dengan borang kelayakan leads (pre-qualifying form) sebelum dialihkan ke WhatsApp.</p>
+            </div>
+          </div>
+          
+          <blockquote class="cs-quote">
+            "Dulu spent ads banyak tapi prospek yang hubungi WhatsApp suka main-main. Lepas pakai landing page AuraCraft, kualiti lead sangat tinggi, prospek betul-betul bersedia dengan bajet!"
+            <cite>&mdash; Zulkifli, REN Bangi</cite>
+          </blockquote>
+        </div>
+
+        <!-- Case Study 2: Renovasi -->
+        <div class="casestudy-card reveal">
+          <div class="card-glow"></div>
+          <div class="cs-badge">KONTRAKTOR / RENOVASI</div>
+          <div class="cs-client-profile">
+            <h3>Shah Plaster Siling &amp; Renovation</h3>
+            <p class="cs-duration">Tempoh Ujian: 30 Hari Kempen TikTok Ads</p>
+          </div>
+          
+          <div class="cs-metrics-row">
+            <div class="cs-metric-chip">
+              <span class="cs-metric-label">Pertanyaan WhatsApp</span>
+              <span class="cs-metric-val">+220%</span>
+            </div>
+            <div class="cs-metric-chip">
+              <span class="cs-metric-label">Kadar Closing Deal</span>
+              <span class="cs-metric-val emerald-val">3x Ganda</span>
+            </div>
+          </div>
+          
+          <div class="cs-details">
+            <div class="cs-detail-box">
+              <strong>Masalah Sebelum:</strong>
+              <p>Hanya menghantar trafik iklan ke PM Facebook Page. Kontraktor terpaksa menjawab soalan berulang tentang sebut harga dan tiada tempat memaparkan kualiti portfolio projek.</p>
+            </div>
+            <div class="cs-detail-box">
+              <strong>Solusi AuraCraft:</strong>
+              <p>Seni bina laman web khusus dengan paparan portfolio before-after yang interaktif dan borang anggaraan kos (cost estimator) terbina.</p>
+            </div>
+          </div>
+          
+          <blockquote class="cs-quote">
+            "Pelanggan lebih yakin bila tengok website kita yang kemas dan profesional. Sangat mudah nak tunjuk draf plaster siling kami dan terus close deal besar!"
+            <cite>&mdash; Shah, Pengasas Shah Renovation</cite>
+          </blockquote>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SECTION 7: FAQ (ACCORDION)
+       ========================================== -->
+  <section id="faq" class="faq-section">
+    <div class="container">
+      <div class="section-header text-center reveal">
+        <span class="section-eyebrow">Mahu Kepastian?</span>
+        <h2 class="section-title">Soalan Lazim <span class="text-grad-gold">(FAQ)</span></h2>
+        <p class="section-sub">Semua jawapan ringkas bagi soalan yang sering ditanya oleh klien kami.</p>
+      </div>
+
+      <div class="faq-list reveal">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Berapa lamakah tempoh pembinaan sebuah landing page?</span>
+            <span class="faq-icon">&#43;</span>
+          </button>
+          <div class="faq-answer">
+            <p>Pembangunan landing page premium biasanya mengambil masa antara 3 hingga 7 hari bekerja bergantung kepada kesediaan bahan (copywriting, gambar produk, maklumat servis) yang diberikan oleh klien.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Apakah yang dimaksudkan dengan PWA (Progressive Web App)?</span>
+            <span class="faq-icon">&#43;</span>
+          </button>
+          <div class="faq-answer">
+            <p>PWA membolehkan laman web anda dipasang di skrin utama telefon bimbit pelanggan tanpa perlu memuat turun dari App Store atau Google Play. Aplikasi ini dimuat naik secara pantas, menyokong tontonan offline, dan memberikan pengalaman visual penuh tanpa bar browser.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Adakah terdapat yuran bulanan platform?</span>
+            <span class="faq-icon">&#43;</span>
+          </button>
+          <div class="faq-answer">
+            <p>Tiada! Kami menggunakan kaedah kod web moden tanpa kebergantungan kepada platform pembina bulanan yang mahal seperti Shopify atau WordPress Elementor Pro. Anda hanya membayar yuran sekali (one-time fee) sahaja untuk pembinaan kod.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Bolehkah saya menyambungkan domain sendiri?</span>
+            <span class="faq-icon">&#43;</span>
+          </button>
+          <div class="faq-answer">
+            <p>Ya, sudah tentu. Kami akan membantu anda menyambung domain peribadi anda sendiri (.com, .my, .net, dll.) secara percuma selepas landing page siap dibina.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SECTION 8: PRESCRIBED BOOKING FORM & FOOTER
+       ========================================== -->
+  <section id="order-form" class="order-section">
+    <div class="container order-container">
+      
+      <div class="order-info reveal">
+        <h2>Mula Bina Landing Page <span class="text-grad-gold">Mewah Anda</span></h2>
+        <p>Isi borang di sebelah untuk memulakan perbincangan. Kami akan meneliti niche perniagaan anda dan merancang visual terbaik bagi menaikkan imej jualan jenama anda.</p>
+        
+        <div class="info-list">
+          <div class="info-item">
+            <span class="info-icon">&#9993;</span>
+            <div>
+              <strong>Emel Rasmi</strong>
+              <span>hello@auracraft.my</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">&#9742;</span>
+            <div>
+              <strong>Hubungi WhatsApp</strong>
+              <span>+6010-811 8559</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-form-box reveal">
+        <form id="lead-form" onsubmit="handleFormSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Nama Penuh</label>
+              <input type="text" id="name" required placeholder="Contoh: Ahmad Zaim">
+            </div>
+            <div class="form-group">
+              <label for="phone">Nombor Telefon (WhatsApp)</label>
+              <input type="tel" id="phone" required placeholder="Contoh: 0108118559">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="niche">Niche / Industri Bisnes</label>
+            <select id="niche">
+              <option value="Hartanah">Ejen Hartanah / Projek Hartanah</option>
+              <option value="Kontraktor/Renovasi">Renovasi / Kontraktor Hiasan Dalaman</option>
+              <option value="Produk">Produk Fizikal / Makanan / E-Commerce</option>
+              <option value="Servis">Perkhidmatan Profesional / Klinik / Latihan</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="details">Perincian Ringkas Projek</label>
+            <textarea id="details" rows="3" placeholder="Sebutkan ciri-ciri utama yang anda perlukan (Contoh: Butang WhatsApp, Borang tempahan, Galeri Projek)..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block magnetic-btn">
+            <span>Hantar &amp; Buka WhatsApp</span>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MOBILE FLOATING BOTTOM NAVIGATION (iOS App Style Bar) -->
+  <div class="mobile-bottom-nav" aria-label="Navigasi mudah alih">
+    <a href="#" class="mobile-nav-item active">
+      <span class="nav-item-icon">&#8962;</span>
+      <span class="nav-item-text">Utama</span>
+    </a>
+    <a href="#perbandingan" class="mobile-nav-item">
+      <span class="nav-item-icon">&#9878;</span>
+      <span class="nav-item-text">Beza</span>
+    </a>
+    <a href="#portfolio" class="mobile-nav-item">
+      <span class="nav-item-icon">&#128188;</span>
+      <span class="nav-item-text">Portfolio</span>
+    </a>
+    <a href="#kajian-kes" class="mobile-nav-item">
+      <span class="nav-item-icon">&#128200;</span>
+      <span class="nav-item-text">Impak</span>
+    </a>
+    <a href="#order-form" class="mobile-nav-item">
+      <span class="nav-item-icon">&#128221;</span>
+      <span class="nav-item-text">Tempah</span>
+    </a>
+  </div>
+
+  <footer class="main-footer">
+    <div class="container text-center">
+      <p>&copy; 2026 AuraCraft Studio. Hak Cipta Terpelihara.</p>
+      <p style="font-size:12px; color: var(--text-muted); margin-top:8px;">Bina dengan kod tulen, dioptimumkan untuk kelajuan jualan maksimum.</p>
     </div>
   </footer>
 
+  <script src="script.js"></script>
 </body>
 </html>
