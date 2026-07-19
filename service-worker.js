@@ -1,4 +1,4 @@
-const CACHE_NAME = 'auracraft-cache-v7';
+const CACHE_NAME = 'auracraft-cache-v8';
 const ASSETS_TO_CACHE = [
   './',
   './style.css',
@@ -6,6 +6,16 @@ const ASSETS_TO_CACHE = [
   './manifest.json',
   './offline.html',
   './duitnow-qr.jpg',
+  './images/portfolio-hartanah.jpg',
+  './images/portfolio-shahreno.jpg',
+  './images/portfolio-kwikezeereno.jpg',
+  './images/portfolio-cctv.jpg',
+  './images/portfolio-cleaning.jpg',
+  './images/portfolio-kekpisang.jpg',
+  './images/portfolio-surau.jpg',
+  './images/portfolio-misipintar.jpg',
+  './images/portfolio-dlekir.jpg',
+  './images/portfolio-telekung.jpg',
   './icons/icon-192.png',
   './icons/icon-512.png'
 ];
