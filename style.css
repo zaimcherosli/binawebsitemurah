@@ -1431,6 +1431,32 @@ a {
   margin-bottom: 10px;
 }
 
+.pc-price-promo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.promo-tag {
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold-secondary);
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 .pc-desc {
   font-size: 13px;
   color: var(--text-muted);
