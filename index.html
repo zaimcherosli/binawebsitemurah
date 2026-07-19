@@ -36,7 +36,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="style.css?v=6">
 
   <!-- Schema LocalBusiness JSON-LD -->
   <script type="application/ld+json">
@@ -601,7 +601,7 @@
             </ul>
           </div>
           <div class="pc-footer">
-            <a href="#order-form" class="btn btn-outline btn-block">Pilih Starter</a>
+            <a href="#order-form" class="btn btn-outline btn-block" onclick="selectPricingPackage('starter')">Pilih Starter</a>
           </div>
         </div>
 
@@ -633,7 +633,7 @@
             </ul>
           </div>
           <div class="pc-footer">
-            <a href="#order-form" class="btn btn-primary btn-block">Pilih Premium</a>
+            <a href="#order-form" class="btn btn-primary btn-block" onclick="selectPricingPackage('premium')">Pilih Premium</a>
           </div>
         </div>
 
@@ -664,7 +664,7 @@
             </ul>
           </div>
           <div class="pc-footer">
-            <a href="#order-form" class="btn btn-outline btn-block">Hubungi Kami</a>
+            <a href="#order-form" class="btn btn-outline btn-block" onclick="selectPricingPackage('custom')">Hubungi Kami</a>
           </div>
         </div>
 

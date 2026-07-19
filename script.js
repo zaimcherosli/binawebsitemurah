@@ -345,6 +345,34 @@ function initPwaInstall() {
 /* ==========================================
    FORM HANDLING & WHATSAPP Funnel Redirection
    ========================================== */
+// Store selected package globally
+window.selectedPackageValue = 'premium';
+
+window.selectPricingPackage = function(packageName) {
+  const detailsInput = document.getElementById('details');
+  if (!detailsInput) return;
+  
+  let packageText = '';
+  if (packageName === 'starter') {
+    packageText = 'Saya berminat dengan Pakej Starter (RM150).';
+    window.selectedPackageValue = 'starter';
+  } else if (packageName === 'premium') {
+    packageText = 'Saya berminat dengan Pakej Premium (RM350).';
+    window.selectedPackageValue = 'premium';
+  } else if (packageName === 'custom') {
+    packageText = 'Saya berminat dengan Pakej Custom (RM890).';
+    window.selectedPackageValue = 'custom';
+  }
+  
+  detailsInput.value = packageText;
+  
+  // Smooth scroll to form
+  const formSection = document.getElementById('order-form');
+  if (formSection) {
+    formSection.scrollIntoView({ behavior: 'smooth' });
+  }
+};
+
 window.handleFormSubmit = function(event) {
   event.preventDefault();
 
@@ -376,8 +404,14 @@ Sila maklum balas bila berkelapangan. Terima kasih!`;
   const encodedText = encodeURIComponent(message);
   const waUrl = `https://wa.me/60108118559?text=${encodedText}`;
 
-  // Redirect client to WhatsApp API
+  // Redirect client to WhatsApp API in new tab
   window.open(waUrl, '_blank');
+
+  // Redirect current window to payment page matching their selected package
+  const targetPackage = window.selectedPackageValue || 'premium';
+  setTimeout(() => {
+    window.location.href = `bayar.html?pakej=${targetPackage}`;
+  }, 1000);
 };
 
 /* ==========================================

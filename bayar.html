@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Pembayaran Selamat — AuraCraft Studio</title>
+  
+  <!-- PWA Metadata & Favicons -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#09090b">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=5">
+  
+  <style>
+    /* Custom CSS for Payment Page */
+    .payment-container {
+      max-width: 800px;
+      margin: 140px auto 100px;
+      padding: 0 20px;
+    }
+    
+    .payment-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 28px;
+      padding: 40px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+    
+    .payment-step {
+      margin-bottom: 35px;
+    }
+    
+    .payment-step:last-of-type {
+      margin-bottom: 0;
+    }
+    
+    .step-title {
+      font-family: var(--font-headings);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 10px;
+    }
+    
+    .step-num {
+      background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%);
+      color: #000;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 13px;
+    }
+    
+    /* Package Select Styles */
+    .package-selector {
+      position: relative;
+    }
+    
+    .select-wrapper {
+      position: relative;
+    }
+    
+    .select-wrapper select {
+      width: 100%;
+      background-color: #121214;
+      border: 1.5px solid var(--border-color);
+      color: var(--text-main);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 15px;
+      font-weight: 500;
+      appearance: none;
+      outline: none;
+      transition: border-color 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .select-wrapper select:focus {
+      border-color: var(--gold-primary);
+    }
+    
+    .select-wrapper::after {
+      content: '▼';
+      font-size: 10px;
+      color: var(--text-muted);
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    
+    .price-display {
+      margin-top: 15px;
+      background: rgba(212, 175, 55, 0.05);
+      border: 1px dashed rgba(212, 175, 55, 0.2);
+      border-radius: 12px;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .price-display span {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    
+    .price-display strong {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--gold-secondary);
+      font-family: var(--font-headings);
+    }
+    
+    /* Payment Tabs */
+    .payment-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      background-color: #121214;
+      padding: 6px;
+      border-radius: 14px;
+      margin-bottom: 25px;
+    }
+    
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .tab-btn.active {
+      background-color: #1c1c1f;
+      color: var(--gold-secondary);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.4s ease forwards;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* QR Display */
+    .qr-container {
+      text-align: center;
+      background-color: #121214;
+      border-radius: 18px;
+      padding: 30px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .qr-image {
+      max-width: 220px;
+      width: 100%;
+      border-radius: 12px;
+      border: 4px solid #fff;
+      margin: 0 auto 15px;
+    }
+    
+    .qr-info {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    
+    /* Bank details */
+    .bank-card {
+      background-color: #121214;
+      border-radius: 18px;
+      padding: 25px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .bank-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .bank-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    
+    .bank-row:first-child {
+      padding-top: 0;
+    }
+    
+    .bank-label {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    
+    .bank-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .btn-copy {
+      background: rgba(255, 255, 255, 0.05);
+      border: none;
+      color: var(--gold-secondary);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .btn-copy:hover {
+      background: var(--gold-primary);
+      color: #000;
+    }
+    
+    /* Upload Section */
+    .form-group-pay {
+      margin-bottom: 18px;
+    }
+    
+    .form-group-pay label {
+      display: block;
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    
+    .form-group-pay input[type="text"] {
+      width: 100%;
+      background-color: #121214;
+      border: 1.5px solid var(--border-color);
+      color: var(--text-main);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    
+    .form-group-pay input[type="text"]:focus {
+      border-color: var(--gold-primary);
+    }
+    
+    .file-upload-box {
+      background-color: #121214;
+      border: 1.5px dashed var(--border-color);
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      transition: border-color 0.3s ease;
+    }
+    
+    .file-upload-box:hover {
+      border-color: var(--gold-primary);
+    }
+    
+    .file-upload-box input[type="file"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+    
+    .upload-icon {
+      font-size: 24px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    
+    .upload-text {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    
+    .upload-filename {
+      font-size: 13.5px;
+      color: var(--gold-secondary);
+      font-weight: 600;
+      margin-top: 8px;
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      .payment-container {
+        margin: 100px auto 60px;
+      }
+      .payment-card {
+        padding: 24px;
+        border-radius: 20px;
+      }
+      .price-display {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       HEADER / NAVIGATION
+       ========================================== -->
+  <header class="main-header" style="background: rgba(9, 9, 11, 0.9);">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-logo" aria-label="AuraCraft Studio Utama">
+        <div class="logo-icon">A</div>
+        <span class="logo-text">AuraCraft <em>Studio</em></span>
+      </a>
+
+      <nav class="nav-links" aria-label="Navigasi Utama">
+        <a href="index.html#kelebihan" class="nav-link">Kelebihan</a>
+        <a href="index.html#portfolio" class="nav-link">Portfolio</a>
+        <a href="index.html#harga" class="nav-link">Pakej Harga</a>
+        <a href="index.html#faq" class="nav-link">Soalan Lazim</a>
+      </nav>
+
+      <div class="nav-right">
+        <a href="index.html" class="btn btn-outline btn-sm">Kembali Utama</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       PAYMENT CARD CONTAINER
+       ========================================== -->
+  <main class="payment-container">
+    <div class="payment-card">
+      <div style="text-align: center; margin-bottom: 40px;">
+        <h1 style="font-family: var(--font-headings); font-size: 28px; font-weight: 800; color: #fff; margin-bottom: 8px;">Portal Pembayaran</h1>
+        <p style="color: var(--text-muted); font-size: 14px;">Selamat &amp; Terjamin. Selesaikan pembayaran untuk memulakan projek anda.</p>
+      </div>
+
+      <form id="payment-form" onsubmit="handlePaymentSubmit(event)">
+        
+        <!-- Step 1: Pilih Pakej -->
+        <div class="payment-step">
+          <div class="step-title">
+            <span class="step-num">1</span>
+            Pilih Pakej Servis Anda
+          </div>
+          <div class="package-selector">
+            <div class="select-wrapper">
+              <select id="pay-package" onchange="updatePaymentAmount()">
+                <option value="starter" data-price="150">Pakej Starter — RM150 (Landing Page)</option>
+                <option value="premium" data-price="350" selected>Pakej Premium — RM350 (Hingga 5 Halaman) — Pilihan Ramai</option>
+                <option value="custom" data-price="890">Pakej Custom / E-Commerce — RM890 (Hingga 15 Halaman)</option>
+              </select>
+            </div>
+            
+            <div class="price-display">
+              <span>Jumlah Perlu Dibayar:</span>
+              <strong id="display-amount">RM350</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Pembayaran -->
+        <div class="payment-step">
+          <div class="step-title">
+            <span class="step-num">2</span>
+            Buat Pembayaran (QR / Transfer)
+          </div>
+          
+          <div class="payment-tabs">
+            <button type="button" class="tab-btn active" id="btn-qr" onclick="switchTab('qr')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><rect x="7" y="7" width="3" height="3"/><rect x="14" y="7" width="3" height="3"/><rect x="7" y="14" width="3" height="3"/><rect x="14" y="14" width="3" height="3"/></svg>
+              QR DuitNow
+            </button>
+            <button type="button" class="tab-btn" id="btn-bank" onclick="switchTab('bank')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2" ry="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="15" x2="8" y2="15"/><line x1="13" y1="15" x2="16" y2="15"/></svg>
+              Online Transfer
+            </button>
+          </div>
+
+          <!-- Content: QR -->
+          <div id="content-qr" class="tab-content active">
+            <div class="qr-container">
+              <img src="duitnow-qr.jpg" alt="DuitNow QR Code" class="qr-image">
+              <div class="qr-info">
+                <p><strong>AuraCraft Studio DuitNow QR</strong></p>
+                <p style="margin-top: 4px; font-size: 13px;">Imbas kod QR di atas menggunakan aplikasi perbankan mudah alih (MAE, CIMB Clicks, Bank Islam, dll.) untuk membuat pindahan segera.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content: Bank -->
+          <div id="content-bank" class="tab-content">
+            <div class="bank-card">
+              <div class="bank-row">
+                <span class="bank-label">Nama Bank</span>
+                <span class="bank-value">Maybank</span>
+              </div>
+              <div class="bank-row">
+                <span class="bank-label">No. Akaun Bank</span>
+                <span class="bank-value">
+                  <span id="bank-acc-num">162405021234</span>
+                  <button type="button" class="btn-copy" onclick="copyBankAcc(event)">Salin</button>
+                </span>
+              </div>
+              <div class="bank-row">
+                <span class="bank-label">Nama Akaun</span>
+                <span class="bank-value">ZAIM BIN ROSLI</span>
+              </div>
+              <div class="bank-row">
+                <span class="bank-label">Rujukan</span>
+                <span class="bank-value" style="font-size: 13px; color: var(--gold-secondary);">AuraCraft Web</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Resit & Hantar -->
+        <div class="payment-step">
+          <div class="step-title">
+            <span class="step-num">3</span>
+            Hantar Bukti Pembayaran
+          </div>
+          
+          <div class="form-group-pay">
+            <label for="pay-name">Nama Penuh Anda</label>
+            <input type="text" id="pay-name" required placeholder="Masukkan nama anda">
+          </div>
+
+          <div class="form-group-pay">
+            <label>Muat Naik Resit Transaksi</label>
+            <div class="file-upload-box">
+              <input type="file" id="pay-file" accept="image/*,application/pdf" onchange="handleFileChange(event)" required>
+              <span class="upload-icon">📄</span>
+              <span class="upload-text" id="upload-instruction">Klik untuk pilih gambar resit atau seret fail ke sini</span>
+              <span class="upload-filename" id="upload-filename-txt"></span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 40px;">
+          <button type="submit" class="btn btn-primary btn-block btn-lg" style="padding: 16px; font-weight: 700; width: 100%;">
+            Hantar Bukti Pembayaran ke WhatsApp &#8594;
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+  <footer class="main-footer" style="padding: 50px 0 100px;">
+    <div class="container text-center">
+      <p style="font-size: 13px; color: var(--text-muted);">&copy; 2026 AuraCraft Studio. Hak Cipta Terpelihara.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Tab switching
+    function switchTab(type) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      
+      if (type === 'qr') {
+        document.getElementById('btn-qr').classList.add('active');
+        document.getElementById('content-qr').classList.add('active');
+      } else {
+        document.getElementById('btn-bank').classList.add('active');
+        document.getElementById('content-bank').classList.add('active');
+      }
+    }
+
+    // Amount updating
+    function updatePaymentAmount() {
+      const select = document.getElementById('pay-package');
+      const selectedOption = select.options[select.selectedIndex];
+      const price = selectedOption.getAttribute('data-price');
+      document.getElementById('display-amount').innerText = 'RM' + price;
+    }
+
+    // Copy bank account
+    function copyBankAcc(event) {
+      const accNum = document.getElementById('bank-acc-num').innerText;
+      navigator.clipboard.writeText(accNum).then(() => {
+        const btn = event.target;
+        const originalText = btn.innerText;
+        btn.innerText = 'Disalin!';
+        btn.style.background = '#10b981';
+        btn.style.color = '#fff';
+        setTimeout(() => {
+          btn.innerText = originalText;
+          btn.style.background = 'rgba(255, 255, 255, 0.05)';
+          btn.style.color = 'var(--gold-secondary)';
+        }, 2000);
+      });
+    }
+
+    // Handle file input label change
+    function handleFileChange(event) {
+      const input = event.target;
+      const file = input.files[0];
+      const filenameTxt = document.getElementById('upload-filename-txt');
+      const instruction = document.getElementById('upload-instruction');
+      
+      if (file) {
+        filenameTxt.innerText = 'Resit terpilih: ' + file.name;
+        filenameTxt.style.display = 'block';
+        instruction.innerText = 'Ubah fail resit:';
+      } else {
+        filenameTxt.style.display = 'none';
+        instruction.innerText = 'Klik untuk pilih gambar resit atau seret fail ke sini';
+      }
+    }
+
+    // Handle form submission and redirect to WhatsApp
+    function handlePaymentSubmit(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('pay-name').value.trim();
+      const select = document.getElementById('pay-package');
+      const packageName = select.options[select.selectedIndex].text;
+      const price = document.getElementById('display-amount').innerText;
+      
+      // WhatsApp message construction
+      const phoneNumber = '60108118559'; // Zaim's phone number
+      const baseMessage = 'Salam AuraCraft Studio, saya telah membuat pembayaran bagi tempahan web:\n\n' +
+                          '- *Nama Penuh*: ' + name + '\n' +
+                          '- *Pakej Dipilih*: ' + packageName + '\n' +
+                          '- *Jumlah Dibayar*: ' + price + '\n\n' +
+                          'Saya melampirkan gambar/fail resit transaksi sebagai bukti pembayaran. Mohon pengesahan projek. Terima kasih!';
+      
+      const encodedMessage = encodeURIComponent(baseMessage);
+      const whatsappUrl = 'https://wa.me/' + phoneNumber + '?text=' + encodedMessage;
+      
+      // Redirect to WhatsApp
+      window.open(whatsappUrl, '_blank');
+    }
+
+    // Get URL query params to auto-select package if passed
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const packageParam = urlParams.get('pakej');
+      if (packageParam) {
+        const select = document.getElementById('pay-package');
+        for (let i = 0; i < select.options.length; i++) {
+          if (select.options[i].value === packageParam) {
+            select.selectedIndex = i;
+            updatePaymentAmount();
+            break;
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

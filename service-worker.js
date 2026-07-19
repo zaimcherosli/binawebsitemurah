@@ -1,10 +1,12 @@
-const CACHE_NAME = 'auracraft-cache-v5';
+const CACHE_NAME = 'auracraft-cache-v6';
 const ASSETS_TO_CACHE = [
   './',
   './style.css',
   './script.js',
   './manifest.json',
   './offline.html',
+  './bayar.html',
+  './duitnow-qr.jpg',
   './icons/icon-192.png',
   './icons/icon-512.png'
 ];
