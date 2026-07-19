@@ -1359,6 +1359,161 @@ a {
 }
 
 /* ==========================================
+   PRICING PACKAGES SECTION (PAKEJ HARGA)
+   ========================================== */
+.pricing-section {
+  padding: 100px 0;
+  border-top: 1px solid var(--border-color);
+  background: rgba(184, 134, 11, 0.005);
+  position: relative;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 50px;
+  align-items: stretch;
+}
+
+.pricing-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 40px 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  overflow: hidden;
+}
+
+.pricing-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--gold-primary);
+  box-shadow: 0 20px 40px rgba(184, 134, 11, 0.08);
+}
+
+/* Featured / Popular Card Styling */
+.pricing-card.popular {
+  border: 2px solid var(--gold-primary);
+  box-shadow: 0 10px 30px rgba(184, 134, 11, 0.06);
+}
+
+.pricing-card.popular:hover {
+  box-shadow: 0 20px 50px rgba(184, 134, 11, 0.15);
+}
+
+.popular-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%);
+  color: #000;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 50px;
+  letter-spacing: 0.05em;
+}
+
+/* Card Header */
+.pc-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.pc-header h3 {
+  font-family: var(--font-headings);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 10px;
+}
+
+.pc-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  min-height: 40px;
+  margin-bottom: 25px;
+}
+
+.pc-price {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  font-family: var(--font-headings);
+  margin-top: 15px;
+}
+
+.pc-price .currency {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold-secondary);
+  margin-right: 4px;
+}
+
+.pc-price .amount {
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1;
+}
+
+.pc-price .period {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-left: 6px;
+}
+
+/* Card Body */
+.pc-body {
+  margin-bottom: 35px;
+  flex: 1;
+}
+
+.pc-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pc-features li {
+  font-size: 13.5px;
+  color: var(--text-main);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.4;
+}
+
+.pc-features li.disabled {
+  color: var(--text-muted);
+  opacity: 0.55;
+}
+
+.pc-features .check {
+  color: var(--emerald-primary);
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.pc-features .cross {
+  color: #ef4444;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* Card Footer */
+.pc-footer {
+  margin-top: auto;
+}
+
+/* ==========================================
    CASE STUDIES SECTION (KAJIAN KES)
    ========================================== */
 .casestudy-section {
@@ -1993,6 +2148,15 @@ input:focus, select:focus, textarea:focus {
     flex: 0 0 86%;
     scroll-snap-align: start;
     transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 30px;
+  }
+  .pricing-card {
+    padding: 30px 20px;
   }
 
   .casestudy-grid {
