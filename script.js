@@ -410,7 +410,7 @@ Sila maklum balas bila berkelapangan. Terima kasih!`;
   // Redirect current window to payment page matching their selected package
   const targetPackage = window.selectedPackageValue || 'premium';
   setTimeout(() => {
-    window.location.href = `bayar.html?pakej=${targetPackage}`;
+    window.location.href = `bayar?pakej=${targetPackage}`;
   }, 1000);
 };
 

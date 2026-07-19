@@ -1,11 +1,10 @@
-const CACHE_NAME = 'auracraft-cache-v6';
+const CACHE_NAME = 'auracraft-cache-v7';
 const ASSETS_TO_CACHE = [
   './',
   './style.css',
   './script.js',
   './manifest.json',
   './offline.html',
-  './bayar.html',
   './duitnow-qr.jpg',
   './icons/icon-192.png',
   './icons/icon-512.png'
@@ -15,7 +14,7 @@ const ASSETS_TO_CACHE = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('[Service Worker] Caching app shell and offline assets');
+      console.log('[Service Worker] Caching app shell assets');
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
@@ -39,42 +38,37 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch Event - Cache first, fallback to network, then offline page
+// Fetch Event
 self.addEventListener('fetch', (event) => {
-  // Only cache GET requests from our origin
   if (event.request.method !== 'GET') return;
   if (!event.request.url.startsWith(self.location.origin)) return;
 
+  // Handle HTML document navigation with Network First strategy
+  if (event.request.mode === 'navigate' || (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html'))) {
+    event.respondWith(
+      fetch(event.request)
+        .catch(() => {
+          return caches.match(event.request).then((response) => {
+            return response || caches.match('./offline.html');
+          });
+        })
+    );
+    return;
+  }
+
+  // Cache First for static assets (CSS, JS, images)
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // Fetch new version in background (stale-while-revalidate style)
-        fetch(event.request).then((networkResponse) => {
-          if (networkResponse.status === 200) {
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
-          }
-        }).catch(() => {/* Ignore background sync failures */});
-        
         return cachedResponse;
       }
-
-      return fetch(event.request)
-        .then((networkResponse) => {
-          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-            return networkResponse;
-          }
+      return fetch(event.request).then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
           const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
-          });
-          return networkResponse;
-        })
-        .catch(() => {
-          // If offline and request is for a document (HTML page), show the cached offline.html
-          if (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html')) {
-            return caches.match('./offline.html');
-          }
-        });
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache));
+        }
+        return networkResponse;
+      });
     })
   );
 });
