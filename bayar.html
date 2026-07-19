@@ -78,8 +78,8 @@
     
     .select-wrapper select {
       width: 100%;
-      background-color: #121214;
-      border: 1.5px solid var(--border-color);
+      background-color: #FFFFFF;
+      border: 1.5px solid rgba(0, 0, 0, 0.08);
       color: var(--text-main);
       border-radius: 12px;
       padding: 16px 20px;
@@ -89,6 +89,11 @@
       outline: none;
       transition: border-color 0.3s ease;
       cursor: pointer;
+    }
+    
+    .select-wrapper select option {
+      background-color: #FFFFFF;
+      color: var(--text-main);
     }
     
     .select-wrapper select:focus {
@@ -134,7 +139,8 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      background-color: #121214;
+      background-color: rgba(0, 0, 0, 0.015);
+      border: 1px solid rgba(0, 0, 0, 0.05);
       padding: 6px;
       border-radius: 14px;
       margin-bottom: 25px;
@@ -143,7 +149,7 @@
     .tab-btn {
       background: none;
       border: none;
-      color: var(--text-muted);
+      color: #71717a;
       padding: 12px;
       font-size: 14px;
       font-weight: 600;
@@ -157,9 +163,9 @@
     }
     
     .tab-btn.active {
-      background-color: #1c1c1f;
+      background-color: #FFFFFF;
       color: var(--gold-secondary);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
     
     .tab-content {
@@ -179,10 +185,10 @@
     /* QR Display */
     .qr-container {
       text-align: center;
-      background-color: #121214;
+      background-color: rgba(0, 0, 0, 0.015);
       border-radius: 18px;
       padding: 30px;
-      border: 1px solid var(--border-color);
+      border: 1px solid rgba(0, 0, 0, 0.06);
     }
     
     .qr-image {
@@ -201,10 +207,10 @@
     
     /* Bank details */
     .bank-card {
-      background-color: #121214;
+      background-color: rgba(0, 0, 0, 0.015);
       border-radius: 18px;
       padding: 25px;
-      border: 1px solid var(--border-color);
+      border: 1px solid rgba(0, 0, 0, 0.06);
     }
     
     .bank-row {
@@ -212,7 +218,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 12px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     }
     
     .bank-row:last-child {
@@ -239,7 +245,7 @@
     }
     
     .btn-copy {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.03);
       border: none;
       color: var(--gold-secondary);
       font-size: 11px;
@@ -269,8 +275,8 @@
     
     .form-group-pay input[type="text"] {
       width: 100%;
-      background-color: #121214;
-      border: 1.5px solid var(--border-color);
+      background-color: rgba(0, 0, 0, 0.015);
+      border: 1.5px solid rgba(0, 0, 0, 0.08);
       color: var(--text-main);
       border-radius: 10px;
       padding: 12px 16px;
@@ -284,8 +290,8 @@
     }
     
     .file-upload-box {
-      background-color: #121214;
-      border: 1.5px dashed var(--border-color);
+      background-color: rgba(0, 0, 0, 0.015);
+      border: 1.5px dashed rgba(0, 0, 0, 0.08);
       border-radius: 12px;
       padding: 25px;
       text-align: center;
