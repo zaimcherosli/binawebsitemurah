@@ -450,9 +450,9 @@
           <!-- Content: QR -->
           <div id="content-qr" class="tab-content active">
             <div class="qr-container">
-              <img src="duitnow-qr.jpg" alt="DuitNow QR Code" class="qr-image">
+              <img src="duitnow-qr.jpg?v=2" alt="DuitNow QR Code Kwikezee Resources" class="qr-image">
               <div class="qr-info">
-                <p><strong>AuraCraft Studio DuitNow QR</strong></p>
+                <p><strong>Kwikezee Resources (Maybank DuitNow QR)</strong></p>
                 <p style="margin-top: 4px; font-size: 13px;">Imbas kod QR di atas menggunakan aplikasi perbankan mudah alih (MAE, CIMB Clicks, Bank Islam, dll.) untuk membuat pindahan segera.</p>
               </div>
             </div>
@@ -468,13 +468,13 @@
               <div class="bank-row">
                 <span class="bank-label">No. Akaun Bank</span>
                 <span class="bank-value">
-                  <span id="bank-acc-num">162405021234</span>
+                  <span id="bank-acc-num">5686 0302 2391</span>
                   <button type="button" class="btn-copy" onclick="copyBankAcc(event)">Salin</button>
                 </span>
               </div>
               <div class="bank-row">
                 <span class="bank-label">Nama Akaun</span>
-                <span class="bank-value">ZAIM BIN ROSLI</span>
+                <span class="bank-value">Kwikezee Resources</span>
               </div>
               <div class="bank-row">
                 <span class="bank-label">Rujukan</span>
@@ -555,7 +555,7 @@
 
     // Copy bank account
     function copyBankAcc(event) {
-      const accNum = document.getElementById('bank-acc-num').innerText;
+      const accNum = document.getElementById('bank-acc-num').innerText.replace(/\s+/g, '');
       navigator.clipboard.writeText(accNum).then(() => {
         const btn = event.target;
         const originalText = btn.innerText;
