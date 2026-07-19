@@ -504,8 +504,8 @@
         </div>
 
         <div style="margin-top: 40px;">
-          <button type="submit" class="btn btn-primary btn-block btn-lg" style="padding: 16px; font-weight: 700; width: 100%;">
-            Hantar Bukti Pembayaran ke WhatsApp &#8594;
+          <button type="submit" id="btn-submit-pay" class="btn btn-primary btn-block btn-lg" style="padding: 16px; font-weight: 700; width: 100%;">
+            Hantar Bukti Pembayaran &#8594;
           </button>
         </div>
 
@@ -523,6 +523,10 @@
   </footer>
 
   <script>
+    // CONFIGURATION FOR TELEGRAM BOT (Replace with your Bot Token and Chat ID)
+    const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE';
+    const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID_HERE';
+
     // Tab switching
     function switchTab(type) {
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -579,27 +583,86 @@
       }
     }
 
-    // Handle form submission and redirect to WhatsApp
-    function handlePaymentSubmit(event) {
+    // Handle form submission: Telegram Bot API + WhatsApp Redirect
+    async function handlePaymentSubmit(event) {
       event.preventDefault();
       
       const name = document.getElementById('pay-name').value.trim();
       const select = document.getElementById('pay-package');
       const packageName = select.options[select.selectedIndex].text;
       const price = document.getElementById('display-amount').innerText;
-      
-      // WhatsApp message construction
+      const receiptInput = document.getElementById('pay-receipt');
+      const receiptFile = receiptInput ? receiptInput.files[0] : null;
+      const submitBtn = document.getElementById('btn-submit-pay');
+      const originalBtnText = submitBtn.innerHTML;
+
+      if (!name) {
+        alert('Sila isi Nama Penuh anda.');
+        return;
+      }
+
+      const timeStr = new Date().toLocaleString('ms-MY', { timeZone: 'Asia/Kuala_Lumpur' });
+
+      // Telegram Message Formatting
+      const captionText = `⚡ <b>BUKTI PEMBAYARAN BAHARU!</b> ⚡\n\n` +
+                          `👤 <b>Nama Penuh</b>: ${name}\n` +
+                          `📦 <b>Pakej Dipilih</b>: ${packageName}\n` +
+                          `💰 <b>Jumlah Dibayar</b>: ${price}\n` +
+                          `📅 <b>Tarikh & Masa</b>: ${timeStr}\n\n` +
+                          `📎 <b>Lampiran Resit</b>: ${receiptFile ? 'Fail Dilampirkan' : 'Tiada Fail'}`;
+
+      // If Telegram Bot keys are configured, send via API
+      if (TELEGRAM_BOT_TOKEN && TELEGRAM_BOT_TOKEN !== 'YOUR_BOT_TOKEN_HERE' && TELEGRAM_CHAT_ID && TELEGRAM_CHAT_ID !== 'YOUR_CHAT_ID_HERE') {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '⏳ Menghantar Resit ke Telegram...';
+
+        try {
+          const isPhoto = receiptFile && receiptFile.type.startsWith('image/');
+          const endpointMethod = isPhoto ? 'sendPhoto' : (receiptFile ? 'sendDocument' : 'sendMessage');
+          const endpoint = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/${endpointMethod}`;
+
+          const formData = new FormData();
+          formData.append('chat_id', TELEGRAM_CHAT_ID);
+
+          if (receiptFile) {
+            formData.append(isPhoto ? 'photo' : 'document', receiptFile);
+            formData.append('caption', captionText);
+            formData.append('parse_mode', 'HTML');
+          } else {
+            formData.append('text', captionText);
+            formData.append('parse_mode', 'HTML');
+          }
+
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            body: formData
+          });
+
+          const resData = await response.json();
+          if (resData.ok) {
+            alert('✅ Terima kasih! Bukti pembayaran & resit anda telah berjaya dihantar ke sistem Telegram AuraCraft Studio.');
+          } else {
+            console.error('Ralat Telegram API:', resData);
+          }
+        } catch (err) {
+          console.error('Network Error:', err);
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+        }
+      }
+
+      // Open WhatsApp as companion notification
       const phoneNumber = '60108118559'; // Zaim's phone number
-      const baseMessage = 'Salam AuraCraft Studio, saya telah membuat pembayaran bagi tempahan web:\n\n' +
-                          '- *Nama Penuh*: ' + name + '\n' +
-                          '- *Pakej Dipilih*: ' + packageName + '\n' +
-                          '- *Jumlah Dibayar*: ' + price + '\n\n' +
-                          'Saya melampirkan gambar/fail resit transaksi sebagai bukti pembayaran. Mohon pengesahan projek. Terima kasih!';
+      const baseMessage = `Salam AuraCraft Studio, saya (${name}) telah membuat pembayaran bagi tempahan web:\n\n` +
+                          `- *Nama Penuh*: ${name}\n` +
+                          `- *Pakej Dipilih*: ${packageName}\n` +
+                          `- *Jumlah Dibayar*: ${price}\n\n` +
+                          `Saya telah memuat naik resit transaksi. Mohon pengesahan projek. Terima kasih!`;
       
       const encodedMessage = encodeURIComponent(baseMessage);
-      const whatsappUrl = 'https://wa.me/' + phoneNumber + '?text=' + encodedMessage;
+      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
       
-      // Redirect to WhatsApp
       window.open(whatsappUrl, '_blank');
     }
 
