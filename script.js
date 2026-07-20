@@ -1,6 +1,6 @@
-/* ==========================================================================
-   AuraCraft Studio - Interactivity, PWA & Slider Logic
-   ========================================================================== */
+/* ==========================================
+   Kwikezee Studio - Interactivity, PWA & Slider Logic
+   ========================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize all modules
@@ -320,7 +320,7 @@ function initPwaInstall() {
     // Check outcome
     deferredPrompt.userChoice.then((choiceResult) => {
       if (choiceResult.outcome === 'accepted') {
-        console.log('User installed the AuraCraft PWA');
+        console.log('User installed the Kwikezee PWA');
       } else {
         console.log('User dismissed PWA installation');
       }
@@ -388,7 +388,7 @@ window.handleFormSubmit = function(event) {
   }
 
   // Format message for WhatsApp
-  const message = `Hai AuraCraft Studio! 🌟
+  const message = `Hai Kwikezee Studio! 🌟
 Saya ingin mendapatkan rundingan pembinaan website/landing page premium.
 
 Butiran Permintaan:
