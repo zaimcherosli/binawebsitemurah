@@ -10,6 +10,8 @@ const formState = {
   docs: []
 };
 
+let formSubmitted = false;
+
 /* ==========================================================================
    WIZARD DAN NAVIGASI BORANG (MULTI-STEP)
    ========================================================================== */
@@ -110,10 +112,21 @@ function initMultiStepForm() {
     return isValid;
   }
 
+  // Set default history state for Step 1
+  history.replaceState({ step: 1 }, '');
+
+  window.addEventListener('popstate', (e) => {
+    if (e.state && e.state.step) {
+      currentStep = e.state.step;
+      updateSteps();
+    }
+  });
+
   btnNext.addEventListener('click', () => {
     if (validateCurrentStep()) {
       if (currentStep < totalSteps) {
         currentStep++;
+        history.pushState({ step: currentStep }, '');
         updateSteps();
       }
     }
@@ -121,8 +134,7 @@ function initMultiStepForm() {
 
   btnPrev.addEventListener('click', () => {
     if (currentStep > 1) {
-      currentStep--;
-      updateSteps();
+      history.back(); // Panggil back history pelayar (popstate akan decrement secara natural)
     }
   });
 
@@ -330,7 +342,10 @@ function submitFormViaAjax(formElement) {
       overlay.classList.remove('active');
       if (xhr.status >= 200 && xhr.status < 300) {
         // Berjaya
+        formSubmitted = true; // Langkau prompt beforeunload
         successScreen.classList.add('active');
+        // Panggil state baru supaya user tak boleh back ke form editing selepas sukses
+        history.pushState(null, '', window.location.pathname);
       } else {
         // Gagal
         let errMsg = 'Terdapat ralat semasa menghantar maklumat anda. Sila cuba lagi.';
@@ -345,3 +360,12 @@ function submitFormViaAjax(formElement) {
 
   xhr.send(formData);
 }
+
+// Amaran jika meninggalkan halaman sebelum menghantar borang
+window.addEventListener('beforeunload', (e) => {
+  const companyName = document.getElementById('companyName') ? document.getElementById('companyName').value.trim() : '';
+  if (companyName && !formSubmitted) {
+    e.preventDefault();
+    e.returnValue = ''; // Tunjuk dialog amaran pelayar
+  }
+});
