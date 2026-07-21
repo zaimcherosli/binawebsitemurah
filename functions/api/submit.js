@@ -77,7 +77,7 @@ export async function onRequestPost(context) {
       }
     }
 
-    // Sediakan fail metadata JSON taklimat projek
+    // Sediakan fail metadata JSON maklumat projek
     const briefMetadata = {
       id: folderId,
       timestamp,

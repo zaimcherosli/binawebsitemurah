@@ -43,7 +43,7 @@ export async function onRequestGet(context) {
     }
   }
 
-  // 2. Jika memohon senarai taklimat klien (Default GET)
+  // 2. Jika memohon senarai maklumat projek klien (Default GET)
   try {
     const listResult = await R2.list({ prefix: 'submissions/', delimiter: '/' });
     const prefixes = listResult.delimitedPrefixes || [];
