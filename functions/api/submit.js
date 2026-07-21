@@ -45,7 +45,7 @@ export async function onRequestPost(context) {
     if (isFile(logoFile)) {
       const sanitizedName = sanitizeFilename(logoFile.name);
       const key = `submissions/${folderId}/logo/${sanitizedName}`;
-      await R2.put(key, logoFile.stream(), {
+      await R2.put(key, await logoFile.arrayBuffer(), {
         httpMetadata: { contentType: logoFile.type }
       });
       filesMap.logo = key;
@@ -57,7 +57,7 @@ export async function onRequestPost(context) {
       if (isFile(file)) {
         const sanitizedName = sanitizeFilename(file.name);
         const key = `submissions/${folderId}/portfolio/${sanitizedName}`;
-        await R2.put(key, file.stream(), {
+        await R2.put(key, await file.arrayBuffer(), {
           httpMetadata: { contentType: file.type }
         });
         filesMap.portfolio.push(key);
@@ -70,7 +70,7 @@ export async function onRequestPost(context) {
       if (isFile(file)) {
         const sanitizedName = sanitizeFilename(file.name);
         const key = `submissions/${folderId}/docs/${sanitizedName}`;
-        await R2.put(key, file.stream(), {
+        await R2.put(key, await file.arrayBuffer(), {
           httpMetadata: { contentType: file.type }
         });
         filesMap.docs.push(key);
