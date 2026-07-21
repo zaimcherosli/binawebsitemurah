@@ -310,7 +310,21 @@ window.deleteSubmission = function(submissionId) {
   })
   .then(res => {
     alert('Data projek telah berjaya dipadam dari R2.');
-    loadSubmissions(); // Muat semula senarai
+    if (itemEl) {
+      itemEl.remove();
+    }
+    // Semak jika semua kad sudah dipadam untuk paparkan empty state
+    const container = document.getElementById('submissions-list');
+    const remainingItems = container.querySelectorAll('.submission-item');
+    if (remainingItems.length === 0) {
+      container.innerHTML = `
+        <div class="no-submissions">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <h3 style="color:#FFFFFF;">Tiada Data Projek</h3>
+          <p style="color:#A1A1AA;">Sistem belum menerima sebarang penghantaran borang maklumat daripada klien.</p>
+        </div>
+      `;
+    }
   })
   .catch(err => {
     console.error(err);
