@@ -247,6 +247,10 @@ function renderSubmissions(submissions) {
               <p>${sub.workflow ? escapeHtml(sub.workflow) : '-'}</p>
             </div>
             <div class="detail-block">
+              <h4>Testimoni / Ulasan Pelanggan</h4>
+              <p>${sub.testimonials ? escapeHtml(sub.testimonials) : '-'}</p>
+            </div>
+            <div class="detail-block">
               <h4>Maklumat Perhubungan Lain</h4>
               <p>
                 <strong>E-mel:</strong> ${sub.email ? escapeHtml(sub.email) : '-'}<br>

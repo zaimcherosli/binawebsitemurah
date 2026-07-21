@@ -92,6 +92,7 @@ export async function onRequestPost(context) {
       email: (formData.get('email') || '').toString(),
       address: (formData.get('address') || '').toString(),
       socialMedia: (formData.get('socialMedia') || '').toString(),
+      testimonials: (formData.get('testimonials') || '').toString(),
       files: filesMap
     };
 
