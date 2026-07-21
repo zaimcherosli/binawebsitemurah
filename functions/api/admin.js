@@ -45,23 +45,33 @@ export async function onRequestGet(context) {
 
   // 2. Jika memohon senarai maklumat projek klien (Default GET)
   try {
-    const listResult = await R2.list({ prefix: 'submissions/', delimiter: '/' });
-    const prefixes = listResult.delimitedPrefixes || [];
+    let truncated = true;
+    let cursor = undefined;
     const submissions = [];
 
-    for (const prefix of prefixes) {
-      const briefKey = `${prefix}brief.json`;
-      const briefObj = await R2.get(briefKey);
+    while (truncated) {
+      const listOptions = { prefix: 'submissions/' };
+      if (cursor) listOptions.cursor = cursor;
+
+      const listResult = await R2.list(listOptions);
       
-      if (briefObj) {
-        try {
-          const briefText = await briefObj.text();
-          const briefJson = JSON.parse(briefText);
-          submissions.push(briefJson);
-        } catch (e) {
-          console.error(`Gagal membaca JSON dari ${briefKey}:`, e);
+      for (const obj of listResult.objects) {
+        if (obj.key.endsWith('/brief.json')) {
+          const briefObj = await R2.get(obj.key);
+          if (briefObj) {
+            try {
+              const briefText = await briefObj.text();
+              const briefJson = JSON.parse(briefText);
+              submissions.push(briefJson);
+            } catch (e) {
+              console.error(`Gagal membaca JSON dari ${obj.key}:`, e);
+            }
+          }
         }
       }
+
+      truncated = listResult.truncated;
+      cursor = listResult.cursor;
     }
 
     // Susun mengikut masa terkini dahulu (timestamp descending)
