@@ -892,3 +892,45 @@ body {
   border: none;
   cursor: pointer;
 }
+
+/* Action Buttons in Dashboard (WhatsApp & Delete) */
+.action-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  padding: 0;
+  outline: none;
+}
+
+.wa-btn {
+  border-color: rgba(37, 211, 102, 0.2);
+  background: rgba(37, 211, 102, 0.05);
+  color: #25D366;
+}
+
+.wa-btn:hover {
+  background: #25D366;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+  transform: translateY(-1px);
+}
+
+.delete-btn {
+  border-color: rgba(220, 38, 38, 0.2);
+  background: rgba(220, 38, 38, 0.05);
+  color: #F87171;
+}
+
+.delete-btn:hover {
+  background: #DC2626;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+  transform: translateY(-1px);
+}
+
