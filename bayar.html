@@ -562,10 +562,6 @@
       if (validCodes.includes(appliedDiscountCode)) {
         if (packageVal === 'starter') {
           return 99; // Starter becomes RM99 (save RM51)
-        } else if (packageVal === 'premium') {
-          return 299; // Premium becomes RM299 (save RM51)
-        } else if (packageVal === 'custom') {
-          return 799; // Custom becomes RM799 (save RM91)
         }
       }
       return originalPrice;
@@ -607,7 +603,7 @@
         appliedDiscountCode = code;
         messageEl.style.display = 'block';
         messageEl.style.color = '#10b981';
-        messageEl.innerText = '✅ Kod diskaun berjaya digunakan! Harga promo diaktifkan.';
+        messageEl.innerText = '✅ Kod diskaun berjaya digunakan! (Sah untuk Pakej Starter sahaja)';
         
         codeInput.style.borderColor = '#10b981';
         codeInput.disabled = true;
