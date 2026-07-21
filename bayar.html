@@ -426,6 +426,16 @@
               <span>Jumlah Perlu Dibayar:</span>
               <strong id="display-amount">RM350</strong>
             </div>
+
+            <!-- Kod Diskaun Input -->
+            <div class="form-group-pay" style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+              <label for="discount-code" style="font-weight: 600; color: #fff;">Kod Diskaun (Ada promo?)</label>
+              <div style="display: flex; gap: 10px;">
+                <input type="text" id="discount-code" placeholder="Masukkan kod diskaun (cth: LASTDAY)" style="flex: 1; text-transform: uppercase;">
+                <button type="button" id="btn-apply-discount" class="btn-copy" onclick="applyDiscountCode()" style="background: rgba(255,255,255,0.05); border: 1.5px solid rgba(255,255,255,0.1); color: var(--gold-secondary); font-size: 13px; font-weight: 700; padding: 0 20px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; height: 48px; min-width: 90px;">Guna</button>
+              </div>
+              <span id="discount-message" style="display: none; font-size: 13px; margin-top: 6px; font-weight: 600;"></span>
+            </div>
           </div>
         </div>
 
@@ -545,12 +555,75 @@
       }
     }
 
+    let appliedDiscountCode = '';
+
+    function calculateDiscountedPrice(packageVal, originalPrice) {
+      const validCodes = ['LASTDAY99', 'LASTDAY', 'WEB99', 'PROMO99'];
+      if (validCodes.includes(appliedDiscountCode)) {
+        if (packageVal === 'starter') {
+          return 99; // Starter becomes RM99 (save RM51)
+        } else if (packageVal === 'premium') {
+          return 299; // Premium becomes RM299 (save RM51)
+        } else if (packageVal === 'custom') {
+          return 799; // Custom becomes RM799 (save RM91)
+        }
+      }
+      return originalPrice;
+    }
+
     // Amount updating
     function updatePaymentAmount() {
       const select = document.getElementById('pay-package');
       const selectedOption = select.options[select.selectedIndex];
-      const price = selectedOption.getAttribute('data-price');
-      document.getElementById('display-amount').innerText = 'RM' + price;
+      const originalPrice = parseInt(selectedOption.getAttribute('data-price'));
+      
+      let price = originalPrice;
+      if (appliedDiscountCode) {
+        price = calculateDiscountedPrice(selectedOption.value, originalPrice);
+      }
+      
+      if (price !== originalPrice) {
+        document.getElementById('display-amount').innerHTML = `<span style="text-decoration: line-through; font-size: 15px; color: #a1a1aa; margin-right: 8px;">RM${originalPrice}</span> RM${price}`;
+      } else {
+        document.getElementById('display-amount').innerText = 'RM' + price;
+      }
+    }
+
+    function applyDiscountCode() {
+      const codeInput = document.getElementById('discount-code');
+      const code = codeInput.value.trim().toUpperCase();
+      const messageEl = document.getElementById('discount-message');
+
+      if (!code) {
+        messageEl.style.display = 'block';
+        messageEl.style.color = '#ef4444';
+        messageEl.innerText = 'Sila masukkan kod diskaun.';
+        return;
+      }
+
+      const validCodes = ['LASTDAY99', 'LASTDAY', 'WEB99', 'PROMO99'];
+
+      if (validCodes.includes(code)) {
+        appliedDiscountCode = code;
+        messageEl.style.display = 'block';
+        messageEl.style.color = '#10b981';
+        messageEl.innerText = '✅ Kod diskaun berjaya digunakan! Harga promo diaktifkan.';
+        
+        codeInput.style.borderColor = '#10b981';
+        codeInput.disabled = true;
+        
+        const btn = document.getElementById('btn-apply-discount');
+        btn.disabled = true;
+        btn.style.opacity = '0.5';
+        btn.innerText = 'Aktif';
+        
+        updatePaymentAmount();
+      } else {
+        messageEl.style.display = 'block';
+        messageEl.style.color = '#ef4444';
+        messageEl.innerText = '❌ Kod diskaun tidak sah. Sila semak semula.';
+        codeInput.style.borderColor = '#ef4444';
+      }
     }
 
     // Copy bank account
@@ -593,9 +666,17 @@
       
       const name = document.getElementById('pay-name').value.trim();
       const select = document.getElementById('pay-package');
-      const packageName = select.options[select.selectedIndex].text;
-      const price = document.getElementById('display-amount').innerText;
-      const receiptInput = document.getElementById('pay-receipt');
+      const selectedOption = select.options[select.selectedIndex];
+      const packageName = selectedOption.text;
+      
+      const originalPrice = parseInt(selectedOption.getAttribute('data-price'));
+      let finalPrice = originalPrice;
+      if (appliedDiscountCode) {
+        finalPrice = calculateDiscountedPrice(selectedOption.value, originalPrice);
+      }
+      const priceText = `RM${finalPrice}` + (appliedDiscountCode ? ` (Kod ${appliedDiscountCode} diguna - Jimat RM${originalPrice - finalPrice})` : '');
+
+      const receiptInput = document.getElementById('pay-file');
       const receiptFile = receiptInput ? receiptInput.files[0] : null;
       const submitBtn = document.getElementById('btn-submit-pay');
       const originalBtnText = submitBtn.innerHTML;
@@ -611,7 +692,7 @@
       const captionText = `⚡ <b>BUKTI PEMBAYARAN BAHARU!</b> ⚡\n\n` +
                           `👤 <b>Nama Penuh</b>: ${name}\n` +
                           `📦 <b>Pakej Dipilih</b>: ${packageName}\n` +
-                          `💰 <b>Jumlah Dibayar</b>: ${price}\n` +
+                          `💰 <b>Jumlah Dibayar</b>: ${priceText}\n` +
                           `📅 <b>Tarikh & Masa</b>: ${timeStr}\n\n` +
                           `📎 <b>Lampiran Resit</b>: ${receiptFile ? 'Fail Dilampirkan' : 'Tiada Fail'}`;
 
@@ -661,7 +742,7 @@
       const baseMessage = `Salam Kwikezee Studio, saya (${name}) telah membuat pembayaran bagi tempahan web:\n\n` +
                           `- *Nama Penuh*: ${name}\n` +
                           `- *Pakej Dipilih*: ${packageName}\n` +
-                          `- *Jumlah Dibayar*: ${price}\n\n` +
+                          `- *Jumlah Dibayar*: ${priceText}\n\n` +
                           `Saya telah memuat naik resit transaksi. Mohon pengesahan projek. Terima kasih!`;
       
       const encodedMessage = encodeURIComponent(baseMessage);
