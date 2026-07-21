@@ -551,6 +551,28 @@ body {
 
 /* Responsive adjustment */
 @media (max-width: 600px) {
+  .brief-header {
+    height: auto;
+    padding: 16px 0;
+  }
+  .header-inner {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
+  }
+  .nav-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .logo-text {
+    white-space: nowrap;
+  }
+  .header-badge {
+    font-size: 0.78rem;
+    padding: 4px 12px;
+  }
   .steps-indicators {
     display: none; /* Hide labels on mobile to prevent clutter */
   }
