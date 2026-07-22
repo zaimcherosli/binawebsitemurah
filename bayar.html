@@ -16,8 +16,7 @@
 
   <link rel="stylesheet" href="style.css?v=9">
 
-  <!-- EmailJS SDK -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <!-- EmailJS via Direct REST API - no SDK needed -->
   
   <style>
     /* Custom CSS for Payment Page */
@@ -547,10 +546,6 @@
   </footer>
 
   <script>
-    // Initialize EmailJS globally using string Public Key
-    if (typeof emailjs !== 'undefined') {
-      emailjs.init('SiXqH3RhPtQKJEsWn');
-    }
 
     // CONFIGURATION FOR TELEGRAM BOT
     const TELEGRAM_BOT_TOKEN = '8835682085:AAEC7gvdmvOax1Vu5LaDZgOkHMc-ZigTfMg';
@@ -749,24 +744,38 @@
         }
       }
 
-      // 2. Send via EmailJS (Await this call so the request completes)
+      // 2. Send via EmailJS REST API directly (no SDK)
       if (EMAILJS_PUBLIC_KEY && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY_HERE' && EMAILJS_TEMPLATE_ID && EMAILJS_TEMPLATE_ID !== 'YOUR_TEMPLATE_ID_HERE') {
         try {
-          emailjs.init(EMAILJS_PUBLIC_KEY);
-
-          const templateParams = {
-            client_name: name,
-            client_email: email,
-            package_name: packageName,
-            amount_paid: priceText,
-            date_time: timeStr
+          const emailPayload = {
+            service_id: EMAILJS_SERVICE_ID,
+            template_id: EMAILJS_TEMPLATE_ID,
+            user_id: EMAILJS_PUBLIC_KEY,
+            template_params: {
+              client_name: name,
+              client_email: email,
+              package_name: packageName,
+              amount_paid: priceText,
+              date_time: timeStr
+            }
           };
 
-          const emailResponse = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY);
-          console.log('Emel notifikasi klien berjaya dihantar!', emailResponse.status, emailResponse.text);
+          const emailRes = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(emailPayload)
+          });
+
+          if (emailRes.ok) {
+            console.log('Emel berjaya dihantar! Status:', emailRes.status);
+          } else {
+            const errText = await emailRes.text();
+            console.error('Ralat EmailJS REST API:', emailRes.status, errText);
+            alert('⚠️ Ralat Emel: ' + emailRes.status + ' - ' + errText);
+          }
         } catch (emailErr) {
-          console.error('Ralat EmailJS:', emailErr);
-          alert('⚠️ Ralat Penghantaran Emel Klien: ' + (emailErr.text || emailErr.message || JSON.stringify(emailErr)));
+          console.error('Ralat Sambungan EmailJS:', emailErr);
+          alert('⚠️ Ralat Sambungan Emel: ' + emailErr.message);
         }
       }
 
