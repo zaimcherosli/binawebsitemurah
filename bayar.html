@@ -15,6 +15,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css?v=5">
+
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   
   <style>
     /* Custom CSS for Payment Page */
@@ -507,6 +510,11 @@
           </div>
 
           <div class="form-group-pay">
+            <label for="pay-email">Alamat Emel Anda</label>
+            <input type="email" id="pay-email" required placeholder="Masukkan alamat emel anda untuk penerimaan resit">
+          </div>
+
+          <div class="form-group-pay">
             <label>Muat Naik Resit Transaksi</label>
             <div class="file-upload-box">
               <input type="file" id="pay-file" accept="image/*,application/pdf" onchange="handleFileChange(event)" required>
@@ -540,6 +548,11 @@
     // CONFIGURATION FOR TELEGRAM BOT
     const TELEGRAM_BOT_TOKEN = '8835682085:AAEC7gvdmvOax1Vu5LaDZgOkHMc-ZigTfMg';
     const TELEGRAM_CHAT_ID = '124275768';
+
+    // CONFIGURATION FOR EMAILJS
+    const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY_HERE'; // Gantikan dengan Public Key dari dashboard EmailJS (Account -> API Keys)
+    const EMAILJS_SERVICE_ID = 'service_wes7zl';       // Gmail Service ID anda
+    const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID_HERE'; // Gantikan dengan Template ID dari dashboard EmailJS (Email Templates)
 
     // Tab switching
     function switchTab(type) {
@@ -661,6 +674,7 @@
       event.preventDefault();
       
       const name = document.getElementById('pay-name').value.trim();
+      const email = document.getElementById('pay-email').value.trim();
       const select = document.getElementById('pay-package');
       const selectedOption = select.options[select.selectedIndex];
       const packageName = selectedOption.text;
@@ -730,6 +744,30 @@
         } finally {
           submitBtn.disabled = false;
           submitBtn.innerHTML = originalBtnText;
+        }
+      }
+
+      // Send Email Notification to client using EmailJS
+      if (EMAILJS_PUBLIC_KEY && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY_HERE' && EMAILJS_TEMPLATE_ID && EMAILJS_TEMPLATE_ID !== 'YOUR_TEMPLATE_ID_HERE') {
+        try {
+          emailjs.init(EMAILJS_PUBLIC_KEY);
+          
+          const templateParams = {
+            client_name: name,
+            client_email: email,
+            package_name: packageName,
+            amount_paid: priceText,
+            date_time: timeStr
+          };
+
+          emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+            .then((response) => {
+              console.log('Emel notifikasi klien berjaya dihantar!', response.status, response.text);
+            }, (err) => {
+              console.error('Ralat hantar emel klien:', err);
+            });
+        } catch (emailErr) {
+          console.error('Ralat EmailJS:', emailErr);
         }
       }
 
