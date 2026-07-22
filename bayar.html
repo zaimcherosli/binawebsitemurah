@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="style.css?v=9">
 
   <!-- EmailJS SDK -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   
   <style>
     /* Custom CSS for Payment Page */
@@ -547,11 +547,9 @@
   </footer>
 
   <script>
-    // Initialize EmailJS globally using v4 syntax
+    // Initialize EmailJS globally using string Public Key
     if (typeof emailjs !== 'undefined') {
-      emailjs.init({
-        publicKey: 'SiXqH3RhPtQKJEsWn'
-      });
+      emailjs.init('SiXqH3RhPtQKJEsWn');
     }
 
     // CONFIGURATION FOR TELEGRAM BOT
@@ -754,6 +752,8 @@
       // 2. Send via EmailJS (Await this call so the request completes)
       if (EMAILJS_PUBLIC_KEY && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY_HERE' && EMAILJS_TEMPLATE_ID && EMAILJS_TEMPLATE_ID !== 'YOUR_TEMPLATE_ID_HERE') {
         try {
+          emailjs.init(EMAILJS_PUBLIC_KEY);
+
           const templateParams = {
             client_name: name,
             client_email: email,
@@ -762,8 +762,7 @@
             date_time: timeStr
           };
 
-          // EmailJS v4: public key already set via emailjs.init() above. Send with 3 params only.
-          const emailResponse = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+          const emailResponse = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY);
           console.log('Emel notifikasi klien berjaya dihantar!', emailResponse.status, emailResponse.text);
         } catch (emailErr) {
           console.error('Ralat EmailJS:', emailErr);
