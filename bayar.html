@@ -762,10 +762,8 @@
             date_time: timeStr
           };
 
-          // We pass public key inside an options object for v4 SDK compatibility
-          const emailResponse = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, {
-            publicKey: EMAILJS_PUBLIC_KEY
-          });
+          // EmailJS v4: public key already set via emailjs.init() above. Send with 3 params only.
+          const emailResponse = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
           console.log('Emel notifikasi klien berjaya dihantar!', emailResponse.status, emailResponse.text);
         } catch (emailErr) {
           console.error('Ralat EmailJS:', emailErr);
