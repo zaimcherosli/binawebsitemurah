@@ -552,9 +552,10 @@
     const TELEGRAM_CHAT_ID = '124275768';
 
     // CONFIGURATION FOR EMAILJS
-    const EMAILJS_PUBLIC_KEY = 'SiXqH3RhPtQKJEsWn'; // Gantikan dengan Public Key dari dashboard EmailJS (Account -> API Keys)
-    const EMAILJS_SERVICE_ID = 'service_wes7zl';       // Gmail Service ID anda
-    const EMAILJS_TEMPLATE_ID = 'template_kdl64bl'; // Template ID rasmi dari tab Settings di EmailJS dashboard
+    const EMAILJS_PUBLIC_KEY = 'SiXqH3RhPtQKJEsWn';
+    const EMAILJS_SERVICE_ID = 'service_wes7zl';
+    const EMAILJS_TEMPLATE_ID = 'template_kdl64bl';
+    const EMAILJS_PRIVATE_KEY = '97LHbwNpU-KZUT1A15XIf'; // Private key for accessToken auth
 
     // Tab switching
     function switchTab(type) {
@@ -751,6 +752,7 @@
             service_id: EMAILJS_SERVICE_ID,
             template_id: EMAILJS_TEMPLATE_ID,
             user_id: EMAILJS_PUBLIC_KEY,
+            accessToken: EMAILJS_PRIVATE_KEY,
             template_params: {
               client_name: name,
               client_email: email,
