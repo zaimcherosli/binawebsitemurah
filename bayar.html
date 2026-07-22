@@ -547,6 +547,13 @@
   </footer>
 
   <script>
+    // Initialize EmailJS globally using v4 syntax
+    if (typeof emailjs !== 'undefined') {
+      emailjs.init({
+        publicKey: 'SiXqH3RhPtQKJEsWn'
+      });
+    }
+
     // CONFIGURATION FOR TELEGRAM BOT
     const TELEGRAM_BOT_TOKEN = '8835682085:AAEC7gvdmvOax1Vu5LaDZgOkHMc-ZigTfMg';
     const TELEGRAM_CHAT_ID = '124275768';
@@ -744,7 +751,7 @@
         }
       }
 
-      // 2. Send via EmailJS (Await this call so the request completes before redirecting)
+      // 2. Send via EmailJS (Await this call so the request completes)
       if (EMAILJS_PUBLIC_KEY && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY_HERE' && EMAILJS_TEMPLATE_ID && EMAILJS_TEMPLATE_ID !== 'YOUR_TEMPLATE_ID_HERE') {
         try {
           const templateParams = {
@@ -760,6 +767,7 @@
           console.log('Emel notifikasi klien berjaya dihantar!', emailResponse.status, emailResponse.text);
         } catch (emailErr) {
           console.error('Ralat EmailJS:', emailErr);
+          alert('⚠️ Ralat Penghantaran Emel Klien: ' + (emailErr.text || emailErr.message || JSON.stringify(emailErr)));
         }
       }
 
@@ -767,20 +775,21 @@
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalBtnText;
 
-      alert('✅ Terima kasih! Bukti pembayaran & resit anda telah berjaya dihantar.');
+      alert('✅ Terima kasih! Bukti pembayaran & resit anda telah berjaya dihantar ke sistem kami.');
 
-      // 4. Redirect to WhatsApp in the same tab to prevent mobile browser blocks
-      const phoneNumber = '60108118559'; // Zaim's phone number
-      const baseMessage = `Salam Kwikezee Studio, saya (${name}) telah membuat pembayaran bagi tempahan web:\n\n` +
-                          `- *Nama Penuh*: ${name}\n` +
-                          `- *Pakej Dipilih*: ${packageName}\n` +
-                          `- *Jumlah Dibayar*: ${priceText}\n\n` +
-                          `Saya telah memuat naik resit transaksi. Mohon pengesahan projek. Terima kasih!`;
-      
-      const encodedMessage = encodeURIComponent(baseMessage);
-      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-      
-      window.location.href = whatsappUrl;
+      // 4. Reset Form instead of WhatsApp Redirect
+      const form = document.getElementById('pay-form');
+      if (form) {
+        form.reset();
+        
+        // Reset file upload label
+        const filenameTxt = document.getElementById('upload-filename-txt');
+        const instruction = document.getElementById('upload-instruction');
+        if (filenameTxt) filenameTxt.style.display = 'none';
+        if (instruction) instruction.innerText = 'Klik untuk pilih gambar resit atau seret fail ke sini';
+        
+        updatePaymentAmount(); // reset display amount
+      }
     }
 
     // Get URL query params to auto-select package if passed
