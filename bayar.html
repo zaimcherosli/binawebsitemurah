@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="style.css?v=9">
 
   <!-- EmailJS SDK -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -276,9 +276,10 @@
       margin-bottom: 8px;
     }
     
-    .form-group-pay input[type="text"] {
+    .form-group-pay input[type="text"],
+    .form-group-pay input[type="email"] {
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.015);
+      background-color: #FFFFFF;
       border: 1.5px solid rgba(0, 0, 0, 0.08);
       color: var(--text-main);
       border-radius: 10px;
@@ -288,7 +289,8 @@
       transition: border-color 0.3s ease;
     }
     
-    .form-group-pay input[type="text"]:focus {
+    .form-group-pay input[type="text"]:focus,
+    .form-group-pay input[type="email"]:focus {
       border-color: var(--gold-primary);
     }
     
@@ -431,11 +433,11 @@
             </div>
 
             <!-- Kod Diskaun Input -->
-            <div class="form-group-pay" style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
-              <label for="discount-code" style="font-weight: 600; color: #fff;">Kod Diskaun (Ada promo?)</label>
+            <div class="form-group-pay" style="margin-top: 20px; border-top: 1px solid rgba(0, 0, 0, 0.08); padding-top: 15px;">
+              <label for="discount-code" style="font-weight: 600; color: var(--text-main);">Kod Diskaun (Ada promo?)</label>
               <div style="display: flex; gap: 10px;">
-                <input type="text" id="discount-code" placeholder="Masukkan kod diskaun (cth: LASTDAY)" style="flex: 1; text-transform: uppercase;">
-                <button type="button" id="btn-apply-discount" class="btn-copy" onclick="applyDiscountCode()" style="background: rgba(255,255,255,0.05); border: 1.5px solid rgba(255,255,255,0.1); color: var(--gold-secondary); font-size: 13px; font-weight: 700; padding: 0 20px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; height: 48px; min-width: 90px;">Guna</button>
+                <input type="text" id="discount-code" placeholder="Masukkan kod diskaun" style="flex: 1; text-transform: uppercase; background: #fff; border: 1.5px solid rgba(0, 0, 0, 0.08); border-radius: 10px; padding: 0 16px; height: 48px;">
+                <button type="button" id="btn-apply-discount" class="btn-copy" onclick="applyDiscountCode()" style="background: rgba(0, 0, 0, 0.03); border: 1.5px solid rgba(0, 0, 0, 0.08); color: var(--gold-secondary); font-size: 13px; font-weight: 700; padding: 0 20px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; height: 48px; min-width: 90px;">Guna</button>
               </div>
               <span id="discount-message" style="display: none; font-size: 13px; margin-top: 6px; font-weight: 600;"></span>
             </div>
@@ -706,11 +708,11 @@
                           `📅 <b>Tarikh & Masa</b>: ${timeStr}\n\n` +
                           `📎 <b>Lampiran Resit</b>: ${receiptFile ? 'Fail Dilampirkan' : 'Tiada Fail'}`;
 
-      // If Telegram Bot keys are configured, send via API
-      if (TELEGRAM_BOT_TOKEN && TELEGRAM_BOT_TOKEN !== 'YOUR_BOT_TOKEN_HERE' && TELEGRAM_CHAT_ID && TELEGRAM_CHAT_ID !== 'YOUR_CHAT_ID_HERE') {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '⏳ Menghantar Resit ke Telegram...';
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '⏳ Menghantar Butiran & Resit...';
 
+      // 1. Send via Telegram Bot API
+      if (TELEGRAM_BOT_TOKEN && TELEGRAM_BOT_TOKEN !== 'YOUR_BOT_TOKEN_HERE' && TELEGRAM_CHAT_ID && TELEGRAM_CHAT_ID !== 'YOUR_CHAT_ID_HERE') {
         try {
           const isPhoto = receiptFile && receiptFile.type.startsWith('image/');
           const endpointMethod = isPhoto ? 'sendPhoto' : (receiptFile ? 'sendDocument' : 'sendMessage');
@@ -734,24 +736,17 @@
           });
 
           const resData = await response.json();
-          if (resData.ok) {
-            alert('✅ Terima kasih! Bukti pembayaran & resit anda telah berjaya dihantar ke sistem Telegram Kwikezee Studio.');
-          } else {
+          if (!resData.ok) {
             console.error('Ralat Telegram API:', resData);
           }
         } catch (err) {
-          console.error('Network Error:', err);
-        } finally {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalBtnText;
+          console.error('Network Error Telegram:', err);
         }
       }
 
-      // Send Email Notification to client using EmailJS
+      // 2. Send via EmailJS (Await this call so the request completes before redirecting)
       if (EMAILJS_PUBLIC_KEY && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY_HERE' && EMAILJS_TEMPLATE_ID && EMAILJS_TEMPLATE_ID !== 'YOUR_TEMPLATE_ID_HERE') {
         try {
-          emailjs.init(EMAILJS_PUBLIC_KEY);
-          
           const templateParams = {
             client_name: name,
             client_email: email,
@@ -760,18 +755,21 @@
             date_time: timeStr
           };
 
-          emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-            .then((response) => {
-              console.log('Emel notifikasi klien berjaya dihantar!', response.status, response.text);
-            }, (err) => {
-              console.error('Ralat hantar emel klien:', err);
-            });
+          // We pass public key directly as the 4th parameter for instant authorization
+          const emailResponse = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY);
+          console.log('Emel notifikasi klien berjaya dihantar!', emailResponse.status, emailResponse.text);
         } catch (emailErr) {
           console.error('Ralat EmailJS:', emailErr);
         }
       }
 
-      // Open WhatsApp as companion notification
+      // 3. Reset Button and Show Success Message
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnText;
+
+      alert('✅ Terima kasih! Bukti pembayaran & resit anda telah berjaya dihantar.');
+
+      // 4. Redirect to WhatsApp in the same tab to prevent mobile browser blocks
       const phoneNumber = '60108118559'; // Zaim's phone number
       const baseMessage = `Salam Kwikezee Studio, saya (${name}) telah membuat pembayaran bagi tempahan web:\n\n` +
                           `- *Nama Penuh*: ${name}\n` +
@@ -782,7 +780,7 @@
       const encodedMessage = encodeURIComponent(baseMessage);
       const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
       
-      window.open(whatsappUrl, '_blank');
+      window.location.href = whatsappUrl;
     }
 
     // Get URL query params to auto-select package if passed
