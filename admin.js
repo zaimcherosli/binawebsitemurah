@@ -910,28 +910,37 @@ async function renderQuotationHistory() {
       const createdDate = new Date(qt.created_at || Date.now()).toLocaleDateString('ms-MY', { day: '2-digit', month: 'short', year: 'numeric' });
       const totVal = (qt.total || 0).toLocaleString();
       const depVal = (qt.deposit || Math.round((qt.total || 0) / 2)).toLocaleString();
+      const isSigned = qt.status === 'SIGNED';
 
       html += `
-        <div class="history-item-card">
-          <div class="hic-header">
-            <span class="hic-badge">${qt.qt_no}</span>
-            ${qt.status === 'SIGNED' ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 2px 8px; border-radius: 20px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DITANDATANGANI</span>` : ''}
-            <span class="hic-date">${createdDate}</span>
+        <div class="history-item-card" style="background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+          <div>
+            <!-- Header Row: Badges on left, Date on right -->
+            <div class="hic-header" style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
+              <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                <span class="hic-badge" style="background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px; white-space: nowrap;">${qt.qt_no}</span>
+                ${isSigned ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 3px 8px; border-radius: 6px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DITANDATANGANI</span>` : `<span style="font-size: 10.5px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 3px 8px; border-radius: 6px; font-weight: 700; white-space: nowrap;">DRAFT</span>`}
+              </div>
+              <span class="hic-date" style="font-size: 11px; color: #64748b; font-weight: 600; white-space: nowrap; margin-left: auto;">${createdDate}</span>
+            </div>
+
+            <h3 class="hic-title" style="font-size: 16px; font-weight: 800; color: #0f172a; margin: 0 0 4px 0; line-height: 1.3;">${escapeHtml(qt.client_name || 'Klien')}</h3>
+            <p class="hic-sub" style="font-size: 12.5px; font-weight: 600; color: #475569; margin: 0 0 12px 0; line-height: 1.4;">${escapeHtml(qt.project_title || 'Projek Web')}</p>
+
+            <div class="hic-price-row" style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 10px 12px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 12px; font-weight: 700; color: #0f172a;">
+              <span>Jumlah: <strong style="color: #000000; font-weight: 900; font-size: 13px;">RM ${totVal}</strong></span>
+              <span>Deposit: <strong style="color: #047857; font-weight: 900; font-size: 13px;">RM ${depVal}</strong></span>
+            </div>
           </div>
-          <h3 class="hic-title">${escapeHtml(qt.client_name || 'Klien')}</h3>
-          <p class="hic-sub">${escapeHtml(qt.project_title || 'Projek Web')}</p>
-          <div class="hic-price-row">
-            <span>Jumlah: <strong style="color: #000000; font-weight: 800;">RM ${totVal}</strong></span>
-            <span>Deposit 50%: <strong style="color: #047857; font-weight: 800;">RM ${depVal}</strong></span>
-          </div>
-          <div class="hic-actions" style="display: flex; gap: 8px; align-items: center; justify-content: flex-start;">
+
+          <div class="hic-actions" style="display: flex; gap: 8px; align-items: center; justify-content: flex-start; border-top: 1px dashed #e2e8f0; padding-top: 12px;">
             <button class="btn-history-icon" onclick="viewHistoryQt(${idx})" title="Lihat Dokumen" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#000!important;cursor:pointer!important;flex-shrink:0!important;">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
             </button>
-            <button class="btn-history-icon" onclick="editHistoryQt(${idx})" title="Edit" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#000!important;cursor:pointer!important;flex-shrink:0!important;">
+            <button class="btn-history-icon" onclick="editHistoryQt(${idx})" title="Edit / Kemaskini" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#000!important;cursor:pointer!important;flex-shrink:0!important;">
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path><path d="M15 5l4 4"></path></svg>
             </button>
-            <button class="btn-history-icon" onclick="waHistoryQt(${idx})" title="WhatsApp" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;cursor:pointer!important;flex-shrink:0!important;">
+            <button class="btn-history-icon" onclick="waHistoryQt(${idx})" title="Kongsi Ke WhatsApp" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;cursor:pointer!important;flex-shrink:0!important;">
               <svg width="22" height="22" viewBox="0 0 32 32" fill="none"><path d="M16 2a13.9 13.9 0 0 0-11.8 21.2L2.3 29.7l6.7-1.8A13.9 13.9 0 1 0 16 2z" fill="#25D366"/><path d="M12.1 9.7c-.3-.7-.6-.7-.9-.7h-.7c-.2 0-.6.1-.9.4s-1.2 1.2-1.2 2.9 1.3 3.3 1.4 3.5c.2.2 2.5 3.8 6.1 5.4.9.4 1.5.6 2 .8.9.3 1.7.2 2.3.1.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4s-2.2-1.1-2.5-1.2c-.3-.2-.5-.2-.7.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.8 0s-1.7-.6-3.2-2c-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.1-.7s-.6-1.5-.9-2.1z" fill="#FFF"/></svg>
             </button>
             <button class="btn-history-icon" onclick="deleteHistoryQt('${qt.qt_no}')" title="Padam" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#DC2626!important;cursor:pointer!important;flex-shrink:0!important;">
