@@ -2573,43 +2573,41 @@ input:focus, select:focus, textarea:focus {
   color: var(--gold-secondary);
 }
 
+.pwa-sheet-logo-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50% !important;
+  object-fit: cover;
+  border: 1.5px solid var(--gold-primary);
+  box-shadow: 0 2px 8px rgba(184, 134, 11, 0.3);
+  flex-shrink: 0;
+}
+
 @media (max-width: 768px) {
   .top-promo-bar {
-    padding: 5px 8px;
-    font-size: 10.5px;
-    overflow: hidden;
+    padding: 6px 10px;
+    font-size: 11px;
   }
   .tpb-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 4px;
+    gap: 6px;
     flex-wrap: nowrap;
     width: 100%;
   }
-  .tpb-badge,
-  .tpb-slot {
-    display: none !important;
+  .tpb-badge {
+    display: inline-block !important;
+    font-size: 9px;
+    padding: 2px 6px;
   }
   .tpb-text {
-    font-size: 10.5px;
+    font-size: 11px;
     white-space: nowrap;
-    gap: 3px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .tpb-timer {
-    font-size: 10.5px;
-  }
-  .timer-box {
-    padding: 1px 3px;
-    font-size: 9.5px;
-    min-width: 16px;
-    border-radius: 4px;
   }
   .tpb-btn {
-    font-size: 9.5px;
-    padding: 3px 8px;
+    font-size: 10px;
+    padding: 4px 10px;
     white-space: nowrap;
     flex-shrink: 0;
   }
@@ -2617,14 +2615,34 @@ input:focus, select:focus, textarea:focus {
     flex-direction: column;
     text-align: center;
     justify-content: center;
+    gap: 10px;
   }
   .pcb-text-group {
     flex-direction: column;
-    gap: 6px;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    text-align: center;
+  }
+  .pcb-title {
+    font-size: 12px;
+    white-space: nowrap;
+    display: block;
+    width: 100%;
+    text-align: center;
+    letter-spacing: 0.1px;
+  }
+  .pcb-sub {
+    font-size: 11px;
+    white-space: nowrap;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 1px;
   }
   .digit-box {
     padding: 6px 10px;
-    min-width: 48px;
+    min-width: 46px;
   }
   .digit-box span {
     font-size: 16px;
