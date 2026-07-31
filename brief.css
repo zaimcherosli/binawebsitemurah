@@ -934,24 +934,28 @@ body {
   transform: translateY(-1px);
 }
 
-/* MAXIMUM 100% FULL-WIDTH MOBILE RESPONSIVE EXPANSION */
+/* 100% EDGE-TO-EDGE FULL BLEED MOBILE LAYOUT */
 @media screen and (max-width: 850px) {
-  body.admin-body {
+  html, body.admin-body {
     padding: 0 !important;
     margin: 0 !important;
-  }
-  .brief-main {
-    padding: 6px 0 !important;
     width: 100% !important;
-    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+  .brief-main,
+  main.brief-main {
+    padding: 4px 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
   }
   .brief-main .container,
   .container,
   .form-container,
-  .brief-container {
+  .brief-container,
+  .admin-container {
     max-width: 100% !important;
     width: 100% !important;
-    padding: 0 4px !important;
+    padding: 0 2px !important;
     margin: 0 !important;
     box-sizing: border-box !important;
   }
@@ -959,35 +963,51 @@ body {
   .brief-card,
   .card,
   .history-item-card,
-  .submission-card {
-    padding: 12px 8px !important;
-    border-radius: 10px !important;
+  .submission-card,
+  .admin-tab-content {
+    padding: 8px 4px !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+  .qb-item-row,
+  .scope-item-card {
+    padding: 8px 6px !important;
+    margin: 8px 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+    border-radius: 8px !important;
   }
-  .admin-header {
-    padding: 10px 8px !important;
-  }
-  .form-group {
-    margin-bottom: 12px !important;
-  }
-  .form-group label {
-    font-size: 12.5px !important;
-    margin-bottom: 4px !important;
+  .form-group,
+  .form-group-pay {
+    margin-bottom: 10px !important;
+    width: 100% !important;
   }
   .form-control,
+  .qb-input-title,
+  .qb-input-desc,
+  .qb-input-price,
   input,
   select,
   textarea {
-    font-size: 14px !important;
-    padding: 10px 10px !important;
     width: 100% !important;
+    font-size: 14px !important;
+    padding: 10px 8px !important;
     box-sizing: border-box !important;
   }
-  .scope-item-card {
-    padding: 10px 8px !important;
+  .admin-nav-tabs {
+    display: flex !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin-bottom: 10px !important;
+    gap: 4px !important;
+  }
+  .admin-tab-btn {
+    flex: 1 !important;
+    padding: 8px 4px !important;
+    font-size: 11px !important;
+    text-align: center !important;
   }
 }
 
