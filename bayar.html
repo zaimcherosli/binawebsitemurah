@@ -84,13 +84,58 @@
       border: 1.5px solid rgba(0, 0, 0, 0.08);
       color: var(--text-main);
       border-radius: 12px;
-      padding: 16px 20px;
-      font-size: 15px;
-      font-weight: 500;
+      padding: 16px 36px 16px 18px;
+      font-size: 14.5px;
+      font-weight: 600;
       appearance: none;
       outline: none;
       transition: border-color 0.3s ease;
       cursor: pointer;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .payment-mode-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .pay-mode-option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #fff;
+      border: 1.5px solid rgba(0,0,0,0.1);
+      padding: 12px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      transition: all 0.2s ease;
+      user-select: none;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    @media (max-width: 580px) {
+      .payment-card {
+        padding: 24px 16px !important;
+        border-radius: 20px !important;
+      }
+      .payment-mode-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .select-wrapper select {
+        padding-right: 30px !important;
+        font-size: 13px !important;
+      }
     }
     
     .select-wrapper select option {
@@ -649,19 +694,19 @@
             </div>
 
             <!-- Mode Pembayaran: Full vs 50% Deposit -->
-            <div class="payment-mode-selector" style="margin-top: 18px; background: rgba(0, 0, 0, 0.015); border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 14px; padding: 16px;">
+            <div class="payment-mode-selector" style="margin-top: 18px; background: rgba(0, 0, 0, 0.015); border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 14px; padding: 16px; box-sizing: border-box; width: 100%;">
               <label style="display: block; font-weight: 700; font-size: 13px; color: var(--text-main); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Pilihan Jenis Pembayaran:</label>
-              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-                <label class="pay-mode-option" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(184, 134, 11, 0.05); border: 1.5px solid var(--gold-primary); padding: 12px 10px; border-radius: 12px; cursor: pointer; font-size: 13px; font-weight: 700; text-align: center; transition: all 0.2s ease; user-select: none;">
+              <div class="payment-mode-grid">
+                <label class="pay-mode-option">
                   <input type="radio" name="pay-mode" value="full" checked onchange="updatePaymentAmount()" style="accent-color: var(--gold-primary); width: 16px; height: 16px; flex-shrink: 0;">
-                  <span style="white-space: nowrap;">💳 Bayaran Penuh (100%)</span>
+                  <span>💳 Bayaran Penuh (100%)</span>
                 </label>
-                <label class="pay-mode-option" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #fff; border: 1.5px solid rgba(0,0,0,0.1); padding: 12px 10px; border-radius: 12px; cursor: pointer; font-size: 13px; font-weight: 700; text-align: center; transition: all 0.2s ease; user-select: none;">
+                <label class="pay-mode-option">
                   <input type="radio" name="pay-mode" value="deposit" onchange="updatePaymentAmount()" style="accent-color: var(--gold-primary); width: 16px; height: 16px; flex-shrink: 0;">
-                  <span style="white-space: nowrap;">⚡ Deposit 50% (Separuh)</span>
+                  <span>⚡ Deposit 50% (Separuh)</span>
                 </label>
               </div>
-              <div id="deposit-note" style="display: none; margin-top: 12px; font-size: 12.5px; color: #b45309; font-weight: 600; background: #fffbeb; border: 1px solid #fcd34d; padding: 10px 14px; border-radius: 10px; line-height: 1.5;">
+              <div id="deposit-note" style="display: none; margin-top: 12px; font-size: 12.5px; color: #b45309; font-weight: 600; background: #fffbeb; border: 1px solid #fcd34d; padding: 10px 14px; border-radius: 10px; line-height: 1.5; box-sizing: border-box; width: 100%;">
                 💡 <strong>Pilihan Deposit 50%:</strong> Bayar separuh dahulu untuk memulakan projek. Baki 50% lagi akan dibayar selepas laman web anda siap sepenuhnya!
               </div>
             </div>
