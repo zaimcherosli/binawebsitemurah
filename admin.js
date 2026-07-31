@@ -1096,16 +1096,44 @@ window.duplicateHistoryQt = async function(index) {
   }
   const newQtNo = `KZ-QT-${currentYear}-${String(nextNum).padStart(3, '0')}`;
 
-  switchAdminTab('quotation');
-
-  // Isi borang dengan data duplikasi
-  if (document.getElementById('qt-no')) document.getElementById('qt-no').value = newQtNo;
-  if (document.getElementById('qt-date')) document.getElementById('qt-date').value = new Date().toISOString().split('T')[0];
-  
-  // Set 14 hari tamat sah
+  const todayStr = new Date().toISOString().split('T')[0];
   const validDate = new Date();
   validDate.setDate(validDate.getDate() + 14);
-  if (document.getElementById('qt-valid-until')) document.getElementById('qt-valid-until').value = validDate.toISOString().split('T')[0];
+  const validStr = validDate.toISOString().split('T')[0];
+
+  // Bina objek sebut harga duplikasi baharu
+  const duplicatedRecord = {
+    qtNo: newQtNo,
+    qtDate: todayStr,
+    qtValid: validStr,
+    clientName: qtData.clientName || '',
+    projectTitle: qtData.projectTitle || '',
+    clientPhone: qtData.clientPhone || '',
+    clientEmail: qtData.clientEmail || '',
+    duration: qtData.duration || '5 - 7 Hari Bekerja',
+    discount: qtData.discount || 0,
+    payMode: qtData.payMode || 'deposit',
+    notes: qtData.notes || '',
+    items: qtData.items || [],
+    subtotal: qtData.subtotal || 0,
+    total: qtData.total || 0,
+    deposit: qtData.deposit || 0,
+    balance: qtData.balance || 0,
+    status: 'DRAFT',
+    clientSignature: null,
+    signedAt: null
+  };
+
+  // SIMPAN SECARA TERUS KE CLOUDFLARE D1 & LOCALSTORAGE
+  await saveQtToD1(duplicatedRecord);
+  updateHistoryCountBadge();
+
+  // Switch ke Generator tab & isi borang
+  switchAdminTab('quotation');
+
+  if (document.getElementById('qt-no')) document.getElementById('qt-no').value = newQtNo;
+  if (document.getElementById('qt-date')) document.getElementById('qt-date').value = todayStr;
+  if (document.getElementById('qt-valid-until')) document.getElementById('qt-valid-until').value = validStr;
 
   if (document.getElementById('qt-client-name')) document.getElementById('qt-client-name').value = qtData.clientName || '';
   if (document.getElementById('qt-project-title')) document.getElementById('qt-project-title').value = qtData.projectTitle || '';
@@ -1129,7 +1157,7 @@ window.duplicateHistoryQt = async function(index) {
 
   updateQtFormTotals();
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  alert(`Sebut Harga (${qtData.qtNo}) telah diduplikasi secara lengkap ke dalam borang sebagai draf baharu (${newQtNo})!`);
+  alert(`✅ Sebut Harga baharu (${newQtNo}) telah berjaya diduplikasi & disimpan secara automatik ke Arkib Cloud!`);
 };
 
 window.generateNextQtNo = async function() {
