@@ -23,6 +23,7 @@ function initNavbar() {
   const hamburger = document.getElementById('nav-hamburger');
   const mobileMenu = document.getElementById('nav-mobile-menu');
   const mobileLinks = document.querySelectorAll('.nav-mobile-link');
+  const closeBtn = document.getElementById('nav-overlay-close');
 
   // Change navbar appearance on scroll
   window.addEventListener('scroll', () => {
@@ -33,25 +34,44 @@ function initNavbar() {
     }
   });
 
+  function openMenu() {
+    if (!hamburger || !mobileMenu) return;
+    hamburger.setAttribute('aria-expanded', 'true');
+    mobileMenu.classList.add('active');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    hamburger.classList.add('open');
+    document.body.style.overflow = 'hidden'; // Freeze background scrolling
+  }
+
+  function closeMenu() {
+    if (!hamburger || !mobileMenu) return;
+    hamburger.setAttribute('aria-expanded', 'false');
+    mobileMenu.classList.remove('active');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    hamburger.classList.remove('open');
+    document.body.style.overflow = ''; // Restore background scrolling
+  }
+
   // Toggle mobile menu drawer
-  hamburger.addEventListener('click', () => {
-    const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
-    hamburger.setAttribute('aria-expanded', !isExpanded);
-    mobileMenu.classList.toggle('active');
-    mobileMenu.setAttribute('aria-hidden', isExpanded);
-    
-    // Toggle class for hamburger lines animation
-    hamburger.classList.toggle('open');
-  });
+  if (hamburger) {
+    hamburger.addEventListener('click', () => {
+      const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+      if (isExpanded) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+  }
+
+  // Close button (✕)
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeMenu);
+  }
 
   // Close menu when clicking mobile links
   mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.setAttribute('aria-expanded', 'false');
-      mobileMenu.classList.remove('active');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-      hamburger.classList.remove('open');
-    });
+    link.addEventListener('click', closeMenu);
   });
 }
 

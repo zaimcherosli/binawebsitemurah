@@ -36,7 +36,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=295">
+  <link rel="stylesheet" href="style.css?v=299">
 
   <!-- Schema LocalBusiness JSON-LD -->
   <script type="application/ld+json">
@@ -127,6 +127,7 @@
         <a href="#kajian-kes" class="nav-link">Testimoni</a>
         <a href="#faq" class="nav-link">Soalan Lazim</a>
         <a href="bayar" class="nav-link" style="color: var(--gold-secondary); font-weight: 700;">Bayar Direct</a>
+        <a href="admin" class="nav-link" style="color: #60a5fa; font-weight: 700;">🔐 Admin</a>
       </nav>
 
       <div class="nav-right">
@@ -142,6 +143,7 @@
 
     <!-- Mobile Navigation Overlay (Drawer) -->
     <div class="nav-overlay" id="nav-mobile-menu" aria-hidden="true">
+      <button class="nav-overlay-close" id="nav-overlay-close" aria-label="Tutup menu" style="position: absolute; top: 20px; right: 24px; background: rgba(255, 255, 255, 0.12); border: 1.5px solid rgba(255, 255, 255, 0.25); color: #FFFFFF; font-size: 22px; font-weight: 800; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; z-index: 10001;">✕</button>
       <div class="nav-overlay-inner">
         <a href="#kelebihan" class="nav-mobile-link">Kelebihan</a>
         <a href="#portfolio" class="nav-mobile-link">Portfolio</a>
@@ -149,6 +151,7 @@
         <a href="#kajian-kes" class="nav-mobile-link">Testimoni</a>
         <a href="#faq" class="nav-mobile-link">Soalan Lazim</a>
         <a href="bayar" class="nav-mobile-link" style="color: var(--gold-secondary); font-weight: 700;">💳 Portal Pembayaran</a>
+        <a href="admin" class="nav-mobile-link" style="color: #60a5fa; font-weight: 700;">🔐 Portal Admin</a>
         <a href="#order-form" class="nav-mobile-link nav-mobile-cta">Hubungi Kami</a>
       </div>
     </div>
@@ -950,6 +953,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=299"></script>
 </body>
 </html>
