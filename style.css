@@ -3247,140 +3247,220 @@ input:focus, select:focus, textarea:focus {
 }
 
 /* ==========================================================================
-   ADMIN PORTAL LIGHT THEME (WHITE BACKGROUND & HIGH CONTRAST TYPOGRAPHY)
+   ADMIN PORTAL LIGHT THEME (WHITE BACKGROUND & HIGH CONTRAST PURE BLACK TYPOGRAPHY)
    ========================================================================== */
 body.admin-body {
   background-color: #F1F5F9 !important;
-  color: #0F172A !important;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #000000 !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
+/* Header Admin Bar */
 body.admin-body .admin-header {
-  background-color: #0F172A !important;
-  border-bottom: 1px solid #1E293B !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+  background: linear-gradient(135deg, #090A0F 0%, #171923 100%) !important;
+  border-bottom: 2px solid var(--gold-primary) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
 }
 
-body.admin-body .admin-title-row h1 {
-  color: #0F172A !important;
+/* Top Admin Title Card */
+body.admin-body .admin-title-card {
+  background: #FFFFFF !important;
+  border: 1.5px solid #CBD5E1 !important;
+  border-radius: 20px !important;
+  padding: 24px 28px !important;
+  margin-bottom: 24px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 16px !important;
+}
+
+body.admin-body .admin-title-card h1 {
+  color: #000000 !important;
+  font-size: 26px !important;
+  font-weight: 900 !important;
+  margin: 0 0 4px 0 !important;
+  letter-spacing: -0.5px !important;
+}
+
+body.admin-body .admin-title-card p {
+  color: #334155 !important;
+  font-size: 14.5px !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+}
+
+body.admin-body .btn-logout-admin {
+  background: #FFFFFF !important;
+  border: 1.5px solid #FCA5A5 !important;
+  color: #DC2626 !important;
   font-weight: 800 !important;
+  font-size: 13px !important;
+  border-radius: 20px !important;
+  padding: 10px 22px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
 }
 
-body.admin-body .admin-title-row p {
-  color: #475569 !important;
+body.admin-body .btn-logout-admin:hover {
+  background: #FEF2F2 !important;
+  border-color: #EF4444 !important;
 }
 
-/* Nav Tabs in Light Theme */
+/* Nav Tabs */
 body.admin-body .admin-nav-tabs {
-  border-bottom: 2px solid #CBD5E1 !important;
+  display: flex !important;
+  gap: 12px !important;
+  margin-bottom: 24px !important;
+  border-bottom: 2.5px solid #CBD5E1 !important;
   padding-bottom: 14px !important;
+  overflow-x: auto !important;
 }
 
 body.admin-body .admin-tab-btn {
   background: #FFFFFF !important;
   border: 1.5px solid #CBD5E1 !important;
-  color: #475569 !important;
-  font-weight: 700 !important;
+  color: #000000 !important;
+  font-weight: 800 !important;
+  font-size: 14px !important;
+  padding: 12px 24px !important;
+  border-radius: 12px !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
 }
 
 body.admin-body .admin-tab-btn:hover {
   background: #E2E8F0 !important;
-  color: #0F172A !important;
+  color: #000000 !important;
 }
 
 body.admin-body .admin-tab-btn.active {
   background: #0F172A !important;
   color: #FFFFFF !important;
   border-color: #0F172A !important;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18) !important;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.25) !important;
 }
 
-/* Quotation Builder Card Light Theme */
+/* Quotation Builder Card */
 body.admin-body .quotation-builder-card {
   background-color: #FFFFFF !important;
-  border: 1px solid #E2E8F0 !important;
+  border: 1.5px solid #CBD5E1 !important;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05) !important;
   padding: 36px !important;
   border-radius: 24px !important;
 }
 
 body.admin-body .qb-header {
-  border-bottom: 1.5px solid #F1F5F9 !important;
+  border-bottom: 1.5px solid #E2E8F0 !important;
   padding-bottom: 20px !important;
+  margin-bottom: 24px !important;
 }
 
 body.admin-body .qb-header h2 {
-  color: #0F172A !important;
-  font-size: 24px !important;
-  font-weight: 800 !important;
+  color: #000000 !important;
+  font-size: 26px !important;
+  font-weight: 900 !important;
+  margin-bottom: 6px !important;
 }
 
 body.admin-body .qb-header p {
-  color: #475569 !important;
-  font-size: 14px !important;
-  font-weight: 500 !important;
+  color: #1E293B !important;
+  font-size: 14.5px !important;
+  font-weight: 600 !important;
 }
 
 body.admin-body .qb-form-section {
   background: #F8FAFC !important;
-  border: 1.5px solid #E2E8F0 !important;
+  border: 1.5px solid #CBD5E1 !important;
   border-radius: 16px !important;
   padding: 24px !important;
+  margin-bottom: 24px !important;
 }
 
 body.admin-body .qb-section-title {
-  color: #b8860b !important;
-  font-size: 14px !important;
-  font-weight: 800 !important;
+  color: #000000 !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  border-bottom: 2.5px solid #CBD5E1 !important;
+  padding-bottom: 8px !important;
+  margin-bottom: 18px !important;
   letter-spacing: 0.5px !important;
 }
 
-/* Clear High Contrast Labels & Input Fields */
+/* Form Groups & Inputs 100% Width Fix */
+body.admin-body .form-group-pay {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
 body.admin-body .form-group-pay label {
-  color: #1E293B !important;
-  font-weight: 700 !important;
-  font-size: 13px !important;
-  margin-bottom: 8px !important;
+  color: #000000 !important;
+  font-weight: 800 !important;
+  font-size: 13.5px !important;
+  margin-bottom: 6px !important;
   display: block !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
 }
 
 body.admin-body input[type="text"],
 body.admin-body input[type="email"],
 body.admin-body input[type="number"],
 body.admin-body input[type="date"],
+body.admin-body input[type="password"],
 body.admin-body select,
-body.admin-body textarea {
+body.admin-body textarea,
+body.admin-body .qb-input-title,
+body.admin-body .qb-input-desc,
+body.admin-body .qb-input-price {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  height: 48px !important;
+  min-height: 48px !important;
   background-color: #FFFFFF !important;
-  border: 1.5px solid #CBD5E1 !important;
-  color: #0F172A !important;
-  font-weight: 600 !important;
-  font-size: 14px !important;
+  border: 1.5px solid #94A3B8 !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  font-size: 14.5px !important;
   border-radius: 10px !important;
-  padding: 12px 14px !important;
+  padding: 10px 16px !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02) !important;
+}
+
+body.admin-body textarea {
+  height: auto !important;
+  min-height: 90px !important;
 }
 
 body.admin-body input::placeholder,
 body.admin-body textarea::placeholder {
-  color: #94A3B8 !important;
+  color: #64748B !important;
   font-weight: 500 !important;
+  opacity: 1 !important;
 }
 
 body.admin-body input:focus,
 body.admin-body select:focus,
 body.admin-body textarea:focus {
-  border-color: #b8860b !important;
+  border-color: #000000 !important;
   outline: none !important;
-  box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.15) !important;
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.15) !important;
 }
 
 /* Item Row inside Scope Builder */
 body.admin-body .qb-item-row {
   background: #FFFFFF !important;
-  border: 1.5px solid #E2E8F0 !important;
+  border: 1.5px solid #CBD5E1 !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
   border-radius: 14px !important;
   padding: 20px !important;
+  margin-bottom: 16px !important;
 }
 
 body.admin-body .qb-item-num {
@@ -3392,72 +3472,80 @@ body.admin-body .qb-item-num {
 /* Summary Box */
 body.admin-body .qb-total-summary-box {
   background: #FEFCE8 !important;
-  border: 1.5px dashed #F59E0B !important;
-  color: #1E293B !important;
-  font-size: 14px !important;
-  font-weight: 700 !important;
+  border: 2px dashed #F59E0B !important;
+  color: #000000 !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
   border-radius: 14px !important;
   padding: 18px 24px !important;
+  margin-top: 20px !important;
 }
 
 /* Submissions List & History Cards */
 body.admin-body .submission-item {
   background-color: #FFFFFF !important;
-  border: 1px solid #E2E8F0 !important;
-  color: #0F172A !important;
+  border: 1.5px solid #CBD5E1 !important;
+  color: #000000 !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
 }
 
 body.admin-body .submission-header h3 {
-  color: #0F172A !important;
+  color: #000000 !important;
+  font-weight: 800 !important;
 }
 
 body.admin-body .sub-date {
-  color: #64748B !important;
+  color: #475569 !important;
+  font-weight: 600 !important;
 }
 
 body.admin-body .detail-block h4 {
-  color: #b8860b !important;
+  color: #000000 !important;
+  font-weight: 800 !important;
 }
 
 body.admin-body .detail-block p {
-  color: #1E293B !important;
+  color: #000000 !important;
 }
 
 body.admin-body .history-card {
   background-color: #FFFFFF !important;
-  border: 1px solid #E2E8F0 !important;
+  border: 1.5px solid #CBD5E1 !important;
   box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
   padding: 32px !important;
   border-radius: 20px !important;
 }
 
 body.admin-body .history-card h2 {
-  color: #0F172A !important;
+  color: #000000 !important;
+  font-weight: 900 !important;
 }
 
 body.admin-body .history-item-card {
   background: #F8FAFC !important;
-  border: 1.5px solid #E2E8F0 !important;
+  border: 1.5px solid #CBD5E1 !important;
 }
 
 body.admin-body .hic-title {
-  color: #0F172A !important;
+  color: #000000 !important;
+  font-weight: 800 !important;
 }
 
 body.admin-body .hic-sub {
-  color: #64748B !important;
+  color: #334155 !important;
+  font-weight: 600 !important;
 }
 
 body.admin-body .hic-price-row {
-  color: #334155 !important;
-  border-top-color: #E2E8F0 !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  border-top-color: #CBD5E1 !important;
 }
 
 body.admin-body .brief-footer {
   background: #FFFFFF !important;
-  border-top: 1px solid #E2E8F0 !important;
-  color: #64748B !important;
+  border-top: 1.5px solid #CBD5E1 !important;
+  color: #475569 !important;
 }
 
 
