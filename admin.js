@@ -1107,7 +1107,7 @@ window.duplicateHistoryQt = async function(index) {
   validDate.setDate(validDate.getDate() + 14);
   if (document.getElementById('qt-valid-until')) document.getElementById('qt-valid-until').value = validDate.toISOString().split('T')[0];
 
-  if (document.getElementById('qt-client-name')) document.getElementById('qt-client-name').value = (qtData.clientName || '') + ' (Salinan)';
+  if (document.getElementById('qt-client-name')) document.getElementById('qt-client-name').value = qtData.clientName || '';
   if (document.getElementById('qt-project-title')) document.getElementById('qt-project-title').value = qtData.projectTitle || '';
   if (document.getElementById('qt-client-phone')) document.getElementById('qt-client-phone').value = qtData.clientPhone || '';
   if (document.getElementById('qt-client-email')) document.getElementById('qt-client-email').value = qtData.clientEmail || '';
