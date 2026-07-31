@@ -3276,14 +3276,17 @@ input:focus, select:focus, textarea:focus {
   }
   body.admin-body {
     padding: 0 !important;
+    margin: 0 !important;
   }
   .brief-main {
-    padding: 10px 4px !important;
+    padding: 6px 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
-  .brief-container,
+  .brief-main .container,
+  .container,
   .form-container,
+  .brief-container,
   .admin-container {
     max-width: 100% !important;
     width: 100% !important;
@@ -3292,9 +3295,12 @@ input:focus, select:focus, textarea:focus {
     box-sizing: border-box !important;
   }
   .form-card,
-  .brief-card {
-    padding: 16px 10px !important;
-    border-radius: 12px !important;
+  .brief-card,
+  .card,
+  .history-item-card,
+  .submission-card {
+    padding: 12px 8px !important;
+    border-radius: 10px !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }

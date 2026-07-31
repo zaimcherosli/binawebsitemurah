@@ -938,15 +938,17 @@ body {
 @media screen and (max-width: 850px) {
   body.admin-body {
     padding: 0 !important;
+    margin: 0 !important;
   }
   .brief-main {
-    padding: 10px 4px !important;
+    padding: 6px 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
-  .brief-container,
+  .brief-main .container,
+  .container,
   .form-container,
-  .container {
+  .brief-container {
     max-width: 100% !important;
     width: 100% !important;
     padding: 0 4px !important;
@@ -955,23 +957,37 @@ body {
   }
   .form-card,
   .brief-card,
-  .history-item-card {
-    padding: 14px 10px !important;
-    border-radius: 12px !important;
+  .card,
+  .history-item-card,
+  .submission-card {
+    padding: 12px 8px !important;
+    border-radius: 10px !important;
     width: 100% !important;
     box-sizing: border-box !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
   }
   .admin-header {
-    padding: 12px 10px !important;
+    padding: 10px 8px !important;
+  }
+  .form-group {
+    margin-bottom: 12px !important;
+  }
+  .form-group label {
+    font-size: 12.5px !important;
+    margin-bottom: 4px !important;
   }
   .form-control,
   input,
   select,
   textarea {
     font-size: 14px !important;
-    padding: 10px 12px !important;
+    padding: 10px 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .scope-item-card {
+    padding: 10px 8px !important;
   }
 }
 
