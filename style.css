@@ -4016,3 +4016,47 @@ body.admin-body .brief-footer {
   }
 }
 
+/* ==========================================================================
+   NO-SUBMISSIONS & ERROR STATES — PERFECT 100% CENTERED LAYOUT
+   ========================================================================== */
+body.admin-body .no-submissions {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 60px 24px !important;
+  min-height: 320px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  background: #FFFFFF !important;
+  border: 1.5px solid #CBD5E1 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03) !important;
+  margin: 0 auto !important;
+}
+
+body.admin-body .no-submissions h3 {
+  color: #0F172A !important;
+  font-size: 19px !important;
+  font-weight: 800 !important;
+  margin: 0 0 8px 0 !important;
+  text-align: center !important;
+}
+
+body.admin-body .no-submissions p {
+  color: #64748B !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+  text-align: center !important;
+  max-width: 440px !important;
+  line-height: 1.5 !important;
+}
+
+body.admin-body .no-submissions svg {
+  margin: 0 auto 16px auto !important;
+  display: block !important;
+}
+
+

@@ -105,10 +105,10 @@ function loadSubmissions(callback) {
   .catch(err => {
     console.error(err);
     container.innerHTML = `
-      <div class="no-submissions">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <h3 style="color:#FFFFFF;">Ralat Sistem</h3>
-        <p style="color:#A1A1AA;">Gagal memuat turun data projek. Sila hubungi pembangun atau cuba lagi.</p>
+      <div class="no-submissions" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 20px; min-height: 320px; width: 100%; box-sizing: border-box; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2" style="margin: 0 auto 16px auto; display: block;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <h3 style="color: #0F172A !important; font-size: 19px; font-weight: 800; margin: 0 0 8px 0; text-align: center;">Ralat Memuat Data Projek</h3>
+        <p style="color: #64748B !important; font-size: 14px; font-weight: 600; margin: 0; text-align: center; max-width: 440px; line-height: 1.5;">Gagal memuat turun data projek dari pelayan. Sila semak sambungan internet anda atau cuba sebentar lagi.</p>
       </div>
     `;
   });
@@ -120,10 +120,10 @@ function renderSubmissions(submissions) {
 
   if (submissions.length === 0) {
     container.innerHTML = `
-      <div class="no-submissions">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        <h3 style="color:#FFFFFF;">Tiada Data Projek</h3>
-        <p style="color:#A1A1AA;">Sistem belum menerima sebarang penghantaran borang maklumat daripada klien.</p>
+      <div class="no-submissions" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 20px; min-height: 320px; width: 100%; box-sizing: border-box; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.5" style="margin: 0 auto 16px auto; display: block;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <h3 style="color: #0F172A !important; font-size: 19px; font-weight: 800; margin: 0 0 8px 0; text-align: center;">Tiada Data Projek Diterima</h3>
+        <p style="color: #64748B !important; font-size: 14px; font-weight: 600; margin: 0; text-align: center; max-width: 440px; line-height: 1.5;">Sistem belum menerima sebarang penghantaran borang maklumat daripada klien.</p>
       </div>
     `;
     return;
@@ -322,10 +322,10 @@ window.deleteSubmission = function(submissionId) {
     const remainingItems = container.querySelectorAll('.submission-item');
     if (remainingItems.length === 0) {
       container.innerHTML = `
-        <div class="no-submissions">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          <h3 style="color:#FFFFFF;">Tiada Data Projek</h3>
-          <p style="color:#A1A1AA;">Sistem belum menerima sebarang penghantaran borang maklumat daripada klien.</p>
+        <div class="no-submissions" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 20px; min-height: 320px; width: 100%; box-sizing: border-box; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.5" style="margin: 0 auto 16px auto; display: block;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <h3 style="color: #0F172A !important; font-size: 19px; font-weight: 800; margin: 0 0 8px 0; text-align: center;">Tiada Data Projek Diterima</h3>
+          <p style="color: #64748B !important; font-size: 14px; font-weight: 600; margin: 0; text-align: center; max-width: 440px; line-height: 1.5;">Sistem belum menerima sebarang penghantaran borang maklumat daripada klien.</p>
         </div>
       `;
     }
@@ -921,10 +921,10 @@ async function updateHistoryCountBadge() {
 function renderHistoryItemsUI(history, container) {
   if (history.length === 0) {
     container.innerHTML = `
-      <div class="no-submissions">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        <h3 style="color:#FFFFFF;">Tiada Sebut Harga Disimpan</h3>
-        <p style="color:#A1A1AA;">Sebut harga yang dijana akan disimpan secara automatik di sini.</p>
+      <div class="no-submissions" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 20px; min-height: 320px; width: 100%; box-sizing: border-box; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.5" style="margin: 0 auto 16px auto; display: block;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <h3 style="color: #0F172A !important; font-size: 19px; font-weight: 800; margin: 0 0 8px 0; text-align: center;">Tiada Sebut Harga Disimpan</h3>
+        <p style="color: #64748B !important; font-size: 14px; font-weight: 600; margin: 0; text-align: center; max-width: 440px; line-height: 1.5;">Sebut harga yang dijana akan disimpan secara automatik di sini.</p>
       </div>
     `;
     return;
