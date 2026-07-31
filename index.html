@@ -104,6 +104,19 @@
     <span class="wa-fab-ripple"></span>
   </a>
 
+  <!-- Sticky Top Countdown & Scarcity Announcement Bar -->
+  <div class="top-promo-bar" id="top-promo-bar">
+    <div class="tpb-container">
+      <span class="tpb-badge">⚡ TAWARAN DISKAUN TERHAD</span>
+      <span class="tpb-text">
+        Diskaun Lebih <strong class="tpb-highlight">60% OFF</strong> Tamat Dalam:
+        <span class="tpb-timer" id="tpb-countdown"><span class="timer-box" id="timer-hours">04</span>:<span class="timer-box" id="timer-mins">23</span>:<span class="timer-box" id="timer-secs">45</span></span>
+      </span>
+      <span class="tpb-slot">🔥 Tinggal <strong style="color: #F59E0B;">2 Slot</strong> Reka Bentuk Minggu Ini!</span>
+      <a href="#harga" class="tpb-btn">Tuntut Diskaun Now &rarr;</a>
+    </div>
+  </div>
+
   <!-- DESKTOP NAVBAR -->
   <header class="navbar" id="navbar">
     <div class="nav-inner">
@@ -518,11 +531,11 @@
             <h3>Starter</h3>
             <p class="pc-desc">Sesuai untuk landing page produk tunggal atau ejen hartanah REN.</p>
             <div class="pc-price-promo">
-              <span style="font-size: 13px; color: #a1a1aa; opacity: 0.75; font-weight: 500; display: inline-flex; align-items: center; gap: 4px;">Harga Asal: <del style="text-decoration: line-through;">RM299</del></span>
+              <span style="font-size: 12px; color: #a1a1aa; opacity: 0.85; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">Harga Asal: <del style="text-decoration: line-through;">RM499</del> <span class="pc-save-badge">JIMAT RM300</span></span>
             </div>
             <div class="pc-price">
               <span class="currency">RM</span>
-              <span class="amount">150</span>
+              <span class="amount">199</span>
               <span class="period">/sekali bayar</span>
             </div>
           </div>
@@ -550,11 +563,11 @@
             <h3>Premium</h3>
             <p class="pc-desc">Sesuai untuk syarikat/kontraktor tempatan memaparkan servis &amp; portfolio.</p>
             <div class="pc-price-promo">
-              <span style="font-size: 13px; color: #a1a1aa; opacity: 0.75; font-weight: 500; display: inline-flex; align-items: center; gap: 4px;">Harga Asal: <del style="text-decoration: line-through;">RM599</del></span>
+              <span style="font-size: 12px; color: #a1a1aa; opacity: 0.85; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">Harga Asal: <del style="text-decoration: line-through;">RM999</del> <span class="pc-save-badge">JIMAT RM609</span></span>
             </div>
             <div class="pc-price">
               <span class="currency">RM</span>
-              <span class="amount">350</span>
+              <span class="amount">390</span>
               <span class="period">/sekali bayar</span>
             </div>
           </div>
@@ -575,13 +588,13 @@
           </div>
         </div>
 
-        <!-- Pakej Custom -->
+        <!-- Pakej Pro E-Commerce -->
         <div class="pricing-card reveal">
           <div class="pc-header">
-            <h3>Custom</h3>
-            <p class="pc-desc">Sesuai untuk e-commerce penuh, sistem booking, atau keperluan custom.</p>
+            <h3>Pro E-Commerce</h3>
+            <p class="pc-desc">Sesuai untuk e-commerce, katalog produk, atau listing destinasi travel.</p>
             <div class="pc-price-promo">
-              <span style="font-size: 13px; color: #a1a1aa; opacity: 0.75; font-weight: 500; display: inline-flex; align-items: center; gap: 4px;">Harga Asal: <del style="text-decoration: line-through;">RM1,499</del></span>
+              <span style="font-size: 12px; color: #a1a1aa; opacity: 0.85; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">Harga Asal: <del style="text-decoration: line-through;">RM1,999</del> <span class="pc-save-badge">JIMAT RM1,109</span></span>
             </div>
             <div class="pc-price">
               <span class="currency">RM</span>
@@ -593,16 +606,46 @@
             <ul class="pc-features">
               <li><span class="check">&#10003;</span> Hingga 15 Halaman / 20 Produk*</li>
               <li><span class="check">&#10003;</span> Sistem Bakul Belanja &amp; E-Kedai</li>
-              <li><span class="check">&#10003;</span> Integrasi ToyyibPay / Billplz</li>
+              <li><span class="check">&#10003;</span> Integrasi Payment Gateway (ToyyibPay)</li>
               <li><span class="check">&#10003;</span> Sistem Pesanan WhatsApp Bersepadu</li>
               <li><span class="check">&#10003;</span> Database &amp; CMS (Senarai Listing)</li>
               <li><span class="check">&#10003;</span> Sembang Langsung (Live Chat Widget)</li>
               <li><span class="check">&#10003;</span> Latihan Pengurusan Admin</li>
-              <li><span class="check">&#10003;</span> Bantuan Domain &amp; Hosting Premium</li>
+              <li><span class="check">&#10003;</span> Bantuan Setup Domain &amp; Hosting</li>
             </ul>
           </div>
           <div class="pc-footer">
-            <a href="#order-form" class="btn btn-outline btn-block" onclick="selectPricingPackage('custom')">Hubungi Kami</a>
+            <a href="#order-form" class="btn btn-outline btn-block" onclick="selectPricingPackage('pro')">Pilih Pro E-Commerce</a>
+          </div>
+        </div>
+
+        <!-- Pakej Custom Enterprise (Tanpa Harga Tetap) -->
+        <div class="pricing-card custom-card reveal">
+          <div class="pc-header">
+            <h3>Custom Enterprise</h3>
+            <p class="pc-desc">Untuk sistem berciri khas, portal besar, atau re-design syarikat sepenuhnya.</p>
+            <div class="pc-price-promo">
+              <span style="font-size: 11px; color: var(--gold-secondary); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Sebut Harga Berdasarkan Skop</span>
+            </div>
+            <div class="pc-price" style="margin-top: 4px;">
+              <span class="amount" style="font-size: 32px; color: var(--gold-secondary);">Custom</span>
+              <span class="period">/sebut harga</span>
+            </div>
+          </div>
+          <div class="pc-body">
+            <ul class="pc-features">
+              <li><span class="check">&#10003;</span> Halaman Tanpa Had (Berdasarkan Keperluan)</li>
+              <li><span class="check">&#10003;</span> Pembangunan Aplikasi Web Custom</li>
+              <li><span class="check">&#10003;</span> Re-design Penuh Dari Squarespace/WordPress</li>
+              <li><span class="check">&#10003;</span> Integrasi API &amp; Pangkalan Data Khas</li>
+              <li><span class="check">&#10003;</span> Reka Bentuk UI/UX Dedicated</li>
+              <li><span class="check">&#10003;</span> Sistem Booking &amp; Dashboard Admin</li>
+              <li><span class="check">&#10003;</span> Sesi Konsultasi Teknikal 1-ke-1</li>
+              <li><span class="check">&#10003;</span> Priority Support &amp; Maintenance 24/7</li>
+            </ul>
+          </div>
+          <div class="pc-footer">
+            <a href="https://wa.me/60108118559?text=Hai%20Kwikezee%20Studio,%20saya%20berminat%20nak%20dapatkan%20sebut%20harga%20pakej%20Custom%20Enterprise" target="_blank" rel="noopener" class="btn btn-outline btn-block custom-btn">Dapatkan Sebut Harga</a>
           </div>
         </div>
 

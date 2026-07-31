@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initPwaInstall();
   initDraggableWaFab();
+  initCountdownTimer();
 });
 
 /* ==========================================
@@ -618,3 +619,50 @@ function initDraggableWaFab() {
     }, 50);
   }
 }
+
+/* ==========================================
+   LIVE COUNTDOWN TIMER FOR TOP PROMO BAR
+   ========================================== */
+function initCountdownTimer() {
+  const hoursEl = document.getElementById('timer-hours');
+  const minsEl = document.getElementById('timer-mins');
+  const secsEl = document.getElementById('timer-secs');
+
+  if (!hoursEl || !minsEl || !secsEl) return;
+
+  // Store or retrieve persistent target end time (6 hours cycle from first visit)
+  let targetTime = localStorage.getItem('kwikezee_promo_target');
+  const now = new Date().getTime();
+
+  if (!targetTime || parseInt(targetTime, 10) <= now) {
+    // Set target time to 6 hours from now
+    targetTime = now + (6 * 60 * 60 * 1000);
+    localStorage.setItem('kwikezee_promo_target', targetTime);
+  } else {
+    targetTime = parseInt(targetTime, 10);
+  }
+
+  function updateTimer() {
+    const currentTime = new Date().getTime();
+    let diff = targetTime - currentTime;
+
+    if (diff <= 0) {
+      // Reset for another 6 hours
+      diff = 6 * 60 * 60 * 1000;
+      targetTime = currentTime + diff;
+      localStorage.setItem('kwikezee_promo_target', targetTime);
+    }
+
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    hoursEl.textContent = hours < 10 ? '0' + hours : hours;
+    minsEl.textContent = minutes < 10 ? '0' + minutes : minutes;
+    secsEl.textContent = seconds < 10 ? '0' + seconds : seconds;
+  }
+
+  updateTimer();
+  setInterval(updateTimer, 1000);
+}
+

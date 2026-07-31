@@ -1431,8 +1431,8 @@ a {
 
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
   margin-top: 50px;
   align-items: stretch;
 }
@@ -2295,3 +2295,134 @@ input:focus, select:focus, textarea:focus {
     bottom: 64px; /* Align right above bottom nav */
   }
 }
+
+/* ==========================================
+   STICKY TOP PROMO BAR & COUNTDOWN TIMER
+   ========================================== */
+.top-promo-bar {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: linear-gradient(90deg, #09090b 0%, #1e1b18 50%, #09090b 100%);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.4);
+  padding: 8px 16px;
+  color: #F4F4F5;
+  font-size: 13px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.tpb-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.tpb-badge {
+  background: rgba(239, 68, 68, 0.15);
+  color: #F87171;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.tpb-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.tpb-highlight {
+  color: var(--gold-secondary);
+}
+
+.tpb-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-family: var(--font-headings);
+  font-weight: 800;
+  color: #FFF;
+}
+
+.timer-box {
+  background: rgba(201, 168, 76, 0.2);
+  border: 1px solid rgba(201, 168, 76, 0.5);
+  color: var(--gold-secondary);
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  min-width: 26px;
+  text-align: center;
+}
+
+.tpb-slot {
+  font-size: 12px;
+  color: #E4E4E7;
+  font-weight: 600;
+}
+
+.tpb-btn {
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
+  color: #0A0A0C;
+  font-weight: 800;
+  font-size: 11px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  letter-spacing: 0.3px;
+}
+
+.tpb-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(201, 168, 76, 0.4);
+}
+
+/* Save badge in pricing card */
+.pc-save-badge {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.pricing-card.custom-card {
+  border-color: rgba(201, 168, 76, 0.3);
+  background: linear-gradient(180deg, rgba(201, 168, 76, 0.03) 0%, rgba(10, 10, 12, 0.95) 100%);
+}
+
+.pricing-card.custom-card:hover {
+  border-color: var(--gold-secondary);
+  box-shadow: 0 20px 40px rgba(201, 168, 76, 0.12);
+}
+
+@media (max-width: 768px) {
+  .top-promo-bar {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+  .tpb-container {
+    gap: 8px;
+  }
+  .tpb-slot {
+    display: none; /* Hide extra text on very small screens to keep bar compact */
+  }
+}
+
