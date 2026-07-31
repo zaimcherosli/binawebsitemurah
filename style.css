@@ -3120,13 +3120,14 @@ input:focus, select:focus, textarea:focus {
 }
 
 .a4-totals-box {
-  width: 330px !important;
+  width: 340px;
+  max-width: 100%;
   background: #f8fafc;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
   padding: 14px 18px;
   font-size: 12px;
-  box-sizing: border-box !important;
+  box-sizing: border-box;
 }
 
 .a4-t-row {

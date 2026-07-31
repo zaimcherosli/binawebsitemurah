@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=110">
-  <link rel="stylesheet" href="brief.css?v=110">
+  <link rel="stylesheet" href="style.css?v=120">
+  <link rel="stylesheet" href="brief.css?v=120">
 </head>
 <body class="admin-body">
 
@@ -242,8 +242,9 @@
         <button class="btn btn-primary" onclick="window.print()">
           🖨️ Cetak / Simpan PDF
         </button>
-        <button class="btn btn-emerald" id="btn-qt-whatsapp" target="_blank" onclick="sendQtToWhatsapp()">
-          💬 Kongsi Ke WhatsApp
+        <button class="btn btn-emerald" id="btn-qt-whatsapp" onclick="sendQtToWhatsapp()" style="display: inline-flex; align-items: center; gap: 8px; font-weight: 700;">
+          <svg width="18" height="18" viewBox="0 0 32 32" fill="none" style="flex-shrink: 0;"><path d="M16 2a13.9 13.9 0 0 0-11.8 21.2L2.3 29.7l6.7-1.8A13.9 13.9 0 1 0 16 2z" fill="#FFFFFF"/><path d="M12.1 9.7c-.3-.7-.6-.7-.9-.7h-.7c-.2 0-.6.1-.9.4s-1.2 1.2-1.2 2.9 1.3 3.3 1.4 3.5c.2.2 2.5 3.8 6.1 5.4.9.4 1.5.6 2 .8.9.3 1.7.2 2.3.1.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4s-2.2-1.1-2.5-1.2c-.3-.2-.5-.2-.7.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.8 0s-1.7-.6-3.2-2c-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.1-.7s-.6-1.5-.9-2.1z" fill="#047857"/></svg>
+          <span>Kongsi Ke WhatsApp</span>
         </button>
       </div>
     </div>
@@ -319,7 +320,7 @@
             <li>Pembangunan dimulakan serta-merta selepas deposit 50% disahkan.</li>
           </ul>
         </div>
-        <div class="a4-totals-box" style="width: 330px !important; min-width: 300px !important; box-sizing: border-box !important; padding: 14px 18px !important;">
+        <div class="a4-totals-box">
           <div class="a4-t-row" style="display: flex; justify-content: space-between; align-items: center; gap: 12px;">
             <span style="font-weight: 700; color: #475569;">Jumlah Skop:</span>
             <span id="a4-subtotal" style="white-space: nowrap !important; flex-shrink: 0 !important; font-weight: 800; color: #000;">RM0</span>
@@ -358,19 +359,34 @@
         </div>
       </div>
 
-      <!-- Footer Signatures (Side-by-Side 2 Columns) -->
-      <div class="a4-footer-sig" style="display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: flex-end !important; margin-top: 30px !important; width: 100% !important;">
+      <!-- Footer Signatures (E-Signature Digital Approval) -->
+      <div class="a4-footer-sig" style="display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: flex-end !important; margin-top: 35px !important; width: 100% !important;">
         <div class="a4-sig-col" style="flex: 1 !important; max-width: 48% !important;">
-          <p style="font-size: 11px; color: #666; margin-bottom: 35px;">Disediakan Oleh:</p>
-          <div class="a4-sig-line" style="width: 150px; height: 1px; background: #94a3b8; margin-bottom: 6px;"></div>
-          <strong style="color: #000; font-size: 13px;">Kwikezee Studio</strong>
-          <p style="font-size: 11px; color: #666; margin: 0;">Pengurusan Projek Digital</p>
+          <p style="font-size: 11px; color: #666; margin-bottom: 6px;">Disediakan Oleh:</p>
+          <div class="esig-badge-box" style="display: inline-flex; flex-direction: column; align-items: flex-start; padding: 6px 12px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px; margin-bottom: 6px;">
+            <span style="font-family: 'Outfit', cursive, sans-serif; font-size: 15px; font-weight: 800; color: #0f172a; font-style: italic; letter-spacing: 0.5px;">Kwikezee Studio</span>
+            <span style="font-size: 9px; color: #047857; font-weight: 700; display: inline-flex; align-items: center; gap: 3px;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Tandatangan Digital Disahkan
+            </span>
+          </div>
+          <div class="a4-sig-line" style="width: 160px; height: 1.5px; background: #0f172a; margin-bottom: 4px;"></div>
+          <strong style="color: #000; font-size: 12.5px;">Kwikezee Studio</strong>
+          <p style="font-size: 10.5px; color: #666; margin: 0;">Pengurusan Projek Digital</p>
         </div>
+
         <div class="a4-sig-col" style="flex: 1 !important; max-width: 48% !important; text-align: right !important;">
-          <p style="font-size: 11px; color: #666; margin-bottom: 35px;">Disahkan &amp; Diterima Oleh:</p>
-          <div class="a4-sig-line" style="width: 150px; height: 1px; background: #94a3b8; margin-bottom: 6px; margin-left: auto;"></div>
-          <strong id="a4-sig-client" style="color: #000; font-size: 13px;">Tandatangan Klien</strong>
-          <p style="font-size: 11px; color: #666; margin: 0;">Tarikh Setuju: _______________</p>
+          <p style="font-size: 11px; color: #666; margin-bottom: 6px;">Disahkan &amp; Diterima Oleh:</p>
+          <div class="esig-badge-box" style="display: inline-flex; flex-direction: column; align-items: flex-end; padding: 6px 12px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px; margin-bottom: 6px; margin-left: auto;">
+            <span id="esig-client-name" style="font-family: 'Outfit', cursive, sans-serif; font-size: 15px; font-weight: 800; color: #0f172a; font-style: italic; letter-spacing: 0.5px;">Abg Wan</span>
+            <span style="font-size: 9px; color: #047857; font-weight: 700; display: inline-flex; align-items: center; gap: 3px;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              E-Signature Digital Approved
+            </span>
+          </div>
+          <div class="a4-sig-line" style="width: 160px; height: 1.5px; background: #0f172a; margin-bottom: 4px; margin-left: auto;"></div>
+          <strong id="a4-sig-client" style="color: #000; font-size: 12.5px;">Tandatangan Klien</strong>
+          <p style="font-size: 10.5px; color: #666; margin: 0;">Tarikh Setuju: <span id="a4-sig-date">_______________</span></p>
         </div>
       </div>
 
@@ -391,6 +407,6 @@
     </div>
   </footer>
 
-  <script src="admin.js?v=110"></script>
+  <script src="admin.js?v=120"></script>
 </body>
 </html>
