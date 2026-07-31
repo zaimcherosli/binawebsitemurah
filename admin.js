@@ -718,9 +718,8 @@ function renderQuotationDocument(qtData) {
   }
 
   setSafeText('a4-duration', qtData.duration || '5 - 7 Hari Bekerja');
-  setSafeText('esig-client-name', qtData.clientName || 'Tandatangan Klien');
   setSafeText('a4-sig-client', qtData.clientName || 'Tandatangan Klien');
-  setSafeText('a4-sig-date', qtData.date || '31 Julai 2026');
+  setSafeText('a4-sig-date', '_______________');
 
   // Terms list
   const termsList = document.getElementById('a4-terms-list');
