@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=296">
+  <link rel="stylesheet" href="style.css?v=306">
   <style>
     body.client-portal-body {
       background: #09090b;
@@ -331,7 +331,7 @@
       <p style="color: #065f46; font-size: 13.5px; margin: 0 0 14px 0;">
         Tandatangan digital anda telah disimpan dengan selamat. Sila teruskan pembayaran deposit 50% untuk memulakan projek.
       </p>
-      <a href="bayar.html" class="btn btn-emerald btn-lg" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+      <a href="bayar.html" id="btn-signed-pay-redirect" class="btn btn-emerald btn-lg" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
         💳 Teruskan Pembayaran Deposit 50%
       </a>
     </div>
@@ -566,6 +566,21 @@
             if (line.trim()) termsHtml += `<li>${escHtml(line.trim())}</li>`;
           });
           termsList.innerHTML = termsHtml;
+        }
+
+        // Update payment redirect button with exact quotation amount
+        const payAmount = (qt.pay_mode === 'full') ? (qt.total || 0) : (qt.deposit || Math.round((qt.total || 0) / 2));
+        const payModeText = (qt.pay_mode === 'full') ? 'full' : 'deposit';
+        const payUrl = `bayar.html?qt=${encodeURIComponent(qt.qt_no || '')}&amount=${payAmount}&total=${qt.total || 0}&paymode=${payModeText}&name=${encodeURIComponent(qt.client_name || '')}`;
+
+        const payBtn = document.getElementById('btn-signed-pay-redirect');
+        if (payBtn) {
+          payBtn.href = payUrl;
+          if (qt.pay_mode === 'full') {
+            payBtn.innerHTML = `💳 Teruskan Pembayaran Penuh (RM ${payAmount.toLocaleString()})`;
+          } else {
+            payBtn.innerHTML = `💳 Teruskan Pembayaran Deposit 50% (RM ${payAmount.toLocaleString()})`;
+          }
         }
 
         // Jika dah bertandatangan, tunjukkan status

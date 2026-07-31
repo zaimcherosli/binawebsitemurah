@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=291">
+  <link rel="stylesheet" href="style.css?v=306">
 
   <!-- EmailJS via Direct REST API - no SDK needed -->
   
@@ -957,6 +957,39 @@
         depositNote.style.display = payMode === 'deposit' ? 'block' : 'none';
       }
 
+      if (window._customQuotationAmount && select.value === 'quotation_custom') {
+        const customAmt = window._customQuotationAmount;
+        const customNo = window._customQuotationNo || '';
+        const payModeRadio = document.querySelector('input[name="pay-mode"]:checked');
+        const payMode = payModeRadio ? payModeRadio.value : 'deposit';
+
+        if (payMode === 'deposit') {
+          const depAmt = customAmt;
+          const fullTot = window._customQuotationTotal || customAmt * 2;
+          const balAmt = Math.max(0, fullTot - depAmt);
+          document.getElementById('display-amount').innerHTML = `
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">
+              <div style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
+                <span style="color: var(--gold-secondary); font-weight: 800; font-size: 26px; line-height: 1.2;">RM${depAmt.toLocaleString()}</span>
+                <span style="background: rgba(184, 134, 11, 0.12); color: var(--gold-secondary); border: 1px solid rgba(184, 134, 11, 0.3); font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 20px; text-transform: uppercase;">Deposit (${customNo})</span>
+              </div>
+              <div style="font-size: 12px; color: var(--text-muted); font-weight: 600; margin-top: 4px; text-align: center;">
+                💡 Baki <strong style="color: var(--text-main);">RM${balAmt.toLocaleString()}</strong> dibayar selepas laman web siap
+              </div>
+            </div>
+          `;
+        } else {
+          const fullAmt = window._customQuotationTotal || customAmt;
+          document.getElementById('display-amount').innerHTML = `
+            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
+              <span style="font-size: 26px; font-weight: 800; color: #09090b; line-height: 1.2;">RM${fullAmt.toLocaleString()}</span>
+              <span style="background: rgba(16, 185, 129, 0.1); color: #059669; border: 1px solid rgba(16, 185, 129, 0.2); font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 20px; text-transform: uppercase;">Sebut Harga (${customNo})</span>
+            </div>
+          `;
+        }
+        return;
+      }
+
       if (originalPrice === 0) {
         if (payMode === 'deposit') {
           document.getElementById('display-amount').innerHTML = 'Deposit 50% <small style="font-size: 12px; color: #a1a1aa; font-weight: 500;">(Mengikut Sebut Harga Custom)</small>';
@@ -1259,14 +1292,52 @@
     // Get URL query params to auto-select package if passed
     window.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
-      const packageParam = urlParams.get('pakej');
-      if (packageParam) {
+      const qtParam = urlParams.get('qt');
+      const amountParam = parseFloat(urlParams.get('amount'));
+      const totalParam = parseFloat(urlParams.get('total'));
+      const paymodeParam = urlParams.get('paymode');
+      const nameParam = urlParams.get('name');
+
+      if (qtParam && !isNaN(amountParam)) {
         const select = document.getElementById('pay-package');
-        for (let i = 0; i < select.options.length; i++) {
-          if (select.options[i].value === packageParam) {
-            select.selectedIndex = i;
-            updatePaymentAmount();
-            break;
+        const fullTotal = (!isNaN(totalParam) && totalParam > 0) ? totalParam : (paymodeParam === 'deposit' ? amountParam * 2 : amountParam);
+        
+        const opt = document.createElement('option');
+        opt.value = 'quotation_custom';
+        opt.setAttribute('data-price', fullTotal.toString());
+        opt.innerText = `Sebut Harga ${qtParam} — RM${fullTotal.toLocaleString()}`;
+        opt.selected = true;
+        
+        select.insertBefore(opt, select.firstChild);
+
+        if (paymodeParam === 'deposit') {
+          const depRadio = document.querySelector('input[name="pay-mode"][value="deposit"]');
+          if (depRadio) depRadio.checked = true;
+        } else if (paymodeParam === 'full') {
+          const fullRadio = document.querySelector('input[name="pay-mode"][value="full"]');
+          if (fullRadio) fullRadio.checked = true;
+        }
+
+        window._customQuotationAmount = amountParam;
+        window._customQuotationTotal = fullTotal;
+        window._customQuotationNo = qtParam;
+
+        if (nameParam) {
+          const nameInput = document.getElementById('pay-name');
+          if (nameInput) nameInput.value = decodeURIComponent(nameParam);
+        }
+
+        updatePaymentAmount();
+      } else {
+        const packageParam = urlParams.get('pakej');
+        if (packageParam) {
+          const select = document.getElementById('pay-package');
+          for (let i = 0; i < select.options.length; i++) {
+            if (select.options[i].value === packageParam) {
+              select.selectedIndex = i;
+              updatePaymentAmount();
+              break;
+            }
           }
         }
       }
