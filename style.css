@@ -410,9 +410,9 @@ a {
    HERO SECTION
    ========================================== */
 .hero-section {
-  padding-top: calc(var(--nav-height) + 60px);
-  padding-bottom: 80px;
-  min-height: 90vh;
+  padding-top: calc(var(--nav-height) + 20px);
+  padding-bottom: 40px;
+  min-height: auto;
   display: flex;
   align-items: center;
 }
@@ -837,7 +837,7 @@ a {
 }
 
 .section-header {
-  margin-bottom: 60px;
+  margin-bottom: 32px;
 }
 
 .section-eyebrow {
@@ -1187,7 +1187,7 @@ a {
    ADVANTAGES SECTION (KELEBIHAN)
    ========================================== */
 .advantages-section {
-  padding: 100px 0;
+  padding: 48px 0;
   border-top: 1px solid var(--border-color);
   background: rgba(0, 0, 0, 0.005);
 }
@@ -1253,7 +1253,7 @@ a {
    PORTFOLIO & INDUSTRIAL SOLUTIONS
    ========================================== */
 .portfolio-section {
-  padding: 100px 0;
+  padding: 48px 0;
   border-top: 1px solid var(--border-color);
 }
 
@@ -1433,7 +1433,7 @@ a {
    PRICING PACKAGES SECTION (PAKEJ HARGA)
    ========================================== */
 .pricing-section {
-  padding: 100px 0;
+  padding: 48px 0;
   border-top: 1px solid var(--border-color);
   background: rgba(184, 134, 11, 0.005);
   position: relative;
@@ -1662,7 +1662,7 @@ a {
    CASE STUDIES SECTION (KAJIAN KES)
    ========================================== */
 .casestudy-section {
-  padding: 100px 0;
+  padding: 48px 0;
   border-top: 1px solid var(--border-color);
   background: rgba(184, 134, 11, 0.01);
   position: relative;
@@ -1811,7 +1811,7 @@ a {
    FAQ SECTION (ACCORDION)
    ========================================== */
 .faq-section {
-  padding: 100px 0;
+  padding: 48px 0;
   border-top: 1px solid var(--border-color);
 }
 
@@ -1875,7 +1875,7 @@ a {
    ORDER FORM & CONTACT
    ========================================== */
 .order-section {
-  padding: 100px 0;
+  padding: 48px 0;
   border-top: 1px solid var(--border-color);
   background: linear-gradient(180deg, var(--bg-color) 0%, #EBF7F0 100%); /* gradient to soft mint tint */
 }
@@ -2179,6 +2179,21 @@ input:focus, select:focus, textarea:focus {
 }
 
 @media (max-width: 768px) {
+  .hero-section {
+    padding-top: calc(var(--nav-height) + 12px);
+    padding-bottom: 24px;
+  }
+  .advantages-section,
+  .portfolio-section,
+  .pricing-section,
+  .casestudy-section,
+  .faq-section,
+  .order-section {
+    padding: 32px 0;
+  }
+  .section-header {
+    margin-bottom: 24px;
+  }
   /* Hide desktop parts and adjust height for mobile */
   .nav-links, .nav-right {
     display: none;
