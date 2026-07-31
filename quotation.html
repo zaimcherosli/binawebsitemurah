@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=282">
+  <link rel="stylesheet" href="style.css?v=284">
   <style>
     body.client-portal-body {
       background: #09090b;
@@ -269,36 +269,36 @@
         </div>
       </div>
 
-      <!-- Footer Signatures (Clean Vertical Flow, No Text Overlap) -->
-      <div class="a4-footer-sig" style="display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: flex-end !important; margin-top: 35px !important; width: 100% !important; gap: 20px !important;">
-        <div class="a4-sig-col" style="flex: 1 !important; max-width: 48% !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;">
-          <p style="font-size: 11px; color: #666; margin: 0 0 8px 0; font-weight: 600;">Disediakan Oleh:</p>
-          <div style="min-height: 50px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; margin-bottom: 6px;">
-            <div class="esig-badge-box" style="display: inline-flex; flex-direction: column; align-items: flex-start; padding: 4px 10px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px;">
-              <span style="font-family: 'Outfit', cursive, sans-serif; font-size: 14px; font-weight: 800; color: #0f172a; font-style: italic; letter-spacing: 0.5px;">Kwikezee Studio</span>
-              <span style="font-size: 8.5px; color: #047857; font-weight: 700; display: inline-flex; align-items: center; gap: 3px; margin-top: 2px;">
-                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Tandatangan Digital Disahkan
+      <!-- Footer Signatures (100% Horizontally Aligned Side-by-Side) -->
+      <div class="a4-footer-sig" style="display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: flex-end !important; margin-top: 30px !important; width: 100% !important; gap: 15px !important;">
+        <div class="a4-sig-col" style="flex: 1 !important; max-width: 48% !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; text-align: left;">
+          <p style="font-size: 10.5px; color: #64748b; margin: 0 0 6px 0; font-weight: 700; height: 16px; line-height: 16px; white-space: nowrap !important;">Disediakan Oleh:</p>
+          <div style="min-height: 48px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; margin-bottom: 6px;">
+            <div class="esig-badge-box" style="display: inline-flex; flex-direction: column; align-items: flex-start; padding: 4px 8px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px;">
+              <span style="font-family: 'Outfit', cursive, sans-serif; font-size: 13px; font-weight: 800; color: #0f172a; font-style: italic; letter-spacing: 0.5px;">Kwikezee Studio</span>
+              <span style="font-size: 8px; color: #047857; font-weight: 700; display: inline-flex; align-items: center; gap: 3px; margin-top: 2px; white-space: nowrap;">
+                <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Digital Verified
               </span>
             </div>
           </div>
-          <div class="a4-sig-line" style="width: 100%; max-width: 170px; height: 1.5px; background: #0f172a; margin-bottom: 4px;"></div>
-          <strong style="color: #000; font-size: 12px; display: block;">Kwikezee Studio</strong>
-          <p style="font-size: 10px; color: #666; margin: 2px 0 0 0;">Pengurusan Projek Digital</p>
+          <div class="a4-sig-line" style="width: 100%; max-width: 150px; height: 1.5px; background: #0f172a; margin-bottom: 4px;"></div>
+          <strong style="color: #000; font-size: 11.5px; display: block; height: 16px; line-height: 16px; white-space: nowrap !important; overflow: hidden; text-overflow: ellipsis; width: 100%;">Kwikezee Studio</strong>
+          <p style="font-size: 9.5px; color: #64748b; margin: 2px 0 0 0; height: 14px; line-height: 14px; white-space: nowrap !important; overflow: hidden; text-overflow: ellipsis; width: 100%;">Pengurusan Projek</p>
         </div>
 
         <div class="a4-sig-col" style="flex: 1 !important; max-width: 48% !important; text-align: right !important; display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end;">
-          <p style="font-size: 11px; color: #666; margin: 0 0 8px 0; font-weight: 600;">Disahkan &amp; Diterima Oleh:</p>
-          <div id="client-sig-display-box" style="min-height: 50px; display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end; margin-bottom: 6px;">
-            <img id="client-sig-img" src="" alt="E-Signature" style="max-height: 44px; max-width: 150px; display: none; object-fit: contain; margin-bottom: 4px;">
-            <span id="esig-client-status" style="font-size: 8.5px; color: #047857; font-weight: 700; display: none; align-items: center; gap: 3px; background: #ecfdf5; padding: 2px 8px; border-radius: 4px; border: 1px solid #a7f3d0;">
-              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Tandatangan Digital Disahkan
+          <p style="font-size: 10.5px; color: #64748b; margin: 0 0 6px 0; font-weight: 700; height: 16px; line-height: 16px; white-space: nowrap !important;">Disahkan &amp; Diterima Oleh:</p>
+          <div id="client-sig-display-box" style="min-height: 48px; display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end; margin-bottom: 6px;">
+            <img id="client-sig-img" src="" alt="E-Signature" style="max-height: 40px; max-width: 140px; display: none; object-fit: contain; margin-bottom: 2px;">
+            <span id="esig-client-status" style="font-size: 8px; color: #047857; font-weight: 700; display: none; align-items: center; gap: 3px; background: #ecfdf5; padding: 2px 6px; border-radius: 4px; border: 1px solid #a7f3d0; white-space: nowrap;">
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Digital Verified
             </span>
           </div>
-          <div class="a4-sig-line" style="width: 100%; max-width: 170px; height: 1.5px; background: #0f172a; margin-bottom: 4px; margin-left: auto;"></div>
-          <strong id="a4-sig-client" style="color: #000; font-size: 12px; display: block;">Abg Wan</strong>
-          <p style="font-size: 10px; color: #666; margin: 2px 0 0 0;">Tarikh Setuju: <span id="a4-sig-date">_______________</span></p>
+          <div class="a4-sig-line" style="width: 100%; max-width: 150px; height: 1.5px; background: #0f172a; margin-bottom: 4px; margin-left: auto;"></div>
+          <strong id="a4-sig-client" style="color: #000; font-size: 11.5px; display: block; height: 16px; line-height: 16px; white-space: nowrap !important; overflow: hidden; text-overflow: ellipsis; width: 100%;">Tandatangan Klien</strong>
+          <p style="font-size: 9.5px; color: #64748b; margin: 2px 0 0 0; height: 14px; line-height: 14px; white-space: nowrap !important; overflow: hidden; text-overflow: ellipsis; width: 100%;">Tarikh: <span id="a4-sig-date">_______________</span></p>
         </div>
       </div>
     </div>
@@ -435,7 +435,7 @@
         `;
       }
       if (dateText) {
-        dateText.innerText = new Date().toLocaleDateString('ms-MY', { day: '2-digit', month: 'long', year: 'numeric' });
+        dateText.innerText = new Date().toLocaleDateString('ms-MY', { day: '2-digit', month: 'short', year: 'numeric' });
       }
 
       // Simpan tandatangan ke Cloudflare D1 via Worker API

@@ -729,7 +729,10 @@ function renderQuotationDocument(qtData) {
   const esigStatus = document.getElementById('esig-client-status');
 
   if (qtData.status === 'SIGNED' && (qtData.signedAt || qtData.signature_image || qtData.signatureImage)) {
-    setSafeText('a4-sig-date', qtData.signedAt || qtData.signed_at || 'Disahkan');
+    let dateStr = qtData.signedAt || qtData.signed_at || 'Disahkan';
+    // Shorten long date strings e.g. "31 Jul 2026, 04:45 PTG" -> "31 Jul 2026"
+    if (dateStr.includes(',')) dateStr = dateStr.split(',')[0].trim();
+    setSafeText('a4-sig-date', dateStr);
 
     const sigSrc = qtData.signature_image || qtData.signatureImage;
     if (sigSrc && clientSigImg) {
