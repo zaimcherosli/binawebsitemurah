@@ -7,7 +7,7 @@ let adminToken = '';
 // ============================================================
 // CLOUDFLARE D1 API CONFIG
 // ============================================================
-const API_BASE = 'https://kwikezee-api.huzaimrosli.workers.dev';
+const API_BASE = 'https://api-qt.zaimrosli.my';
 
 function initAdminDashboard() {
   const gateway = document.getElementById('passcode-gateway');
