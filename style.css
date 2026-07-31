@@ -2567,14 +2567,38 @@ input:focus, select:focus, textarea:focus {
 
 @media (max-width: 768px) {
   .top-promo-bar {
-    padding: 6px 12px;
+    padding: 6px 10px;
     font-size: 11px;
   }
   .tpb-container {
-    gap: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    flex-wrap: nowrap;
   }
+  .tpb-badge,
   .tpb-slot {
-    display: none; /* Hide extra text on very small screens */
+    display: none; /* Hide bulky extra badges on mobile for a clean 1-line bar */
+  }
+  .tpb-text {
+    font-size: 11px;
+    white-space: nowrap;
+    gap: 4px;
+  }
+  .tpb-timer {
+    font-size: 11px;
+  }
+  .timer-box {
+    padding: 1px 4px;
+    font-size: 10px;
+    min-width: 18px;
+  }
+  .tpb-btn {
+    font-size: 10px;
+    padding: 4px 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   .pcb-content {
     flex-direction: column;
