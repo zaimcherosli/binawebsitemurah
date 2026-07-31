@@ -211,7 +211,7 @@
     .bank-card {
       background-color: rgba(0, 0, 0, 0.015);
       border-radius: 18px;
-      padding: 25px;
+      padding: 20px 18px;
       border: 1px solid rgba(0, 0, 0, 0.06);
     }
     
@@ -221,6 +221,7 @@
       align-items: center;
       padding: 12px 0;
       border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      gap: 8px;
     }
     
     .bank-row:last-child {
@@ -233,34 +234,99 @@
     }
     
     .bank-label {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--text-muted);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     
     .bank-value {
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 700;
       color: var(--text-main);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
+      white-space: nowrap;
     }
     
     .btn-copy {
-      background: rgba(0, 0, 0, 0.03);
-      border: none;
+      background: rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.08);
       color: var(--gold-secondary);
       font-size: 11px;
       font-weight: 700;
-      padding: 4px 10px;
+      padding: 3px 9px;
       border-radius: 6px;
       cursor: pointer;
       transition: all 0.2s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     
     .btn-copy:hover {
       background: var(--gold-primary);
       color: #000;
+    }
+
+    /* Bank Shortcut Links */
+    .bank-shortcut-box {
+      margin-top: 18px;
+      background: rgba(0, 0, 0, 0.015);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 16px;
+      padding: 16px;
+    }
+    
+    .bank-shortcut-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      display: block;
+    }
+    
+    .bank-shortcut-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 8px;
+    }
+    
+    .bank-shortcut-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #111827;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    
+    .bank-shortcut-item:hover {
+      border-color: var(--gold-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(184, 134, 11, 0.15);
+    }
+
+    @media (max-width: 480px) {
+      .bank-card {
+        padding: 16px 12px;
+      }
+      .bank-value {
+        font-size: 13px;
+      }
+      #bank-acc-num {
+        font-size: 13px;
+      }
+      .bank-shortcut-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
     
     /* Upload Section */
@@ -483,7 +549,7 @@
               <div class="bank-row">
                 <span class="bank-label">No. Akaun Bank</span>
                 <span class="bank-value">
-                  <span id="bank-acc-num">5686 0302 2391</span>
+                  <span id="bank-acc-num" style="font-weight: 800; letter-spacing: 0.5px; white-space: nowrap;">5686 0302 2391</span>
                   <button type="button" class="btn-copy" onclick="copyBankAcc(event)">Salin</button>
                 </span>
               </div>
@@ -494,6 +560,28 @@
               <div class="bank-row">
                 <span class="bank-label">Rujukan</span>
                 <span class="bank-value" style="font-size: 13px; color: var(--gold-secondary);">Kwikezee Web</span>
+              </div>
+            </div>
+
+            <!-- Pilihan Pantas Log Masuk Bank -->
+            <div class="bank-shortcut-box">
+              <span class="bank-shortcut-title">🏛️ Pilihan Pantas Perbankan Dalam Talian (Klik untuk log masuk):</span>
+              <div class="bank-shortcut-grid">
+                <a href="https://www.maybank2u.com.my/mbb/m2u/m7000/m2uMerchantValidateLogin.do#1" target="_blank" rel="noopener" class="bank-shortcut-item">
+                  <span>🟡</span> Maybank2u
+                </a>
+                <a href="https://www.cimbclicks.com.my/clicks/#/" target="_blank" rel="noopener" class="bank-shortcut-item">
+                  <span>🔴</span> CIMB Clicks
+                </a>
+                <a href="https://bimb.com/bimb-web/" target="_blank" rel="noopener" class="bank-shortcut-item">
+                  <span>🔴</span> Bank Islam
+                </a>
+                <a href="https://onlinebanking.rhbgroup.com/my/login" target="_blank" rel="noopener" class="bank-shortcut-item">
+                  <span>🔵</span> RHB Online
+                </a>
+                <a href="https://www2.pbebank.com/myIBK/apppbb/bankpbb/e/pbemain.html" target="_blank" rel="noopener" class="bank-shortcut-item">
+                  <span>🔴</span> Public Bank (PBe)
+                </a>
               </div>
             </div>
           </div>
