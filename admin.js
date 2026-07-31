@@ -584,7 +584,7 @@ window.updateQtFormTotals = function() {
   if (balanceEl) balanceEl.innerText = `RM ${balance.toLocaleString()}`;
 };
 
-window.generateQuotationDocument = function(event) {
+window.generateQuotationDocument = async function(event) {
   event.preventDefault();
 
   const qtNo = document.getElementById('qt-no').value.trim();
@@ -645,7 +645,16 @@ window.generateQuotationDocument = function(event) {
   };
 
   renderQuotationDocument(currentQtData);
-  saveQuotationToHistory(currentQtData);
+  await saveQuotationToHistory(currentQtData);
+  updateHistoryCountBadge();
+
+  // Papar Modal Preview Dokumen
+  const wrapper = document.getElementById('quotation-preview-wrapper');
+  if (wrapper) {
+    wrapper.style.display = 'block';
+    wrapper.style.zIndex = '999999';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 };
 
 function renderQuotationDocument(qtData) {
@@ -1026,6 +1035,14 @@ window.viewHistoryQt = async function(index) {
   // Normalize field names dari D1 (snake_case) ke format currentQtData (camelCase)
   currentQtData = normalizeQtFromApi(qt);
   renderQuotationDocument(currentQtData);
+
+  // Papar Modal Preview Dokumen secara paksa
+  const wrapper = document.getElementById('quotation-preview-wrapper');
+  if (wrapper) {
+    wrapper.style.display = 'block';
+    wrapper.style.zIndex = '999999';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 };
 
 window.editHistoryQt = async function(index) {
