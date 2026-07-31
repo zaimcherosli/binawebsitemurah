@@ -829,11 +829,11 @@ function renderQuotationHistory() {
           <span>Jumlah: <strong style="color: #000000; font-weight: 800;">RM ${totVal}</strong></span>
           <span>Deposit 50%: <strong style="color: #047857; font-weight: 800;">RM ${depVal}</strong></span>
         </div>
-        <div class="hic-actions" style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <button class="btn btn-sm btn-primary" onclick="viewHistoryQt(${idx})" style="flex: 1; min-width: 100px;">📄 Lihat / Cetak</button>
-          <button class="btn btn-sm btn-outline" onclick="editHistoryQt(${idx})" style="flex: 1; min-width: 80px; color: #000000; border-color: #94A3B8; font-weight: 800; background: #FFFFFF;">✏️ Edit</button>
-          <button class="btn btn-sm btn-emerald" onclick="waHistoryQt(${idx})" style="padding: 6px 12px;">💬 WhatsApp</button>
-          <button class="btn btn-sm btn-outline" onclick="deleteHistoryQt(${idx})" style="color: #ef4444; border-color: rgba(239,68,68,0.3); padding: 6px 10px;">🗑️</button>
+        <div class="hic-actions" style="display: flex; gap: 8px; align-items: center; justify-content: flex-start;">
+          <button class="btn btn-sm btn-primary" onclick="viewHistoryQt(${idx})" title="Lihat & Cetak PDF Sebut Harga" style="width: 40px !important; height: 40px !important; min-width: 40px !important; padding: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-size: 16px !important; border-radius: 10px !important; flex-shrink: 0 !important;">📄</button>
+          <button class="btn btn-sm btn-outline" onclick="editHistoryQt(${idx})" title="Edit / Kemaskini Sebut Harga Ini" style="width: 40px !important; height: 40px !important; min-width: 40px !important; padding: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-size: 16px !important; border-radius: 10px !important; color: #000000 !important; border-color: #94A3B8 !important; background: #FFFFFF !important; flex-shrink: 0 !important;">✏️</button>
+          <button class="btn btn-sm btn-emerald" onclick="waHistoryQt(${idx})" title="Kongsi Ke WhatsApp Klien" style="width: 40px !important; height: 40px !important; min-width: 40px !important; padding: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-size: 16px !important; border-radius: 10px !important; flex-shrink: 0 !important;">💬</button>
+          <button class="btn btn-sm btn-outline" onclick="deleteHistoryQt(${idx})" title="Padam Dari Arkib" style="width: 40px !important; height: 40px !important; min-width: 40px !important; padding: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-size: 16px !important; border-radius: 10px !important; color: #ef4444 !important; border-color: rgba(239,68,68,0.3) !important; background: #FFFFFF !important; flex-shrink: 0 !important;">🗑️</button>
         </div>
       </div>
     `;
