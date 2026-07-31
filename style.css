@@ -3246,4 +3246,218 @@ input:focus, select:focus, textarea:focus {
   }
 }
 
+/* ==========================================================================
+   ADMIN PORTAL LIGHT THEME (WHITE BACKGROUND & HIGH CONTRAST TYPOGRAPHY)
+   ========================================================================== */
+body.admin-body {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body.admin-body .admin-header {
+  background-color: #0F172A !important;
+  border-bottom: 1px solid #1E293B !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+body.admin-body .admin-title-row h1 {
+  color: #0F172A !important;
+  font-weight: 800 !important;
+}
+
+body.admin-body .admin-title-row p {
+  color: #475569 !important;
+}
+
+/* Nav Tabs in Light Theme */
+body.admin-body .admin-nav-tabs {
+  border-bottom: 2px solid #CBD5E1 !important;
+  padding-bottom: 14px !important;
+}
+
+body.admin-body .admin-tab-btn {
+  background: #FFFFFF !important;
+  border: 1.5px solid #CBD5E1 !important;
+  color: #475569 !important;
+  font-weight: 700 !important;
+}
+
+body.admin-body .admin-tab-btn:hover {
+  background: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+body.admin-body .admin-tab-btn.active {
+  background: #0F172A !important;
+  color: #FFFFFF !important;
+  border-color: #0F172A !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18) !important;
+}
+
+/* Quotation Builder Card Light Theme */
+body.admin-body .quotation-builder-card {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05) !important;
+  padding: 36px !important;
+  border-radius: 24px !important;
+}
+
+body.admin-body .qb-header {
+  border-bottom: 1.5px solid #F1F5F9 !important;
+  padding-bottom: 20px !important;
+}
+
+body.admin-body .qb-header h2 {
+  color: #0F172A !important;
+  font-size: 24px !important;
+  font-weight: 800 !important;
+}
+
+body.admin-body .qb-header p {
+  color: #475569 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+body.admin-body .qb-form-section {
+  background: #F8FAFC !important;
+  border: 1.5px solid #E2E8F0 !important;
+  border-radius: 16px !important;
+  padding: 24px !important;
+}
+
+body.admin-body .qb-section-title {
+  color: #b8860b !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Clear High Contrast Labels & Input Fields */
+body.admin-body .form-group-pay label {
+  color: #1E293B !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  margin-bottom: 8px !important;
+  display: block !important;
+}
+
+body.admin-body input[type="text"],
+body.admin-body input[type="email"],
+body.admin-body input[type="number"],
+body.admin-body input[type="date"],
+body.admin-body select,
+body.admin-body textarea {
+  background-color: #FFFFFF !important;
+  border: 1.5px solid #CBD5E1 !important;
+  color: #0F172A !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  border-radius: 10px !important;
+  padding: 12px 14px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02) !important;
+}
+
+body.admin-body input::placeholder,
+body.admin-body textarea::placeholder {
+  color: #94A3B8 !important;
+  font-weight: 500 !important;
+}
+
+body.admin-body input:focus,
+body.admin-body select:focus,
+body.admin-body textarea:focus {
+  border-color: #b8860b !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.15) !important;
+}
+
+/* Item Row inside Scope Builder */
+body.admin-body .qb-item-row {
+  background: #FFFFFF !important;
+  border: 1.5px solid #E2E8F0 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+  border-radius: 14px !important;
+  padding: 20px !important;
+}
+
+body.admin-body .qb-item-num {
+  background: #FEF3C7 !important;
+  color: #92400E !important;
+  font-weight: 800 !important;
+}
+
+/* Summary Box */
+body.admin-body .qb-total-summary-box {
+  background: #FEFCE8 !important;
+  border: 1.5px dashed #F59E0B !important;
+  color: #1E293B !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  border-radius: 14px !important;
+  padding: 18px 24px !important;
+}
+
+/* Submissions List & History Cards */
+body.admin-body .submission-item {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #0F172A !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+
+body.admin-body .submission-header h3 {
+  color: #0F172A !important;
+}
+
+body.admin-body .sub-date {
+  color: #64748B !important;
+}
+
+body.admin-body .detail-block h4 {
+  color: #b8860b !important;
+}
+
+body.admin-body .detail-block p {
+  color: #1E293B !important;
+}
+
+body.admin-body .history-card {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+  padding: 32px !important;
+  border-radius: 20px !important;
+}
+
+body.admin-body .history-card h2 {
+  color: #0F172A !important;
+}
+
+body.admin-body .history-item-card {
+  background: #F8FAFC !important;
+  border: 1.5px solid #E2E8F0 !important;
+}
+
+body.admin-body .hic-title {
+  color: #0F172A !important;
+}
+
+body.admin-body .hic-sub {
+  color: #64748B !important;
+}
+
+body.admin-body .hic-price-row {
+  color: #334155 !important;
+  border-top-color: #E2E8F0 !important;
+}
+
+body.admin-body .brief-footer {
+  background: #FFFFFF !important;
+  border-top: 1px solid #E2E8F0 !important;
+  color: #64748B !important;
+}
+
 
