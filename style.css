@@ -3911,4 +3911,24 @@ body.admin-body .brief-footer {
   color: #475569 !important;
 }
 
+/* ==========================================================================
+   ACTION BAR MOBILE — ICON ONLY (HIDE TEXT LABEL ON SMALL SCREENS)
+   ========================================================================== */
+@media screen and (max-width: 600px) {
+  .qt-action-bar {
+    padding: 10px 10px !important;
+    gap: 8px !important;
+  }
 
+  .qt-action-bar .btn-label {
+    display: none !important;
+  }
+
+  /* Make buttons compact icon-only squares */
+  .qt-action-bar .btn {
+    padding: 10px 12px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    justify-content: center !important;
+  }
+}
