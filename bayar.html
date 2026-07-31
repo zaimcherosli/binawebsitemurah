@@ -420,9 +420,10 @@
           <div class="package-selector">
             <div class="select-wrapper">
               <select id="pay-package" onchange="updatePaymentAmount()">
-                <option value="starter" data-price="150">Pakej Starter — RM150 (Landing Page)</option>
-                <option value="premium" data-price="350" selected>Pakej Premium — RM350 (Hingga 5 Halaman) — Pilihan Ramai</option>
-                <option value="custom" data-price="890">Pakej Custom / E-Commerce — RM890 (Hingga 15 Halaman)</option>
+                <option value="starter" data-price="199">Pakej Starter — RM199 (1 Landing Page)</option>
+                <option value="premium" data-price="390" selected>Pakej Premium — RM390 (Hingga 5 Halaman) — Pilihan Ramai</option>
+                <option value="pro" data-price="890">Pakej Pro E-Commerce — RM890 (Hingga 15 Halaman / 20 Produk)</option>
+                <option value="custom" data-price="0">Pakej Custom Enterprise — Sebut Harga Custom</option>
               </select>
             </div>
             
@@ -589,6 +590,11 @@
       const selectedOption = select.options[select.selectedIndex];
       const originalPrice = parseInt(selectedOption.getAttribute('data-price'));
       
+      if (originalPrice === 0) {
+        document.getElementById('display-amount').innerText = 'Sebut Harga Custom';
+        return;
+      }
+
       let price = originalPrice;
       if (appliedDiscountCode) {
         price = calculateDiscountedPrice(selectedOption.value, originalPrice);
@@ -781,7 +787,16 @@
         }
       }
 
-      // 3. Reset Button and Show Success Message
+      // 3. Decrement live weekly slot counter
+      try {
+        let slots = localStorage.getItem('kwikezee_weekly_slots');
+        let currentSlots = slots ? parseInt(slots, 10) : 7;
+        if (currentSlots > 1) {
+          localStorage.setItem('kwikezee_weekly_slots', currentSlots - 1);
+        }
+      } catch(e) {}
+
+      // 4. Reset Button and Show Success Message
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalBtnText;
 

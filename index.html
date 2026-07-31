@@ -110,9 +110,9 @@
       <span class="tpb-badge">⚡ TAWARAN DISKAUN TERHAD</span>
       <span class="tpb-text">
         Diskaun Lebih <strong class="tpb-highlight">60% OFF</strong> Tamat Dalam:
-        <span class="tpb-timer" id="tpb-countdown"><span class="timer-box" id="timer-hours">04</span>:<span class="timer-box" id="timer-mins">23</span>:<span class="timer-box" id="timer-secs">45</span></span>
+        <span class="tpb-timer"><span class="timer-box" id="top-timer-hours">04</span>:<span class="timer-box" id="top-timer-mins">23</span>:<span class="timer-box" id="top-timer-secs">45</span></span>
       </span>
-      <span class="tpb-slot">🔥 Tinggal <strong style="color: #F59E0B;">2 Slot</strong> Reka Bentuk Minggu Ini!</span>
+      <span class="tpb-slot">🔥 Tinggal <strong style="color: #F59E0B;" id="top-slot-count">7 Slot</strong> Reka Bentuk Minggu Ini!</span>
       <a href="#harga" class="tpb-btn">Tuntut Diskaun Now &rarr;</a>
     </div>
   </div>
@@ -530,22 +530,22 @@
             <span class="pcb-fire">🔥</span>
             <div>
               <strong class="pcb-title">TAWARAN DISKAUN 60% TAMAT DALAM:</strong>
-              <p class="pcb-sub">Tinggal <span class="pcb-slots">2 Slot Reka Bentuk</span> Sahaja Minggu Ini!</p>
+              <p class="pcb-sub">Tinggal <span class="pcb-slots" id="box-slot-count">7 Slot Reka Bentuk</span> Sahaja Minggu Ini!</p>
             </div>
           </div>
-          <div class="pcb-timer-digits" id="pricing-countdown">
+          <div class="pcb-timer-digits">
             <div class="digit-box">
-              <span id="timer-hours">04</span>
+              <span id="box-timer-hours">04</span>
               <small>JAM</small>
             </div>
             <span class="digit-colon">:</span>
             <div class="digit-box">
-              <span id="timer-mins">23</span>
+              <span id="box-timer-mins">23</span>
               <small>MINIT</small>
             </div>
             <span class="digit-colon">:</span>
             <div class="digit-box">
-              <span id="timer-secs">45</span>
+              <span id="box-timer-secs">45</span>
               <small>SAAT</small>
             </div>
           </div>
@@ -560,7 +560,8 @@
             <h3>Starter</h3>
             <p class="pc-desc">Sesuai untuk landing page produk tunggal atau ejen hartanah REN.</p>
             <div class="pc-price-promo">
-              <span style="font-size: 12px; color: #a1a1aa; opacity: 0.85; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">Harga Asal: <del style="text-decoration: line-through;">RM499</del> <span class="pc-save-badge">JIMAT RM300</span></span>
+              <span>Harga Asal: <del>RM499</del></span>
+              <span class="pc-save-badge">JIMAT RM300</span>
             </div>
             <div class="pc-price">
               <span class="currency">RM</span>
@@ -592,7 +593,8 @@
             <h3>Premium</h3>
             <p class="pc-desc">Sesuai untuk syarikat/kontraktor tempatan memaparkan servis &amp; portfolio.</p>
             <div class="pc-price-promo">
-              <span style="font-size: 12px; color: #a1a1aa; opacity: 0.85; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">Harga Asal: <del style="text-decoration: line-through;">RM999</del> <span class="pc-save-badge">JIMAT RM609</span></span>
+              <span>Harga Asal: <del>RM999</del></span>
+              <span class="pc-save-badge">JIMAT RM609</span>
             </div>
             <div class="pc-price">
               <span class="currency">RM</span>
@@ -623,7 +625,8 @@
             <h3>Pro E-Commerce</h3>
             <p class="pc-desc">Sesuai untuk e-commerce, katalog produk, atau listing destinasi travel.</p>
             <div class="pc-price-promo">
-              <span style="font-size: 12px; color: #a1a1aa; opacity: 0.85; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">Harga Asal: <del style="text-decoration: line-through;">RM1,999</del> <span class="pc-save-badge">JIMAT RM1,109</span></span>
+              <span>Harga Asal: <del>RM1,999</del></span>
+              <span class="pc-save-badge">JIMAT RM1,109</span>
             </div>
             <div class="pc-price">
               <span class="currency">RM</span>
@@ -650,12 +653,11 @@
 
         <!-- Pakej Custom Enterprise (Tanpa Harga Tetap) -->
         <div class="pricing-card custom-card reveal">
-          <div class="custom-badge">SEBUT HARGA</div>
           <div class="pc-header">
             <h3>Custom Enterprise</h3>
             <p class="pc-desc">Untuk sistem berciri khas, portal besar, atau re-design syarikat sepenuhnya.</p>
             <div class="pc-price-promo">
-              <span style="font-size: 11px; color: var(--gold-primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Sebut Harga Berdasarkan Skop</span>
+              <span style="font-size: 12px; color: var(--gold-primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Sebut Harga Berdasarkan Skop</span>
             </div>
             <div class="pc-price" style="margin-top: 4px;">
               <span class="amount" style="font-size: 32px; color: var(--gold-primary);">Custom</span>

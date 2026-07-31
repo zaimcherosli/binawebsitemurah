@@ -621,22 +621,40 @@ function initDraggableWaFab() {
 }
 
 /* ==========================================
-   LIVE COUNTDOWN TIMER FOR TOP PROMO BAR
+   LIVE COUNTDOWN TIMER & DYNAMIC SLOT SYNC
    ========================================== */
 function initCountdownTimer() {
-  const hoursEl = document.getElementById('timer-hours');
-  const minsEl = document.getElementById('timer-mins');
-  const secsEl = document.getElementById('timer-secs');
+  // Elements for Top Bar Timer
+  const topHoursEl = document.getElementById('top-timer-hours');
+  const topMinsEl = document.getElementById('top-timer-mins');
+  const topSecsEl = document.getElementById('top-timer-secs');
+  const topSlotEl = document.getElementById('top-slot-count');
 
-  if (!hoursEl || !minsEl || !secsEl) return;
+  // Elements for Pricing Box Timer
+  const boxHoursEl = document.getElementById('box-timer-hours');
+  const boxMinsEl = document.getElementById('box-timer-mins');
+  const boxSecsEl = document.getElementById('box-timer-secs');
+  const boxSlotEl = document.getElementById('box-slot-count');
 
-  // Store or retrieve persistent target end time (6 hours cycle from first visit)
+  // 1. Dynamic Weekly Slot Counter (Total 10 slots per week)
+  let currentSlots = localStorage.getItem('kwikezee_weekly_slots');
+  if (!currentSlots) {
+    currentSlots = 7; // Default 7 remaining slots out of 10
+    localStorage.setItem('kwikezee_weekly_slots', currentSlots);
+  } else {
+    currentSlots = parseInt(currentSlots, 10);
+  }
+
+  // Update Slot Elements
+  if (topSlotEl) topSlotEl.textContent = `${currentSlots} Slot`;
+  if (boxSlotEl) boxSlotEl.textContent = `${currentSlots} Slot Reka Bentuk`;
+
+  // 2. Synchronized Persistent Countdown Target Time (6 Hours Cycle)
   let targetTime = localStorage.getItem('kwikezee_promo_target');
   const now = new Date().getTime();
 
   if (!targetTime || parseInt(targetTime, 10) <= now) {
-    // Set target time to 6 hours from now
-    targetTime = now + (6 * 60 * 60 * 1000);
+    targetTime = now + (6 * 60 * 60 * 1000); // 6 hours from now
     localStorage.setItem('kwikezee_promo_target', targetTime);
   } else {
     targetTime = parseInt(targetTime, 10);
@@ -647,7 +665,6 @@ function initCountdownTimer() {
     let diff = targetTime - currentTime;
 
     if (diff <= 0) {
-      // Reset for another 6 hours
       diff = 6 * 60 * 60 * 1000;
       targetTime = currentTime + diff;
       localStorage.setItem('kwikezee_promo_target', targetTime);
@@ -657,12 +674,23 @@ function initCountdownTimer() {
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-    hoursEl.textContent = hours < 10 ? '0' + hours : hours;
-    minsEl.textContent = minutes < 10 ? '0' + minutes : minutes;
-    secsEl.textContent = seconds < 10 ? '0' + seconds : seconds;
+    const formattedH = hours < 10 ? '0' + hours : hours;
+    const formattedM = minutes < 10 ? '0' + minutes : minutes;
+    const formattedS = seconds < 10 ? '0' + seconds : seconds;
+
+    // Update Top Bar Digits
+    if (topHoursEl) topHoursEl.textContent = formattedH;
+    if (topMinsEl) topMinsEl.textContent = formattedM;
+    if (topSecsEl) topSecsEl.textContent = formattedS;
+
+    // Update Pricing Box Digits (100% Synchronized!)
+    if (boxHoursEl) boxHoursEl.textContent = formattedH;
+    if (boxMinsEl) boxMinsEl.textContent = formattedM;
+    if (boxSecsEl) boxSecsEl.textContent = formattedS;
   }
 
   updateTimer();
   setInterval(updateTimer, 1000);
 }
+
 
