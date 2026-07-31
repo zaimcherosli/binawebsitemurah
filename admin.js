@@ -765,20 +765,33 @@ window.closeQuotationPreview = function() {
 
 window.sendQtToWhatsapp = function() {
   if (!currentQtData) return;
-  const phone = (currentQtData.clientPhone || '').replace(/\D/g, '');
+  let phone = (currentQtData.clientPhone || '').replace(/\D/g, '');
+
+  // Jika tiada no. phone — tanya admin masukkan manual
   if (!phone) {
-    alert('No. WhatsApp klien tidak sah.');
-    return;
+    const entered = prompt(
+      `📱 No. WhatsApp klien tiada dalam rekod.\n\nSila masukkan no. WhatsApp klien (contoh: 0123456789):`,
+      ''
+    );
+    if (!entered) return;
+    phone = entered.replace(/\D/g, '');
+    if (!phone) {
+      alert('No. WhatsApp tidak sah. Sila masukkan nombor yang betul.');
+      return;
+    }
   }
 
-  const clientPortalUrl = `https://binawebsitemurah-by.zaimrosli.my/quotation.html?qt=${currentQtData.qtNo || '001'}`;
+  // Tambah kod negara Malaysia jika perlu
+  if (phone.startsWith('0')) phone = '60' + phone.slice(1);
+
+  const clientPortalUrl = `https://binawebsitemurah-by.zaimrosli.my/quotation.html?qt=${encodeURIComponent(currentQtData.qtNo || '001')}`;
 
   const msg = `Salam & Selamat Sejahtera *${currentQtData.clientName}* 👋,\n\n` +
               `Berikut adalah *Sebut Harga Rasmi (Quotation)* bagi projek *${currentQtData.projectTitle}* dari Kwikezee Studio:\n\n` +
               `📄 *No. Quotation*: ${currentQtData.qtNo}\n` +
-              `💰 *Jumlah Skop Kerja*: RM${currentQtData.total.toLocaleString()}\n` +
-              `⚡ *Deposit 50%*: RM${currentQtData.deposit.toLocaleString()}\n` +
-              `⏳ *Baki 50%*: RM${currentQtData.balance.toLocaleString()} (Selepas Siap)\n` +
+              `💰 *Jumlah Skop Kerja*: RM${(currentQtData.total || 0).toLocaleString()}\n` +
+              `⚡ *Deposit 50%*: RM${(currentQtData.deposit || 0).toLocaleString()}\n` +
+              `⏳ *Baki 50%*: RM${(currentQtData.balance || 0).toLocaleString()} (Selepas Siap)\n` +
               `⏱️ *Anggaran Siap*: ${currentQtData.duration}\n\n` +
               `✍️ *Semak & Tandatangan Digital (E-Signature)*:\n` +
               `${clientPortalUrl}\n\n` +
@@ -788,6 +801,7 @@ window.sendQtToWhatsapp = function() {
   const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
   window.open(waUrl, '_blank');
 };
+
 
 /* ==========================================================================
    QUOTATION HISTORY — CLOUDFLARE D1 API (SYNC SEMUA PERANTI)
