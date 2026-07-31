@@ -719,7 +719,11 @@ function renderQuotationDocument(qtData) {
 
   setSafeText('a4-duration', qtData.duration || '5 - 7 Hari Bekerja');
   setSafeText('a4-sig-client', qtData.clientName || 'Tandatangan Klien');
-  setSafeText('a4-sig-date', '_______________');
+  if (qtData.status === 'SIGNED' && qtData.signedAt) {
+    setSafeText('a4-sig-date', qtData.signedAt);
+  } else {
+    setSafeText('a4-sig-date', '_______________');
+  }
 
   // Terms list
   const termsList = document.getElementById('a4-terms-list');
@@ -827,6 +831,7 @@ function renderQuotationHistory() {
       <div class="history-item-card">
         <div class="hic-header">
           <span class="hic-badge">${qt.qtNo}</span>
+          ${qt.status === 'SIGNED' ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 2px 8px; border-radius: 20px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DITANDATANGANI</span>` : ''}
           <span class="hic-date">${createdDate}</span>
         </div>
         <h3 class="hic-title">${escapeHtml(qt.clientName || 'Klien')}</h3>

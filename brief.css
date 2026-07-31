@@ -934,3 +934,44 @@ body {
   transform: translateY(-1px);
 }
 
+/* MAXIMUM 100% FULL-WIDTH MOBILE RESPONSIVE EXPANSION */
+@media screen and (max-width: 850px) {
+  body.admin-body {
+    padding: 0 !important;
+  }
+  .brief-main {
+    padding: 10px 4px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .brief-container,
+  .form-container,
+  .container {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 4px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+  .form-card,
+  .brief-card,
+  .history-item-card {
+    padding: 14px 10px !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .admin-header {
+    padding: 12px 10px !important;
+  }
+  .form-control,
+  input,
+  select,
+  textarea {
+    font-size: 14px !important;
+    padding: 10px 12px !important;
+  }
+}
+

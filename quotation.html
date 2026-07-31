@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=240">
+  <link rel="stylesheet" href="style.css?v=260">
   <style>
     body.client-portal-body {
       background: #09090b;
@@ -421,6 +421,7 @@
       const sigImg = document.getElementById('client-sig-img');
       const statusText = document.getElementById('esig-client-status');
       const dateText = document.getElementById('a4-sig-date');
+      const signedTimeStr = new Date().toLocaleDateString('ms-MY', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 
       if (sigImg) {
         sigImg.src = dataUrl;
@@ -428,14 +429,54 @@
       }
       if (statusText) {
         statusText.style.display = 'inline-flex';
+        statusText.innerHTML = `
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Tandatangan Disahkan (${signedTimeStr})
+        `;
       }
       if (dateText) {
-        dateText.innerText = '31 Julai 2026';
+        dateText.innerText = new Date().toLocaleDateString('ms-MY', { day: '2-digit', month: 'long', year: 'numeric' });
+      }
+
+      // Save to localStorage for automatic Admin Sync
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const qtNo = urlParams.get('qt') || 'KZ-QT-2026-001';
+        let rawHistory = localStorage.getItem('kwikezee_quotations_history');
+        let history = rawHistory ? JSON.parse(rawHistory) : [];
+        let found = false;
+
+        history.forEach(qt => {
+          if (qt.qtNo === qtNo || qt.qtNo === 'KZ-QT-2026-001') {
+            qt.status = 'SIGNED';
+            qt.signatureImage = dataUrl;
+            qt.signedAt = signedTimeStr;
+            found = true;
+          }
+        });
+
+        if (!found) {
+          history.push({
+            qtNo: qtNo,
+            clientName: "Abg Wan",
+            projectTitle: "Website Ejen Hartanah — Listing Komersial & Industrial",
+            total: 1570,
+            deposit: 785,
+            balance: 785,
+            status: "SIGNED",
+            signatureImage: dataUrl,
+            signedAt: signedTimeStr,
+            createdAt: Date.now()
+          });
+        }
+        localStorage.setItem('kwikezee_quotations_history', JSON.stringify(history));
+      } catch (err) {
+        console.error("Signature save error:", err);
       }
 
       document.getElementById('esig-interactive-box').style.display = 'none';
       document.getElementById('signed-success-banner').style.display = 'block';
-      alert('✨ Sebut Harga telah berjaya ditandatangani secara digital!');
+      alert('✨ Terima kasih! Sebut Harga telah berjaya ditandatangani dan rekod telah dikemas kini dalam Portal Admin Kwikezee Studio.');
     }
 
     // Default Preset Items for Abg Wan if opened directly
