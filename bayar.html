@@ -765,8 +765,8 @@
           </div>
 
           <div class="form-group-pay">
-            <label for="pay-email">Alamat Emel Anda</label>
-            <input type="email" id="pay-email" required placeholder="Masukkan alamat emel anda untuk penerimaan resit">
+            <label for="pay-email">Alamat Emel Anda <span style="color: #ef4444; font-weight: 800;">* (Wajib Untuk Resit)</span></label>
+            <input type="email" id="pay-email" required placeholder="Contoh: nama@gmail.com (Penting untuk terima resit rasmi)">
           </div>
 
           <div class="form-group-pay">
@@ -954,7 +954,16 @@
       const originalBtnText = submitBtn.innerHTML;
 
       if (!name) {
-        alert('Sila isi Nama Penuh anda.');
+        alert('⚠️ Sila isi Nama Penuh anda.');
+        document.getElementById('pay-name').focus();
+        return;
+      }
+
+      if (!email || !email.includes('@') || !email.includes('.')) {
+        alert('⚠️ Sila masukkan Alamat Emel yang sah untuk membolehkan sistem menghantar resit rasmi pembayaran anda.');
+        const emailInput = document.getElementById('pay-email');
+        emailInput.focus();
+        emailInput.style.borderColor = '#ef4444';
         return;
       }
 
