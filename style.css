@@ -2660,4 +2660,590 @@ input:focus, select:focus, textarea:focus {
   }
 }
 
+/* ==========================================================================
+   ADMIN DASHBOARD TABS & QUOTATION BUILDER STYLES
+   ========================================================================== */
+.admin-nav-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.admin-tab-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #A1A1AA;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-family: var(--font-headings);
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.admin-tab-btn:hover,
+.admin-tab-btn.active {
+  background: var(--gold-primary);
+  color: #000;
+  border-color: var(--gold-primary);
+  box-shadow: 0 4px 15px rgba(184, 134, 11, 0.3);
+}
+
+.admin-tab-content {
+  display: none;
+}
+
+.admin-tab-content.active {
+  display: block;
+}
+
+/* Quotation Builder Card */
+.quotation-builder-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.qb-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.qb-header h2 {
+  font-size: 22px;
+  color: #FFF;
+  margin-bottom: 4px;
+}
+
+.qb-header p {
+  color: #A1A1AA;
+  font-size: 13.5px;
+}
+
+.qb-form-section {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.qb-section-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--gold-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+
+.qb-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.qb-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .qb-grid-2, .qb-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.qb-item-row {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.qb-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.qb-item-num {
+  font-weight: 800;
+  font-size: 12px;
+  color: var(--gold-primary);
+  background: rgba(184, 134, 11, 0.1);
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+
+.btn-remove-row {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.btn-remove-row:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
+.qb-item-body {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .qb-item-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.qb-total-summary-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(184, 134, 11, 0.06);
+  border: 1px dashed var(--border-gold);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 13.5px;
+  color: #FFF;
+}
+
+.btn-emerald {
+  background: #059669;
+  color: #fff;
+  border: none;
+}
+.btn-emerald:hover {
+  background: #047857;
+  color: #fff;
+}
+
+/* History Cards */
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.history-item-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+}
+
+.history-item-card:hover {
+  border-color: var(--gold-primary);
+  transform: translateY(-2px);
+}
+
+.hic-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.hic-badge {
+  font-weight: 800;
+  font-size: 11px;
+  color: var(--gold-secondary);
+  background: rgba(184, 134, 11, 0.1);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.hic-date {
+  font-size: 11px;
+  color: #A1A1AA;
+}
+
+.hic-title {
+  font-size: 16px;
+  color: #FFF;
+  margin-bottom: 2px;
+}
+
+.hic-sub {
+  font-size: 12.5px;
+  color: #A1A1AA;
+  margin-bottom: 12px;
+}
+
+.hic-price-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  padding-top: 8px;
+  margin-bottom: 14px;
+}
+
+.hic-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.hic-actions .btn {
+  flex: 1;
+  padding: 6px 0;
+  font-size: 11.5px;
+}
+
+/* ==========================================================================
+   OFFICIAL A4 PRINT-READY QUOTATION DOCUMENT STYLES
+   ========================================================================== */
+.quotation-preview-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(10px);
+  z-index: 10000;
+  overflow-y: auto;
+  padding: 30px 15px;
+}
+
+.qt-action-bar {
+  max-width: 210mm;
+  margin: 0 auto 20px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.a4-page {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 20mm;
+  margin: 0 auto;
+  background: #FFFFFF;
+  color: #18181B;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  border-radius: 4px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.a4-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 3px double #b8860b;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.a4-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.a4-logo {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 2px solid #b8860b;
+}
+
+.a4-company-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: #09090b;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.a4-company-sub {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #b8860b;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.a4-company-contact {
+  font-size: 10px;
+  color: #555;
+  margin: 3px 0 0 0;
+}
+
+.a4-doc-meta {
+  text-align: right;
+}
+
+.a4-doc-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 26px;
+  font-weight: 900;
+  color: #09090b;
+  margin: 0 0 6px 0;
+  letter-spacing: 1px;
+}
+
+.a4-meta-table {
+  font-size: 11px;
+  margin-left: auto;
+  border-collapse: collapse;
+}
+
+.a4-meta-table td {
+  padding: 2px 6px;
+  text-align: right;
+}
+
+.a4-client-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #b8860b;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.a4-label {
+  font-size: 10px;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.5px;
+}
+
+.a4-client-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 2px 0 0 0;
+}
+
+/* A4 Table */
+.a4-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 11.5px;
+}
+
+.a4-table th {
+  background: #0f172a;
+  color: #FFFFFF;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  padding: 10px 12px;
+  text-align: left;
+  border: 1px solid #0f172a;
+}
+
+.a4-table td {
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  vertical-align: top;
+}
+
+.a4-table tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+/* Totals Row */
+.a4-totals-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.a4-totals-terms {
+  flex: 1;
+  background: #fafafa;
+  border: 1px solid #eaeaea;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 11px;
+}
+
+.a4-totals-terms h4 {
+  font-size: 11px;
+  color: #0f172a;
+  margin: 0 0 6px 0;
+  font-weight: 800;
+}
+
+.a4-totals-terms ul {
+  padding-left: 16px;
+  margin: 0;
+  color: #444;
+  line-height: 1.6;
+}
+
+.a4-totals-box {
+  width: 240px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 12px;
+}
+
+.a4-t-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  color: #475569;
+}
+
+.a4-grand-total {
+  border-top: 1.5px solid #0f172a;
+  border-bottom: 1.5px solid #0f172a;
+  padding: 6px 0;
+  margin: 8px 0;
+  font-weight: 800;
+  color: #0f172a;
+  font-size: 13px;
+}
+
+.a4-deposit-row {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 6px 8px;
+  border-radius: 6px;
+  color: #065f46;
+  font-weight: 800;
+}
+
+/* Payment & QR Section embedded in Quotation */
+.a4-payment-methods {
+  border: 1.5px dashed #b8860b;
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fefce8;
+  margin-bottom: 30px;
+}
+
+.a4-pm-info h4 {
+  font-size: 11.5px;
+  color: #78350f;
+  margin: 0 0 6px 0;
+  font-weight: 800;
+}
+
+.a4-pm-info p {
+  margin: 2px 0;
+  font-size: 11.5px;
+  color: #334155;
+}
+
+.a4-pm-qr {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.a4-qr-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 6px;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.a4-pm-qr span {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #78350f;
+  margin-top: 4px;
+}
+
+.a4-footer-sig {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.a4-sig-col {
+  width: 200px;
+}
+
+.a4-sig-line {
+  width: 160px;
+  height: 1px;
+  background: #94a3b8;
+  margin-bottom: 6px;
+}
+
+/* PRINT CSS MEDIA QUERY RULES */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .quotation-preview-wrapper {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+  .a4-page {
+    box-shadow: none !important;
+    padding: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+}
+
 
