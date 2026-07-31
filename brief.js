@@ -301,64 +301,57 @@ function submitFormViaAjax(formElement) {
   const percentageEl = document.getElementById('upload-percentage');
   const successScreen = document.getElementById('success-screen');
 
-  // Papar progress overlay
   overlay.classList.add('active');
+  if (progressFill) progressFill.style.width = '50%';
+  if (percentageEl) percentageEl.innerText = '50%';
 
-  const formData = new FormData(formElement);
-
-  // Buang fail lalai input kerana kita urus fail secara manual dari formState
-  formData.delete('logo');
-  formData.delete('portfolio');
-  formData.delete('docs');
-
-  // Tambah fail dari state memori ke FormData
-  if (formState.logo) {
-    formData.append('logo', formState.logo);
-  }
-
-  formState.portfolio.forEach(file => {
-    formData.append('portfolio', file);
-  });
-
-  formState.docs.forEach(file => {
-    formData.append('docs', file);
-  });
-
-  // Hantar menggunakan XMLHttpRequest untuk progress tracking
-  const xhr = new XMLHttpRequest();
-  xhr.open('POST', '/api/submit', true);
-
-  // Jejaki progress muat naik
-  xhr.upload.addEventListener('progress', (e) => {
-    if (e.lengthComputable) {
-      const percent = Math.round((e.loaded / e.total) * 100);
-      progressFill.style.width = `${percent}%`;
-      percentageEl.innerText = `${percent}%`;
-    }
-  });
-
-  xhr.onreadystatechange = () => {
-    if (xhr.readyState === 4) {
-      overlay.classList.remove('active');
-      if (xhr.status >= 200 && xhr.status < 300) {
-        // Berjaya
-        formSubmitted = true; // Langkau prompt beforeunload
-        successScreen.classList.add('active');
-        // Panggil state baru supaya user tak boleh back ke form editing selepas sukses
-        history.pushState(null, '', window.location.pathname);
-      } else {
-        // Gagal
-        let errMsg = 'Terdapat ralat semasa menghantar maklumat anda. Sila cuba lagi.';
-        try {
-          const res = JSON.parse(xhr.responseText);
-          if (res.message) errMsg = res.message;
-        } catch(e) {}
-        alert(errMsg);
-      }
-    }
+  const getVal = (id) => {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : '';
   };
 
-  xhr.send(formData);
+  const getChecked = (name) => {
+    const els = document.querySelectorAll(`input[name="${name}"]:checked`);
+    return Array.from(els).map(e => e.value);
+  };
+
+  const payload = {
+    company_name: getVal('companyName'),
+    person_in_charge: getVal('personInCharge'),
+    phone: getVal('phone'),
+    email: getVal('email'),
+    business_type: getVal('businessType'),
+    package_choice: getVal('packageChoice'),
+    budget: getVal('budget'),
+    website_goal: getVal('websiteGoal'),
+    reference_web: getVal('referenceWeb'),
+    color_theme: getVal('colorTheme'),
+    features: getChecked('features'),
+    address: getVal('address'),
+    social_media: getVal('socialMedia')
+  };
+
+  fetch('https://api-qt.zaimrosli.my/api/submissions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(res => res.json())
+  .then(data => {
+    overlay.classList.remove('active');
+    if (data.success) {
+      formSubmitted = true;
+      successScreen.classList.add('active');
+      history.pushState(null, '', window.location.pathname);
+    } else {
+      alert(data.message || 'Terdapat ralat semasa menghantar maklumat anda. Sila cuba lagi.');
+    }
+  })
+  .catch(err => {
+    overlay.classList.remove('active');
+    console.error(err);
+    alert('Ralat sambungan rangkaian. Sila semak semula internet anda.');
+  });
 }
 
 // Amaran jika meninggalkan halaman sebelum menghantar borang

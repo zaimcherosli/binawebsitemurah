@@ -73,201 +73,136 @@ function initAdminDashboard() {
 }
 
 /* ==========================================================================
-   MUAT TURUN DAN PAPAR SENARAI SUBMISSIONS
+   MUAT TURUN DAN PAPAR SENARAI SUBMISSIONS (CLOUDFLARE D1)
    ========================================================================== */
+let _submissionsCache = [];
+
 function loadSubmissions(callback) {
   const container = document.getElementById('submissions-list');
   const loader = document.getElementById('admin-loader');
 
   if (loader) loader.style.display = 'block';
 
-  fetch('/api/admin', {
-    method: 'GET',
-    headers: {
-      'X-Admin-Token': adminToken
+  fetch(`${API_BASE}/api/submissions`)
+  .then(res => res.json())
+  .then(json => {
+    if (json.success) {
+      _submissionsCache = json.data || [];
+      renderSubmissions(_submissionsCache);
+      if (callback) callback(true);
+    } else {
+      throw new Error(json.message || 'Gagal memuat permohonan');
     }
-  })
-  .then(res => {
-    if (res.status === 401) {
-      if (callback) callback(false);
-      return null;
-    }
-    if (!res.ok) {
-      throw new Error('Gagal memuat turun data');
-    }
-    if (callback) callback(true);
-    return res.json();
-  })
-  .then(data => {
-    if (!data) return;
-    renderSubmissions(data);
   })
   .catch(err => {
     console.error(err);
-    container.innerHTML = `
-      <div class="no-submissions" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 20px; min-height: 320px; width: 100%; box-sizing: border-box; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
-        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2" style="margin: 0 auto 16px auto; display: block;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <h3 style="color: #0F172A !important; font-size: 19px; font-weight: 800; margin: 0 0 8px 0; text-align: center;">Ralat Memuat Data Projek</h3>
-        <p style="color: #64748B !important; font-size: 14px; font-weight: 600; margin: 0; text-align: center; max-width: 440px; line-height: 1.5;">Gagal memuat turun data projek dari pelayan. Sila semak sambungan internet anda atau cuba sebentar lagi.</p>
-      </div>
-    `;
+    if (container) {
+      container.innerHTML = `
+        <div class="no-submissions" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 20px; min-height: 320px; width: 100%; box-sizing: border-box; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.5" style="margin: 0 auto 16px auto; display: block;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <h3 style="color: #0F172A !important; font-size: 19px; font-weight: 800; margin: 0 0 8px 0; text-align: center;">Tiada Permohonan Klien Lagi</h3>
+          <p style="color: #64748B !important; font-size: 14px; font-weight: 600; margin: 0; text-align: center; max-width: 440px; line-height: 1.5;">Borang permohonan baru dari klien di brief.html akan dipaparkan di sini secara automatik.</p>
+        </div>
+      `;
+    }
   });
 }
 
 function renderSubmissions(submissions) {
   const container = document.getElementById('submissions-list');
+  if (!container) return;
   container.innerHTML = '';
 
-  if (submissions.length === 0) {
+  if (!submissions || submissions.length === 0) {
     container.innerHTML = `
       <div class="no-submissions" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 20px; min-height: 320px; width: 100%; box-sizing: border-box; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
         <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.5" style="margin: 0 auto 16px auto; display: block;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        <h3 style="color: #0F172A !important; font-size: 19px; font-weight: 800; margin: 0 0 8px 0; text-align: center;">Tiada Data Projek Diterima</h3>
-        <p style="color: #64748B !important; font-size: 14px; font-weight: 600; margin: 0; text-align: center; max-width: 440px; line-height: 1.5;">Sistem belum menerima sebarang penghantaran borang maklumat daripada klien.</p>
+        <h3 style="color: #0F172A !important; font-size: 19px; font-weight: 800; margin: 0 0 8px 0; text-align: center;">Tiada Permohonan Klien Lagi</h3>
+        <p style="color: #64748B !important; font-size: 14px; font-weight: 600; margin: 0; text-align: center; max-width: 440px; line-height: 1.5;">Borang permohonan baru dari klien di brief.html akan dipaparkan di sini secara automatik.</p>
       </div>
     `;
     return;
   }
 
   submissions.forEach(sub => {
-    const formattedDate = new Date(sub.timestamp).toLocaleString('ms-MY', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    const formattedDate = new Date(sub.created_at || Date.now()).toLocaleString('ms-MY', {
+      day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
     });
 
     const item = document.createElement('div');
     item.className = 'submission-item';
+    item.style.cssText = 'background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);';
     item.id = `sub-${sub.id}`;
 
-    // Helper untuk menjana url proxy fail R2
-    const getFileUrl = (key) => `/api/admin?file=${encodeURIComponent(key)}&token=${encodeURIComponent(adminToken)}`;
-
-    // Generate previews logo
-    let logoHtml = '<p style="color:var(--text-muted); font-style:italic;">Tiada Logo Dihantar</p>';
-    if (sub.files && sub.files.logo) {
-      const url = getFileUrl(sub.files.logo);
-      logoHtml = `
-        <div class="admin-files-grid">
-          <div class="admin-file-card" onclick="window.openLightbox('${url}')">
-            <img src="${url}" alt="Logo">
-            <div class="file-overlay-name">Logo</div>
-          </div>
-        </div>
-      `;
-    }
-
-    // Generate previews portfolio images
-    let portfolioHtml = '<p style="color:var(--text-muted); font-style:italic;">Tiada Gambar Dihantar</p>';
-    if (sub.files && sub.files.portfolio && sub.files.portfolio.length > 0) {
-      portfolioHtml = `<div class="admin-files-grid">`;
-      sub.files.portfolio.forEach((fileKey, idx) => {
-        const url = getFileUrl(fileKey);
-        portfolioHtml += `
-          <div class="admin-file-card" onclick="window.openLightbox('${url}')">
-            <img src="${url}" alt="Portfolio ${idx+1}">
-            <div class="file-overlay-name">Gambar ${idx+1}</div>
-          </div>
-        `;
-      });
-      portfolioHtml += `</div>`;
-    }
-
-    // Generate previews documents
-    let docsHtml = '<p style="color:var(--text-muted); font-style:italic;">Tiada Sijil Dihantar</p>';
-    if (sub.files && sub.files.docs && sub.files.docs.length > 0) {
-      docsHtml = `<div class="admin-files-grid">`;
-      sub.files.docs.forEach((fileKey) => {
-        const url = getFileUrl(fileKey);
-        const fileName = fileKey.split('/').pop();
-        const isPdf = fileName.toLowerCase().endsWith('.pdf');
-
-        if (isPdf) {
-          docsHtml += `
-            <a href="${url}" target="_blank" class="admin-file-card">
-              <div class="pdf-card">PDF</div>
-              <div class="file-overlay-name">${fileName}</div>
-            </a>
-          `;
-        } else {
-          docsHtml += `
-            <div class="admin-file-card" onclick="window.openLightbox('${url}')">
-              <img src="${url}" alt="Sijil">
-              <div class="file-overlay-name">${fileName}</div>
-            </div>
-          `;
-        }
-      });
-      docsHtml += `</div>`;
-    }
-
-    const waNumber = sub.whatsapp.replace(/\D/g, '');
-    const waUrl = `https://wa.me/${waNumber}`;
+    const waNumber = (sub.phone || '').replace(/\D/g, '');
+    const waUrl = `https://wa.me/${waNumber.startsWith('0') ? '60' + waNumber.slice(1) : waNumber}`;
 
     item.innerHTML = `
-      <div class="submission-header">
+      <div class="submission-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px;">
         <div class="sub-client-info">
-          <h3>${escapeHtml(sub.companyName)}</h3>
-          <span class="sub-date">📅 Dihantar pada: ${formattedDate}</span>
+          <h3 style="margin: 0 0 4px 0; font-size: 18px; font-weight: 800; color: #0f172a;">${escapeHtml(sub.company_name || 'Klien Baru')}</h3>
+          <span class="sub-date" style="font-size: 12.5px; color: #64748b; font-weight: 600;">📅 Dihantar pada: ${formattedDate}</span>
         </div>
-        <div class="submission-actions">
-          <a href="${waUrl}" target="_blank" class="action-btn wa-btn" title="WhatsApp Klien" aria-label="WhatsApp Klien">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <div class="submission-actions" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <button type="button" class="btn-create-qt-from-sub" onclick="convertSubToQt(${sub.id})" style="background: #FEF3C7; border: 1.5px solid #F59E0B; color: #92400E; font-weight: 800; font-size: 12.5px; padding: 6px 14px; border-radius: 20px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+            ⚡ Bina Sebut Harga
+          </button>
+          <a href="${waUrl}" target="_blank" class="action-btn wa-btn" style="background: #25D366; color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 12.5px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+            📱 WhatsApp
           </a>
-          <button class="action-btn delete-btn" onclick="deleteSubmission('${sub.id}')" title="Padam Projek" aria-label="Padam Projek">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+          <button class="action-btn delete-btn" onclick="deleteSubmission(${sub.id})" style="background: #fee2e2; border: 1px solid #fca5a5; color: #dc2626; padding: 6px 12px; border-radius: 20px; font-size: 12.5px; font-weight: 700; cursor: pointer;">
+            🗑️ Padam
           </button>
         </div>
       </div>
       <div class="submission-body">
-        <div class="sub-section-grid">
-          
-          <!-- Lajur 1: Informasi Projek -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
           <div>
-            <div class="detail-block">
-              <h4>Slogan / Tagline</h4>
-              <p>${sub.tagline ? escapeHtml(sub.tagline) : '-'}</p>
-            </div>
-            <div class="detail-block">
-              <h4>Kawasan Liputan Servis</h4>
-              <p>${escapeHtml(sub.coverageArea)}</p>
-            </div>
-            <div class="detail-block">
-              <h4>Warna Tema Pilihan</h4>
-              <p>${sub.brandColors ? escapeHtml(sub.brandColors) : '-'}</p>
-            </div>
-            <div class="detail-block">
-              <h4>Senarai Servis Utama</h4>
-              <p>${escapeHtml(sub.services)}</p>
-            </div>
-            <div class="detail-block">
-              <h4>Kelebihan Utama (USP)</h4>
-              <p>${escapeHtml(sub.usp)}</p>
-            </div>
-            <div class="detail-block">
-              <h4>Proses Kerja Klien</h4>
-              <p>${sub.workflow ? escapeHtml(sub.workflow) : '-'}</p>
-            </div>
-            <div class="detail-block">
-              <h4>Testimoni / Ulasan Pelanggan</h4>
-              <p>${sub.testimonials ? escapeHtml(sub.testimonials) : '-'}</p>
-            </div>
-            <div class="detail-block">
-              <h4>Maklumat Perhubungan Lain</h4>
-              <p>
-                <strong>E-mel:</strong> ${sub.email ? escapeHtml(sub.email) : '-'}<br>
-                <strong>Alamat:</strong> ${sub.address ? escapeHtml(sub.address) : '-'}<br>
-                <strong>Media Sosial:</strong> ${sub.socialMedia ? escapeHtml(sub.socialMedia) : '-'}
-              </p>
-            </div>
+            <div style="margin-bottom: 10px;"><strong>Nama Individu:</strong> ${escapeHtml(sub.person_in_charge || '-')}</div>
+            <div style="margin-bottom: 10px;"><strong>No. WhatsApp:</strong> ${escapeHtml(sub.phone || '-')}</div>
+            <div style="margin-bottom: 10px;"><strong>Alamat Emel:</strong> ${escapeHtml(sub.email || '-')}</div>
+            <div style="margin-bottom: 10px;"><strong>Jenis Perniagaan:</strong> ${escapeHtml(sub.business_type || '-')}</div>
+            <div style="margin-bottom: 10px;"><strong>Pilihan Pakej:</strong> ${escapeHtml(sub.package_choice || '-')}</div>
           </div>
-
-          <!-- Lajur 2: Fail Diupload (R2) -->
           <div>
-            <div class="detail-block" style="margin-bottom: 25px;">
-              <h4>Logo Syarikat</h4>
+            <div style="margin-bottom: 10px;"><strong>Anggaran Bajet:</strong> ${escapeHtml(sub.budget || '-')}</div>
+            <div style="margin-bottom: 10px;"><strong>Objektif Website:</strong> ${escapeHtml(sub.website_goal || '-')}</div>
+            <div style="margin-bottom: 10px;"><strong>Rujukan Website:</strong> ${escapeHtml(sub.reference_web || '-')}</div>
+            <div style="margin-bottom: 10px;"><strong>Warna Tema Pilihan:</strong> ${escapeHtml(sub.color_theme || '-')}</div>
+            <div style="margin-bottom: 10px;"><strong>Fungsi Pilihan:</strong> ${(sub.features || []).join(', ') || '-'}</div>
+          </div>
+        </div>
+      </div>
+    `;
+    container.appendChild(item);
+  });
+}
+
+window.convertSubToQt = function(id) {
+  const sub = (_submissionsCache || []).find(s => s.id == id);
+  if (!sub) return;
+
+  document.getElementById('qt-client-name').value = sub.company_name || sub.person_in_charge || '';
+  document.getElementById('qt-project-title').value = `Pakej Website — ${sub.company_name || sub.business_type || 'Custom'}`;
+  document.getElementById('qt-client-phone').value = sub.phone || '';
+  document.getElementById('qt-client-email').value = sub.email || '';
+
+  generateNextQtNo();
+  switchAdminTab('quotation');
+};
+
+window.deleteSubmission = async function(id) {
+  if (!confirm('Adakah anda pasti ingin memadam permohonan ini?')) return;
+  try {
+    const res = await fetch(`${API_BASE}/api/submissions/${id}`, { method: 'DELETE' });
+    const json = await res.json();
+    if (json.success) {
+      loadSubmissions();
+    } else {
+      alert(json.message || 'Gagal memadam');
+    }
+  } catch (e) { console.error(e); }
+};
               ${logoHtml}
             </div>
             <div class="detail-block" style="margin-bottom: 25px;">
@@ -287,58 +222,6 @@ function renderSubmissions(submissions) {
     container.appendChild(item);
   });
 }
-
-/* ==========================================================================
-   FUNGSI HAPUS DATA KLIEN (R2 ACTION)
-   ========================================================================== */
-window.deleteSubmission = function(submissionId) {
-  if (!confirm('Adakah anda pasti untuk memadam semua data maklumat projek klien ini?\nTindakan ini akan memadam fail R2 secara kekal dan tidak boleh dikembalikan.')) {
-    return;
-  }
-
-  const itemEl = document.getElementById(`sub-${submissionId}`);
-  if (itemEl) {
-    itemEl.style.opacity = '0.5';
-    itemEl.style.pointerEvents = 'none';
-  }
-
-  fetch(`/api/admin?id=${encodeURIComponent(submissionId)}`, {
-    method: 'DELETE',
-    headers: {
-      'X-Admin-Token': adminToken
-    }
-  })
-  .then(res => {
-    if (!res.ok) throw new Error('Gagal memadam data');
-    return res.json();
-  })
-  .then(res => {
-    alert('Data projek telah berjaya dipadam dari R2.');
-    if (itemEl) {
-      itemEl.remove();
-    }
-    // Semak jika semua kad sudah dipadam untuk paparkan empty state
-    const container = document.getElementById('submissions-list');
-    const remainingItems = container.querySelectorAll('.submission-item');
-    if (remainingItems.length === 0) {
-      container.innerHTML = `
-        <div class="no-submissions" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 20px; min-height: 320px; width: 100%; box-sizing: border-box; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
-          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.5" style="margin: 0 auto 16px auto; display: block;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          <h3 style="color: #0F172A !important; font-size: 19px; font-weight: 800; margin: 0 0 8px 0; text-align: center;">Tiada Data Projek Diterima</h3>
-          <p style="color: #64748B !important; font-size: 14px; font-weight: 600; margin: 0; text-align: center; max-width: 440px; line-height: 1.5;">Sistem belum menerima sebarang penghantaran borang maklumat daripada klien.</p>
-        </div>
-      `;
-    }
-  })
-  .catch(err => {
-    console.error(err);
-    alert('Ralat semasa memadam data.');
-    if (itemEl) {
-      itemEl.style.opacity = '1';
-      itemEl.style.pointerEvents = 'auto';
-    }
-  });
-};
 
 /* ==========================================================================
    UTILITY HELPER
