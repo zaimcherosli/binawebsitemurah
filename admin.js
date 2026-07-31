@@ -812,19 +812,24 @@ window.sendQtToWhatsapp = function() {
   if (phone.startsWith('0')) phone = '60' + phone.slice(1);
 
   const clientPortalUrl = `https://binawebsitemurah-by.zaimrosli.my/quotation.html?qt=${encodeURIComponent(currentQtData.qtNo || '001')}`;
+  const depositVal = (currentQtData.deposit || Math.round((currentQtData.total || 0) / 2)).toLocaleString();
+  const balanceVal = (currentQtData.balance !== undefined ? currentQtData.balance : ((currentQtData.total || 0) - (currentQtData.deposit || 0))).toLocaleString();
 
-  const msg = `Salam & Selamat Sejahtera *${currentQtData.clientName}* 👋,\n\n` +
-              `Berikut adalah *Sebut Harga Rasmi (Quotation)* bagi projek *${currentQtData.projectTitle}* dari Kwikezee Studio:\n\n` +
-              `📄 *No. Quotation*: ${currentQtData.qtNo}\n` +
-              `💰 *Jumlah Skop Kerja*: RM${(currentQtData.total || 0).toLocaleString()}\n` +
-              `⚡ *Deposit 50%*: RM${(currentQtData.deposit || 0).toLocaleString()}\n` +
-              `⏳ *Baki 50%*: RM${(currentQtData.balance || 0).toLocaleString()} (Selepas Siap)\n` +
-              `⏱️ *Anggaran Siap*: ${currentQtData.duration}\n\n` +
-              `✍️ *Semak & Tandatangan Digital (E-Signature)*:\n` +
-              `${clientPortalUrl}\n\n` +
-              `Sila maklumkan sekiranya Tuan/Puan ada sebarang pertanyaan. Terima kasih!`;
+  let msg = `Salam & Selamat Sejahtera *${currentQtData.clientName}* 👋,\n\n` +
+            `Berikut adalah *Sebut Harga Rasmi (Quotation)* bagi projek *${currentQtData.projectTitle}* dari Kwikezee Studio:\n\n` +
+            `📄 *No. Quotation*: ${currentQtData.qtNo}\n` +
+            `💰 *Jumlah Skop Kerja*: RM${(currentQtData.total || 0).toLocaleString()}\n` +
+            `⚡ *Deposit 50%*: RM${depositVal}\n` +
+            `⏳ *Baki 50%*: RM${balanceVal} (Selepas Siap)\n` +
+            `🕒 *Anggaran Siap*: ${currentQtData.duration}\n\n` +
+            `📝 *Semak & Tandatangan Digital (E-Signature)*:\n` +
+            `${clientPortalUrl}\n\n` +
+            `Sila maklumkan sekiranya Tuan/Puan ada sebarang pertanyaan. Terima kasih!`;
 
-  const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+  // Buang hidden Unicode Variation Selectors (\uFE0F) yang boleh merosakkan paparan emoji di WhatsApp
+  msg = msg.replace(/\uFE0F/g, '');
+
+  const waUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(msg)}`;
   window.open(waUrl, '_blank');
 };
 
