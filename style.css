@@ -3307,6 +3307,12 @@ body.admin-body {
   transform: translateY(-1px) !important;
 }
 
+.btn-history-icon:hover {
+  border-color: #000000 !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-1px) !important;
+}
+
 /* Header Admin Bar (Warna Putih & Selari) */
 body.admin-body .admin-header {
   background: #FFFFFF !important;
