@@ -837,16 +837,22 @@ window.sendQtToWhatsapp = function() {
 let _qtHistoryCache = [];
 
 async function saveQuotationToHistory(qtData) {
+  const todayStr = qtData.qtDate || new Date().toISOString().split('T')[0];
+  const validStr = qtData.qtValid || '';
+
   // Save to LocalStorage as offline fallback
   try {
     let localHistory = JSON.parse(localStorage.getItem('kwikezee_qt_history') || '[]');
     const existingIdx = localHistory.findIndex(q => (q.qt_no || q.qtNo) === qtData.qtNo);
     const localItem = {
       qt_no: qtData.qtNo,
+      qt_date: todayStr,
+      qt_valid: validStr,
       client_name: qtData.clientName,
       project_title: qtData.projectTitle,
       client_phone: qtData.clientPhone,
       client_email: qtData.clientEmail,
+      items: qtData.items || [],
       items_json: JSON.stringify(qtData.items || []),
       subtotal: qtData.subtotal || 0,
       discount: qtData.discount || 0,
@@ -869,10 +875,13 @@ async function saveQuotationToHistory(qtData) {
   try {
     const payload = {
       qt_no:         qtData.qtNo,
+      qt_date:       todayStr,
+      qt_valid:      validStr,
       client_name:   qtData.clientName,
       client_phone:  qtData.clientPhone || '',
       client_email:  qtData.clientEmail || '',
       project_title: qtData.projectTitle || '',
+      items:         qtData.items || [],
       items_json:    JSON.stringify(qtData.items || []),
       subtotal:      qtData.subtotal || 0,
       discount:      qtData.discount || 0,
