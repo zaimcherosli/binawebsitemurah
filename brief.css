@@ -949,7 +949,8 @@ body {
     width: 100% !important;
   }
   .brief-main .container,
-  .container,
+  body.brief-body .container,
+  body.admin-body .container,
   .form-container,
   .brief-container,
   .admin-container {

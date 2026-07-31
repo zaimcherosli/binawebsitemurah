@@ -4076,4 +4076,32 @@ body.admin-body .no-submissions svg {
   display: block !important;
 }
 
+/* ==========================================================================
+   RESTORE MAIN PAGE (INDEX.HTML) COMFORTABLE MOBILE SIDE PADDING
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+  body:not(.admin-body) .container,
+  body:not(.admin-body) .hero-container,
+  body:not(.admin-body) .pricing-container,
+  body:not(.admin-body) .stats-container,
+  body:not(.admin-body) .faq-container,
+  body:not(.admin-body) .portfolio-container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    box-sizing: border-box !important;
+  }
+
+  body:not(.admin-body) .pricing-card {
+    border-radius: 24px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 32px 20px !important;
+  }
+
+  body:not(.admin-body) .pricing-grid {
+    gap: 20px !important;
+  }
+}
+
+
 
