@@ -239,16 +239,16 @@ a {
    NAVIGATION
    ========================================== */
 .navbar {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
   height: var(--nav-height);
   z-index: 1000;
-  background: rgba(250, 250, 249, 0.8);
+  background: rgba(250, 250, 249, 0.92);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-color);
-  transition: var(--transition-smooth);
+  transition: all 0.3s ease;
 }
 
 .navbar.scrolled {
@@ -2347,13 +2347,11 @@ input:focus, select:focus, textarea:focus {
 /* ==========================================
    STICKY TOP PROMO BAR & COUNTDOWN TIMER
    ========================================== */
-/* Sticky Top Promo Bar */
+/* Top Announcement Promo Bar */
 .top-promo-bar {
-  position: sticky;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
-  z-index: 1001;
+  z-index: 1002;
   background: linear-gradient(90deg, #09090b 0%, #1e1b18 50%, #09090b 100%);
   border-bottom: 1px solid rgba(201, 168, 76, 0.4);
   padding: 8px 16px;
