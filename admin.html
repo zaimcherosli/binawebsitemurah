@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=298">
-  <link rel="stylesheet" href="brief.css?v=298">
+  <link rel="stylesheet" href="style.css?v=300">
+  <link rel="stylesheet" href="brief.css?v=300">
 </head>
 <body class="admin-body">
 
@@ -98,7 +98,10 @@
               <h3 class="qb-section-title">1. Meta Dokumen</h3>
               <div class="qb-grid-3">
                 <div class="form-group-pay">
-                  <label>No. Sebut Harga</label>
+                  <label style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <span>No. Sebut Harga</span>
+                    <button type="button" onclick="generateNextQtNo()" style="background: #e2e8f0; border: none; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; color: #0f172a; cursor: pointer;" title="Jana nombor quotation baru automatik">🔄 Auto No. Baru</button>
+                  </label>
                   <input type="text" id="qt-no" required placeholder="KZ-QT-2026-001">
                 </div>
                 <div class="form-group-pay">
