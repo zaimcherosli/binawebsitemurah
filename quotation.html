@@ -467,34 +467,163 @@
     }
 
 
-    // Default Preset Items for Abg Wan if opened directly
-    const defaultItems = [
-      { name: "Reka Bentuk Laman Web Ejen Hartanah (Custom UI/UX)", desc: "Pembangunan 5 Halaman Laman Web bertema profesional mewah khas untuk pameran hartanah Komersial (Lot Kedai/Pejabat) & Industrial (Kilang/Gudang/Tanah).", price: 490 },
-      { name: "Sistem Listing Hartanah Komersial & Industrial", desc: "Modul carian & penapis hartanah mengikut jenis (Komersial / Industrial), kawasan liputan, saiz keluasan (sqft), & julat harga.", price: 250 },
-      { name: "Portal Log Masuk & Panel Pengurusan Sendiri Ejen", desc: "Portal login khas ejen untuk menambah, mengemas kini, edit, atau memadam listing hartanah secara sendiri tanpa perlukan pereka web.", price: 300 },
-      { name: "Borang Pertanyaan & Integrasi WhatsApp Direct", desc: "Pautan pantas WhatsApp direct pada setiap listing hartanah & borang pertanyaan prospek terus ke telefon bimbit.", price: 150 },
-      { name: "Penyediaan Domain .com (5 tahun) & Web Hosting 1 Tahun", desc: "Pendaftaran domain rasmi, Domain Privacy Protection (5 tahun) dan penyediaan cloud hosting berprestasi tinggi selama 1 tahun.", price: 380 }
-    ];
+    // ============================================================
+    // LOAD QUOTATION DARI D1 API BERDASARKAN ?qt= URL PARAM
+    // ============================================================
+    const API_BASE = 'https://kwikezee-api.huzaimrosli.workers.dev';
 
-    function renderClientPortal() {
+    async function renderClientPortal() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const qtNo = urlParams.get('qt');
+
+      if (!qtNo) {
+        showQtError('Tiada nombor sebut harga dalam URL. Sila gunakan pautan yang diberikan oleh Kwikezee Studio.');
+        return;
+      }
+
+      // Tunjukkan loading state
       const tbody = document.getElementById('a4-items-tbody');
-      if (!tbody) return;
-      let html = '';
-      let subtotal = 0;
-      defaultItems.forEach((item, idx) => {
-        subtotal += item.price;
-        html += `
-          <tr>
-            <td style="text-align: center;">${idx + 1}</td>
-            <td style="font-weight: 800; color: #000;">${item.name}</td>
-            <td style="color: #444; line-height: 1.4;">${item.desc}</td>
-            <td style="text-align: right; font-weight: 800; color: #000;">RM ${item.price}</td>
-          </tr>
-        `;
-      });
-      tbody.innerHTML = html;
+      if (tbody) tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 30px; color: #94a3b8;">⏳ Memuatkan data sebut harga...</td></tr>`;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/quotations/${encodeURIComponent(qtNo)}`);
+        if (!res.ok) {
+          showQtError(`Sebut Harga <strong>${qtNo}</strong> tidak dijumpai. Sila hubungi Kwikezee Studio.`);
+          return;
+        }
+
+        const json = await res.json();
+        const qt = json.data;
+
+        // Parse items
+        let items = qt.items || [];
+        if (typeof qt.items_json === 'string') {
+          try { items = JSON.parse(qt.items_json); } catch { items = []; }
+        }
+
+        // Isi maklumat dokumen
+        setText('a4-no', qt.qt_no || '-');
+        setText('a4-date', formatDate(qt.qt_date));
+        setText('a4-valid-until', formatDate(qt.qt_valid));
+        setText('a4-client-name', qt.client_name || '-');
+        setText('a4-project-title', qt.project_title || '-');
+        setText('a4-client-phone', qt.client_phone || '-');
+        setText('a4-client-email', qt.client_email || '-');
+        setText('a4-sig-client', qt.client_name || 'Tandatangan Klien');
+        setText('a4-duration', qt.duration || '5 - 7 Hari Bekerja');
+
+        // Isi jadual skop kerja
+        if (tbody) {
+          let html = '';
+          let subtotal = 0;
+          items.forEach((item, idx) => {
+            subtotal += (item.price || 0);
+            html += `
+              <tr>
+                <td style="text-align: center;">${idx + 1}</td>
+                <td style="font-weight: 800; color: #000;">${escHtml(item.title || item.name || '')}</td>
+                <td style="color: #444; line-height: 1.4;">${escHtml(item.desc || item.description || '')}</td>
+                <td style="text-align: right; font-weight: 800; color: #000;">RM ${(item.price || 0).toLocaleString()}</td>
+              </tr>
+            `;
+          });
+          tbody.innerHTML = html;
+        }
+
+        // Jumlah
+        const discount = qt.discount || 0;
+        const total = qt.total || 0;
+        const deposit = qt.deposit || 0;
+        const balance = qt.balance || 0;
+
+        setText('a4-subtotal', `RM ${(qt.subtotal || 0).toLocaleString()}`);
+        const discountRow = document.getElementById('a4-discount-row');
+        if (discountRow) {
+          if (discount > 0) {
+            discountRow.style.display = 'flex';
+            setText('a4-discount', `-RM ${discount.toLocaleString()}`);
+          } else {
+            discountRow.style.display = 'none';
+          }
+        }
+        setText('a4-grand-total', `RM ${total.toLocaleString()}`);
+
+        if (qt.pay_mode === 'full') {
+          setText('a4-deposit-amount', `RM ${total.toLocaleString()} (100% Lunas)`);
+          setText('a4-balance-amount', `RM 0`);
+        } else {
+          setText('a4-deposit-amount', `RM ${deposit.toLocaleString()}`);
+          setText('a4-balance-amount', `RM ${balance.toLocaleString()}`);
+        }
+
+        // Terma & nota
+        const termsList = document.getElementById('a4-terms-list');
+        if (termsList && qt.notes) {
+          const lines = qt.notes.split('\n');
+          let termsHtml = `<li>Tempoh Siap Projek: <strong>${escHtml(qt.duration || '5 - 7 Hari Bekerja')}</strong>.</li>
+                           <li>Pembangunan dimulakan serta-merta selepas bayaran deposit disahkan.</li>`;
+          lines.forEach(line => {
+            if (line.trim()) termsHtml += `<li>${escHtml(line.trim())}</li>`;
+          });
+          termsList.innerHTML = termsHtml;
+        }
+
+        // Jika dah bertandatangan, tunjukkan status
+        if (qt.status === 'SIGNED' && qt.signed_at) {
+          setText('a4-sig-date', qt.signed_at);
+          if (qt.signature_image) {
+            const sigImg = document.getElementById('client-sig-img');
+            if (sigImg) { sigImg.src = qt.signature_image; sigImg.style.display = 'block'; }
+          }
+          const esigBox = document.getElementById('esig-interactive-box');
+          const successBanner = document.getElementById('signed-success-banner');
+          if (esigBox) esigBox.style.display = 'none';
+          if (successBanner) successBanner.style.display = 'block';
+        } else {
+          setText('a4-sig-date', '_______________');
+        }
+
+        // Update page title
+        document.title = `Sebut Harga ${qt.qt_no} | ${qt.client_name} | Kwikezee Studio`;
+
+      } catch (e) {
+        showQtError('Ralat memuatkan sebut harga. Sila semak sambungan internet anda.');
+        console.error(e);
+      }
     }
+
+    function setText(id, val) {
+      const el = document.getElementById(id);
+      if (el) el.innerText = val || '-';
+    }
+
+    function escHtml(str) {
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '-';
+      try {
+        return new Date(dateStr).toLocaleDateString('ms-MY', { day: '2-digit', month: 'long', year: 'numeric' });
+      } catch { return dateStr; }
+    }
+
+    function showQtError(msg) {
+      const doc = document.getElementById('printable-quotation');
+      if (doc) doc.innerHTML = `
+        <div style="text-align:center; padding: 60px 30px;">
+          <div style="font-size: 48px; margin-bottom: 16px;">📄</div>
+          <h2 style="color: #000; font-size: 20px; font-weight: 800; margin-bottom: 10px;">Sebut Harga Tidak Dijumpai</h2>
+          <p style="color: #475569; font-size: 14px; line-height: 1.6;">${msg}</p>
+          <p style="color: #94a3b8; font-size: 12px; margin-top: 20px;">📞 Hubungi: <strong>+60 10-811 8559</strong></p>
+        </div>
+      `;
+      const esigBox = document.getElementById('esig-interactive-box');
+      if (esigBox) esigBox.style.display = 'none';
+    }
+
     renderClientPortal();
   </script>
 </body>
 </html>
+
