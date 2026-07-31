@@ -3455,22 +3455,24 @@ input:focus, select:focus, textarea:focus {
   .a4-table td:nth-child(2) {
     width: 34% !important;
     font-weight: 800 !important;
-    font-size: 9.5px !important;
+    font-size: 9px !important;
+    line-height: 1.3 !important;
   }
   .a4-table th:nth-child(3),
   .a4-table td:nth-child(3) {
     width: 38% !important;
-    font-size: 9px !important;
-    line-height: 1.35 !important;
+    font-size: 8.5px !important;
+    line-height: 1.3 !important;
   }
   .a4-table th:nth-child(4),
   .a4-table td:nth-child(4) {
     width: 20% !important;
-    text-align: right !important;
+    text-align: center !important;
+    vertical-align: middle !important;
     white-space: nowrap !important;
     font-size: 9.5px !important;
     font-weight: 800 !important;
-    padding-right: 4px !important;
+    padding: 6px 2px !important;
   }
   .a4-totals-row {
     flex-direction: column !important;
