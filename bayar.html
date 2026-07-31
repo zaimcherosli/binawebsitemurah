@@ -648,8 +648,26 @@
               <strong id="display-amount">RM350</strong>
             </div>
 
+            <!-- Mode Pembayaran: Full vs 50% Deposit -->
+            <div class="payment-mode-selector" style="margin-top: 18px; background: rgba(0, 0, 0, 0.02); border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; padding: 14px 16px;">
+              <label style="display: block; font-weight: 700; font-size: 13.5px; color: var(--text-main); margin-bottom: 10px;">Pilihan Jenis Pembayaran:</label>
+              <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <label class="pay-mode-option" style="flex: 1; min-width: 140px; display: flex; align-items: center; gap: 8px; background: rgba(184, 134, 11, 0.04); border: 1.5px solid var(--gold-primary); padding: 10px 14px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700; transition: all 0.2s ease;">
+                  <input type="radio" name="pay-mode" value="full" checked onchange="updatePaymentAmount()" style="accent-color: var(--gold-primary);">
+                  <span>💳 Bayaran Penuh (100%)</span>
+                </label>
+                <label class="pay-mode-option" style="flex: 1; min-width: 140px; display: flex; align-items: center; gap: 8px; background: #fff; border: 1.5px solid rgba(0,0,0,0.1); padding: 10px 14px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700; transition: all 0.2s ease;">
+                  <input type="radio" name="pay-mode" value="deposit" onchange="updatePaymentAmount()" style="accent-color: var(--gold-primary);">
+                  <span>⚡ Deposit 50% (Separuh)</span>
+                </label>
+              </div>
+              <div id="deposit-note" style="display: none; margin-top: 10px; font-size: 12px; color: var(--gold-secondary); font-weight: 700; background: rgba(184, 134, 11, 0.08); border: 1px solid rgba(184, 134, 11, 0.3); padding: 8px 12px; border-radius: 8px;">
+                💡 <strong>Deposit 50%:</strong> Bayar separuh dahulu untuk memulakan projek. Baki 50% lagi akan dibayar selepas laman web siap sepenuhnya &amp; diuji!
+              </div>
+            </div>
+
             <!-- Kod Diskaun Input -->
-            <div class="form-group-pay" style="margin-top: 20px; border-top: 1px solid rgba(0, 0, 0, 0.08); padding-top: 15px;">
+            <div class="form-group-pay" style="margin-top: 18px; border-top: 1px solid rgba(0, 0, 0, 0.08); padding-top: 15px;">
               <label for="discount-code" style="font-weight: 600; color: var(--text-main);">Kod Diskaun (Ada promo?)</label>
               <div style="display: flex; gap: 10px;">
                 <input type="text" id="discount-code" placeholder="Masukkan kod diskaun" style="flex: 1; text-transform: uppercase; background: #fff; border: 1.5px solid rgba(0, 0, 0, 0.08); border-radius: 10px; padding: 0 16px; height: 48px;">
@@ -837,26 +855,59 @@
       return originalPrice;
     }
 
-    // Amount updating
+    // Amount updating (Supports 100% Full Payment vs 50% Deposit)
     function updatePaymentAmount() {
       const select = document.getElementById('pay-package');
       const selectedOption = select.options[select.selectedIndex];
       const originalPrice = parseInt(selectedOption.getAttribute('data-price'));
       
+      const payModeRadio = document.querySelector('input[name="pay-mode"]:checked');
+      const payMode = payModeRadio ? payModeRadio.value : 'full';
+      const depositNote = document.getElementById('deposit-note');
+
+      // Highlight selected pay mode option box visually
+      document.querySelectorAll('.pay-mode-option').forEach(opt => {
+        const radio = opt.querySelector('input[type="radio"]');
+        if (radio && radio.checked) {
+          opt.style.borderColor = 'var(--gold-primary)';
+          opt.style.background = 'rgba(184, 134, 11, 0.06)';
+        } else {
+          opt.style.borderColor = 'rgba(0, 0, 0, 0.1)';
+          opt.style.background = '#fff';
+        }
+      });
+
+      if (depositNote) {
+        depositNote.style.display = payMode === 'deposit' ? 'block' : 'none';
+      }
+
       if (originalPrice === 0) {
-        document.getElementById('display-amount').innerText = 'Sebut Harga Custom';
+        if (payMode === 'deposit') {
+          document.getElementById('display-amount').innerHTML = 'Deposit 50% <small style="font-size: 12px; color: #a1a1aa; font-weight: 500;">(Mengikut Sebut Harga Custom)</small>';
+        } else {
+          document.getElementById('display-amount').innerHTML = 'Sebut Harga Custom <small style="font-size: 12px; color: #a1a1aa; font-weight: 500;">(100% Penuh)</small>';
+        }
         return;
       }
 
-      let price = originalPrice;
+      let fullPrice = originalPrice;
       if (appliedDiscountCode) {
-        price = calculateDiscountedPrice(selectedOption.value, originalPrice);
+        fullPrice = calculateDiscountedPrice(selectedOption.value, originalPrice);
       }
       
-      if (price !== originalPrice) {
-        document.getElementById('display-amount').innerHTML = `<span style="text-decoration: line-through; font-size: 15px; color: #a1a1aa; margin-right: 8px;">RM${originalPrice}</span> RM${price}`;
+      if (payMode === 'deposit') {
+        const depositAmount = Math.round(fullPrice / 2);
+        const balanceAmount = fullPrice - depositAmount;
+
+        let html = `<span style="color: var(--gold-secondary); font-weight: 800; font-size: 24px;">RM${depositAmount}</span> <small style="font-size: 12px; color: #a1a1aa; font-weight: 600;">(Deposit 50%)</small>`;
+        html += `<div style="font-size: 11.5px; color: var(--text-muted); font-weight: 600; margin-top: 4px;">💡 Baki RM${balanceAmount} dibayar selepas laman web siap</div>`;
+        document.getElementById('display-amount').innerHTML = html;
       } else {
-        document.getElementById('display-amount').innerText = 'RM' + price;
+        if (fullPrice !== originalPrice) {
+          document.getElementById('display-amount').innerHTML = `<span style="text-decoration: line-through; font-size: 15px; color: #a1a1aa; margin-right: 8px;">RM${originalPrice}</span> <span style="font-size: 24px;">RM${fullPrice}</span> <small style="font-size: 12px; color: #a1a1aa; font-weight: 600;">(100% Penuh)</small>`;
+        } else {
+          document.getElementById('display-amount').innerHTML = `<span style="font-size: 24px;">RM${fullPrice}</span> <small style="font-size: 12px; color: #a1a1aa; font-weight: 600;">(100% Penuh)</small>`;
+        }
       }
     }
 
@@ -946,7 +997,28 @@
       if (appliedDiscountCode) {
         finalPrice = calculateDiscountedPrice(selectedOption.value, originalPrice);
       }
-      const priceText = `RM${finalPrice}` + (appliedDiscountCode ? ` (Kod ${appliedDiscountCode} diguna - Jimat RM${originalPrice - finalPrice})` : '');
+
+      const payModeRadio = document.querySelector('input[name="pay-mode"]:checked');
+      const payMode = payModeRadio ? payModeRadio.value : 'full';
+      const payModeText = payMode === 'deposit' ? '⚡ Deposit 50% (Bayar Separuh)' : '💳 Bayaran Penuh (100%)';
+      
+      let priceText = '';
+      let balanceText = '';
+
+      if (originalPrice === 0) {
+        priceText = payMode === 'deposit' ? 'Deposit 50% (Sebut Harga Custom)' : 'Sebut Harga Custom (100%)';
+        balanceText = payMode === 'deposit' ? 'Baki 50% mengikut sebut harga selepas siap' : 'RM0 (Lunas)';
+      } else {
+        if (payMode === 'deposit') {
+          const depositAmount = Math.round(finalPrice / 2);
+          const balanceAmount = finalPrice - depositAmount;
+          priceText = `RM${depositAmount} (Deposit 50% dari jumlah RM${finalPrice})`;
+          balanceText = `RM${balanceAmount} (Dibayar selepas laman web siap)`;
+        } else {
+          priceText = `RM${finalPrice} (100% Bayaran Penuh)` + (appliedDiscountCode ? ` (Kod ${appliedDiscountCode} diguna)` : '');
+          balanceText = `RM0 (Lunas)`;
+        }
+      }
 
       const receiptInput = document.getElementById('pay-file');
       const receiptFile = receiptInput ? receiptInput.files[0] : null;
@@ -972,8 +1044,11 @@
       // Telegram Message Formatting
       const captionText = `⚡ <b>BUKTI PEMBAYARAN BAHARU!</b> ⚡\n\n` +
                           `👤 <b>Nama Penuh</b>: ${name}\n` +
+                          `📧 <b>Alamat Emel</b>: ${email}\n` +
                           `📦 <b>Pakej Dipilih</b>: ${packageName}\n` +
+                          `🏷️ <b>Jenis Pembayaran</b>: ${payModeText}\n` +
                           `💰 <b>Jumlah Dibayar</b>: ${priceText}\n` +
+                          `⏳ <b>Baki Belum Dibayar</b>: ${balanceText}\n` +
                           `📅 <b>Tarikh & Masa</b>: ${timeStr}\n\n` +
                           `📎 <b>Lampiran Resit</b>: ${receiptFile ? 'Fail Dilampirkan' : 'Tiada Fail'}`;
 
