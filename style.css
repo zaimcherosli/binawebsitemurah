@@ -2299,12 +2299,13 @@ input:focus, select:focus, textarea:focus {
 /* ==========================================
    STICKY TOP PROMO BAR & COUNTDOWN TIMER
    ========================================== */
+/* Sticky Top Promo Bar */
 .top-promo-bar {
-  position: relative;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 1001;
   background: linear-gradient(90deg, #09090b 0%, #1e1b18 50%, #09090b 100%);
   border-bottom: 1px solid rgba(201, 168, 76, 0.4);
   padding: 8px 16px;
@@ -2403,14 +2404,117 @@ input:focus, select:focus, textarea:focus {
   letter-spacing: 0.3px;
 }
 
+/* Clean Custom Enterprise Card Styling */
 .pricing-card.custom-card {
-  border-color: rgba(201, 168, 76, 0.3);
-  background: linear-gradient(180deg, rgba(201, 168, 76, 0.03) 0%, rgba(10, 10, 12, 0.95) 100%);
+  background-color: var(--bg-card);
+  border: 2px solid rgba(184, 134, 11, 0.4);
 }
 
 .pricing-card.custom-card:hover {
-  border-color: var(--gold-secondary);
-  box-shadow: 0 20px 40px rgba(201, 168, 76, 0.12);
+  border-color: var(--gold-primary);
+  box-shadow: 0 20px 40px rgba(184, 134, 11, 0.15);
+}
+
+.custom-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #18181b;
+  color: var(--gold-primary);
+  border: 1px solid rgba(184, 134, 11, 0.4);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 50px;
+  letter-spacing: 0.05em;
+}
+
+/* Dedicated Pricing Section Countdown Banner Box */
+.pricing-countdown-box {
+  background: linear-gradient(135deg, #09090b 0%, #18181b 100%);
+  border: 1px solid rgba(184, 134, 11, 0.4);
+  border-radius: 20px;
+  padding: 20px 30px;
+  margin-top: 35px;
+  margin-bottom: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.pcb-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.pcb-text-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.pcb-fire {
+  font-size: 28px;
+}
+
+.pcb-title {
+  color: #FFFFFF;
+  font-family: var(--font-headings);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.pcb-sub {
+  color: #A1A1AA;
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.pcb-slots {
+  color: #F59E0B;
+  font-weight: 700;
+}
+
+.pcb-timer-digits {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.digit-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(184, 134, 11, 0.5);
+  border-radius: 12px;
+  padding: 8px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 58px;
+}
+
+.digit-box span {
+  font-family: var(--font-headings);
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--gold-secondary);
+  line-height: 1;
+}
+
+.digit-box small {
+  font-size: 9px;
+  font-weight: 700;
+  color: #A1A1AA;
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+
+.digit-colon {
+  font-family: var(--font-headings);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gold-secondary);
 }
 
 @media (max-width: 768px) {
@@ -2422,7 +2526,24 @@ input:focus, select:focus, textarea:focus {
     gap: 8px;
   }
   .tpb-slot {
-    display: none; /* Hide extra text on very small screens to keep bar compact */
+    display: none; /* Hide extra text on very small screens */
+  }
+  .pcb-content {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
+  .pcb-text-group {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .digit-box {
+    padding: 6px 10px;
+    min-width: 48px;
+  }
+  .digit-box span {
+    font-size: 16px;
   }
 }
+
 
