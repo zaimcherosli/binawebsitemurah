@@ -3007,15 +3007,18 @@ input:focus, select:focus, textarea:focus {
 
 .a4-doc-meta {
   text-align: right;
+  flex-shrink: 0;
+  min-width: 220px;
 }
 
 .a4-doc-title {
   font-family: 'Outfit', sans-serif;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 900;
   color: #09090b;
   margin: 0 0 6px 0;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  white-space: nowrap !important;
 }
 
 .a4-meta-table {
@@ -3027,6 +3030,7 @@ input:focus, select:focus, textarea:focus {
 .a4-meta-table td {
   padding: 2px 6px;
   text-align: right;
+  white-space: nowrap !important;
 }
 
 .a4-client-box {
