@@ -644,82 +644,105 @@ window.generateQuotationDocument = function(event) {
 };
 
 function renderQuotationDocument(qtData) {
-  // Populate A4 Document
-  document.getElementById('a4-no').innerText = qtData.qtNo;
+  if (!qtData) return;
+
+  const setSafeText = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.innerText = val !== undefined && val !== null ? val : '-';
+  };
+
+  setSafeText('a4-no', qtData.qtNo);
 
   const formatDateStr = (dateStr) => {
     if (!dateStr) return '-';
-    const d = new Date(dateStr);
-    return d.toLocaleDateString('ms-MY', { day: '2-digit', month: 'long', year: 'numeric' });
+    try {
+      const d = new Date(dateStr);
+      return d.toLocaleDateString('ms-MY', { day: '2-digit', month: 'long', year: 'numeric' });
+    } catch (e) {
+      return dateStr;
+    }
   };
 
-  document.getElementById('a4-date').innerText = formatDateStr(qtData.qtDate);
-  document.getElementById('a4-valid-until').innerText = formatDateStr(qtData.qtValid);
-  document.getElementById('a4-client-name').innerText = qtData.clientName;
-  document.getElementById('a4-project-title').innerText = qtData.projectTitle;
-  document.getElementById('a4-client-phone').innerText = qtData.clientPhone || '-';
-  document.getElementById('a4-client-email').innerText = qtData.clientEmail || '-';
-  document.getElementById('a4-sig-client').innerText = qtData.clientName;
+  setSafeText('a4-date', formatDateStr(qtData.qtDate));
+  setSafeText('a4-valid-until', formatDateStr(qtData.qtValid));
+  setSafeText('a4-client-name', qtData.clientName);
+  setSafeText('a4-project-title', qtData.projectTitle);
+  setSafeText('a4-client-phone', qtData.clientPhone);
+  setSafeText('a4-client-email', qtData.clientEmail);
+  setSafeText('a4-sig-client', qtData.clientName);
 
   // Render Table Items
   const tbody = document.getElementById('a4-items-tbody');
-  tbody.innerHTML = '';
-
-  qtData.items.forEach((item, index) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td style="text-align: center; font-weight: 700; color: #555;">${index + 1}</td>
-      <td><strong style="color: #000; font-size: 13px;">${escapeHtml(item.title)}</strong></td>
-      <td style="font-size: 11.5px; color: #444; line-height: 1.5;">${escapeHtml(item.desc)}</td>
-      <td style="text-align: right; font-weight: 700; color: #000;">RM ${item.price.toLocaleString()}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-
-  // Render Totals
-  document.getElementById('a4-subtotal').innerText = `RM ${qtData.subtotal.toLocaleString()}`;
-  
-  const discountRow = document.getElementById('a4-discount-row');
-  if (qtData.discount > 0) {
-    discountRow.style.display = 'flex';
-    document.getElementById('a4-discount').innerText = `-RM ${qtData.discount.toLocaleString()}`;
-  } else {
-    discountRow.style.display = 'none';
-  }
-
-  document.getElementById('a4-grand-total').innerText = `RM ${qtData.total.toLocaleString()}`;
-  
-  if (qtData.payMode === 'deposit') {
-    document.getElementById('a4-deposit-amount').innerText = `RM ${qtData.deposit.toLocaleString()}`;
-    document.getElementById('a4-balance-amount').innerText = `RM ${qtData.balance.toLocaleString()}`;
-  } else {
-    document.getElementById('a4-deposit-amount').innerText = `RM ${qtData.total.toLocaleString()} (100% Lunas)`;
-    document.getElementById('a4-balance-amount').innerText = `RM 0`;
-  }
-
-  document.getElementById('a4-duration').innerText = qtData.duration || '5 - 7 Hari Bekerja';
-
-  // Terms list
-  const termsList = document.getElementById('a4-terms-list');
-  termsList.innerHTML = `
-    <li>Tempoh Siap Projek: <strong>${escapeHtml(qtData.duration)}</strong>.</li>
-    <li>Pembangunan dimulakan serta-merta selepas bayaran deposit disahkan.</li>
-  `;
-  if (qtData.notes) {
-    const noteLines = qtData.notes.split('\n');
-    noteLines.forEach(line => {
-      if (line.trim()) {
-        const li = document.createElement('li');
-        li.innerText = line.trim();
-        termsList.appendChild(li);
-      }
+  if (tbody) {
+    tbody.innerHTML = '';
+    const items = qtData.items || [];
+    items.forEach((item, index) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="text-align: center; font-weight: 700; color: #555;">${index + 1}</td>
+        <td><strong style="color: #000; font-size: 13px;">${escapeHtml(item.title || '')}</strong></td>
+        <td style="font-size: 11.5px; color: #444; line-height: 1.5;">${escapeHtml(item.desc || '')}</td>
+        <td style="text-align: right; font-weight: 700; color: #000;">RM ${(item.price || 0).toLocaleString()}</td>
+      `;
+      tbody.appendChild(tr);
     });
   }
 
-  // Show Preview Wrapper
+  // Render Totals
+  const subtotal = qtData.subtotal || 0;
+  const discount = qtData.discount || 0;
+  const total = qtData.total || Math.max(0, subtotal - discount);
+  const deposit = qtData.deposit || Math.round(total / 2);
+  const balance = qtData.balance !== undefined ? qtData.balance : (total - deposit);
+
+  setSafeText('a4-subtotal', `RM ${subtotal.toLocaleString()}`);
+
+  const discountRow = document.getElementById('a4-discount-row');
+  if (discountRow) {
+    if (discount > 0) {
+      discountRow.style.display = 'flex';
+      setSafeText('a4-discount', `-RM ${discount.toLocaleString()}`);
+    } else {
+      discountRow.style.display = 'none';
+    }
+  }
+
+  setSafeText('a4-grand-total', `RM ${total.toLocaleString()}`);
+
+  if (qtData.payMode === 'deposit') {
+    setSafeText('a4-deposit-amount', `RM ${deposit.toLocaleString()}`);
+    setSafeText('a4-balance-amount', `RM ${balance.toLocaleString()}`);
+  } else {
+    setSafeText('a4-deposit-amount', `RM ${total.toLocaleString()} (100% Lunas)`);
+    setSafeText('a4-balance-amount', `RM 0`);
+  }
+
+  setSafeText('a4-duration', qtData.duration || '5 - 7 Hari Bekerja');
+
+  // Terms list
+  const termsList = document.getElementById('a4-terms-list');
+  if (termsList) {
+    termsList.innerHTML = `
+      <li>Tempoh Siap Projek: <strong>${escapeHtml(qtData.duration || '5 - 7 Hari Bekerja')}</strong>.</li>
+      <li>Pembangunan dimulakan serta-merta selepas bayaran deposit disahkan.</li>
+    `;
+    if (qtData.notes) {
+      const noteLines = qtData.notes.split('\n');
+      noteLines.forEach(line => {
+        if (line.trim()) {
+          const li = document.createElement('li');
+          li.innerText = line.trim();
+          termsList.appendChild(li);
+        }
+      });
+    }
+  }
+
+  // Show Preview Wrapper forcefully
   const wrapper = document.getElementById('quotation-preview-wrapper');
   if (wrapper) {
     wrapper.style.display = 'block';
+    wrapper.style.zIndex = '999999';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
@@ -731,7 +754,7 @@ window.closeQuotationPreview = function() {
 
 window.sendQtToWhatsapp = function() {
   if (!currentQtData) return;
-  const phone = currentQtData.clientPhone.replace(/\D/g, '');
+  const phone = (currentQtData.clientPhone || '').replace(/\D/g, '');
   if (!phone) {
     alert('No. WhatsApp klien tidak sah.');
     return;
@@ -780,7 +803,7 @@ function renderQuotationHistory() {
   if (history.length === 0) {
     container.innerHTML = `
       <div class="no-submissions">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 2-2 2v16a2 2 0 0 2 2h12a2 2 0 0 2 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
         <h3 style="color:#FFFFFF;">Tiada Sebut Harga Disimpan</h3>
         <p style="color:#A1A1AA;">Sebut harga yang dijana akan disimpan secara automatik di sini.</p>
       </div>
@@ -790,23 +813,27 @@ function renderQuotationHistory() {
 
   let html = `<div class="history-grid">`;
   history.forEach((qt, idx) => {
-    const createdDate = new Date(qt.createdAt).toLocaleDateString('ms-MY', { day: '2-digit', month: 'short', year: 'numeric' });
+    const createdDate = new Date(qt.createdAt || Date.now()).toLocaleDateString('ms-MY', { day: '2-digit', month: 'short', year: 'numeric' });
+    const totVal = (qt.total || 0).toLocaleString();
+    const depVal = (qt.deposit || Math.round((qt.total || 0) / 2)).toLocaleString();
+    
     html += `
       <div class="history-item-card">
         <div class="hic-header">
           <span class="hic-badge">${qt.qtNo}</span>
           <span class="hic-date">${createdDate}</span>
         </div>
-        <h3 class="hic-title">${escapeHtml(qt.clientName)}</h3>
-        <p class="hic-sub">${escapeHtml(qt.projectTitle)}</p>
+        <h3 class="hic-title">${escapeHtml(qt.clientName || 'Klien')}</h3>
+        <p class="hic-sub">${escapeHtml(qt.projectTitle || 'Projek Web')}</p>
         <div class="hic-price-row">
-          <span>Jumlah: <strong style="color: var(--gold-secondary);">RM ${qt.total.toLocaleString()}</strong></span>
-          <span>Deposit 50%: <strong style="color: #10b981;">RM ${qt.deposit.toLocaleString()}</strong></span>
+          <span>Jumlah: <strong style="color: #000000; font-weight: 800;">RM ${totVal}</strong></span>
+          <span>Deposit 50%: <strong style="color: #047857; font-weight: 800;">RM ${depVal}</strong></span>
         </div>
-        <div class="hic-actions">
-          <button class="btn btn-sm btn-primary" onclick="viewHistoryQt(${idx})">📄 Lihat / Cetak</button>
-          <button class="btn btn-sm btn-emerald" onclick="waHistoryQt(${idx})">💬 WhatsApp</button>
-          <button class="btn btn-sm btn-outline" onclick="deleteHistoryQt(${idx})" style="color: #ef4444; border-color: rgba(239,68,68,0.3);">🗑️</button>
+        <div class="hic-actions" style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="btn btn-sm btn-primary" onclick="viewHistoryQt(${idx})" style="flex: 1; min-width: 100px;">📄 Lihat / Cetak</button>
+          <button class="btn btn-sm btn-outline" onclick="editHistoryQt(${idx})" style="flex: 1; min-width: 80px; color: #000000; border-color: #94A3B8; font-weight: 800; background: #FFFFFF;">✏️ Edit</button>
+          <button class="btn btn-sm btn-emerald" onclick="waHistoryQt(${idx})" style="padding: 6px 12px;">💬 WhatsApp</button>
+          <button class="btn btn-sm btn-outline" onclick="deleteHistoryQt(${idx})" style="color: #ef4444; border-color: rgba(239,68,68,0.3); padding: 6px 10px;">🗑️</button>
         </div>
       </div>
     `;
@@ -821,6 +848,46 @@ window.viewHistoryQt = function(index) {
     currentQtData = history[index];
     renderQuotationDocument(currentQtData);
   }
+};
+
+window.editHistoryQt = function(index) {
+  const history = JSON.parse(localStorage.getItem('kwikezee_quotations_history') || '[]');
+  const qt = history[index];
+  if (!qt) return;
+
+  // Switch to Quotation Builder Tab
+  switchAdminTab('quotation');
+
+  // Fill Meta & Client Form Fields
+  if (document.getElementById('qt-no')) document.getElementById('qt-no').value = qt.qtNo || '';
+  if (document.getElementById('qt-date')) document.getElementById('qt-date').value = qt.qtDate || '';
+  if (document.getElementById('qt-valid-until')) document.getElementById('qt-valid-until').value = qt.qtValid || '';
+  if (document.getElementById('qt-client-name')) document.getElementById('qt-client-name').value = qt.clientName || '';
+  if (document.getElementById('qt-project-title')) document.getElementById('qt-project-title').value = qt.projectTitle || '';
+  if (document.getElementById('qt-client-phone')) document.getElementById('qt-client-phone').value = qt.clientPhone || '';
+  if (document.getElementById('qt-client-email')) document.getElementById('qt-client-email').value = qt.clientEmail || '';
+  if (document.getElementById('qt-duration')) document.getElementById('qt-duration').value = qt.duration || '5 - 7 Hari Bekerja';
+  if (document.getElementById('qt-discount')) document.getElementById('qt-discount').value = qt.discount || 0;
+  if (document.getElementById('qt-pay-mode')) document.getElementById('qt-pay-mode').value = qt.payMode || 'deposit';
+  if (document.getElementById('qt-notes')) document.getElementById('qt-notes').value = qt.notes || '';
+
+  // Clear existing items and populate with archived scope items
+  const itemsContainer = document.getElementById('quotation-items-list');
+  if (itemsContainer) itemsContainer.innerHTML = '';
+  qbItemCounter = 0;
+
+  const items = qt.items || [];
+  if (items.length > 0) {
+    items.forEach(item => {
+      addQuotationScopeItem(item.title, item.desc, item.price);
+    });
+  } else {
+    addQuotationScopeItem('Skop Kerja Utama', '', 0);
+  }
+
+  updateQtFormTotals();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  alert(`Sebut Harga (${qt.qtNo}) telah dimuatkan ke dalam borang. Anda boleh kemaskini maklumat & jana semula PDF!`);
 };
 
 window.waHistoryQt = function(index) {
