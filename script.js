@@ -621,20 +621,34 @@ function initDraggableWaFab() {
 }
 
 /* ==========================================
-   LIVE COUNTDOWN TIMER & DYNAMIC SLOT SYNC
+   LIVE WEEKLY COUNTDOWN TIMER (ISNIN 12AM - AHAD 11:59PM)
    ========================================== */
 function initCountdownTimer() {
   // Elements for Top Bar Timer
+  const topDaysEl = document.getElementById('top-timer-days');
   const topHoursEl = document.getElementById('top-timer-hours');
   const topMinsEl = document.getElementById('top-timer-mins');
   const topSecsEl = document.getElementById('top-timer-secs');
   const topSlotEl = document.getElementById('top-slot-count');
 
   // Elements for Pricing Box Timer
+  const boxDaysEl = document.getElementById('box-timer-days');
   const boxHoursEl = document.getElementById('box-timer-hours');
   const boxMinsEl = document.getElementById('box-timer-mins');
   const boxSecsEl = document.getElementById('box-timer-secs');
   const boxSlotEl = document.getElementById('box-slot-count');
+
+  // Helper function: Calculate next Sunday 11:59:59 PM target timestamp
+  function getSundayEndTimestamp() {
+    const now = new Date();
+    const dayOfWeek = now.getDay(); // 0 is Sunday, 1 is Monday, ... 6 is Saturday
+    
+    // Days until Sunday (if Sunday today, target is end of today 23:59:59)
+    const daysUntilSunday = (7 - dayOfWeek) % 7;
+    
+    const sundayEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilSunday, 23, 59, 59, 999);
+    return sundayEnd.getTime();
+  }
 
   // 1. Dynamic Weekly Slot Counter (Total 10 slots per week)
   let currentSlots = localStorage.getItem('kwikezee_weekly_slots');
@@ -649,41 +663,38 @@ function initCountdownTimer() {
   if (topSlotEl) topSlotEl.textContent = `${currentSlots} Slot`;
   if (boxSlotEl) boxSlotEl.textContent = `${currentSlots} Slot Reka Bentuk`;
 
-  // 2. Synchronized Persistent Countdown Target Time (6 Hours Cycle)
-  let targetTime = localStorage.getItem('kwikezee_promo_target');
-  const now = new Date().getTime();
-
-  if (!targetTime || parseInt(targetTime, 10) <= now) {
-    targetTime = now + (6 * 60 * 60 * 1000); // 6 hours from now
-    localStorage.setItem('kwikezee_promo_target', targetTime);
-  } else {
-    targetTime = parseInt(targetTime, 10);
-  }
-
   function updateTimer() {
-    const currentTime = new Date().getTime();
-    let diff = targetTime - currentTime;
+    const now = new Date().getTime();
+    const targetSunday = getSundayEndTimestamp();
+    let diff = targetSunday - now;
 
     if (diff <= 0) {
-      diff = 6 * 60 * 60 * 1000;
-      targetTime = currentTime + diff;
-      localStorage.setItem('kwikezee_promo_target', targetTime);
+      // New week started (Monday 12am) -> Reset weekly slots to 10!
+      localStorage.setItem('kwikezee_weekly_slots', 10);
+      currentSlots = 10;
+      if (topSlotEl) topSlotEl.textContent = `10 Slot`;
+      if (boxSlotEl) boxSlotEl.textContent = `10 Slot Reka Bentuk`;
+      diff = 7 * 24 * 60 * 60 * 1000; // 7 days fallback
     }
 
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
+    const formattedD = days < 10 ? '0' + days : days;
     const formattedH = hours < 10 ? '0' + hours : hours;
     const formattedM = minutes < 10 ? '0' + minutes : minutes;
     const formattedS = seconds < 10 ? '0' + seconds : seconds;
 
     // Update Top Bar Digits
+    if (topDaysEl) topDaysEl.textContent = formattedD;
     if (topHoursEl) topHoursEl.textContent = formattedH;
     if (topMinsEl) topMinsEl.textContent = formattedM;
     if (topSecsEl) topSecsEl.textContent = formattedS;
 
     // Update Pricing Box Digits (100% Synchronized!)
+    if (boxDaysEl) boxDaysEl.textContent = formattedD;
     if (boxHoursEl) boxHoursEl.textContent = formattedH;
     if (boxMinsEl) boxMinsEl.textContent = formattedM;
     if (boxSecsEl) boxSecsEl.textContent = formattedS;
