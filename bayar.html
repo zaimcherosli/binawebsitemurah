@@ -193,18 +193,168 @@
       border: 1px solid rgba(0, 0, 0, 0.06);
     }
     
+    .qr-image-wrapper {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    
     .qr-image {
       max-width: 220px;
       width: 100%;
       border-radius: 12px;
       border: 4px solid #fff;
-      margin: 0 auto 15px;
+      margin: 0 auto;
+      display: block;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .qr-image-wrapper:hover .qr-image {
+      transform: scale(1.02);
+      box-shadow: 0 8px 25px rgba(184, 134, 11, 0.2);
+    }
+    
+    .qr-hover-hint {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      pointer-events: none;
+      opacity: 0.9;
+      transition: opacity 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .qr-action-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    
+    .btn-qr-download {
+      background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%);
+      color: #000;
+      font-weight: 800;
+      font-size: 12.5px;
+      padding: 9px 18px;
+      border-radius: 30px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(184, 134, 11, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .btn-qr-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(184, 134, 11, 0.4);
+      color: #000;
+    }
+
+    .btn-qr-enlarge {
+      background: rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 12.5px;
+      padding: 9px 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-qr-enlarge:hover {
+      background: rgba(0, 0, 0, 0.08);
     }
     
     .qr-info {
       font-size: 13.5px;
       color: var(--text-muted);
       line-height: 1.5;
+    }
+
+    /* Modal Lightbox for Enlarged QR Code */
+    .qr-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      padding: 20px;
+    }
+    
+    .qr-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .qr-modal-content {
+      position: relative;
+      background: #18181b;
+      border: 1px solid rgba(184, 134, 11, 0.5);
+      border-radius: 20px;
+      padding: 24px 20px;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+    
+    .qr-modal.active .qr-modal-content {
+      transform: scale(1);
+    }
+
+    .qr-modal-close {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      background: #ef4444;
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    
+    .qr-modal-img {
+      max-width: 100%;
+      border-radius: 14px;
+      border: 4px solid #fff;
+      background: #fff;
     }
     
     /* Bank details */
@@ -531,10 +681,25 @@
           <!-- Content: QR -->
           <div id="content-qr" class="tab-content active">
             <div class="qr-container">
-              <img src="duitnow-qr.jpg?v=3" alt="DuitNow QR Code Kwikezee Resources" class="qr-image">
+              <div class="qr-image-wrapper" onclick="openQrModal()" title="Klik untuk besarkan Kod QR">
+                <img src="duitnow-qr.jpg?v=3" alt="DuitNow QR Code Kwikezee Resources" class="qr-image">
+                <span class="qr-hover-hint">🔍 Tekan Untuk Besarkan</span>
+              </div>
+
+              <!-- Action Buttons: Download & Enlarge -->
+              <div class="qr-action-buttons">
+                <a href="duitnow-qr.jpg" download="DuitNow-QR-Kwikezee-Resources.jpg" class="btn-qr-download">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Muat Turun Kod QR
+                </a>
+                <button type="button" class="btn-qr-enlarge" onclick="openQrModal()">
+                  🔍 Besarkan
+                </button>
+              </div>
+
               <div class="qr-info">
                 <p><strong>Kwikezee Resources (Maybank DuitNow QR)</strong></p>
-                <p style="margin-top: 4px; font-size: 13px;">Imbas kod QR di atas menggunakan aplikasi perbankan mudah alih (MAE, CIMB Clicks, Bank Islam, dll.) untuk membuat pindahan segera.</p>
+                <p style="margin-top: 4px; font-size: 13px;">Imbas atau muat turun kod QR di atas menggunakan aplikasi perbankan mudah alih (MAE, CIMB Clicks, Bank Islam, dll.) untuk membuat pindahan segera.</p>
               </div>
             </div>
           </div>
@@ -905,6 +1070,18 @@
       }
     }
 
+    // QR Modal Lightbox Functions
+    function openQrModal() {
+      const modal = document.getElementById('qr-modal');
+      if (modal) modal.classList.add('active');
+    }
+
+    function closeQrModal(e) {
+      if (e && e.target && e.target.classList.contains('qr-modal-content')) return;
+      const modal = document.getElementById('qr-modal');
+      if (modal) modal.classList.remove('active');
+    }
+
     // Get URL query params to auto-select package if passed
     window.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
@@ -921,6 +1098,22 @@
       }
     });
   </script>
+
+  <!-- QR Modal Lightbox -->
+  <div id="qr-modal" class="qr-modal" onclick="closeQrModal(event)">
+    <div class="qr-modal-content" onclick="event.stopPropagation()">
+      <button type="button" class="qr-modal-close" onclick="closeQrModal()">&times;</button>
+      <img src="duitnow-qr.jpg?v=3" alt="DuitNow QR Code Kwikezee Resources" class="qr-modal-img">
+      <p style="font-weight: 700; color: #FFF; margin-top: 14px; font-size: 14px;">Kwikezee Resources (Maybank DuitNow QR)</p>
+      <p style="font-size: 12px; color: #a1a1aa; margin-top: 4px;">Imbas QR atau muat turun terus ke galeri anda.</p>
+      <div style="margin-top: 18px;">
+        <a href="duitnow-qr.jpg" download="DuitNow-QR-Kwikezee-Resources.jpg" class="btn-qr-download" style="display: inline-flex; padding: 10px 20px; font-size: 13px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Muat Turun Gambar QR
+        </a>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

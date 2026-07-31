@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kwikezee-cache-v28';
+const CACHE_NAME = 'kwikezee-cache-v29';
 const ASSETS_TO_CACHE = [
   './',
   './style.css',
