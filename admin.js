@@ -963,6 +963,14 @@ function renderHistoryItemsUI(history, container) {
           <button class="btn-history-icon" onclick="editHistoryQt(${idx})" title="Edit / Kemaskini" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#000!important;cursor:pointer!important;flex-shrink:0!important;">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path><path d="M15 5l4 4"></path></svg>
           </button>
+          <button class="btn-history-icon" onclick="duplicateHistoryQt(${idx})" title="Duplikasi Sebut Harga (Salin & Cipta Baru)" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#0F172A!important;cursor:pointer!important;flex-shrink:0!important;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="8" y="8" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+              <line x1="14.5" y1="11.5" x2="14.5" y2="17.5"></line>
+              <line x1="11.5" y1="14.5" x2="17.5" y2="14.5"></line>
+            </svg>
+          </button>
           <button class="btn-history-icon" onclick="waHistoryQt(${idx})" title="Kongsi Ke WhatsApp" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;cursor:pointer!important;flex-shrink:0!important;">
             <svg width="22" height="22" viewBox="0 0 32 32" fill="none"><path d="M16 2a13.9 13.9 0 0 0-11.8 21.2L2.3 29.7l6.7-1.8A13.9 13.9 0 1 0 16 2z" fill="#25D366"/><path d="M12.1 9.7c-.3-.7-.6-.7-.9-.7h-.7c-.2 0-.6.1-.9.4s-1.2 1.2-1.2 2.9 1.3 3.3 1.4 3.5c.2.2 2.5 3.8 6.1 5.4.9.4 1.5.6 2 .8.9.3 1.7.2 2.3.1.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4s-2.2-1.1-2.5-1.2c-.3-.2-.5-.2-.7.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.8 0s-1.7-.6-3.2-2c-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.1-.7s-.6-1.5-.9-2.1z" fill="#FFF"/></svg>
           </button>
@@ -1061,6 +1069,68 @@ window.editHistoryQt = async function(index) {
   updateQtFormTotals();
   window.scrollTo({ top: 0, behavior: 'smooth' });
   alert(`Sebut Harga (${qtData.qtNo}) telah dimuatkan ke dalam borang. Anda boleh kemaskini & jana semula PDF!`);
+};
+
+window.duplicateHistoryQt = async function(index) {
+  let qt = _qtHistoryCache[index];
+  if (!qt) return;
+
+  try {
+    const res = await fetch(`${API_BASE}/api/quotations/${encodeURIComponent(qt.qt_no)}`);
+    const json = await res.json();
+    if (json.success) qt = json.data;
+  } catch (e) { /* guna cache */ }
+
+  const qtData = normalizeQtFromApi(qt);
+
+  // Jana nombor quotation baru
+  const currentYear = new Date().getFullYear();
+  let nextNum = 1;
+  try {
+    const res = await fetch(`${API_BASE}/api/quotations`);
+    const json = await res.json();
+    const list = json.data || [];
+    nextNum = list.length + 1;
+  } catch (e) {
+    const local = JSON.parse(localStorage.getItem('kwikezee_qt_history') || '[]');
+    nextNum = local.length + 1;
+  }
+  const newQtNo = `KZ-QT-${currentYear}-${String(nextNum).padStart(3, '0')}`;
+
+  switchAdminTab('quotation');
+
+  // Isi borang dengan data duplikasi
+  if (document.getElementById('qt-no')) document.getElementById('qt-no').value = newQtNo;
+  if (document.getElementById('qt-date')) document.getElementById('qt-date').value = new Date().toISOString().split('T')[0];
+  
+  // Set 14 hari tamat sah
+  const validDate = new Date();
+  validDate.setDate(validDate.getDate() + 14);
+  if (document.getElementById('qt-valid-until')) document.getElementById('qt-valid-until').value = validDate.toISOString().split('T')[0];
+
+  if (document.getElementById('qt-client-name')) document.getElementById('qt-client-name').value = (qtData.clientName || '') + ' (Salinan)';
+  if (document.getElementById('qt-project-title')) document.getElementById('qt-project-title').value = qtData.projectTitle || '';
+  if (document.getElementById('qt-client-phone')) document.getElementById('qt-client-phone').value = qtData.clientPhone || '';
+  if (document.getElementById('qt-client-email')) document.getElementById('qt-client-email').value = qtData.clientEmail || '';
+  if (document.getElementById('qt-duration')) document.getElementById('qt-duration').value = qtData.duration || '5 - 7 Hari Bekerja';
+  if (document.getElementById('qt-discount')) document.getElementById('qt-discount').value = qtData.discount || 0;
+  if (document.getElementById('qt-pay-mode')) document.getElementById('qt-pay-mode').value = qtData.payMode || 'deposit';
+  if (document.getElementById('qt-notes')) document.getElementById('qt-notes').value = qtData.notes || '';
+
+  const itemsContainer = document.getElementById('quotation-items-list');
+  if (itemsContainer) itemsContainer.innerHTML = '';
+  qbItemCounter = 0;
+
+  const items = qtData.items || [];
+  if (items.length > 0) {
+    items.forEach(item => addQuotationScopeItem(item.title, item.desc, item.price));
+  } else {
+    addQuotationScopeItem('Skop Kerja Utama', '', 0);
+  }
+
+  updateQtFormTotals();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  alert(`Sebut Harga (${qtData.qtNo}) telah diduplikasi sebagai draf baharu (${newQtNo})! Anda boleh ubah maklumat & simpan.`);
 };
 
 window.waHistoryQt = async function(index) {
