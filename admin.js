@@ -4,6 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let adminToken = '';
 
+// ============================================================
+// CLOUDFLARE D1 API CONFIG
+// ============================================================
+const API_BASE = 'https://kwikezee-api.huzaimrosli.workers.dev';
+
 function initAdminDashboard() {
   const gateway = document.getElementById('passcode-gateway');
   const passcodeForm = document.getElementById('passcode-form');
@@ -785,153 +790,258 @@ window.sendQtToWhatsapp = function() {
 };
 
 /* ==========================================================================
-   QUOTATION HISTORY (LOCALSTORAGE ARCHIVE)
+   QUOTATION HISTORY — CLOUDFLARE D1 API (SYNC SEMUA PERANTI)
    ========================================================================== */
-function saveQuotationToHistory(qtData) {
-  let history = JSON.parse(localStorage.getItem('kwikezee_quotations_history') || '[]');
-  const existingIdx = history.findIndex(q => q.qtNo === qtData.qtNo);
-  if (existingIdx >= 0) {
-    history[existingIdx] = qtData;
-  } else {
-    history.unshift(qtData);
+
+// Cache senarai QT dalam memory supaya viewHistoryQt(idx) boleh rujuk
+let _qtHistoryCache = [];
+
+async function saveQuotationToHistory(qtData) {
+  try {
+    const payload = {
+      qt_no:         qtData.qtNo,
+      client_name:   qtData.clientName,
+      client_phone:  qtData.clientPhone || '',
+      client_email:  qtData.clientEmail || '',
+      project_title: qtData.projectTitle || '',
+      items:         qtData.items || [],
+      subtotal:      qtData.subtotal || 0,
+      discount:      qtData.discount || 0,
+      total:         qtData.total || 0,
+      deposit:       qtData.deposit || 0,
+      balance:       qtData.balance || 0,
+      pay_mode:      qtData.payMode || 'deposit',
+      duration:      qtData.duration || '5 - 7 Hari Bekerja',
+      notes:         qtData.notes || '',
+    };
+
+    // Cuba POST dulu — jika dah wujud (409), guna PUT untuk update
+    let res = await fetch(`${API_BASE}/api/quotations`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (res.status === 409) {
+      // Sebut harga dah wujud — update je
+      res = await fetch(`${API_BASE}/api/quotations/${encodeURIComponent(qtData.qtNo)}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+    }
+
+    if (!res.ok) {
+      const err = await res.json();
+      console.error('Gagal simpan ke D1:', err);
+    }
+
+    updateHistoryCountBadge();
+  } catch (e) {
+    console.error('API error semasa simpan QT:', e);
   }
-  localStorage.setItem('kwikezee_quotations_history', JSON.stringify(history));
-  updateHistoryCountBadge();
 }
 
-function updateHistoryCountBadge() {
-  const history = JSON.parse(localStorage.getItem('kwikezee_quotations_history') || '[]');
-  const countEl = document.getElementById('history-count');
-  if (countEl) countEl.innerText = history.length;
+async function updateHistoryCountBadge() {
+  try {
+    const res = await fetch(`${API_BASE}/api/quotations`);
+    const json = await res.json();
+    const countEl = document.getElementById('history-count');
+    if (countEl) countEl.innerText = (json.data || []).length;
+  } catch (e) {
+    // Senyap — tak kritikal
+  }
 }
 
-function renderQuotationHistory() {
-  const history = JSON.parse(localStorage.getItem('kwikezee_quotations_history') || '[]');
+async function renderQuotationHistory() {
   const container = document.getElementById('quotation-history-list');
   if (!container) return;
 
-  if (history.length === 0) {
-    container.innerHTML = `
-      <div class="no-submissions">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 2-2 2v16a2 2 0 0 2 2h12a2 2 0 0 2 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        <h3 style="color:#FFFFFF;">Tiada Sebut Harga Disimpan</h3>
-        <p style="color:#A1A1AA;">Sebut harga yang dijana akan disimpan secara automatik di sini.</p>
-      </div>
-    `;
-    return;
-  }
+  container.innerHTML = `<div style="text-align:center; padding: 40px; color: #A1A1AA;">⏳ Memuatkan arkib dari cloud...</div>`;
 
-  let html = `<div class="history-grid">`;
-  history.forEach((qt, idx) => {
-    const createdDate = new Date(qt.createdAt || Date.now()).toLocaleDateString('ms-MY', { day: '2-digit', month: 'short', year: 'numeric' });
-    const totVal = (qt.total || 0).toLocaleString();
-    const depVal = (qt.deposit || Math.round((qt.total || 0) / 2)).toLocaleString();
-    
-    html += `
-      <div class="history-item-card">
-        <div class="hic-header">
-          <span class="hic-badge">${qt.qtNo}</span>
-          ${qt.status === 'SIGNED' ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 2px 8px; border-radius: 20px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DITANDATANGANI</span>` : ''}
-          <span class="hic-date">${createdDate}</span>
+  try {
+    const res = await fetch(`${API_BASE}/api/quotations`);
+    const json = await res.json();
+    const history = json.data || [];
+    _qtHistoryCache = history;
+
+    if (history.length === 0) {
+      container.innerHTML = `
+        <div class="no-submissions">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <h3 style="color:#FFFFFF;">Tiada Sebut Harga Disimpan</h3>
+          <p style="color:#A1A1AA;">Sebut harga yang dijana akan disimpan secara automatik di sini.</p>
         </div>
-        <h3 class="hic-title">${escapeHtml(qt.clientName || 'Klien')}</h3>
-        <p class="hic-sub">${escapeHtml(qt.projectTitle || 'Projek Web')}</p>
-        <div class="hic-price-row">
-          <span>Jumlah: <strong style="color: #000000; font-weight: 800;">RM ${totVal}</strong></span>
-          <span>Deposit 50%: <strong style="color: #047857; font-weight: 800;">RM ${depVal}</strong></span>
+      `;
+      return;
+    }
+
+    let html = `<div class="history-grid">`;
+    history.forEach((qt, idx) => {
+      const createdDate = new Date(qt.created_at || Date.now()).toLocaleDateString('ms-MY', { day: '2-digit', month: 'short', year: 'numeric' });
+      const totVal = (qt.total || 0).toLocaleString();
+      const depVal = (qt.deposit || Math.round((qt.total || 0) / 2)).toLocaleString();
+
+      html += `
+        <div class="history-item-card">
+          <div class="hic-header">
+            <span class="hic-badge">${qt.qt_no}</span>
+            ${qt.status === 'SIGNED' ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 2px 8px; border-radius: 20px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DITANDATANGANI</span>` : ''}
+            <span class="hic-date">${createdDate}</span>
+          </div>
+          <h3 class="hic-title">${escapeHtml(qt.client_name || 'Klien')}</h3>
+          <p class="hic-sub">${escapeHtml(qt.project_title || 'Projek Web')}</p>
+          <div class="hic-price-row">
+            <span>Jumlah: <strong style="color: #000000; font-weight: 800;">RM ${totVal}</strong></span>
+            <span>Deposit 50%: <strong style="color: #047857; font-weight: 800;">RM ${depVal}</strong></span>
+          </div>
+          <div class="hic-actions" style="display: flex; gap: 8px; align-items: center; justify-content: flex-start;">
+            <button class="btn-history-icon" onclick="viewHistoryQt(${idx})" title="Lihat Dokumen" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#000!important;cursor:pointer!important;flex-shrink:0!important;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </button>
+            <button class="btn-history-icon" onclick="editHistoryQt(${idx})" title="Edit" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#000!important;cursor:pointer!important;flex-shrink:0!important;">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path><path d="M15 5l4 4"></path></svg>
+            </button>
+            <button class="btn-history-icon" onclick="waHistoryQt(${idx})" title="WhatsApp" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;cursor:pointer!important;flex-shrink:0!important;">
+              <svg width="22" height="22" viewBox="0 0 32 32" fill="none"><path d="M16 2a13.9 13.9 0 0 0-11.8 21.2L2.3 29.7l6.7-1.8A13.9 13.9 0 1 0 16 2z" fill="#25D366"/><path d="M12.1 9.7c-.3-.7-.6-.7-.9-.7h-.7c-.2 0-.6.1-.9.4s-1.2 1.2-1.2 2.9 1.3 3.3 1.4 3.5c.2.2 2.5 3.8 6.1 5.4.9.4 1.5.6 2 .8.9.3 1.7.2 2.3.1.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4s-2.2-1.1-2.5-1.2c-.3-.2-.5-.2-.7.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.8 0s-1.7-.6-3.2-2c-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.1-.7s-.6-1.5-.9-2.1z" fill="#FFF"/></svg>
+            </button>
+            <button class="btn-history-icon" onclick="deleteHistoryQt('${qt.qt_no}')" title="Padam" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#DC2626!important;cursor:pointer!important;flex-shrink:0!important;">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            </button>
+          </div>
         </div>
-        <div class="hic-actions" style="display: flex; gap: 8px; align-items: center; justify-content: flex-start;">
-          <button class="btn-history-icon" onclick="viewHistoryQt(${idx})" title="Lihat Dokumen Sebut Harga" style="width: 38px !important; height: 38px !important; min-width: 38px !important; padding: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; border-radius: 10px !important; background: #FFFFFF !important; border: 1.5px solid #CBD5E1 !important; color: #000000 !important; cursor: pointer !important; transition: all 0.2s ease !important; flex-shrink: 0 !important;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-          </button>
-          <button class="btn-history-icon" onclick="editHistoryQt(${idx})" title="Edit / Kemaskini Sebut Harga Ini" style="width: 38px !important; height: 38px !important; min-width: 38px !important; padding: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; border-radius: 10px !important; background: #FFFFFF !important; border: 1.5px solid #CBD5E1 !important; color: #000000 !important; cursor: pointer !important; transition: all 0.2s ease !important; flex-shrink: 0 !important;">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: block;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path><path d="M15 5l4 4"></path></svg>
-          </button>
-          <button class="btn-history-icon" onclick="waHistoryQt(${idx})" title="Kongsi Ke WhatsApp Klien" style="width: 38px !important; height: 38px !important; min-width: 38px !important; padding: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; border-radius: 10px !important; background: #FFFFFF !important; border: 1.5px solid #CBD5E1 !important; cursor: pointer !important; transition: all 0.2s ease !important; flex-shrink: 0 !important;">
-            <svg width="22" height="22" viewBox="0 0 32 32" fill="none" style="display: block;"><path d="M16 2a13.9 13.9 0 0 0-11.8 21.2L2.3 29.7l6.7-1.8A13.9 13.9 0 1 0 16 2z" fill="#25D366"/><path d="M12.1 9.7c-.3-.7-.6-.7-.9-.7h-.7c-.2 0-.6.1-.9.4s-1.2 1.2-1.2 2.9 1.3 3.3 1.4 3.5c.2.2 2.5 3.8 6.1 5.4.9.4 1.5.6 2 .8.9.3 1.7.2 2.3.1.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4s-2.2-1.1-2.5-1.2c-.3-.2-.5-.2-.7.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.8 0s-1.7-.6-3.2-2c-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.1-.7s-.6-1.5-.9-2.1z" fill="#FFF"/></svg>
-          </button>
-          <button class="btn-history-icon" onclick="deleteHistoryQt(${idx})" title="Padam Dari Arkib" style="width: 38px !important; height: 38px !important; min-width: 38px !important; padding: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; border-radius: 10px !important; background: #FFFFFF !important; border: 1.5px solid #CBD5E1 !important; color: #DC2626 !important; cursor: pointer !important; transition: all 0.2s ease !important; flex-shrink: 0 !important;">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-          </button>
-        </div>
-      </div>
-    `;
-  });
-  html += `</div>`;
-  container.innerHTML = html;
+      `;
+    });
+    html += `</div>`;
+    container.innerHTML = html;
+
+  } catch (e) {
+    container.innerHTML = `<div style="text-align:center;padding:40px;color:#ef4444;">❌ Gagal muatkan data dari cloud. Semak sambungan internet.</div>`;
+    console.error('renderQuotationHistory error:', e);
+  }
 }
 
-window.viewHistoryQt = function(index) {
-  const history = JSON.parse(localStorage.getItem('kwikezee_quotations_history') || '[]');
-  if (history[index]) {
-    currentQtData = history[index];
-    renderQuotationDocument(currentQtData);
-  }
-};
-
-window.editHistoryQt = function(index) {
-  const history = JSON.parse(localStorage.getItem('kwikezee_quotations_history') || '[]');
-  const qt = history[index];
+window.viewHistoryQt = async function(index) {
+  let qt = _qtHistoryCache[index];
   if (!qt) return;
 
-  // Switch to Quotation Builder Tab
+  // Ambil data penuh (termasuk items_json) dari API
+  try {
+    const res = await fetch(`${API_BASE}/api/quotations/${encodeURIComponent(qt.qt_no)}`);
+    const json = await res.json();
+    if (json.success) qt = json.data;
+  } catch (e) { /* guna cache */ }
+
+  // Normalize field names dari D1 (snake_case) ke format currentQtData (camelCase)
+  currentQtData = normalizeQtFromApi(qt);
+  renderQuotationDocument(currentQtData);
+};
+
+window.editHistoryQt = async function(index) {
+  let qt = _qtHistoryCache[index];
+  if (!qt) return;
+
+  try {
+    const res = await fetch(`${API_BASE}/api/quotations/${encodeURIComponent(qt.qt_no)}`);
+    const json = await res.json();
+    if (json.success) qt = json.data;
+  } catch (e) { /* guna cache */ }
+
+  const qtData = normalizeQtFromApi(qt);
+
   switchAdminTab('quotation');
 
-  // Fill Meta & Client Form Fields
-  if (document.getElementById('qt-no')) document.getElementById('qt-no').value = qt.qtNo || '';
-  if (document.getElementById('qt-date')) document.getElementById('qt-date').value = qt.qtDate || '';
-  if (document.getElementById('qt-valid-until')) document.getElementById('qt-valid-until').value = qt.qtValid || '';
-  if (document.getElementById('qt-client-name')) document.getElementById('qt-client-name').value = qt.clientName || '';
-  if (document.getElementById('qt-project-title')) document.getElementById('qt-project-title').value = qt.projectTitle || '';
-  if (document.getElementById('qt-client-phone')) document.getElementById('qt-client-phone').value = qt.clientPhone || '';
-  if (document.getElementById('qt-client-email')) document.getElementById('qt-client-email').value = qt.clientEmail || '';
-  if (document.getElementById('qt-duration')) document.getElementById('qt-duration').value = qt.duration || '5 - 7 Hari Bekerja';
-  if (document.getElementById('qt-discount')) document.getElementById('qt-discount').value = qt.discount || 0;
-  if (document.getElementById('qt-pay-mode')) document.getElementById('qt-pay-mode').value = qt.payMode || 'deposit';
-  if (document.getElementById('qt-notes')) document.getElementById('qt-notes').value = qt.notes || '';
+  if (document.getElementById('qt-no')) document.getElementById('qt-no').value = qtData.qtNo || '';
+  if (document.getElementById('qt-date')) document.getElementById('qt-date').value = qtData.qtDate || '';
+  if (document.getElementById('qt-valid-until')) document.getElementById('qt-valid-until').value = qtData.qtValid || '';
+  if (document.getElementById('qt-client-name')) document.getElementById('qt-client-name').value = qtData.clientName || '';
+  if (document.getElementById('qt-project-title')) document.getElementById('qt-project-title').value = qtData.projectTitle || '';
+  if (document.getElementById('qt-client-phone')) document.getElementById('qt-client-phone').value = qtData.clientPhone || '';
+  if (document.getElementById('qt-client-email')) document.getElementById('qt-client-email').value = qtData.clientEmail || '';
+  if (document.getElementById('qt-duration')) document.getElementById('qt-duration').value = qtData.duration || '5 - 7 Hari Bekerja';
+  if (document.getElementById('qt-discount')) document.getElementById('qt-discount').value = qtData.discount || 0;
+  if (document.getElementById('qt-pay-mode')) document.getElementById('qt-pay-mode').value = qtData.payMode || 'deposit';
+  if (document.getElementById('qt-notes')) document.getElementById('qt-notes').value = qtData.notes || '';
 
-  // Clear existing items and populate with archived scope items
   const itemsContainer = document.getElementById('quotation-items-list');
   if (itemsContainer) itemsContainer.innerHTML = '';
   qbItemCounter = 0;
 
-  const items = qt.items || [];
+  const items = qtData.items || [];
   if (items.length > 0) {
-    items.forEach(item => {
-      addQuotationScopeItem(item.title, item.desc, item.price);
-    });
+    items.forEach(item => addQuotationScopeItem(item.title, item.desc, item.price));
   } else {
     addQuotationScopeItem('Skop Kerja Utama', '', 0);
   }
 
   updateQtFormTotals();
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  alert(`Sebut Harga (${qt.qtNo}) telah dimuatkan ke dalam borang. Anda boleh kemaskini maklumat & jana semula PDF!`);
+  alert(`Sebut Harga (${qtData.qtNo}) telah dimuatkan ke dalam borang. Anda boleh kemaskini & jana semula PDF!`);
 };
 
-window.waHistoryQt = function(index) {
-  const history = JSON.parse(localStorage.getItem('kwikezee_quotations_history') || '[]');
-  if (history[index]) {
-    currentQtData = history[index];
-    sendQtToWhatsapp();
+window.waHistoryQt = async function(index) {
+  let qt = _qtHistoryCache[index];
+  if (!qt) return;
+  currentQtData = normalizeQtFromApi(qt);
+  sendQtToWhatsapp();
+};
+
+window.deleteHistoryQt = async function(qtNo) {
+  if (!confirm('Adakah anda pasti untuk memadam sebut harga ini dari arkib?')) return;
+  try {
+    await fetch(`${API_BASE}/api/quotations/${encodeURIComponent(qtNo)}`, { method: 'DELETE' });
+    renderQuotationHistory();
+    updateHistoryCountBadge();
+  } catch (e) {
+    alert('Gagal memadam. Sila cuba lagi.');
   }
 };
 
-window.deleteHistoryQt = function(index) {
-  if (!confirm('Adakah anda pasti untuk memadam sebut harga ini dari arkib?')) return;
-  let history = JSON.parse(localStorage.getItem('kwikezee_quotations_history') || '[]');
-  history.splice(index, 1);
-  localStorage.setItem('kwikezee_quotations_history', JSON.stringify(history));
-  renderQuotationHistory();
-  updateHistoryCountBadge();
+window.clearAllQuotationsHistory = async function() {
+  if (!confirm('Adakah anda pasti untuk memadam SEMUA arkib sebut harga?')) return;
+  try {
+    const res = await fetch(`${API_BASE}/api/quotations`);
+    const json = await res.json();
+    const all = json.data || [];
+    await Promise.all(all.map(q =>
+      fetch(`${API_BASE}/api/quotations/${encodeURIComponent(q.qt_no)}`, { method: 'DELETE' })
+    ));
+    renderQuotationHistory();
+    updateHistoryCountBadge();
+  } catch (e) {
+    alert('Gagal padam semua. Sila cuba lagi.');
+  }
 };
 
-window.clearAllQuotationsHistory = function() {
-  if (!confirm('Adakah anda pasti untuk memadam SEMUA arkib sebut harga?')) return;
-  localStorage.removeItem('kwikezee_quotations_history');
-  renderQuotationHistory();
-  updateHistoryCountBadge();
-};
+// Helper: normalize D1 snake_case fields → camelCase untuk renderQuotationDocument()
+function normalizeQtFromApi(qt) {
+  let items = qt.items || [];
+  if (typeof qt.items_json === 'string') {
+    try { items = JSON.parse(qt.items_json); } catch { items = []; }
+  }
+  return {
+    qtNo:         qt.qt_no         || qt.qtNo         || '',
+    qtDate:       qt.qt_date       || qt.qtDate       || '',
+    qtValid:      qt.qt_valid      || qt.qtValid      || '',
+    clientName:   qt.client_name   || qt.clientName   || '',
+    clientPhone:  qt.client_phone  || qt.clientPhone  || '',
+    clientEmail:  qt.client_email  || qt.clientEmail  || '',
+    projectTitle: qt.project_title || qt.projectTitle || '',
+    items,
+    subtotal:     qt.subtotal  || 0,
+    discount:     qt.discount  || 0,
+    total:        qt.total     || 0,
+    deposit:      qt.deposit   || 0,
+    balance:      qt.balance   || 0,
+    payMode:      qt.pay_mode  || qt.payMode  || 'deposit',
+    duration:     qt.duration  || '5 - 7 Hari Bekerja',
+    notes:        qt.notes     || '',
+    status:       qt.status    || 'PENDING',
+    signedAt:     qt.signed_at || qt.signedAt || null,
+    signature_image: qt.signature_image || null,
+    createdAt:    qt.created_at || qt.createdAt || new Date().toISOString(),
+  };
+}
 
 // Initialize Quotation Builder on DOM load
 document.addEventListener('DOMContentLoaded', () => {

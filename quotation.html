@@ -412,7 +412,7 @@
       if (sigHint) sigHint.style.display = 'block';
     }
 
-    function submitClientESignature() {
+    async function submitClientESignature() {
       if (!hasSigned) {
         alert('Sila lukiskan tandatangan anda di dalam petak terlebih dahulu.');
         return;
@@ -438,46 +438,34 @@
         dateText.innerText = new Date().toLocaleDateString('ms-MY', { day: '2-digit', month: 'long', year: 'numeric' });
       }
 
-      // Save to localStorage for automatic Admin Sync
+      // Simpan tandatangan ke Cloudflare D1 via Worker API
       try {
         const urlParams = new URLSearchParams(window.location.search);
         const qtNo = urlParams.get('qt') || 'KZ-QT-2026-001';
-        let rawHistory = localStorage.getItem('kwikezee_quotations_history');
-        let history = rawHistory ? JSON.parse(rawHistory) : [];
-        let found = false;
+        const API_BASE = 'https://kwikezee-api.huzaimrosli.workers.dev';
 
-        history.forEach(qt => {
-          if (qt.qtNo === qtNo || qt.qtNo === 'KZ-QT-2026-001') {
-            qt.status = 'SIGNED';
-            qt.signatureImage = dataUrl;
-            qt.signedAt = signedTimeStr;
-            found = true;
-          }
+        const res = await fetch(`${API_BASE}/api/quotations/${encodeURIComponent(qtNo)}/sign`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            signature_image: dataUrl,
+            signed_at: signedTimeStr,
+          }),
         });
 
-        if (!found) {
-          history.push({
-            qtNo: qtNo,
-            clientName: "Abg Wan",
-            projectTitle: "Website Ejen Hartanah — Listing Komersial & Industrial",
-            total: 1570,
-            deposit: 785,
-            balance: 785,
-            status: "SIGNED",
-            signatureImage: dataUrl,
-            signedAt: signedTimeStr,
-            createdAt: Date.now()
-          });
+        if (!res.ok) {
+          const err = await res.json();
+          console.error('Gagal simpan tandatangan ke D1:', err);
         }
-        localStorage.setItem('kwikezee_quotations_history', JSON.stringify(history));
       } catch (err) {
-        console.error("Signature save error:", err);
+        console.error('Signature API error:', err);
       }
 
       document.getElementById('esig-interactive-box').style.display = 'none';
       document.getElementById('signed-success-banner').style.display = 'block';
       alert('✨ Terima kasih! Sebut Harga telah berjaya ditandatangani dan rekod telah dikemas kini dalam Portal Admin Kwikezee Studio.');
     }
+
 
     // Default Preset Items for Abg Wan if opened directly
     const defaultItems = [
