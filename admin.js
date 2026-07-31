@@ -422,11 +422,16 @@ function initQuotationForm() {
 }
 
 window.autoGenerateQtNo = function() {
-  const randomNum = Math.floor(100 + Math.random() * 900);
+  const history = JSON.parse(localStorage.getItem('kwikezee_quotations_history') || '[]');
   const year = new Date().getFullYear();
+  
+  // Sequential numbering starting from 001
+  const count = history.length + 1;
+  const paddedNum = String(count).padStart(3, '0');
+  
   const qtNoEl = document.getElementById('qt-no');
-  if (qtNoEl) {
-    qtNoEl.value = `KZ-QT-${year}-${randomNum}`;
+  if (qtNoEl && (!qtNoEl.value.trim() || qtNoEl.value.includes('random'))) {
+    qtNoEl.value = `KZ-QT-${year}-${paddedNum}`;
   }
 };
 
@@ -499,16 +504,17 @@ window.updateQtFormTotals = function() {
   const discount = parseFloat(discountEl ? discountEl.value : 0) || 0;
   const total = Math.max(0, subtotal - discount);
   const deposit = Math.round(total / 2);
+  const balance = total - deposit;
 
   const subtotalEl = document.getElementById('qb-summary-subtotal');
-  const discountSummaryEl = document.getElementById('qb-summary-discount');
   const totalEl = document.getElementById('qb-summary-total');
   const depositEl = document.getElementById('qb-summary-deposit');
+  const balanceEl = document.getElementById('qb-summary-balance');
 
-  if (subtotalEl) subtotalEl.innerText = `RM${subtotal.toLocaleString()}`;
-  if (discountSummaryEl) discountSummaryEl.innerText = `-RM${discount.toLocaleString()}`;
-  if (totalEl) totalEl.innerText = `RM${total.toLocaleString()}`;
-  if (depositEl) depositEl.innerText = `RM${deposit.toLocaleString()}`;
+  if (subtotalEl) subtotalEl.innerText = `RM ${subtotal.toLocaleString()}`;
+  if (totalEl) totalEl.innerText = `RM ${total.toLocaleString()}`;
+  if (depositEl) depositEl.innerText = `RM ${deposit.toLocaleString()}`;
+  if (balanceEl) balanceEl.innerText = `RM ${balance.toLocaleString()}`;
 };
 
 window.generateQuotationDocument = function(event) {

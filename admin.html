@@ -30,25 +30,30 @@
 
   <!-- Header Admin Ringkas -->
   <header class="brief-header admin-header no-print">
-    <div class="container header-inner">
+    <div class="container header-inner" style="display: flex; justify-content: space-between; align-items: center;">
       <a href="#" class="nav-logo" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
         <img src="images/logo-round.jpg" alt="Kwikezee Studio" class="nav-logo-img" style="width: 42px; height: 42px; border-radius: 50%; border: 2.5px solid var(--gold-primary); box-shadow: 0 2px 8px rgba(184, 134, 11, 0.4);">
         <span class="logo-text" style="color: #FFFFFF; font-family: var(--font-headings); font-weight: 800; font-size: 18px;">Kwikezee <em style="color: var(--gold-secondary); font-style: normal;">Studio</em></span>
       </a>
-      <div class="header-badge" style="background: rgba(220,38,38,0.15); border: 1.5px solid rgba(220,38,38,0.3); color: #F87171; font-weight: 700; font-size: 13px; padding: 6px 16px; border-radius: 30px;">🛡️ Panel Kawalan Admin</div>
+
+      <!-- Icon Log Keluar Atas Kanan -->
+      <button class="btn-logout-icon" id="btn-logout" title="Log Keluar Admin" aria-label="Log Keluar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+          <polyline points="16 17 21 12 16 7"></polyline>
+          <line x1="21" y1="12" x2="9" y2="12"></line>
+        </svg>
+      </button>
     </div>
   </header>
 
   <main class="brief-main no-print" style="padding: 24px 0;">
     <div class="container">
       
-      <!-- Card Tajuk Admin Top Header -->
-      <div class="admin-title-card">
-        <div>
-          <h1>Portal Kawalan Admin Kwikezee</h1>
-          <p>Urus maklumat projek klien dan bina Sebut Harga (Quotation) rasmi secara automatik.</p>
-        </div>
-        <button class="btn btn-logout-admin" id="btn-logout">Log Keluar</button>
+      <!-- Tajuk Portal Admin -->
+      <div class="admin-main-header" style="margin-bottom: 20px;">
+        <h1 style="color: #000000; font-size: 24px; font-weight: 900; margin: 0 0 4px 0; letter-spacing: -0.5px;">Portal Kawalan Admin Kwikezee</h1>
+        <p style="color: #475569; font-size: 14px; font-weight: 600; margin: 0;">Urus maklumat projek klien dan bina Sebut Harga (Quotation) rasmi secara automatik.</p>
       </div>
 
       <!-- Navigation Tabs -->
@@ -89,10 +94,7 @@
               <div class="qb-grid-3">
                 <div class="form-group-pay">
                   <label>No. Sebut Harga</label>
-                  <div style="display: flex; gap: 8px;">
-                    <input type="text" id="qt-no" required placeholder="KZ-QT-2026-001" style="flex: 1;">
-                    <button type="button" class="btn-sm btn-outline" onclick="autoGenerateQtNo()" style="padding: 0 12px; font-size: 11px;">⚡ Auto</button>
-                  </div>
+                  <input type="text" id="qt-no" required placeholder="KZ-QT-2026-001">
                 </div>
                 <div class="form-group-pay">
                   <label>Tarikh Dikeluarkan</label>
@@ -130,26 +132,21 @@
 
             <!-- Skop & Fungsi Website (Dinamik) -->
             <div class="qb-form-section">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <h3 class="qb-section-title" style="margin: 0;">3. Skop Kerja &amp; Fungsi Laman Web</h3>
-                <button type="button" class="btn btn-sm btn-primary" onclick="addQuotationScopeItem()">
-                  ➕ Tambah Skop / Fungsi
-                </button>
-              </div>
+              <h3 class="qb-section-title">3. Skop Kerja &amp; Fungsi Laman Web</h3>
               
               <div id="quotation-items-list" class="qb-items-list">
                 <!-- Baris Skop Pertama (Default) -->
               </div>
+
+              <button type="button" class="btn-add-scope-bottom" onclick="addQuotationScopeItem()">
+                ➕ Tambah Skop / Fungsi Baharu
+              </button>
             </div>
 
             <!-- Syarat Pembayaran & Diskaun -->
             <div class="qb-form-section">
               <h3 class="qb-section-title">4. Syarat Pembayaran &amp; Tempoh Siap</h3>
-              <div class="qb-grid-3">
-                <div class="form-group-pay">
-                  <label>Diskaun Khas (RM)</label>
-                  <input type="number" id="qt-discount" value="0" min="0" placeholder="0" onchange="updateQtFormTotals()">
-                </div>
+              <div class="qb-grid-2">
                 <div class="form-group-pay">
                   <label>Mod Pembayaran</label>
                   <select id="qt-pay-mode" onchange="updateQtFormTotals()">
@@ -163,12 +160,31 @@
                 </div>
               </div>
 
-              <!-- Live Total Summary -->
+              <!-- Live Total Summary & Discount Box -->
               <div class="qb-total-summary-box">
-                <div>Jumlah Skop: <strong id="qb-summary-subtotal">RM0</strong></div>
-                <div>Diskaun: <strong id="qb-summary-discount" style="color: #ef4444;">-RM0</strong></div>
-                <div>Jumlah Bersih: <strong id="qb-summary-total" style="color: var(--gold-secondary); font-size: 18px;">RM0</strong></div>
-                <div>Deposit 50%: <strong id="qb-summary-deposit" style="color: #10b981;">RM0</strong></div>
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-bottom: 1.5px dashed #CBD5E1; padding-bottom: 12px; margin-bottom: 12px;">
+                  <span style="color: #000; font-weight: 800; font-size: 15px;">JUMLAH SKOP KERJA:</span>
+                  <strong id="qb-summary-subtotal" style="color: #000; font-size: 18px; font-weight: 900;">RM0</strong>
+                </div>
+
+                <!-- Diskaun Input Row directly under Jumlah Skop -->
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 12px; gap: 15px; flex-wrap: wrap;">
+                  <label for="qt-discount" style="color: #000; font-weight: 800; font-size: 14px; margin: 0; text-transform: none;">Diskaun Khas (RM):</label>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-weight: 800; color: #DC2626; font-size: 15px;">-RM</span>
+                    <input type="number" id="qt-discount" value="0" min="0" placeholder="0" oninput="updateQtFormTotals()" style="width: 130px !important; min-width: 100px !important; height: 42px !important; min-height: 42px !important; text-align: right; font-weight: 800; border-color: #F59E0B !important; color: #000 !important; background: #FFF !important;">
+                  </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-top: 2.5px solid #000; padding-top: 12px; margin-top: 4px;">
+                  <span style="color: #000; font-weight: 900; font-size: 16px;">JUMLAH BERSIH:</span>
+                  <strong id="qb-summary-total" style="color: #000; font-size: 22px; font-weight: 900;">RM0</strong>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 10px; font-size: 13.5px; border-top: 1px dashed #E2E8F0; padding-top: 10px;">
+                  <span style="color: #047857; font-weight: 800;">DEPOSIT 50% (BAYAR SEKARANG): <strong id="qb-summary-deposit" style="color: #047857; font-size: 16px;">RM0</strong></span>
+                  <span style="color: #475569; font-weight: 700;">BAKI 50% (SELEPAS SIAP): <strong id="qb-summary-balance" style="color: #1E293B;">RM0</strong></span>
+                </div>
               </div>
             </div>
 
