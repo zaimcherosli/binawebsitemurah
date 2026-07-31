@@ -649,20 +649,20 @@
             </div>
 
             <!-- Mode Pembayaran: Full vs 50% Deposit -->
-            <div class="payment-mode-selector" style="margin-top: 18px; background: rgba(0, 0, 0, 0.02); border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; padding: 14px 16px;">
-              <label style="display: block; font-weight: 700; font-size: 13.5px; color: var(--text-main); margin-bottom: 10px;">Pilihan Jenis Pembayaran:</label>
-              <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                <label class="pay-mode-option" style="flex: 1; min-width: 140px; display: flex; align-items: center; gap: 8px; background: rgba(184, 134, 11, 0.04); border: 1.5px solid var(--gold-primary); padding: 10px 14px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700; transition: all 0.2s ease;">
-                  <input type="radio" name="pay-mode" value="full" checked onchange="updatePaymentAmount()" style="accent-color: var(--gold-primary);">
-                  <span>💳 Bayaran Penuh (100%)</span>
+            <div class="payment-mode-selector" style="margin-top: 18px; background: rgba(0, 0, 0, 0.015); border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 14px; padding: 16px;">
+              <label style="display: block; font-weight: 700; font-size: 13px; color: var(--text-main); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Pilihan Jenis Pembayaran:</label>
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                <label class="pay-mode-option" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(184, 134, 11, 0.05); border: 1.5px solid var(--gold-primary); padding: 12px 10px; border-radius: 12px; cursor: pointer; font-size: 13px; font-weight: 700; text-align: center; transition: all 0.2s ease; user-select: none;">
+                  <input type="radio" name="pay-mode" value="full" checked onchange="updatePaymentAmount()" style="accent-color: var(--gold-primary); width: 16px; height: 16px; flex-shrink: 0;">
+                  <span style="white-space: nowrap;">💳 Bayaran Penuh (100%)</span>
                 </label>
-                <label class="pay-mode-option" style="flex: 1; min-width: 140px; display: flex; align-items: center; gap: 8px; background: #fff; border: 1.5px solid rgba(0,0,0,0.1); padding: 10px 14px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700; transition: all 0.2s ease;">
-                  <input type="radio" name="pay-mode" value="deposit" onchange="updatePaymentAmount()" style="accent-color: var(--gold-primary);">
-                  <span>⚡ Deposit 50% (Separuh)</span>
+                <label class="pay-mode-option" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #fff; border: 1.5px solid rgba(0,0,0,0.1); padding: 12px 10px; border-radius: 12px; cursor: pointer; font-size: 13px; font-weight: 700; text-align: center; transition: all 0.2s ease; user-select: none;">
+                  <input type="radio" name="pay-mode" value="deposit" onchange="updatePaymentAmount()" style="accent-color: var(--gold-primary); width: 16px; height: 16px; flex-shrink: 0;">
+                  <span style="white-space: nowrap;">⚡ Deposit 50% (Separuh)</span>
                 </label>
               </div>
-              <div id="deposit-note" style="display: none; margin-top: 10px; font-size: 12px; color: var(--gold-secondary); font-weight: 700; background: rgba(184, 134, 11, 0.08); border: 1px solid rgba(184, 134, 11, 0.3); padding: 8px 12px; border-radius: 8px;">
-                💡 <strong>Deposit 50%:</strong> Bayar separuh dahulu untuk memulakan projek. Baki 50% lagi akan dibayar selepas laman web siap sepenuhnya &amp; diuji!
+              <div id="deposit-note" style="display: none; margin-top: 12px; font-size: 12.5px; color: #b45309; font-weight: 600; background: #fffbeb; border: 1px solid #fcd34d; padding: 10px 14px; border-radius: 10px; line-height: 1.5;">
+                💡 <strong>Pilihan Deposit 50%:</strong> Bayar separuh dahulu untuk memulakan projek. Baki 50% lagi akan dibayar selepas laman web anda siap sepenuhnya!
               </div>
             </div>
 
@@ -899,15 +899,27 @@
         const depositAmount = Math.round(fullPrice / 2);
         const balanceAmount = fullPrice - depositAmount;
 
-        let html = `<span style="color: var(--gold-secondary); font-weight: 800; font-size: 24px;">RM${depositAmount}</span> <small style="font-size: 12px; color: #a1a1aa; font-weight: 600;">(Deposit 50%)</small>`;
-        html += `<div style="font-size: 11.5px; color: var(--text-muted); font-weight: 600; margin-top: 4px;">💡 Baki RM${balanceAmount} dibayar selepas laman web siap</div>`;
+        let html = `
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
+              <span style="color: var(--gold-secondary); font-weight: 800; font-size: 26px; line-height: 1.2;">RM${depositAmount}</span>
+              <span style="background: rgba(184, 134, 11, 0.12); color: var(--gold-secondary); border: 1px solid rgba(184, 134, 11, 0.3); font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">Deposit 50%</span>
+            </div>
+            <div style="font-size: 12px; color: var(--text-muted); font-weight: 600; margin-top: 4px; text-align: center;">
+              💡 Baki <strong style="color: var(--text-main);">RM${balanceAmount}</strong> dibayar selepas laman web siap
+            </div>
+          </div>
+        `;
         document.getElementById('display-amount').innerHTML = html;
       } else {
-        if (fullPrice !== originalPrice) {
-          document.getElementById('display-amount').innerHTML = `<span style="text-decoration: line-through; font-size: 15px; color: #a1a1aa; margin-right: 8px;">RM${originalPrice}</span> <span style="font-size: 24px;">RM${fullPrice}</span> <small style="font-size: 12px; color: #a1a1aa; font-weight: 600;">(100% Penuh)</small>`;
-        } else {
-          document.getElementById('display-amount').innerHTML = `<span style="font-size: 24px;">RM${fullPrice}</span> <small style="font-size: 12px; color: #a1a1aa; font-weight: 600;">(100% Penuh)</small>`;
-        }
+        let html = `
+          <div style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
+            ${fullPrice !== originalPrice ? `<span style="text-decoration: line-through; font-size: 16px; color: #a1a1aa;">RM${originalPrice}</span>` : ''}
+            <span style="font-size: 26px; font-weight: 800; color: #09090b; line-height: 1.2;">RM${fullPrice}</span>
+            <span style="background: rgba(16, 185, 129, 0.1); color: #059669; border: 1px solid rgba(16, 185, 129, 0.2); font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">100% Lunas</span>
+          </div>
+        `;
+        document.getElementById('display-amount').innerHTML = html;
       }
     }
 
@@ -1100,7 +1112,9 @@
               client_name: name,
               client_email: email,
               package_name: packageName,
+              pay_mode: payModeText,
               amount_paid: priceText,
+              balance_due: balanceText,
               date_time: timeStr
             }
           };
