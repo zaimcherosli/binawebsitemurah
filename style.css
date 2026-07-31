@@ -3228,7 +3228,83 @@ input:focus, select:focus, textarea:focus {
   margin-bottom: 6px;
 }
 
-/* PRINT CSS MEDIA QUERY RULES */
+/* MOBILE SCREEN RESPONSIVENESS FOR A4 PREVIEW OVERLAY */
+@media screen and (max-width: 850px) {
+  .quotation-preview-wrapper {
+    padding: 15px 8px !important;
+  }
+  .qt-action-bar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+  .qt-action-bar > div {
+    display: flex !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+  .qt-action-bar .btn {
+    flex: 1 !important;
+    font-size: 12.5px !important;
+    padding: 10px 12px !important;
+    white-space: nowrap !important;
+  }
+  .a4-page {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    padding: 20px 14px !important;
+    border-radius: 12px !important;
+    box-sizing: border-box !important;
+  }
+  .a4-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+  }
+  .a4-doc-meta {
+    text-align: left !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  .a4-meta-table {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+  .a4-meta-table td {
+    text-align: left !important;
+  }
+  .a4-client-box {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+  .a4-cb-col {
+    text-align: left !important;
+    width: 100% !important;
+  }
+  .a4-totals-row {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+  .a4-totals-box {
+    width: 100% !important;
+  }
+  .a4-payment-methods {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+  }
+  .a4-footer-sig {
+    flex-direction: column !important;
+    gap: 30px !important;
+  }
+  .a4-sig-col {
+    width: 100% !important;
+  }
+}
+
+/* PRINT CSS MEDIA QUERY RULES (PRISTINE A4 PDF OUTPUT) */
 @media print {
   body {
     background: #FFFFFF !important;
@@ -3247,15 +3323,51 @@ input:focus, select:focus, textarea:focus {
     box-shadow: none !important;
   }
   .a4-page {
+    width: 210mm !important;
+    min-height: 297mm !important;
+    padding: 15mm !important;
     box-shadow: none !important;
-    padding: 0 !important;
-    width: 100% !important;
-    margin: 0 !important;
+    margin: 0 auto !important;
     border-radius: 0 !important;
+  }
+  .a4-header {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+  }
+  .a4-doc-meta {
+    text-align: right !important;
+    width: auto !important;
+  }
+  .a4-meta-table {
+    margin-left: auto !important;
+  }
+  .a4-meta-table td {
+    text-align: right !important;
+  }
+  .a4-client-box {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  .a4-totals-row {
+    flex-direction: row !important;
+  }
+  .a4-totals-box {
+    width: 275px !important;
+  }
+  .a4-payment-methods {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  .a4-footer-sig {
+    flex-direction: row !important;
+    justify-content: space-between !important;
   }
   @page {
     size: A4;
-    margin: 15mm;
+    margin: 10mm;
   }
 }
 
