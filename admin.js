@@ -763,6 +763,8 @@ window.sendQtToWhatsapp = function() {
     return;
   }
 
+  const clientPortalUrl = `https://binawebsitemurah-by.zaimrosli.my/quotation.html?qt=${currentQtData.qtNo || '001'}`;
+
   const msg = `Salam & Selamat Sejahtera *${currentQtData.clientName}* 👋,\n\n` +
               `Berikut adalah *Sebut Harga Rasmi (Quotation)* bagi projek *${currentQtData.projectTitle}* dari Kwikezee Studio:\n\n` +
               `📄 *No. Quotation*: ${currentQtData.qtNo}\n` +
@@ -770,6 +772,8 @@ window.sendQtToWhatsapp = function() {
               `⚡ *Deposit 50%*: RM${currentQtData.deposit.toLocaleString()}\n` +
               `⏳ *Baki 50%*: RM${currentQtData.balance.toLocaleString()} (Selepas Siap)\n` +
               `⏱️ *Anggaran Siap*: ${currentQtData.duration}\n\n` +
+              `✍️ *Semak & Tandatangan Digital (E-Signature)*:\n` +
+              `${clientPortalUrl}\n\n` +
               `💳 *Portal Bayaran Deposit*: https://binawebsitemurah-by.zaimrosli.my/bayar\n\n` +
               `Sila maklumkan sekiranya Tuan/Puan ada sebarang pertanyaan. Terima kasih!`;
 

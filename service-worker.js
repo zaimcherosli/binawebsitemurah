@@ -1,10 +1,11 @@
-const CACHE_NAME = 'kwikezee-cache-v120';
+const CACHE_NAME = 'kwikezee-cache-v130';
 const ASSETS_TO_CACHE = [
   './',
   './style.css',
   './script.js',
   './manifest.json',
   './offline.html',
+  './quotation.html',
   './duitnow-qr.jpg',
   './images/whatsapp-icon.png',
   './images/pencil-icon.png',

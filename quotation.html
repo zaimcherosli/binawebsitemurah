@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Pengesahan &amp; E-Signature Sebut Harga | Kwikezee Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=130">
+  <style>
+    body.client-portal-body {
+      background: #09090b;
+      color: #f4f4f5;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px 10px;
+      box-sizing: border-box;
+    }
+    .cp-container {
+      max-width: 850px;
+      margin: 0 auto;
+    }
+    .cp-header {
+      text-align: center;
+      margin-bottom: 25px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+    }
+    .cp-logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid #b8860b;
+      margin-bottom: 10px;
+    }
+    .cp-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 6px 0;
+    }
+    .cp-sub {
+      font-size: 13px;
+      color: #a1a1aa;
+      margin: 0;
+    }
+    
+    /* Interactive E-Signature Box */
+    .esig-section {
+      background: #ffffff;
+      color: #09090b;
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 25px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+    .esig-section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: #09090b;
+      margin: 0 0 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .esig-desc {
+      font-size: 12.5px;
+      color: #52525b;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+    .sig-canvas-container {
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      background: #f8fafc;
+      position: relative;
+      touch-action: none;
+      margin-bottom: 14px;
+    }
+    canvas#sig-canvas {
+      width: 100%;
+      height: 160px;
+      display: block;
+      border-radius: 10px;
+      cursor: crosshair;
+    }
+    .sig-hint {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 13px;
+      color: #94a3b8;
+      pointer-events: none;
+      font-weight: 600;
+    }
+    .sig-btn-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .btn-submit-sig {
+      flex: 2;
+      background: #047857;
+      color: #ffffff;
+      border: none;
+      font-size: 14.5px;
+      font-weight: 800;
+      padding: 14px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .btn-submit-sig:hover {
+      background: #065f46;
+    }
+    .btn-clear-sig {
+      flex: 1;
+      background: #ffffff;
+      color: #64748b;
+      border: 1.5px solid #cbd5e1;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 14px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    
+    .signed-success-banner {
+      background: #ecfdf5;
+      border: 2px solid #059669;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 20px;
+      display: none;
+      text-align: center;
+    }
+  </style>
+</head>
+<body class="client-portal-body">
+
+  <div class="cp-container">
+    <div class="cp-header">
+      <img src="images/logo-round.jpg" alt="Kwikezee Studio Logo" class="cp-logo">
+      <h1 class="cp-title">Portal Pengesahan Sebut Harga Klien</h1>
+      <p class="cp-sub">Kwikezee Studio — Sila semak perincian skop kerja &amp; tandatangan secara digital di bawah.</p>
+    </div>
+
+    <!-- Document Preview -->
+    <div class="a4-page" id="printable-quotation" style="box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+      
+      <!-- A4 Header -->
+      <div class="a4-header">
+        <div class="a4-brand">
+          <img src="images/logo-round.jpg" alt="Kwikezee Studio Logo" class="a4-logo">
+          <div>
+            <h2 class="a4-company-name">KWIKEZEE STUDIO</h2>
+            <p class="a4-company-sub">KWIKEZEE RESOURCES (SA0586942-W)</p>
+            <p class="a4-company-contact">Kuala Lumpur, Malaysia | WhatsApp: +60 10-811 8559 | Emel: hello@kwikezee.studio</p>
+          </div>
+        </div>
+        <div class="a4-doc-meta" style="text-align: right; min-width: 220px; flex-shrink: 0;">
+          <h1 class="a4-doc-title" style="font-size: 24px; font-weight: 900; white-space: nowrap !important; margin-bottom: 6px; color: #000000; letter-spacing: 0.5px;">SEBUT HARGA</h1>
+          <table class="a4-meta-table" style="margin-left: auto; border-collapse: collapse; font-size: 11px;">
+            <tr>
+              <td style="white-space: nowrap !important; color: #555; padding: 2px 6px; text-align: right;">No. Quotation:</td>
+              <td style="white-space: nowrap !important; padding: 2px 6px; text-align: right;"><strong id="a4-no">KZ-QT-2026-001</strong></td>
+            </tr>
+            <tr>
+              <td style="white-space: nowrap !important; color: #555; padding: 2px 6px; text-align: right;">Tarikh:</td>
+              <td id="a4-date" style="white-space: nowrap !important; padding: 2px 6px; text-align: right; color: #000;">31 Julai 2026</td>
+            </tr>
+            <tr>
+              <td style="white-space: nowrap !important; color: #555; padding: 2px 6px; text-align: right;">Tamat Sah:</td>
+              <td id="a4-valid-until" style="white-space: nowrap !important; padding: 2px 6px; text-align: right; color: #000;">07 Ogos 2026</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Client Info Box -->
+      <div class="a4-client-box">
+        <div class="a4-cb-col">
+          <p class="a4-cb-label">DISEDIAKAN UNTUK:</p>
+          <h3 id="a4-client-name" class="a4-cb-name">Abg Wan</h3>
+          <p id="a4-project-title" class="a4-cb-project">Website Ejen Hartanah — Listing Komersial &amp; Industrial</p>
+        </div>
+        <div class="a4-cb-col" style="text-align: right;">
+          <p><strong>WhatsApp:</strong> <span id="a4-client-phone">019-XXXXXXX</span></p>
+          <p><strong>Emel:</strong> <span id="a4-client-email">-</span></p>
+        </div>
+      </div>
+
+      <!-- Items Table -->
+      <div class="a4-table-wrapper" style="width: 100%;">
+        <table class="a4-table" style="width: 100%;">
+          <thead>
+            <tr>
+              <th style="width: 6%; text-align: center;">BIL</th>
+              <th style="width: 32%;">SKOP / FUNGSI WEBSITES</th>
+              <th style="width: 44%;">PENERANGAN TERPERINCI</th>
+              <th style="width: 18%; text-align: right;">JUMLAH (RM)</th>
+            </tr>
+          </thead>
+          <tbody id="a4-items-tbody">
+            <!-- Dynamically filled -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Totals Summary & Payment Breakdown -->
+      <div class="a4-totals-row">
+        <div class="a4-totals-terms">
+          <h4>📌 TERMA &amp; SYARAT PEMBAYARAN:</h4>
+          <ul id="a4-terms-list">
+            <li>Tempoh Siap Projek: <strong id="a4-duration">5 - 7 Hari Bekerja</strong>.</li>
+            <li>Pembangunan dimulakan serta-merta selepas deposit 50% disahkan.</li>
+          </ul>
+        </div>
+        <div class="a4-totals-box">
+          <div class="a4-t-row" style="display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+            <span style="font-weight: 700; color: #475569;">Jumlah Skop:</span>
+            <span id="a4-subtotal" style="white-space: nowrap !important; flex-shrink: 0 !important; font-weight: 800; color: #000;">RM1,190</span>
+          </div>
+          <div class="a4-t-row" id="a4-discount-row" style="display: none; justify-content: space-between; align-items: center; gap: 12px;">
+            <span style="font-weight: 700; color: #475569;">Diskaun Khas:</span>
+            <span id="a4-discount" style="color: #dc2626; white-space: nowrap !important; flex-shrink: 0 !important; font-weight: 800;">-RM0</span>
+          </div>
+          <div class="a4-t-row a4-grand-total" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; border-top: 2px solid #000; border-bottom: 2px solid #000; padding: 8px 0; margin: 10px 0;">
+            <span style="font-weight: 900; color: #000; font-size: 13.5px;">JUMLAH BERSIH:</span>
+            <span id="a4-grand-total" style="white-space: nowrap !important; flex-shrink: 0 !important; font-weight: 900; color: #000; font-size: 15px;">RM1,190</span>
+          </div>
+          <div class="a4-t-row a4-deposit-row" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; background: #ecfdf5; border: 1.5px solid #a7f3d0; padding: 10px 14px; border-radius: 8px;">
+            <span style="font-size: 11px; line-height: 1.25; font-weight: 800; color: #065f46;">DEPOSIT 50%<br>(BAYAR SEKARANG):</span>
+            <strong id="a4-deposit-amount" style="color: #059669; font-size: 17px; white-space: nowrap !important; flex-shrink: 0 !important; text-align: right !important; font-weight: 900;">RM 595</strong>
+          </div>
+          <div class="a4-t-row" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 11.5px; color: #666; margin-top: 8px;">
+            <span>Baki 50% (Selepas Siap):</span>
+            <span id="a4-balance-amount" style="white-space: nowrap !important; flex-shrink: 0 !important; font-weight: 700;">RM 595</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Gateways & QR Section embedded in Quotation -->
+      <div class="a4-payment-methods">
+        <div class="a4-pm-info">
+          <h4>💳 MAKLUMAT AKAUN PEMBAYARAN DEPOSIT:</h4>
+          <p><strong>Nama Akaun:</strong> Kwikezee Resources</p>
+          <p><strong>Nama Bank:</strong> Maybank</p>
+          <p><strong>No. Akaun Bank:</strong> <strong style="font-size: 15px; color: #000; letter-spacing: 0.5px;">5686 0302 2391</strong></p>
+        </div>
+        <div class="a4-pm-qr">
+          <img src="duitnow-qr.jpg?v=3" alt="Maybank DuitNow QR" class="a4-qr-img">
+          <span>Imbas DuitNow QR</span>
+        </div>
+      </div>
+
+      <!-- Footer Signatures (E-Signature Display Area) -->
+      <div class="a4-footer-sig" style="display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: flex-end !important; margin-top: 35px !important; width: 100% !important;">
+        <div class="a4-sig-col" style="flex: 1 !important; max-width: 48% !important;">
+          <p style="font-size: 11px; color: #666; margin-bottom: 6px;">Disediakan Oleh:</p>
+          <div class="esig-badge-box" style="display: inline-flex; flex-direction: column; align-items: flex-start; padding: 6px 12px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px; margin-bottom: 6px;">
+            <span style="font-family: 'Outfit', cursive, sans-serif; font-size: 15px; font-weight: 800; color: #0f172a; font-style: italic; letter-spacing: 0.5px;">Kwikezee Studio</span>
+            <span style="font-size: 9px; color: #047857; font-weight: 700; display: inline-flex; align-items: center; gap: 3px;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Tandatangan Digital Disahkan
+            </span>
+          </div>
+          <div class="a4-sig-line" style="width: 160px; height: 1.5px; background: #0f172a; margin-bottom: 4px;"></div>
+          <strong style="color: #000; font-size: 12.5px;">Kwikezee Studio</strong>
+          <p style="font-size: 10.5px; color: #666; margin: 0;">Pengurusan Projek Digital</p>
+        </div>
+
+        <div class="a4-sig-col" style="flex: 1 !important; max-width: 48% !important; text-align: right !important;">
+          <p style="font-size: 11px; color: #666; margin-bottom: 6px;">Disahkan &amp; Diterima Oleh:</p>
+          <div id="client-sig-display-box" style="display: inline-flex; flex-direction: column; align-items: flex-end; padding: 6px 12px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px; margin-bottom: 6px; margin-left: auto;">
+            <img id="client-sig-img" src="" alt="E-Signature" style="height: 35px; display: none; object-fit: contain;">
+            <span id="esig-client-name" style="font-family: 'Outfit', cursive, sans-serif; font-size: 15px; font-weight: 800; color: #0f172a; font-style: italic; letter-spacing: 0.5px;">Abg Wan</span>
+            <span id="esig-client-status" style="font-size: 9px; color: #047857; font-weight: 700; display: inline-flex; align-items: center; gap: 3px;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              E-Signature Digital Approved
+            </span>
+          </div>
+          <div class="a4-sig-line" style="width: 160px; height: 1.5px; background: #0f172a; margin-bottom: 4px; margin-left: auto;"></div>
+          <strong id="a4-sig-client" style="color: #000; font-size: 12.5px;">Abg Wan</strong>
+          <p style="font-size: 10.5px; color: #666; margin: 0;">Tarikh Setuju: <span id="a4-sig-date">31 Julai 2026</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Canvas E-Signature Pad Section -->
+    <div class="esig-section" id="esig-interactive-box">
+      <h3 class="esig-section-title">
+        ✍️ Tandatangan Digital (E-Signature Klien)
+      </h3>
+      <p class="esig-desc">
+        Sila lukiskan tandatangan anda di dalam petak di bawah menggunakan jari / tetikus untuk mengesahkan penerimaan Sebut Harga rasmi ini.
+      </p>
+
+      <div class="sig-canvas-container">
+        <canvas id="sig-canvas" width="600" height="160"></canvas>
+        <span class="sig-hint" id="sig-hint">✍️ Lukis Tandatangan Anda Di Sini</span>
+      </div>
+
+      <div class="sig-btn-row">
+        <button class="btn-clear-sig" onclick="clearSignatureCanvas()">🧹 Padam Semula</button>
+        <button class="btn-submit-sig" onclick="submitClientESignature()">
+          <span>✅ Sahkan &amp; Tandatangani Sebut Harga Ini</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Success Signed Banner -->
+    <div class="signed-success-banner" id="signed-success-banner">
+      <h3 style="color: #047857; margin: 0 0 6px 0; font-size: 18px;">🎉 Terima Kasih! Sebut Harga Telah Berjaya Ditandatangani!</h3>
+      <p style="color: #065f46; font-size: 13.5px; margin: 0 0 14px 0;">
+        Tandatangan digital anda telah disimpan dengan selamat. Sila teruskan pembayaran deposit 50% untuk memulakan projek.
+      </p>
+      <a href="bayar.html" class="btn btn-emerald btn-lg" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+        💳 Teruskan Pembayaran Deposit 50%
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    // Canvas E-Signature Logic
+    const canvas = document.getElementById('sig-canvas');
+    const ctx = canvas ? canvas.getContext('2d') : null;
+    const sigHint = document.getElementById('sig-hint');
+    let isDrawing = false;
+    let hasSigned = false;
+
+    function resizeCanvas() {
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = 160;
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = '#0f172a';
+    }
+
+    if (canvas && ctx) {
+      window.addEventListener('resize', resizeCanvas);
+      setTimeout(resizeCanvas, 100);
+
+      function getPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        let clientX = e.clientX;
+        let clientY = e.clientY;
+        if (e.touches && e.touches.length > 0) {
+          clientX = e.touches[0].clientX;
+          clientY = e.touches[0].clientY;
+        }
+        return {
+          x: clientX - rect.left,
+          y: clientY - rect.top
+        };
+      }
+
+      function startDrawing(e) {
+        isDrawing = true;
+        hasSigned = true;
+        if (sigHint) sigHint.style.display = 'none';
+        const pos = getPos(e);
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+      }
+
+      function draw(e) {
+        if (!isDrawing) return;
+        e.preventDefault();
+        const pos = getPos(e);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+      }
+
+      function stopDrawing() {
+        isDrawing = false;
+      }
+
+      canvas.addEventListener('mousedown', startDrawing);
+      canvas.addEventListener('mousemove', draw);
+      canvas.addEventListener('mouseup', stopDrawing);
+      canvas.addEventListener('mouseleave', stopDrawing);
+
+      canvas.addEventListener('touchstart', startDrawing, { passive: false });
+      canvas.addEventListener('touchmove', draw, { passive: false });
+      canvas.addEventListener('touchend', stopDrawing);
+    }
+
+    function clearSignatureCanvas() {
+      if (!ctx || !canvas) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      hasSigned = false;
+      if (sigHint) sigHint.style.display = 'block';
+    }
+
+    function submitClientESignature() {
+      if (!hasSigned) {
+        alert('Sila lukiskan tandatangan anda di dalam petak terlebih dahulu.');
+        return;
+      }
+      const dataUrl = canvas.toDataURL('image/png');
+      const sigImg = document.getElementById('client-sig-img');
+      const nameText = document.getElementById('esig-client-name');
+      const statusText = document.getElementById('esig-client-status');
+
+      if (sigImg) {
+        sigImg.src = dataUrl;
+        sigImg.style.display = 'block';
+      }
+      if (nameText) nameText.style.display = 'none';
+      if (statusText) statusText.innerHTML = '✅ Tandatangan Digital Disahkan Pada ' + new Date().toLocaleDateString('ms-MY');
+
+      document.getElementById('esig-interactive-box').style.display = 'none';
+      document.getElementById('signed-success-banner').style.display = 'block';
+      alert('✨ Sebut Harga telah berjaya ditandatangani secara digital!');
+    }
+
+    // Default Preset Items for Abg Wan if opened directly
+    const defaultItems = [
+      { name: "Reka Bentuk Laman Web Ejen Hartanah (Custom UI/UX)", desc: "Pembangunan 5 Halaman Laman Web bertema profesional mewah khas untuk pameran hartanah Komersial (Lot Kedai/Pejabat) & Industrial (Kilang/Gudang/Tanah).", price: 490 },
+      { name: "Sistem Listing Hartanah Komersial & Industrial", desc: "Modul carian & penapis hartanah mengikut jenis (Komersial / Industrial), kawasan liputan, saiz keluasan (sqft), & julat harga.", price: 250 },
+      { name: "Portal Log Masuk & Panel Pengurusan Sendiri Ejen", desc: "Portal login khas ejen untuk menambah, mengemas kini, edit, atau memadam listing hartanah secara sendiri tanpa perlukan pereka web.", price: 300 },
+      { name: "Borang Pertanyaan & Integrasi WhatsApp Direct", desc: "Pautan pantas WhatsApp direct pada setiap listing hartanah & borang pertanyaan prospek terus ke telefon bimbit.", price: 150 },
+      { name: "Penyediaan Domain .com (5 tahun) & Web Hosting 1 Tahun", desc: "Pendaftaran domain rasmi, Domain Privacy Protection (5 tahun) dan penyediaan cloud hosting berprestasi tinggi selama 1 tahun.", price: 380 }
+    ];
+
+    function renderClientPortal() {
+      const tbody = document.getElementById('a4-items-tbody');
+      if (!tbody) return;
+      let html = '';
+      let subtotal = 0;
+      defaultItems.forEach((item, idx) => {
+        subtotal += item.price;
+        html += `
+          <tr>
+            <td style="text-align: center;">${idx + 1}</td>
+            <td style="font-weight: 800; color: #000;">${item.name}</td>
+            <td style="color: #444; line-height: 1.4;">${item.desc}</td>
+            <td style="text-align: right; font-weight: 800; color: #000;">RM ${item.price}</td>
+          </tr>
+        `;
+      });
+      tbody.innerHTML = html;
+    }
+    renderClientPortal();
+  </script>
+</body>
+</html>
