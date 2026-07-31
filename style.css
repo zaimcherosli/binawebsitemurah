@@ -3950,3 +3950,69 @@ body.admin-body .brief-footer {
     justify-content: center !important;
   }
 }
+
+/* ==========================================================================
+   MAXIMIZE MOBILE WRITING AREA & REMOVE WASTED SIDE PADDING (<= 850px)
+   ========================================================================== */
+@media screen and (max-width: 850px) {
+  body.admin-body .admin-container,
+  body.admin-body .container {
+    padding: 0 4px !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  body.admin-body .admin-title-card {
+    padding: 12px 10px !important;
+    margin-bottom: 12px !important;
+    border-radius: 12px !important;
+  }
+
+  body.admin-body .quotation-builder-card,
+  body.admin-body .history-card,
+  body.admin-body .admin-tab-content {
+    padding: 8px 6px !important;
+    border-radius: 12px !important;
+    margin: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  body.admin-body .qb-form-section {
+    padding: 10px 8px !important;
+    border-radius: 10px !important;
+    margin-bottom: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  body.admin-body .qb-item-row {
+    padding: 10px 8px !important;
+    margin-bottom: 10px !important;
+    border-radius: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  body.admin-body .form-group-pay {
+    width: 100% !important;
+    margin-bottom: 10px !important;
+  }
+
+  body.admin-body input[type="text"],
+  body.admin-body input[type="email"],
+  body.admin-body input[type="number"],
+  body.admin-body input[type="date"],
+  body.admin-body input[type="password"],
+  body.admin-body select,
+  body.admin-body textarea,
+  body.admin-body .qb-input-title,
+  body.admin-body .qb-input-desc,
+  body.admin-body .qb-input-price {
+    padding: 10px 10px !important;
+    font-size: 13.5px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
