@@ -3303,11 +3303,22 @@ body.admin-body {
   transform: translateY(-1px) !important;
 }
 
-/* Header Admin Bar */
+/* Header Admin Bar (Warna Putih & Selari) */
 body.admin-body .admin-header {
-  background: linear-gradient(135deg, #090A0F 0%, #171923 100%) !important;
-  border-bottom: 2px solid var(--gold-primary) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  background: #FFFFFF !important;
+  border-bottom: 1.5px solid #CBD5E1 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+}
+
+body.admin-body .admin-header .header-inner {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+body.admin-body .admin-header .logo-text {
+  color: #000000 !important;
 }
 
 /* Top Admin Title Card */
