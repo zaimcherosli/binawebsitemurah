@@ -813,7 +813,6 @@ window.sendQtToWhatsapp = function() {
               `⏱️ *Anggaran Siap*: ${currentQtData.duration}\n\n` +
               `✍️ *Semak & Tandatangan Digital (E-Signature)*:\n` +
               `${clientPortalUrl}\n\n` +
-              `💳 *Portal Bayaran Deposit*: https://binawebsitemurah-by.zaimrosli.my/bayar\n\n` +
               `Sila maklumkan sekiranya Tuan/Puan ada sebarang pertanyaan. Terima kasih!`;
 
   const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
