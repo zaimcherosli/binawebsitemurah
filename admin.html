@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=286">
-  <link rel="stylesheet" href="brief.css?v=286">
+  <link rel="stylesheet" href="style.css?v=287">
+  <link rel="stylesheet" href="brief.css?v=287">
 </head>
 <body class="admin-body">
 
@@ -186,9 +186,17 @@
                   <strong id="qb-summary-total" style="color: #000; font-size: 22px; font-weight: 900;">RM0</strong>
                 </div>
 
-                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 10px; font-size: 13.5px; border-top: 1px dashed #E2E8F0; padding-top: 10px;">
-                  <span style="color: #047857; font-weight: 800;">DEPOSIT 50% (BAYAR SEKARANG): <strong id="qb-summary-deposit" style="color: #047857; font-size: 16px;">RM0</strong></span>
-                  <span style="color: #475569; font-weight: 700;">BAKI 50% (SELEPAS SIAP): <strong id="qb-summary-balance" style="color: #1E293B;">RM0</strong></span>
+                <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; margin-top: 12px; border-top: 1px dashed #CBD5E1; padding-top: 12px;">
+                  <!-- Deposit Row (Top) -->
+                  <div style="display: flex; justify-content: space-between; align-items: center; background: #ECFDF5; border: 1.5px solid #A7F3D0; border-radius: 8px; padding: 10px 14px; width: 100%; box-sizing: border-box;">
+                    <span style="color: #065F46; font-weight: 800; font-size: 13px;">DEPOSIT 50% (BAYAR SEKARANG):</span>
+                    <strong id="qb-summary-deposit" style="color: #059669; font-size: 17px; font-weight: 900;">RM0</strong>
+                  </div>
+                  <!-- Baki Row (Bottom) -->
+                  <div style="display: flex; justify-content: space-between; align-items: center; background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 8px; padding: 8px 14px; width: 100%; box-sizing: border-box;">
+                    <span style="color: #475569; font-weight: 700; font-size: 12.5px;">BAKI 50% (SELEPAS SIAP):</span>
+                    <strong id="qb-summary-balance" style="color: #0F172A; font-size: 15px; font-weight: 800;">RM0</strong>
+                  </div>
                 </div>
               </div>
             </div>
