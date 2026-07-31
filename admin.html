@@ -82,9 +82,14 @@
       <!-- TAB 2: GENERATOR SEBUT HARGA (QUOTATION BUILDER) -->
       <div id="admin-tab-quotation" class="admin-tab-content">
         <div class="quotation-builder-card">
-          <div class="qb-header">
-            <h2>📄 Bina Sebut Harga Rasmi (Quotation Generator)</h2>
-            <p>Isi maklumat projek di bawah untuk menjana dokumen sebut harga rasmi A4 bertema mewah.</p>
+          <div class="qb-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <h2>📄 Bina Sebut Harga Rasmi (Quotation Generator)</h2>
+              <p>Isi maklumat projek di bawah untuk menjana dokumen sebut harga rasmi A4 bertema mewah.</p>
+            </div>
+            <button type="button" class="btn-preset-hartanah" onclick="loadAbgWanPreset()" style="background: #FEF3C7; border: 1.5px solid #F59E0B; color: #92400E; font-weight: 800; font-size: 13px; padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px;">
+              ⚡ Isi Otomatik Sebut Harga Abg Wan
+            </button>
           </div>
 
           <form id="quotation-form" onsubmit="generateQuotationDocument(event)">

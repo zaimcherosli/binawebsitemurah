@@ -421,6 +421,68 @@ function initQuotationForm() {
   updateHistoryCountBadge();
 }
 
+window.loadAbgWanPreset = function() {
+  const today = new Date();
+  const validUntil = new Date();
+  validUntil.setDate(today.getDate() + 7); // 7 Hari dari hari ini
+
+  const qtNoEl = document.getElementById('qt-no');
+  if (qtNoEl && !qtNoEl.value.trim()) {
+    autoGenerateQtNo();
+  }
+
+  const clientNameEl = document.getElementById('qt-client-name');
+  const projectTitleEl = document.getElementById('qt-project-title');
+  const phoneEl = document.getElementById('qt-client-phone');
+  const dateEl = document.getElementById('qt-date');
+  const validEl = document.getElementById('qt-valid-until');
+  const durationEl = document.getElementById('qt-duration');
+  const discountEl = document.getElementById('qt-discount');
+
+  if (clientNameEl) clientNameEl.value = "Abg Wan (Ejen Hartanah)";
+  if (projectTitleEl) projectTitleEl.value = "Website Ejen Hartanah — Listing Komersial & Industrial";
+  if (phoneEl && !phoneEl.value) phoneEl.value = "019-XXXXXXX";
+  if (dateEl) dateEl.value = today.toISOString().split('T')[0];
+  if (validEl) validEl.value = validUntil.toISOString().split('T')[0];
+  if (durationEl) durationEl.value = "5 - 7 Hari Bekerja";
+  if (discountEl) discountEl.value = "0";
+
+  // Kosongkan senarai skop lama
+  const itemsContainer = document.getElementById('quotation-items-list');
+  if (itemsContainer) itemsContainer.innerHTML = '';
+  qbItemCounter = 0;
+
+  // Tambah Skop Hartanah Abg Wan
+  addQuotationScopeItem(
+    "Reka Bentuk Laman Web Ejen Hartanah (Custom UI/UX)",
+    "Pembangunan 5 Halaman Laman Web bertema profesional mewah khas untuk pameran hartanah Komersial (Lot Kedai/Pejabat) & Industrial (Kilang/Gudang/Tanah).",
+    490
+  );
+  addQuotationScopeItem(
+    "Sistem Listing Hartanah Komersial & Industrial",
+    "Modul carian & penapis hartanah mengikut jenis (Komersial / Industrial), kawasan liputan, saiz keluasan (sqft), & julat harga.",
+    250
+  );
+  addQuotationScopeItem(
+    "Portal Log Masuk & Panel Pengurusan Kendiri Ejen",
+    "Portal login khas ejen untuk Abg Wan menambah, mengemas kini, edit, atau memadam listing hartanah secara kendiri tanpa perlukan pereka web.",
+    300
+  );
+  addQuotationScopeItem(
+    "Borang Pertanyaan & Integrasi WhatsApp Direct",
+    "Pautan pantas WhatsApp direct pada setiap listing hartanah & borang pertanyaan prospek terus ke telefon bimbit Abg Wan.",
+    150
+  );
+  addQuotationScopeItem(
+    "Penyediaan Domain .my / .com & Web Hosting 1 Tahun",
+    "Pendaftaran domain rasmi dan penyediaan cloud hosting berprestasi tinggi selama 1 tahun (Percuma Tahun Pertama).",
+    0
+  );
+
+  updateQtFormTotals();
+  alert('Templat Sebut Harga Abg Wan (Ejen Hartanah) telah diisi secara automatik!');
+};
+
 window.autoGenerateQtNo = function() {
   const history = JSON.parse(localStorage.getItem('kwikezee_quotations_history') || '[]');
   const year = new Date().getFullYear();
