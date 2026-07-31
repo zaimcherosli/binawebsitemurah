@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=200">
-  <link rel="stylesheet" href="brief.css?v=200">
+  <link rel="stylesheet" href="style.css?v=210">
+  <link rel="stylesheet" href="brief.css?v=210">
 </head>
 <body class="admin-body">
 
@@ -359,30 +359,32 @@
         </div>
       </div>
 
-      <!-- Footer Signatures (E-Signature Digital Approval) -->
-      <div class="a4-footer-sig" style="display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: flex-end !important; margin-top: 35px !important; width: 100% !important;">
-        <div class="a4-sig-col" style="flex: 1 !important; max-width: 48% !important;">
-          <p style="font-size: 11px; color: #666; margin-bottom: 6px;">Disediakan Oleh:</p>
-          <div class="esig-badge-box" style="display: inline-flex; flex-direction: column; align-items: flex-start; padding: 6px 12px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px; margin-bottom: 6px;">
-            <span style="font-family: 'Outfit', cursive, sans-serif; font-size: 15px; font-weight: 800; color: #0f172a; font-style: italic; letter-spacing: 0.5px;">Kwikezee Studio</span>
-            <span style="font-size: 9px; color: #047857; font-weight: 700; display: inline-flex; align-items: center; gap: 3px;">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Tandatangan Digital Disahkan
-            </span>
+      <!-- Footer Signatures (100% Horizontally Aligned Side-by-Side) -->
+      <div class="a4-footer-sig" style="display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: flex-end !important; margin-top: 30px !important; width: 100% !important;">
+        <div class="a4-sig-col" style="flex: 1 !important; max-width: 48% !important; display: flex; flex-direction: column; justify-content: flex-end;">
+          <p style="font-size: 11px; color: #666; margin: 0 0 6px 0; height: 16px; line-height: 16px;">Disediakan Oleh:</p>
+          <div style="height: 44px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end;">
+            <div class="esig-badge-box" style="display: inline-flex; flex-direction: column; align-items: flex-start; padding: 4px 10px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px;">
+              <span style="font-family: 'Outfit', cursive, sans-serif; font-size: 14px; font-weight: 800; color: #0f172a; font-style: italic; letter-spacing: 0.5px;">Kwikezee Studio</span>
+              <span style="font-size: 8.5px; color: #047857; font-weight: 700; display: inline-flex; align-items: center; gap: 3px;">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Tandatangan Digital Disahkan
+              </span>
+            </div>
           </div>
-          <div class="a4-sig-line" style="width: 160px; height: 1.5px; background: #0f172a; margin-bottom: 4px;"></div>
-          <strong style="color: #000; font-size: 12.5px;">Kwikezee Studio</strong>
-          <p style="font-size: 10.5px; color: #666; margin: 0;">Pengurusan Projek Digital</p>
+          <div class="a4-sig-line" style="width: 100%; max-width: 150px; height: 1.5px; background: #0f172a; margin-top: 6px; margin-bottom: 4px;"></div>
+          <strong style="color: #000; font-size: 12px; display: block; height: 16px; line-height: 16px;">Kwikezee Studio</strong>
+          <p style="font-size: 10px; color: #666; margin: 2px 0 0 0; height: 14px; line-height: 14px;">Pengurusan Projek Digital</p>
         </div>
 
-        <div class="a4-sig-col" style="flex: 1 !important; max-width: 48% !important; text-align: right !important;">
-          <p style="font-size: 11px; color: #666; margin-bottom: 6px;">Disahkan &amp; Diterima Oleh:</p>
-          <div style="height: 42px; margin-bottom: 6px;">
+        <div class="a4-sig-col" style="flex: 1 !important; max-width: 48% !important; text-align: right !important; display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end;">
+          <p style="font-size: 11px; color: #666; margin: 0 0 6px 0; height: 16px; line-height: 16px;">Disahkan &amp; Diterima Oleh:</p>
+          <div style="height: 44px; display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end;">
             <!-- Blank space for client signature -->
           </div>
-          <div class="a4-sig-line" style="width: 160px; height: 1.5px; background: #0f172a; margin-bottom: 4px; margin-left: auto;"></div>
-          <strong id="a4-sig-client" style="color: #000; font-size: 12.5px;">Tandatangan Klien</strong>
-          <p style="font-size: 10.5px; color: #666; margin: 0;">Tarikh Setuju: <span id="a4-sig-date">_______________</span></p>
+          <div class="a4-sig-line" style="width: 100%; max-width: 150px; height: 1.5px; background: #0f172a; margin-top: 6px; margin-bottom: 4px; margin-left: auto;"></div>
+          <strong id="a4-sig-client" style="color: #000; font-size: 12px; display: block; height: 16px; line-height: 16px;">Tandatangan Klien</strong>
+          <p style="font-size: 10px; color: #666; margin: 2px 0 0 0; height: 14px; line-height: 14px;">Tarikh Setuju: <span id="a4-sig-date">_______________</span></p>
         </div>
       </div>
 
@@ -403,6 +405,6 @@
     </div>
   </footer>
 
-  <script src="admin.js?v=200"></script>
+  <script src="admin.js?v=210"></script>
 </body>
 </html>
