@@ -918,13 +918,11 @@ async function renderQuotationHistory() {
       html += `
         <div class="history-item-card" style="background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
           <div>
-            <!-- Header Row: Badges on left, Date on right -->
-            <div class="hic-header" style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
-              <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
-                <span class="hic-badge" style="background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px; white-space: nowrap;">${qt.qt_no}</span>
-                ${isSigned ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 3px 8px; border-radius: 6px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DITANDATANGANI</span>` : `<span style="font-size: 10.5px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 3px 8px; border-radius: 6px; font-weight: 700; white-space: nowrap;">DRAFT</span>`}
-              </div>
-              <span class="hic-date" style="font-size: 11px; color: #64748b; font-weight: 600; white-space: nowrap; margin-left: auto;">${createdDate}</span>
+            <!-- Header Row: Badges & Date grouped cleanly on left -->
+            <div class="hic-header" style="display: flex; align-items: center; justify-content: flex-start; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
+              <span class="hic-badge" style="background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px; white-space: nowrap;">${qt.qt_no}</span>
+              ${isSigned ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 3px 8px; border-radius: 6px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DITANDATANGANI</span>` : `<span style="font-size: 10.5px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 3px 8px; border-radius: 6px; font-weight: 700; white-space: nowrap;">DRAFT</span>`}
+              <span class="hic-date" style="font-size: 11px; color: #64748b; font-weight: 600; white-space: nowrap; margin-left: 2px;">${createdDate}</span>
             </div>
 
             <h3 class="hic-title" style="font-size: 16px; font-weight: 800; color: #0f172a; margin: 0 0 4px 0; line-height: 1.3;">${escapeHtml(qt.client_name || 'Klien')}</h3>

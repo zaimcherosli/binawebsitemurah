@@ -3235,14 +3235,22 @@ input:focus, select:focus, textarea:focus {
     padding: 15px 8px !important;
   }
   .qt-action-bar {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 10px !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background: #ffffff !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 12px !important;
+    padding: 8px 12px !important;
+    gap: 8px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
   .qt-action-bar > div {
     display: flex !important;
     gap: 8px !important;
-    width: 100% !important;
+    width: auto !important;
+    margin-left: auto !important;
   }
   .cp-header {
     display: flex !important;
@@ -3377,7 +3385,7 @@ input:focus, select:focus, textarea:focus {
     border-top: 1px dashed #cbd5e1 !important;
     padding-top: 8px !important;
     display: flex !important;
-    justify-content: space-between !important;
+    justify-content: flex-start !important;
     align-items: center !important;
     text-align: left !important;
   }
@@ -3387,13 +3395,15 @@ input:focus, select:focus, textarea:focus {
     white-space: nowrap !important;
   }
   .a4-meta-table {
-    margin-left: auto !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
     width: auto !important;
     font-size: 10px !important;
+    text-align: left !important;
   }
   .a4-meta-table td {
-    text-align: right !important;
-    padding: 1px 3px !important;
+    text-align: left !important;
+    padding: 1px 4px 1px 0 !important;
     white-space: nowrap !important;
   }
   .a4-client-box {
