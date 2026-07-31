@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=281">
-  <link rel="stylesheet" href="brief.css?v=281">
+  <link rel="stylesheet" href="style.css?v=282">
+  <link rel="stylesheet" href="brief.css?v=282">
 </head>
 <body class="admin-body">
 
@@ -234,12 +234,12 @@
   <!-- DOKUMEN SEBUT HARGA RASMI (A4 PRINT-READY DOKUMEN) -->
   <div id="quotation-preview-wrapper" class="quotation-preview-wrapper" style="display: none;">
     <!-- Action Bar (Hidden during printing) -->
-    <div class="qt-action-bar no-print">
-      <button class="btn btn-outline" onclick="closeQuotationPreview()" style="color: #fff; border-color: rgba(255,255,255,0.2); display: inline-flex; align-items: center; gap: 6px;">
+    <div class="qt-action-bar no-print" style="background: #ffffff !important; border: 1.5px solid #cbd5e1 !important; border-radius: 12px !important; padding: 10px 14px !important; margin: 0 auto 16px auto !important; box-shadow: 0 4px 15px rgba(0,0,0,0.06) !important; display: flex !important; align-items: center !important; justify-content: space-between !important; max-width: 210mm;">
+      <button class="btn btn-outline" onclick="closeQuotationPreview()" style="color: #0f172a !important; border-color: #cbd5e1 !important; background: #f8fafc !important; display: inline-flex; align-items: center; gap: 6px;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
         <span class="btn-label">Kembali Ke Admin</span>
       </button>
-      <div style="display: flex; gap: 10px;">
+      <div style="display: flex; gap: 10px; margin-left: auto;">
         <button class="btn btn-primary" onclick="window.print()" style="display: inline-flex; align-items: center; gap: 6px;">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
           <span class="btn-label">Cetak / Simpan PDF</span>
@@ -264,20 +264,19 @@
             <p class="a4-company-contact">Kuala Lumpur, Malaysia | WhatsApp: +60 10-811 8559 | Emel: hello@kwikezee.studio</p>
           </div>
         </div>
-        <div class="a4-doc-meta" style="text-align: right; min-width: 220px; flex-shrink: 0;">
-          <h1 class="a4-doc-title" style="font-size: 24px; font-weight: 900; white-space: nowrap !important; margin-bottom: 6px; color: #000000; letter-spacing: 0.5px;">SEBUT HARGA</h1>
-          <table class="a4-meta-table" style="margin-left: auto; border-collapse: collapse; font-size: 11px;">
+        <div class="a4-doc-meta" style="text-align: left; flex-shrink: 0;">
+          <table class="a4-meta-table" style="margin-right: auto; margin-left: 0; border-collapse: collapse; font-size: 11px;">
             <tr>
-              <td style="white-space: nowrap !important; color: #555; padding: 2px 6px; text-align: right;">No. Quotation:</td>
-              <td style="white-space: nowrap !important; padding: 2px 6px; text-align: right;"><strong id="a4-no" style="color: #000000; font-size: 12px; white-space: nowrap !important;">KZ-QT-2026-001</strong></td>
+              <td style="white-space: nowrap !important; color: #555; padding: 2px 6px 2px 0; text-align: left;">No. Quotation:</td>
+              <td style="white-space: nowrap !important; padding: 2px 0; text-align: left;"><strong id="a4-no" style="color: #000000; font-size: 12px; white-space: nowrap !important;">KZ-QT-2026-001</strong></td>
             </tr>
             <tr>
-              <td style="white-space: nowrap !important; color: #555; padding: 2px 6px; text-align: right;">Tarikh:</td>
-              <td id="a4-date" style="white-space: nowrap !important; padding: 2px 6px; text-align: right; color: #000;">31 Julai 2026</td>
+              <td style="white-space: nowrap !important; color: #555; padding: 2px 6px 2px 0; text-align: left;">Tarikh:</td>
+              <td id="a4-date" style="white-space: nowrap !important; padding: 2px 0; text-align: left; color: #000;">31 Julai 2026</td>
             </tr>
             <tr>
-              <td style="white-space: nowrap !important; color: #555; padding: 2px 6px; text-align: right;">Tamat Sah:</td>
-              <td id="a4-valid-until" style="white-space: nowrap !important; padding: 2px 6px; text-align: right; color: #000;">07 Ogos 2026</td>
+              <td style="white-space: nowrap !important; color: #555; padding: 2px 6px 2px 0; text-align: left;">Tamat Sah:</td>
+              <td id="a4-valid-until" style="white-space: nowrap !important; padding: 2px 0; text-align: left; color: #000;">07 Ogos 2026</td>
             </tr>
           </table>
         </div>
@@ -356,32 +355,36 @@
         </div>
       </div>
 
-      <!-- Footer Signatures (100% Horizontally Aligned Side-by-Side) -->
-      <div class="a4-footer-sig" style="display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: flex-end !important; margin-top: 30px !important; width: 100% !important;">
-        <div class="a4-sig-col" style="flex: 1 !important; max-width: 48% !important; display: flex; flex-direction: column; justify-content: flex-end;">
-          <p style="font-size: 11px; color: #666; margin: 0 0 6px 0; height: 16px; line-height: 16px;">Disediakan Oleh:</p>
-          <div style="height: 44px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end;">
+      <!-- Footer Signatures (Clean Vertical Flow, No Text Overlap) -->
+      <div class="a4-footer-sig" style="display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: flex-end !important; margin-top: 35px !important; width: 100% !important; gap: 20px !important;">
+        <div class="a4-sig-col" style="flex: 1 !important; max-width: 48% !important; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;">
+          <p style="font-size: 11px; color: #666; margin: 0 0 8px 0; font-weight: 600;">Disediakan Oleh:</p>
+          <div style="min-height: 50px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; margin-bottom: 6px;">
             <div class="esig-badge-box" style="display: inline-flex; flex-direction: column; align-items: flex-start; padding: 4px 10px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px;">
               <span style="font-family: 'Outfit', cursive, sans-serif; font-size: 14px; font-weight: 800; color: #0f172a; font-style: italic; letter-spacing: 0.5px;">Kwikezee Studio</span>
-              <span style="font-size: 8.5px; color: #047857; font-weight: 700; display: inline-flex; align-items: center; gap: 3px;">
+              <span style="font-size: 8.5px; color: #047857; font-weight: 700; display: inline-flex; align-items: center; gap: 3px; margin-top: 2px;">
                 <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
                 Tandatangan Digital Disahkan
               </span>
             </div>
           </div>
-          <div class="a4-sig-line" style="width: 100%; max-width: 150px; height: 1.5px; background: #0f172a; margin-top: 6px; margin-bottom: 4px;"></div>
-          <strong style="color: #000; font-size: 12px; display: block; height: 16px; line-height: 16px;">Kwikezee Studio</strong>
-          <p style="font-size: 10px; color: #666; margin: 2px 0 0 0; height: 14px; line-height: 14px;">Pengurusan Projek Digital</p>
+          <div class="a4-sig-line" style="width: 100%; max-width: 170px; height: 1.5px; background: #0f172a; margin-bottom: 4px;"></div>
+          <strong style="color: #000; font-size: 12px; display: block;">Kwikezee Studio</strong>
+          <p style="font-size: 10px; color: #666; margin: 2px 0 0 0;">Pengurusan Projek Digital</p>
         </div>
 
         <div class="a4-sig-col" style="flex: 1 !important; max-width: 48% !important; text-align: right !important; display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end;">
-          <p style="font-size: 11px; color: #666; margin: 0 0 6px 0; height: 16px; line-height: 16px;">Disahkan &amp; Diterima Oleh:</p>
-          <div style="height: 44px; display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end;">
-            <!-- Blank space for client signature -->
+          <p style="font-size: 11px; color: #666; margin: 0 0 8px 0; font-weight: 600;">Disahkan &amp; Diterima Oleh:</p>
+          <div id="client-sig-display-box" style="min-height: 50px; display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end; margin-bottom: 6px;">
+            <img id="client-sig-img" src="" alt="E-Signature" style="max-height: 44px; max-width: 150px; display: none; object-fit: contain; margin-bottom: 4px;">
+            <span id="esig-client-status" style="font-size: 8.5px; color: #047857; font-weight: 700; display: none; align-items: center; gap: 3px; background: #ecfdf5; padding: 2px 8px; border-radius: 4px; border: 1px solid #a7f3d0;">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Tandatangan Digital Disahkan
+            </span>
           </div>
-          <div class="a4-sig-line" style="width: 100%; max-width: 150px; height: 1.5px; background: #0f172a; margin-top: 6px; margin-bottom: 4px; margin-left: auto;"></div>
-          <strong id="a4-sig-client" style="color: #000; font-size: 12px; display: block; height: 16px; line-height: 16px;">Tandatangan Klien</strong>
-          <p style="font-size: 10px; color: #666; margin: 2px 0 0 0; height: 14px; line-height: 14px;">Tarikh Setuju: <span id="a4-sig-date">_______________</span></p>
+          <div class="a4-sig-line" style="width: 100%; max-width: 170px; height: 1.5px; background: #0f172a; margin-bottom: 4px; margin-left: auto;"></div>
+          <strong id="a4-sig-client" style="color: #000; font-size: 12px; display: block;">Tandatangan Klien</strong>
+          <p style="font-size: 10px; color: #666; margin: 2px 0 0 0;">Tarikh Setuju: <span id="a4-sig-date">_______________</span></p>
         </div>
       </div>
 

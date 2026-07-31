@@ -724,10 +724,25 @@ function renderQuotationDocument(qtData) {
 
   setSafeText('a4-duration', qtData.duration || '5 - 7 Hari Bekerja');
   setSafeText('a4-sig-client', qtData.clientName || 'Tandatangan Klien');
-  if (qtData.status === 'SIGNED' && qtData.signedAt) {
-    setSafeText('a4-sig-date', qtData.signedAt);
+
+  const clientSigImg = document.getElementById('client-sig-img');
+  const esigStatus = document.getElementById('esig-client-status');
+
+  if (qtData.status === 'SIGNED' && (qtData.signedAt || qtData.signature_image || qtData.signatureImage)) {
+    setSafeText('a4-sig-date', qtData.signedAt || qtData.signed_at || 'Disahkan');
+
+    const sigSrc = qtData.signature_image || qtData.signatureImage;
+    if (sigSrc && clientSigImg) {
+      clientSigImg.src = sigSrc;
+      clientSigImg.style.display = 'block';
+    }
+    if (esigStatus) {
+      esigStatus.style.display = 'inline-flex';
+    }
   } else {
     setSafeText('a4-sig-date', '_______________');
+    if (clientSigImg) clientSigImg.style.display = 'none';
+    if (esigStatus) esigStatus.style.display = 'none';
   }
 
   // Terms list
