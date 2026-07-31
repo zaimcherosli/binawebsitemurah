@@ -914,9 +914,11 @@ async function saveQuotationToHistory(qtData) {
       console.error('Gagal simpan ke D1:', err);
     }
 
+    await renderQuotationHistory();
     updateHistoryCountBadge();
   } catch (e) {
     console.error('API error semasa simpan QT:', e);
+    await renderQuotationHistory();
     updateHistoryCountBadge();
   }
 }
