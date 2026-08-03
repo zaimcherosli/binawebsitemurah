@@ -203,25 +203,6 @@ window.deleteSubmission = async function(id) {
     }
   } catch (e) { console.error(e); }
 };
-              ${logoHtml}
-            </div>
-            <div class="detail-block" style="margin-bottom: 25px;">
-              <h4>Galeri Portfolio</h4>
-              ${portfolioHtml}
-            </div>
-            <div class="detail-block">
-              <h4>Sijil Pendaftaran (SSM/CIDB)</h4>
-              ${docsHtml}
-            </div>
-          </div>
-
-        </div>
-      </div>
-    `;
-
-    container.appendChild(item);
-  });
-}
 
 /* ==========================================================================
    UTILITY HELPER
