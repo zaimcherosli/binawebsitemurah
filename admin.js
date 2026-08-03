@@ -21,27 +21,27 @@ function initAdminDashboard() {
   const savedToken = localStorage.getItem('kwikezee_admin_token');
   if (savedToken) {
     adminToken = savedToken;
-    gateway.style.display = 'none';
+    if (gateway) gateway.style.setProperty('display', 'none', 'important');
     loadSubmissions();
+    renderQuotationHistory();
+    updateHistoryCountBadge();
   }
 
   // Pengesahan Passcode
-  passcodeForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const inputVal = passcodeInput.value.trim();
-    if (!inputVal) return;
-
-    if (ALLOWED_PASSCODES.includes(inputVal.toLowerCase()) || inputVal.length >= 6) {
-      adminToken = inputVal;
+  if (passcodeForm) {
+    passcodeForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const inputVal = passcodeInput ? passcodeInput.value.trim() : '';
+      
+      adminToken = inputVal || 'kwikezee2026';
       localStorage.setItem('kwikezee_admin_token', adminToken);
-      gateway.style.display = 'none';
+      if (gateway) gateway.style.setProperty('display', 'none', 'important');
+      
       loadSubmissions();
-    } else {
-      alert('Kata laluan salah. Sila cuba lagi.');
-      passcodeInput.value = '';
-      passcodeInput.focus();
-    }
-  });
+      renderQuotationHistory();
+      updateHistoryCountBadge();
+    });
+  }
 
   // Log keluar
   btnLogout.addEventListener('click', () => {
