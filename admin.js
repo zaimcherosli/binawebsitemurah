@@ -1250,24 +1250,6 @@ window.duplicateHistoryQt = async function(index) {
   alert(`✅ Sebut Harga baharu (${newQtNo}) telah berjaya diduplikasi & disimpan secara automatik ke Arkib Cloud!`);
 };
 
-window.generateNextQtNo = async function() {
-  const currentYear = new Date().getFullYear();
-  let nextNum = 1;
-  try {
-    const res = await fetch(`${API_BASE}/api/quotations`);
-    const json = await res.json();
-    const list = json.data || [];
-    nextNum = list.length + 1;
-  } catch (e) {
-    const local = JSON.parse(localStorage.getItem('kwikezee_qt_history') || '[]');
-    nextNum = local.length + 1;
-  }
-  const newQtNo = `KZ-QT-${currentYear}-${String(nextNum).padStart(3, '0')}`;
-  if (document.getElementById('qt-no')) {
-    document.getElementById('qt-no').value = newQtNo;
-  }
-  alert(`Nombor Sebut Harga baharu dijana: ${newQtNo}`);
-};
 
 window.waHistoryQt = async function(index) {
   let qt = _qtHistoryCache[index];
