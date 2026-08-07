@@ -480,9 +480,12 @@ window.convertQtToInvoice = async function(idxOrNo) {
   
   const newInvNo = await generateNextQtNo('KZ-INV');
   handleDocTypeChange();
-  if (document.getElementById('qt-no')) {
-    document.getElementById('qt-no').value = newInvNo;
-  }
+
+  const qtNoInput = document.getElementById('qt-no');
+  const qtRefInput = document.getElementById('qt-ref-no');
+
+  if (qtNoInput) qtNoInput.value = newInvNo;
+  if (qtRefInput) qtRefInput.value = qtData.qtNo || '';
 
   const clientNameEl = document.getElementById('qt-client-name');
   const projectTitleEl = document.getElementById('qt-project-title');
@@ -645,9 +648,16 @@ window.generateQuotationDocument = async function(event) {
   const deposit = Math.round(total / 2);
   const balance = total - deposit;
 
+  const docTypeEl = document.getElementById('doc-type');
+  const docType = docTypeEl ? docTypeEl.value : (qtNo.includes('INV') ? 'INV' : 'QT');
+  const refNoInput = document.getElementById('qt-ref-no');
+  const refNo = refNoInput ? refNoInput.value.trim() : '';
+
   currentQtData = {
     id: 'QT-' + Date.now(),
+    docType,
     qtNo,
+    refNo,
     qtDate,
     qtValid,
     clientName,
@@ -687,7 +697,19 @@ function renderQuotationDocument(qtData) {
     if (el) el.innerText = val !== undefined && val !== null ? val : '-';
   };
 
+  const isInvoice = qtData.docType === 'INV' || (qtData.qtNo || '').includes('INV');
+  setSafeText('a4-no-label', isInvoice ? 'No. Invois:' : 'No. Quotation:');
   setSafeText('a4-no', qtData.qtNo);
+
+  const refRow = document.getElementById('a4-ref-no-row');
+  if (refRow) {
+    if (qtData.refNo) {
+      setSafeText('a4-ref-no', qtData.refNo);
+      refRow.style.display = 'table-row';
+    } else {
+      refRow.style.display = 'none';
+    }
+  }
 
   const formatDateStr = (dateStr) => {
     if (!dateStr) return '-';
@@ -1307,6 +1329,8 @@ function normalizeQtFromApi(qt) {
   }
   return {
     qtNo:         qt.qt_no         || qt.qtNo         || '',
+    docType:      qt.doc_type      || qt.docType      || ((qt.qt_no || qt.qtNo || '').includes('INV') ? 'INV' : 'QT'),
+    refNo:        qt.ref_no        || qt.refNo        || '',
     qtDate:       qt.qt_date       || qt.qtDate       || '',
     qtValid:      qt.qt_valid      || qt.qtValid      || '',
     clientName:   qt.client_name   || qt.clientName   || '',

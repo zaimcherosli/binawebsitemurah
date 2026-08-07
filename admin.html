@@ -109,6 +109,10 @@
                     <option value="INV">🧾 Invois Rasmi (Invoice)</option>
                   </select>
                 </div>
+                <div class="form-group-pay" id="ref-qt-group">
+                  <label style="font-weight: 700; color: #475569;">No. Rujukan QT (Jika ada)</label>
+                  <input type="text" id="qt-ref-no" placeholder="Contoh: KZ-QT-2026-002" style="background: #F8FAFC; border: 1.5px solid #CBD5E1; border-radius: 10px; height: 44px; padding: 0 12px;">
+                </div>
               </div>
               <div class="qb-grid-3">
                 <div class="form-group-pay">
@@ -292,8 +296,12 @@
         <div class="a4-doc-meta" style="text-align: left; flex-shrink: 0;">
           <table class="a4-meta-table" style="margin-right: auto; margin-left: 0; border-collapse: collapse; font-size: 11px;">
             <tr>
-              <td style="white-space: nowrap !important; color: #555; padding: 2px 6px 2px 0; text-align: left;">No. Quotation:</td>
+              <td id="a4-no-label" style="white-space: nowrap !important; color: #555; padding: 2px 6px 2px 0; text-align: left;">No. Quotation:</td>
               <td style="white-space: nowrap !important; padding: 2px 0; text-align: left;"><strong id="a4-no" style="color: #000000; font-size: 12px; white-space: nowrap !important;">KZ-QT-2026-001</strong></td>
+            </tr>
+            <tr id="a4-ref-no-row" style="display: none;">
+              <td style="white-space: nowrap !important; color: #555; padding: 2px 6px 2px 0; text-align: left;">Ref. Quotation:</td>
+              <td style="white-space: nowrap !important; padding: 2px 0; text-align: left;"><strong id="a4-ref-no" style="color: #047857; font-size: 11.5px; white-space: nowrap !important;">KZ-QT-2026-002</strong></td>
             </tr>
             <tr>
               <td style="white-space: nowrap !important; color: #555; padding: 2px 6px 2px 0; text-align: left;">Tarikh:</td>
@@ -430,6 +438,6 @@
     </div>
   </footer>
 
-  <script src="admin.js?v=318"></script>
+  <script src="admin.js?v=319"></script>
 </body>
 </html>

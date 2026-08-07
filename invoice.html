@@ -146,6 +146,7 @@
           <h1 style="font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 900; color: #047857; margin: 0 0 4px 0; letter-spacing: 1px;">INVOICE</h1>
           <p style="font-size: 12px; font-weight: 800; color: #0f172a; margin: 0;"><span id="inv-no-display">KZ-INV-2026-001</span></p>
           <p style="font-size: 11px; color: #64748b; margin: 2px 0 0 0;">Tarikh: <strong id="inv-date-display">-</strong></p>
+          <p id="inv-ref-row" style="font-size: 11px; color: #047857; font-weight: 700; margin: 2px 0 0 0; display: none;">Ref. QT: <span id="inv-ref-display">-</span></p>
         </div>
       </div>
 
@@ -280,6 +281,14 @@
       document.getElementById('inv-project-title').innerText = projectTitle;
       document.getElementById('inv-client-phone').innerText = `Phone: ${phone}`;
       document.getElementById('inv-client-email').innerText = `Emel: ${email}`;
+
+      const refNo = data.ref_no || data.refNo || '';
+      if (refNo) {
+        const refDisp = document.getElementById('inv-ref-display');
+        const refRow = document.getElementById('inv-ref-row');
+        if (refDisp) refDisp.innerText = refNo;
+        if (refRow) refRow.style.display = 'block';
+      }
 
       const formatDateStr = (dateStr) => {
         if (!dateStr) return new Date().toLocaleDateString('ms-MY', { day: '2-digit', month: 'long', year: 'numeric' });
