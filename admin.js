@@ -670,10 +670,10 @@ function renderQuotationDocument(qtData) {
     items.forEach((item, index) => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td style="text-align: center; vertical-align: middle; font-weight: 700; color: #555;">${index + 1}</td>
-        <td style="vertical-align: middle;"><strong style="color: #000; font-size: 11.5px; line-height: 1.35; display: block;">${escapeHtml(item.title || '')}</strong></td>
-        <td style="font-size: 10.5px; color: #444; line-height: 1.4; vertical-align: middle;">${escapeHtml(item.desc || '')}</td>
-        <td style="text-align: center; vertical-align: middle; font-weight: 800; color: #000; white-space: nowrap;">RM ${(item.price || 0).toLocaleString()}</td>
+        <td style="text-align: center; vertical-align: top; font-weight: 700; color: #555; padding-top: 8px;">${index + 1}</td>
+        <td style="vertical-align: top; padding-top: 8px;"><strong style="color: #000; font-size: 11.5px; line-height: 1.35; display: block;">${escapeHtml(item.title || '')}</strong></td>
+        <td style="font-size: 10.5px; color: #334155; line-height: 1.6; vertical-align: top; white-space: pre-line !important; padding-top: 8px;">${escapeHtml(item.desc || '')}</td>
+        <td style="text-align: center; vertical-align: top; font-weight: 800; color: #000; white-space: nowrap; padding-top: 8px;">RM ${(item.price || 0).toLocaleString()}</td>
       `;
       tbody.appendChild(tr);
     });
