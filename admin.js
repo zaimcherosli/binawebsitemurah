@@ -395,6 +395,38 @@ window.loadEnFarisPreset = function() {
   alert('⚡ Sebut Harga En Faris (Social Media Management - RM 1,000) telah diisi secara automatik!');
 };
 
+window.generateNextQtNo = async function(customPrefix) {
+  const docTypeEl = document.getElementById('doc-type');
+  const docType = docTypeEl ? docTypeEl.value : 'QT';
+  
+  let prefix = 'KZ-QT';
+  if (customPrefix) {
+    prefix = customPrefix;
+  } else if (docType === 'INV') {
+    prefix = 'KZ-INV';
+  }
+
+  const currentYear = new Date().getFullYear();
+  let list = [];
+  try {
+    const res = await fetch(`${API_BASE}/api/quotations`);
+    const json = await res.json();
+    list = json.data || [];
+  } catch (e) {
+    list = JSON.parse(localStorage.getItem('kwikezee_qt_history') || '[]');
+  }
+
+  const matching = list.filter(q => (q.qt_no || q.qtNo || '').startsWith(prefix));
+  const nextNum = matching.length + 1;
+  const newNo = `${prefix}-${currentYear}-${String(nextNum).padStart(3, '0')}`;
+
+  const qtNoEl = document.getElementById('qt-no');
+  if (qtNoEl) {
+    qtNoEl.value = newNo;
+  }
+  return newNo;
+};
+
 window.handleDocTypeChange = function() {
   const docTypeEl = document.getElementById('doc-type');
   const docType = docTypeEl ? docTypeEl.value : 'QT';
@@ -404,27 +436,11 @@ window.handleDocTypeChange = function() {
   if (docType === 'INV') {
     if (lbl) lbl.innerText = 'No. Invois';
     if (input) input.placeholder = 'KZ-INV-2026-001';
+    generateNextQtNo('KZ-INV');
   } else {
     if (lbl) lbl.innerText = 'No. Sebut Harga';
     if (input) input.placeholder = 'KZ-QT-2026-001';
-  }
-  generateNextQtNo();
-};
-
-window.generateNextQtNo = function() {
-  const docTypeEl = document.getElementById('doc-type');
-  const docType = docTypeEl ? docTypeEl.value : 'QT';
-  const prefix = docType === 'INV' ? 'KZ-INV' : 'KZ-QT';
-
-  const history = JSON.parse(localStorage.getItem('kwikezee_quotations_history') || '[]');
-  const year = new Date().getFullYear();
-  
-  const count = history.length + 1;
-  const paddedNum = String(count).padStart(3, '0');
-  
-  const qtNoEl = document.getElementById('qt-no');
-  if (qtNoEl) {
-    qtNoEl.value = `${prefix}-${year}-${paddedNum}`;
+    generateNextQtNo('KZ-QT');
   }
 };
 
@@ -461,7 +477,12 @@ window.convertQtToInvoice = async function(idxOrNo) {
   // Switch docType to INV
   const docTypeEl = document.getElementById('doc-type');
   if (docTypeEl) docTypeEl.value = 'INV';
+  
+  const newInvNo = await generateNextQtNo('KZ-INV');
   handleDocTypeChange();
+  if (document.getElementById('qt-no')) {
+    document.getElementById('qt-no').value = newInvNo;
+  }
 
   const clientNameEl = document.getElementById('qt-client-name');
   const projectTitleEl = document.getElementById('qt-project-title');
@@ -495,13 +516,12 @@ window.convertQtToInvoice = async function(idxOrNo) {
   if (payModeEl) payModeEl.value = 'full';
   if (durationEl) durationEl.value = qtData.duration || 'Serta-merta / Upon Receipt';
   if (notesEl) notesEl.value =
-    "1. Pembayaran hendaklah dibuat secara penuh mengikut invois ini.\n" +
+  "1. Pembayaran hendaklah dibuat secara penuh mengikut invois ini.\n" +
     "2. Sila kemukakan resit pembayaran melalui WhatsApp / Emel.";
 
   updateQtFormTotals();
   switchAdminTab('quotation');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  alert(`⚡ Dokumen ${qtData.qtNo} telah sedia ditukar ke Invois Rasmi (${document.getElementById('qt-no').value})! Anda boleh tekan Jana Pratonton untuk simpan dokumen ini.`);
+  alert(`⚡ Sebut Harga ${qtData.qtNo} telah sedia ditukar ke Invois Rasmi (${newInvNo})!\n\nTekan 'Jana Pratonton Sebut Harga' untuk simpan invois ini ke pangkalan data.`);
 };
 
 window.addQuotationScopeItem = function(title = '', desc = '', price = 0) {
