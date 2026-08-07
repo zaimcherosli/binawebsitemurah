@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=312">
-  <link rel="stylesheet" href="brief.css?v=312">
+  <link rel="stylesheet" href="style.css?v=313">
+  <link rel="stylesheet" href="brief.css?v=313">
 </head>
 <body class="admin-body">
 
@@ -87,9 +87,14 @@
               <h2>📄 Bina Sebut Harga Rasmi (Quotation Generator)</h2>
               <p>Isi maklumat projek di bawah untuk menjana dokumen sebut harga rasmi A4 bertema mewah.</p>
             </div>
-            <button type="button" class="btn-preset-hartanah" onclick="loadAbgWanPreset()" style="background: #FEF3C7; border: 1.5px solid #F59E0B; color: #92400E; font-weight: 800; font-size: 13px; padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px;">
-              ⚡ Isi Otomatik Sebut Harga Abg Wan
-            </button>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="btn-preset-hartanah" onclick="loadEnFarisPreset()" style="background: #E0F2FE; border: 1.5px solid #0284C7; color: #075985; font-weight: 800; font-size: 13px; padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px;">
+                ⚡ Isi Otomatik En Faris (RM1,000)
+              </button>
+              <button type="button" class="btn-preset-hartanah" onclick="loadAbgWanPreset()" style="background: #FEF3C7; border: 1.5px solid #F59E0B; color: #92400E; font-weight: 800; font-size: 13px; padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px;">
+                ⚡ Isi Otomatik Abg Wan
+              </button>
+            </div>
           </div>
 
           <form id="quotation-form" onsubmit="generateQuotationDocument(event)">
@@ -416,6 +421,6 @@
     </div>
   </footer>
 
-  <script src="admin.js?v=312"></script>
+  <script src="admin.js?v=313"></script>
 </body>
 </html>

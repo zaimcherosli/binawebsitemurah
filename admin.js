@@ -352,6 +352,49 @@ window.loadAbgWanPreset = function() {
   alert('Templat Sebut Harga Abg Wan (Ejen Hartanah) telah diisi secara automatik!');
 };
 
+window.loadEnFarisPreset = function() {
+  generateNextQtNo();
+  const today = new Date();
+  const validUntil = new Date(today);
+  validUntil.setDate(validUntil.getDate() + 14);
+
+  const dateInput = document.getElementById('qt-date');
+  const validUntilInput = document.getElementById('qt-valid-until');
+  if (dateInput) dateInput.value = today.toISOString().split('T')[0];
+  if (validUntilInput) validUntilInput.value = validUntil.toISOString().split('T')[0];
+
+  document.getElementById('qt-client-name').value = 'En Faris';
+  document.getElementById('qt-project-title').value = 'Social Media Management Package (1 Month)';
+  document.getElementById('qt-client-phone').value = '0102030990';
+  document.getElementById('qt-client-email').value = 'kwikezeeresources@gmail.com';
+
+  const itemsContainer = document.getElementById('quotation-items-list');
+  if (itemsContainer) itemsContainer.innerHTML = '';
+  qbItemCounter = 0;
+
+  addQuotationScopeItem(
+    "Social Media Management Package (1 Month)",
+    "• Management of Facebook, Instagram & Threads accounts\n• 3 posts daily for each platform (Facebook, Instagram & Threads)\n• Content creation & post scheduling\n• Additional graphic/picture creation\n• Sample AI video production",
+    1000
+  );
+
+  const discountEl = document.getElementById('qt-discount');
+  const payModeEl = document.getElementById('qt-pay-mode');
+  const durationEl = document.getElementById('qt-duration');
+  const notesEl = document.getElementById('qt-notes');
+
+  if (discountEl) discountEl.value = '0';
+  if (payModeEl) payModeEl.value = 'full';
+  if (durationEl) durationEl.value = '1 Bulan (Bulanan)';
+  if (notesEl) notesEl.value =
+    "1. Pakej pengurusan akaun merangkumi platform Facebook, Instagram & Threads.\n" +
+    "2. 3 siaran (posts) harian disiarkan bagi setiap platform.\n" +
+    "3. Reka bentuk grafik & hasil video AI disediakan sepanjang tempoh 1 bulan.";
+
+  updateQtFormTotals();
+  alert('⚡ Sebut Harga En Faris (Social Media Management - RM 1,000) telah diisi secara automatik!');
+};
+
 window.autoGenerateQtNo = function() {
   const history = JSON.parse(localStorage.getItem('kwikezee_quotations_history') || '[]');
   const year = new Date().getFullYear();
