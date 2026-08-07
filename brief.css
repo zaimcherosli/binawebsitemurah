@@ -1012,3 +1012,26 @@ body {
   }
 }
 
+/* History Card Actions Responsive Layout */
+.hic-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+  border-top: 1px dashed #e2e8f0 !important;
+  padding-top: 12px !important;
+}
+
+@media screen and (max-width: 600px) {
+  .hic-actions {
+    justify-content: space-between !important;
+    gap: 6px !important;
+  }
+  .hic-actions .btn-history-icon {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+  }
+}
+

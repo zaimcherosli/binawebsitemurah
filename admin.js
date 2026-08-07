@@ -430,11 +430,35 @@ window.generateNextQtNo = function() {
 
 window.autoGenerateQtNo = window.generateNextQtNo;
 
-window.convertQtToInvoice = function(qtNo) {
-  const history = JSON.parse(localStorage.getItem('kwikezee_quotations_history') || '[]');
-  const qt = history.find(q => (q.qtNo || q.qt_no) === qtNo);
-  if (!qt) return;
+window.convertQtToInvoice = async function(idxOrNo) {
+  let qt = null;
+  if (typeof idxOrNo === 'number') {
+    qt = _qtHistoryCache[idxOrNo];
+  } else {
+    qt = (_qtHistoryCache || []).find(q => (q.qt_no || q.qtNo) === idxOrNo);
+  }
 
+  if (!qt && typeof idxOrNo === 'string') {
+    try {
+      const res = await fetch(`${API_BASE}/api/quotations/${encodeURIComponent(idxOrNo)}`);
+      const json = await res.json();
+      if (json.success) qt = json.data;
+    } catch (e) {}
+  }
+
+  if (!qt && typeof idxOrNo === 'string') {
+    const local = JSON.parse(localStorage.getItem('kwikezee_qt_history') || '[]');
+    qt = local.find(q => (q.qt_no || q.qtNo) === idxOrNo);
+  }
+
+  if (!qt) {
+    alert('Sebut harga tidak dijumpai.');
+    return;
+  }
+
+  const qtData = normalizeQtFromApi(qt);
+
+  // Switch docType to INV
   const docTypeEl = document.getElementById('doc-type');
   if (docTypeEl) docTypeEl.value = 'INV';
   handleDocTypeChange();
@@ -444,39 +468,40 @@ window.convertQtToInvoice = function(qtNo) {
   const phoneEl = document.getElementById('qt-client-phone');
   const emailEl = document.getElementById('qt-client-email');
 
-  if (clientNameEl) clientNameEl.value = qt.clientName || qt.client_name || '';
-  if (projectTitleEl) projectTitleEl.value = qt.projectTitle || qt.project_title || '';
-  if (phoneEl) phoneEl.value = qt.clientPhone || qt.client_phone || '';
-  if (emailEl) emailEl.value = qt.clientEmail || qt.client_email || '';
+  if (clientNameEl) clientNameEl.value = qtData.clientName || '';
+  if (projectTitleEl) projectTitleEl.value = qtData.projectTitle || '';
+  if (phoneEl) phoneEl.value = qtData.clientPhone || '';
+  if (emailEl) emailEl.value = qtData.clientEmail || '';
 
   const itemsContainer = document.getElementById('quotation-items-list');
   if (itemsContainer) itemsContainer.innerHTML = '';
   qbItemCounter = 0;
 
-  let items = qt.items || [];
-  if (typeof qt.items_json === 'string') {
-    try { items = JSON.parse(qt.items_json); } catch (e) { items = []; }
+  const items = qtData.items || [];
+  if (items.length > 0) {
+    items.forEach(it => {
+      addQuotationScopeItem(it.title || it.name || '', it.desc || '', it.price || 0);
+    });
+  } else {
+    addQuotationScopeItem('Skop Kerja Utama', '', 0);
   }
-
-  items.forEach(it => {
-    addQuotationScopeItem(it.title || it.name || '', it.desc || '', it.price || 0);
-  });
 
   const discountEl = document.getElementById('qt-discount');
   const payModeEl = document.getElementById('qt-pay-mode');
   const durationEl = document.getElementById('qt-duration');
   const notesEl = document.getElementById('qt-notes');
 
-  if (discountEl) discountEl.value = qt.discount || 0;
+  if (discountEl) discountEl.value = qtData.discount || 0;
   if (payModeEl) payModeEl.value = 'full';
-  if (durationEl) durationEl.value = qt.duration || 'Serta-merta / Upon Receipt';
+  if (durationEl) durationEl.value = qtData.duration || 'Serta-merta / Upon Receipt';
   if (notesEl) notesEl.value =
     "1. Pembayaran hendaklah dibuat secara penuh mengikut invois ini.\n" +
     "2. Sila kemukakan resit pembayaran melalui WhatsApp / Emel.";
 
   updateQtFormTotals();
   switchAdminTab('quotation');
-  alert(`⚡ Dokumen ${qtNo} telah sedia ditukar ke Invois Rasmi (${document.getElementById('qt-no').value})! Anda boleh jana & simpan invois ini sekarang.`);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  alert(`⚡ Dokumen ${qtData.qtNo} telah sedia ditukar ke Invois Rasmi (${document.getElementById('qt-no').value})! Anda boleh tekan Jana Pratonton untuk simpan dokumen ini.`);
 };
 
 window.addQuotationScopeItem = function(title = '', desc = '', price = 0) {
@@ -972,8 +997,13 @@ function renderHistoryItemsUI(history, container) {
               <line x1="11.5" y1="14.5" x2="17.5" y2="14.5"></line>
             </svg>
           </button>
-          <button class="btn-history-icon" onclick="convertQtToInvoice('${qt.qt_no}')" title="Tukar Ke Invois Rasmi" style="height:38px!important;padding:0 8px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:4px;border-radius:10px!important;background:#ECFDF5!important;border:1.5px solid #A7F3D0!important;color:#047857!important;font-size:11px!important;font-weight:800!important;cursor:pointer!important;flex-shrink:0!important;">
-            🧾 Invois
+          <button class="btn-history-icon" onclick="convertQtToInvoice(${idx})" title="Tukar Ke Invois Rasmi" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#ECFDF5!important;border:1.5px solid #A7F3D0!important;color:#047857!important;cursor:pointer!important;flex-shrink:0!important;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
           </button>
           <button class="btn-history-icon" onclick="waHistoryQt(${idx})" title="Kongsi Ke WhatsApp" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;cursor:pointer!important;flex-shrink:0!important;">
             <svg width="22" height="22" viewBox="0 0 32 32" fill="none"><path d="M16 2a13.9 13.9 0 0 0-11.8 21.2L2.3 29.7l6.7-1.8A13.9 13.9 0 1 0 16 2z" fill="#25D366"/><path d="M12.1 9.7c-.3-.7-.6-.7-.9-.7h-.7c-.2 0-.6.1-.9.4s-1.2 1.2-1.2 2.9 1.3 3.3 1.4 3.5c.2.2 2.5 3.8 6.1 5.4.9.4 1.5.6 2 .8.9.3 1.7.2 2.3.1.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4s-2.2-1.1-2.5-1.2c-.3-.2-.5-.2-.7.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.8 0s-1.7-.6-3.2-2c-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.1-.7s-.6-1.5-.9-2.1z" fill="#FFF"/></svg>
