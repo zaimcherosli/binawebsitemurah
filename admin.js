@@ -466,6 +466,7 @@ window.convertQtToInvoice = function(idxOrNo) {
   }
 
   const qtData = normalizeQtFromApi(qt);
+  const originalQtNo = qt.qt_no || qt.qtNo || qtData.qtNo || '';
 
   // Switch docType to INV & update form UI
   const docTypeEl = document.getElementById('doc-type');
@@ -474,8 +475,16 @@ window.convertQtToInvoice = function(idxOrNo) {
   handleDocTypeChange(); // Sets label, placeholder, submit button text AND generates KZ-INV-2026-xxx
 
   const newInvNo = document.getElementById('qt-no') ? document.getElementById('qt-no').value : 'KZ-INV-2026-001';
+
+  // Automatik salin No. Sebut Harga asal masuk ke petak No. Rujukan QT
   const qtRefInput = document.getElementById('qt-ref-no');
-  if (qtRefInput) qtRefInput.value = qtData.qtNo || '';
+  if (qtRefInput) {
+    qtRefInput.value = originalQtNo;
+    qtRefInput.style.background = '#ECFDF5';
+    qtRefInput.style.borderColor = '#A7F3D0';
+    qtRefInput.style.fontWeight = '800';
+    qtRefInput.style.color = '#047857';
+  }
 
   const clientNameEl = document.getElementById('qt-client-name');
   const projectTitleEl = document.getElementById('qt-project-title');
@@ -515,7 +524,7 @@ window.convertQtToInvoice = function(idxOrNo) {
   updateQtFormTotals();
   switchAdminTab('quotation');
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  alert(`⚡ Sebut Harga ${qtData.qtNo} telah sedia ditukar ke Invois Rasmi (${newInvNo})!\n\nTekan 'Jana Pratonton Invois Rasmi' di bawah untuk simpan dokumen ini.`);
+  alert(`⚡ Sebut Harga (${originalQtNo}) telah sedia ditukar ke Invois Rasmi (${newInvNo})!\n\nNo. Rujukan QT (${originalQtNo}) telah disalin secara automatik.\nTekan 'Jana Pratonton Invois Rasmi' di bawah untuk simpan dokumen ini.`);
 };
 
 window.addQuotationScopeItem = function(title = '', desc = '', price = 0) {
