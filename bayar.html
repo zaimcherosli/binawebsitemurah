@@ -738,7 +738,7 @@
                 </label>
               </div>
               <div id="deposit-note" style="display: none; margin-top: 12px; font-size: 12.5px; color: #b45309; font-weight: 600; background: #fffbeb; border: 1px solid #fcd34d; padding: 10px 14px; border-radius: 10px; line-height: 1.5; box-sizing: border-box; width: 100%;">
-                💡 <strong>Pilihan Deposit 50%:</strong> Bayar separuh dahulu untuk memulakan projek. Baki 50% lagi akan dibayar selepas laman web anda siap sepenuhnya!
+                💡 <strong>Pilihan Deposit 50%:</strong> Bayar separuh dahulu untuk memulakan projek. Baki 50% lagi akan dibayar selepas perkhidmatan / projek siap sepenuhnya!
               </div>
             </div>
 
@@ -1297,25 +1297,32 @@
       const totalParam = parseFloat(urlParams.get('total'));
       const paymodeParam = urlParams.get('paymode');
       const nameParam = urlParams.get('name');
+      const titleParam = urlParams.get('title');
 
       if (qtParam && !isNaN(amountParam)) {
         const select = document.getElementById('pay-package');
         const fullTotal = (!isNaN(totalParam) && totalParam > 0) ? totalParam : (paymodeParam === 'deposit' ? amountParam * 2 : amountParam);
-        
+        const titleText = titleParam ? decodeURIComponent(titleParam) : 'Perkhidmatan Kwikezee';
+
         const opt = document.createElement('option');
         opt.value = 'quotation_custom';
         opt.setAttribute('data-price', fullTotal.toString());
-        opt.innerText = `Sebut Harga ${qtParam} — RM${fullTotal.toLocaleString()}`;
+        opt.innerText = `Dokumen ${qtParam} — ${titleText} (RM${fullTotal.toLocaleString()})`;
         opt.selected = true;
         
         select.insertBefore(opt, select.firstChild);
 
+        const depRadioOption = document.querySelector('input[name="pay-mode"][value="deposit"]');
+        const depWrapper = depRadioOption ? depRadioOption.closest('.pay-mode-option') : null;
+
         if (paymodeParam === 'deposit') {
-          const depRadio = document.querySelector('input[name="pay-mode"][value="deposit"]');
-          if (depRadio) depRadio.checked = true;
+          if (depRadioOption) depRadioOption.checked = true;
+          if (depWrapper) depWrapper.style.display = 'flex';
         } else if (paymodeParam === 'full') {
           const fullRadio = document.querySelector('input[name="pay-mode"][value="full"]');
           if (fullRadio) fullRadio.checked = true;
+          // Hide deposit option completely if full payment is set
+          if (depWrapper) depWrapper.style.display = 'none';
         }
 
         window._customQuotationAmount = amountParam;

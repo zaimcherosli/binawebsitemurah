@@ -796,7 +796,6 @@ window.sendQtToWhatsapp = function() {
   if (!currentQtData) return;
   let phone = (currentQtData.clientPhone || '').replace(/\D/g, '');
 
-  // Jika tiada no. phone — tanya admin masukkan manual
   if (!phone) {
     const entered = prompt(
       `📱 No. WhatsApp klien tiada dalam rekod.\n\nSila masukkan no. WhatsApp klien (contoh: 0123456789):`,
@@ -810,25 +809,40 @@ window.sendQtToWhatsapp = function() {
     }
   }
 
-  // Tambah kod negara Malaysia jika perlu
   if (phone.startsWith('0')) phone = '60' + phone.slice(1);
 
-  const clientPortalUrl = `https://binawebsitemurah-by.zaimrosli.my/quotation.html?qt=${encodeURIComponent(currentQtData.qtNo || '001')}`;
+  const isInvoice = (currentQtData.docType === 'INV') || (currentQtData.qtNo || '').includes('INV');
+  const isFullPayment = currentQtData.payMode === 'full';
+  const docTypeName = isInvoice ? 'Invois Rasmi (Invoice)' : 'Sebut Harga Rasmi (Quotation)';
+  const docNoLabel = isInvoice ? 'No. Invois' : 'No. Quotation';
+  
+  const portalUrl = isInvoice ? 
+    `https://binawebsitemurah-by.zaimrosli.my/invoice.html?inv=${encodeURIComponent(currentQtData.qtNo || '001')}` :
+    `https://binawebsitemurah-by.zaimrosli.my/quotation.html?qt=${encodeURIComponent(currentQtData.qtNo || '001')}`;
+  
+  const actionText = isInvoice ? 'Semak & Bayar Invois Rasmi' : 'Semak & Tandatangan Digital (E-Signature)';
+
   const depositVal = (currentQtData.deposit || Math.round((currentQtData.total || 0) / 2)).toLocaleString();
   const balanceVal = (currentQtData.balance !== undefined ? currentQtData.balance : ((currentQtData.total || 0) - (currentQtData.deposit || 0))).toLocaleString();
 
+  let paymentLines = '';
+  if (isFullPayment) {
+    paymentLines = `💰 *Jumlah Bayaran Penuh*: RM${(currentQtData.total || 0).toLocaleString()} (100% Lunas)\n`;
+  } else {
+    paymentLines = `💰 *Jumlah Skop Kerja*: RM${(currentQtData.total || 0).toLocaleString()}\n` +
+                   `⚡ *Deposit 50%*: RM${depositVal}\n` +
+                   `⏳ *Baki 50%*: RM${balanceVal} (Selepas Siap)\n`;
+  }
+
   let msg = `Salam & Selamat Sejahtera *${currentQtData.clientName}* 👋,\n\n` +
-            `Berikut adalah *Sebut Harga Rasmi (Quotation)* bagi projek *${currentQtData.projectTitle}* dari Kwikezee Studio:\n\n` +
-            `📄 *No. Quotation*: ${currentQtData.qtNo}\n` +
-            `💰 *Jumlah Skop Kerja*: RM${(currentQtData.total || 0).toLocaleString()}\n` +
-            `⚡ *Deposit 50%*: RM${depositVal}\n` +
-            `⏳ *Baki 50%*: RM${balanceVal} (Selepas Siap)\n` +
-            `🕒 *Anggaran Siap*: ${currentQtData.duration}\n\n` +
-            `📝 *Semak & Tandatangan Digital (E-Signature)*:\n` +
-            `${clientPortalUrl}\n\n` +
+            `Berikut adalah *${docTypeName}* bagi projek *${currentQtData.projectTitle}* dari Kwikezee Studio:\n\n` +
+            `📄 *${docNoLabel}*: ${currentQtData.qtNo}\n` +
+            `${paymentLines}` +
+            `🕒 *Anggaran Siap / Tempoh*: ${currentQtData.duration}\n\n` +
+            `📝 *${actionText}*:\n` +
+            `${portalUrl}\n\n` +
             `Sila maklumkan sekiranya Tuan/Puan ada sebarang pertanyaan. Terima kasih!`;
 
-  // Buang hidden Unicode Variation Selectors (\uFE0F) yang boleh merosakkan paparan emoji di WhatsApp
   msg = msg.replace(/\uFE0F/g, '');
 
   const waUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(msg)}`;
