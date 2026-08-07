@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=313">
-  <link rel="stylesheet" href="brief.css?v=313">
+  <link rel="stylesheet" href="style.css?v=314">
+  <link rel="stylesheet" href="brief.css?v=314">
 </head>
 <body class="admin-body">
 
@@ -101,11 +101,20 @@
             <!-- Meta Dokumen -->
             <div class="qb-form-section">
               <h3 class="qb-section-title">1. Meta Dokumen</h3>
+              <div class="qb-grid-2" style="margin-bottom: 16px;">
+                <div class="form-group-pay">
+                  <label style="font-weight: 800; color: #0F172A;">Jenis Dokumen</label>
+                  <select id="doc-type" onchange="handleDocTypeChange()" style="background: #F8FAFC; border: 2px solid #CBD5E1; border-radius: 10px; height: 44px; font-weight: 800; color: #0F172A; width: 100%; padding: 0 12px;">
+                    <option value="QT" selected>📄 Sebut Harga (Quotation)</option>
+                    <option value="INV">🧾 Invois Rasmi (Invoice)</option>
+                  </select>
+                </div>
+              </div>
               <div class="qb-grid-3">
                 <div class="form-group-pay">
                   <label style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                    <span>No. Sebut Harga</span>
-                    <button type="button" onclick="generateNextQtNo()" style="background: #e2e8f0; border: none; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; color: #0f172a; cursor: pointer;" title="Jana nombor quotation baru automatik">🔄 Auto No. Baru</button>
+                    <span id="lbl-doc-no">No. Sebut Harga</span>
+                    <button type="button" onclick="generateNextQtNo()" style="background: #e2e8f0; border: none; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; color: #0f172a; cursor: pointer;" title="Jana nombor dokumen baru automatik">🔄 Auto No. Baru</button>
                   </label>
                   <input type="text" id="qt-no" required placeholder="KZ-QT-2026-001">
                 </div>
@@ -421,6 +430,6 @@
     </div>
   </footer>
 
-  <script src="admin.js?v=313"></script>
+  <script src="admin.js?v=314"></script>
 </body>
 </html>

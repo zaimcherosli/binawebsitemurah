@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invois Rasmi | Kwikezee Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=313">
+  <style>
+    body.client-portal-body {
+      background: #09090b;
+      color: #f4f4f5;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px 10px;
+      box-sizing: border-box;
+    }
+    .cp-container {
+      max-width: 850px;
+      margin: 0 auto;
+    }
+    .cp-header {
+      text-align: center;
+      margin-bottom: 25px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+    }
+    .cp-logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid #b8860b;
+      margin-bottom: 10px;
+    }
+    .cp-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 6px 0;
+    }
+    .cp-sub {
+      font-size: 13px;
+      color: #a1a1aa;
+      margin: 0;
+    }
+    .action-bar-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .btn-action {
+      background: #047857;
+      color: #ffffff;
+      border: none;
+      font-size: 13.5px;
+      font-weight: 800;
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(4, 120, 87, 0.3);
+      transition: all 0.2s ease;
+    }
+    .btn-action:hover {
+      background: #059669;
+      transform: translateY(-1px);
+    }
+    .btn-print {
+      background: #18181b;
+      color: #ffffff;
+      border: 1px solid #3f3f46;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .loading-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #a1a1aa;
+    }
+
+    @media print {
+      body { background: #ffffff !important; color: #000000 !important; padding: 0 !important; }
+      .no-print, .cp-header, .action-bar-top { display: none !important; }
+      .cp-container { max-width: 100% !important; margin: 0 !important; }
+      .a4-page { box-shadow: none !important; margin: 0 !important; padding: 0 !important; border: none !important; }
+    }
+  </style>
+</head>
+<body class="client-portal-body">
+
+  <div class="cp-container">
+    <!-- Header Client Portal -->
+    <div class="cp-header no-print">
+      <img src="images/logo-round.jpg" alt="Kwikezee Studio" class="cp-logo">
+      <h1 class="cp-title">Invois Rasmi Pembayaran</h1>
+      <p class="cp-sub">Kwikezee Resources — Perkhidmatan Pembangunan Web &amp; Media Sosial</p>
+    </div>
+
+    <!-- Action Bar -->
+    <div class="action-bar-top no-print">
+      <button class="btn-print" onclick="window.print()">
+        🖨️ Cetak / Simpan PDF
+      </button>
+      <a href="#" id="btn-pay-direct" class="btn-action">
+        💳 Teruskan Pembayaran Direct
+      </a>
+    </div>
+
+    <!-- Loading Container -->
+    <div id="invoice-loading" class="loading-state">
+      ⏳ Memuatkan Invois Rasmi...
+    </div>
+
+    <!-- Official A4 Document Paper Container -->
+    <div class="a4-page" id="printable-invoice" style="display: none; background: #ffffff; color: #0f172a; padding: 40px; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+      
+      <!-- A4 Header -->
+      <div class="a4-header" style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #0f172a; padding-bottom: 20px; margin-bottom: 24px;">
+        <div class="a4-brand" style="display: flex; gap: 14px; align-items: center;">
+          <img src="images/logo-round.jpg" alt="Kwikezee Studio Logo" style="width: 55px; height: 55px; border-radius: 50%; border: 2px solid #b8860b;">
+          <div>
+            <h2 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 900; margin: 0; color: #0f172a;">KWIKEZEE STUDIO</h2>
+            <p style="font-size: 11px; font-weight: 700; color: #475569; margin: 2px 0 0 0;">KWIKEZEE RESOURCES (SA0586942-W)</p>
+            <p style="font-size: 10px; color: #64748b; margin: 2px 0 0 0;">Bandar Seri Putra, Kajang | WhatsApp: +60 10-811 8559 | kwikezeeresources@gmail.com</p>
+          </div>
+        </div>
+        <div style="text-align: right;">
+          <h1 style="font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 900; color: #047857; margin: 0 0 4px 0; letter-spacing: 1px;">INVOICE</h1>
+          <p style="font-size: 12px; font-weight: 800; color: #0f172a; margin: 0;"><span id="inv-no-display">KZ-INV-2026-001</span></p>
+          <p style="font-size: 11px; color: #64748b; margin: 2px 0 0 0;">Tarikh: <strong id="inv-date-display">-</strong></p>
+        </div>
+      </div>
+
+      <!-- Bill To & Project Info -->
+      <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 18px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+          <span style="font-size: 10px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">DIBAYAR OLEH (BILL TO):</span>
+          <h3 id="inv-client-name" style="font-size: 16px; font-weight: 800; color: #0f172a; margin: 4px 0 2px 0;">-</h3>
+          <p id="inv-client-phone" style="font-size: 12px; color: #475569; margin: 0;">-</p>
+          <p id="inv-client-email" style="font-size: 12px; color: #475569; margin: 0;">-</p>
+        </div>
+        <div>
+          <span style="font-size: 10px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">TAJUK PROJEK / SERVIS:</span>
+          <h3 id="inv-project-title" style="font-size: 15px; font-weight: 800; color: #0f172a; margin: 4px 0 2px 0;">-</h3>
+          <p style="font-size: 12px; color: #047857; font-weight: 700; margin: 4px 0 0 0;">Status: <span id="inv-status-badge" style="background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 2px 8px; border-radius: 12px; font-size: 10.5px;">MENUNGGU PEMBAYARAN</span></p>
+        </div>
+      </div>
+
+      <!-- Items Table -->
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 12.5px;">
+        <thead>
+          <tr style="background: #0f172a; color: #ffffff; text-align: left;">
+            <th style="padding: 10px 12px; width: 40px; text-align: center;">NO.</th>
+            <th style="padding: 10px 12px;">PERINCAN SKOP / PRODUK</th>
+            <th style="padding: 10px 12px; width: 120px; text-align: right;">AMAUN (RM)</th>
+          </tr>
+        </thead>
+        <tbody id="inv-items-tbody">
+          <!-- Items auto injected -->
+        </tbody>
+      </table>
+
+      <!-- Totals & Payment Bank Details -->
+      <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; margin-bottom: 30px; align-items: start;">
+        
+        <!-- Payment Bank Info Box -->
+        <div style="background: #ecfdf5; border: 1.5px solid #a7f3d0; border-radius: 12px; padding: 16px;">
+          <h4 style="font-size: 12px; font-weight: 800; color: #065f46; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px;">💳 MAKLUMAT AKAUN PEMBAYARAN BANK:</h4>
+          <div style="font-size: 12px; color: #0f172a; line-height: 1.6;">
+            <div>Bank: <strong>Maybank</strong></div>
+            <div>Nama Akaun: <strong>Kwikezee Resources</strong></div>
+            <div>No. Akaun: <strong style="font-size: 15px; color: #047857; letter-spacing: 0.5px;">5686 0302 2391</strong></div>
+            <div style="font-size: 11px; color: #047857; font-weight: 700; margin-top: 6px;">💡 Sila kemukakan resit pembayaran melalui WhatsApp / Emel selepas transaksi dilakukan.</div>
+          </div>
+        </div>
+
+        <!-- Totals Summary Box -->
+        <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 16px;">
+          <div style="display: flex; justify-content: space-between; font-size: 13px; color: #475569; margin-bottom: 6px;">
+            <span>Jumlah Skop:</span>
+            <strong id="inv-subtotal" style="color: #0f172a;">RM 0</strong>
+          </div>
+          <div id="inv-discount-row" style="display: none; justify-content: space-between; font-size: 13px; color: #dc2626; margin-bottom: 6px;">
+            <span>Diskaun:</span>
+            <strong id="inv-discount">-RM 0</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 900; color: #0f172a; border-top: 2px solid #0f172a; border-bottom: 2px solid #0f172a; padding: 8px 0; margin-top: 6px;">
+            <span>JUMLAH PERLU DIBAYAR:</span>
+            <strong id="inv-total" style="color: #047857;">RM 0</strong>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Stamp & Signature Section -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px dashed #cbd5e1; padding-top: 20px;">
+        <div style="font-size: 11px; color: #64748b;">
+          <p style="margin: 0 0 4px 0; font-weight: 700; color: #0f172a;">Terima kasih atas urus niaga anda bersama Kwikezee Studio!</p>
+          <p style="margin: 0;">Dokumen invois ini dijana secara rasmi melalui sistem pangkalan data Kwikezee.</p>
+        </div>
+        <div style="text-align: right;">
+          <div style="display: inline-flex; flex-direction: column; align-items: flex-end; padding: 6px 12px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;">
+            <span style="font-family: 'Outfit', cursive, sans-serif; font-size: 13px; font-weight: 800; color: #0f172a; font-style: italic;">Kwikezee Resources</span>
+            <span style="font-size: 8.5px; color: #047857; font-weight: 700; margin-top: 2px;">Cop &amp; Pengesahan Syarikat Verified</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'https://api-qt.zaimrosli.my';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const invNo = urlParams.get('inv') || urlParams.get('qt') || 'KZ-INV-2026-001';
+
+      try {
+        const res = await fetch(`${API_BASE}/api/quotations/${encodeURIComponent(invNo)}`);
+        const json = await res.json();
+        
+        let invData = null;
+        if (json.success && json.data) {
+          invData = json.data;
+        } else {
+          // Fallback check local storage
+          const history = JSON.parse(localStorage.getItem('kwikezee_qt_history') || '[]');
+          invData = history.find(q => (q.qtNo || q.qt_no) === invNo);
+        }
+
+        if (invData) {
+          renderInvoice(invData);
+        } else {
+          document.getElementById('invoice-loading').innerHTML = `
+            <div style="color: #f87171; font-weight: 700;">⚠️ Invois (${invNo}) tidak dijumpai dalam pangkalan data.</div>
+          `;
+        }
+      } catch (err) {
+        console.error(err);
+        document.getElementById('invoice-loading').innerHTML = `
+          <div style="color: #f87171; font-weight: 700;">⚠️ Ralat memuatkan invois. Sila cuba lagi.</div>
+        `;
+      }
+    });
+
+    function renderInvoice(data) {
+      document.getElementById('invoice-loading').style.display = 'none';
+      document.getElementById('printable-invoice').style.display = 'block';
+
+      const invNo = data.qt_no || data.qtNo || 'KZ-INV-2026-001';
+      const clientName = data.client_name || data.clientName || 'Klien';
+      const projectTitle = data.project_title || data.projectTitle || 'Perkhidmatan Web / Media Sosial';
+      const phone = data.client_phone || data.clientPhone || '-';
+      const email = data.client_email || data.clientEmail || '-';
+      const total = data.total || 0;
+      const subtotal = data.subtotal || total;
+      const discount = data.discount || 0;
+
+      document.getElementById('inv-no-display').innerText = invNo;
+      document.getElementById('inv-client-name').innerText = clientName;
+      document.getElementById('inv-project-title').innerText = projectTitle;
+      document.getElementById('inv-client-phone').innerText = `Phone: ${phone}`;
+      document.getElementById('inv-client-email').innerText = `Emel: ${email}`;
+
+      const formatDateStr = (dateStr) => {
+        if (!dateStr) return new Date().toLocaleDateString('ms-MY', { day: '2-digit', month: 'long', year: 'numeric' });
+        try {
+          const d = new Date(dateStr);
+          return d.toLocaleDateString('ms-MY', { day: '2-digit', month: 'long', year: 'numeric' });
+        } catch (e) { return dateStr; }
+      };
+
+      document.getElementById('inv-date-display').innerText = formatDateStr(data.qt_date || data.qtDate);
+
+      let items = data.items || [];
+      if (typeof data.items_json === 'string') {
+        try { items = JSON.parse(data.items_json); } catch (e) { items = []; }
+      }
+
+      const tbody = document.getElementById('inv-items-tbody');
+      tbody.innerHTML = '';
+
+      if (items.length > 0) {
+        items.forEach((item, index) => {
+          const tr = document.createElement('tr');
+          tr.style.borderBottom = '1px solid #e2e8f0';
+          tr.innerHTML = `
+            <td style="padding: 10px 12px; text-align: center; font-weight: 700; color: #64748b;">${index + 1}</td>
+            <td style="padding: 10px 12px;">
+              <strong style="color: #0f172a; font-size: 13px;">${item.title || item.name || '-'}</strong>
+              ${item.desc ? `<p style="color: #475569; font-size: 11.5px; margin: 4px 0 0 0; white-space: pre-line;">${item.desc}</p>` : ''}
+            </td>
+            <td style="padding: 10px 12px; text-align: right; font-weight: 800; color: #0f172a;">RM ${(item.price || 0).toLocaleString()}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      document.getElementById('inv-subtotal').innerText = `RM ${subtotal.toLocaleString()}`;
+      document.getElementById('inv-total').innerText = `RM ${total.toLocaleString()}`;
+
+      if (discount > 0) {
+        document.getElementById('inv-discount-row').style.display = 'flex';
+        document.getElementById('inv-discount').innerText = `-RM ${discount.toLocaleString()}`;
+      }
+
+      // Update Pay Direct Button URL
+      const btnPay = document.getElementById('btn-pay-direct');
+      if (btnPay) {
+        btnPay.href = `bayar.html?qt=${encodeURIComponent(invNo)}&amount=${total}&total=${total}&paymode=full&name=${encodeURIComponent(clientName)}`;
+      }
+    }
+  </script>
+</body>
+</html>
