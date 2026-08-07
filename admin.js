@@ -395,7 +395,7 @@ window.loadEnFarisPreset = function() {
   alert('⚡ Sebut Harga En Faris (Social Media Management - RM 1,000) telah diisi secara automatik!');
 };
 
-window.generateNextQtNo = async function(customPrefix) {
+window.generateNextQtNo = function(customPrefix) {
   const docTypeEl = document.getElementById('doc-type');
   const docType = docTypeEl ? docTypeEl.value : 'QT';
   
@@ -407,13 +407,11 @@ window.generateNextQtNo = async function(customPrefix) {
   }
 
   const currentYear = new Date().getFullYear();
-  let list = [];
-  try {
-    const res = await fetch(`${API_BASE}/api/quotations`);
-    const json = await res.json();
-    list = json.data || [];
-  } catch (e) {
-    list = JSON.parse(localStorage.getItem('kwikezee_qt_history') || '[]');
+  let list = _qtHistoryCache || [];
+  if (!list.length) {
+    try {
+      list = JSON.parse(localStorage.getItem('kwikezee_qt_history') || '[]');
+    } catch (e) { list = []; }
   }
 
   const matching = list.filter(q => (q.qt_no || q.qtNo || '').startsWith(prefix));
@@ -432,34 +430,29 @@ window.handleDocTypeChange = function() {
   const docType = docTypeEl ? docTypeEl.value : 'QT';
   const lbl = document.getElementById('lbl-doc-no');
   const input = document.getElementById('qt-no');
+  const btnSubmit = document.getElementById('btn-submit-generate');
 
   if (docType === 'INV') {
     if (lbl) lbl.innerText = 'No. Invois';
     if (input) input.placeholder = 'KZ-INV-2026-001';
+    if (btnSubmit) btnSubmit.innerHTML = '✨ Jana Pratonton Invois Rasmi (Invoice)';
     generateNextQtNo('KZ-INV');
   } else {
     if (lbl) lbl.innerText = 'No. Sebut Harga';
     if (input) input.placeholder = 'KZ-QT-2026-001';
+    if (btnSubmit) btnSubmit.innerHTML = '✨ Jana Pratonton Sebut Harga (Quotation)';
     generateNextQtNo('KZ-QT');
   }
 };
 
 window.autoGenerateQtNo = window.generateNextQtNo;
 
-window.convertQtToInvoice = async function(idxOrNo) {
+window.convertQtToInvoice = function(idxOrNo) {
   let qt = null;
   if (typeof idxOrNo === 'number') {
     qt = _qtHistoryCache[idxOrNo];
   } else {
     qt = (_qtHistoryCache || []).find(q => (q.qt_no || q.qtNo) === idxOrNo);
-  }
-
-  if (!qt && typeof idxOrNo === 'string') {
-    try {
-      const res = await fetch(`${API_BASE}/api/quotations/${encodeURIComponent(idxOrNo)}`);
-      const json = await res.json();
-      if (json.success) qt = json.data;
-    } catch (e) {}
   }
 
   if (!qt && typeof idxOrNo === 'string') {
@@ -474,17 +467,14 @@ window.convertQtToInvoice = async function(idxOrNo) {
 
   const qtData = normalizeQtFromApi(qt);
 
-  // Switch docType to INV
+  // Switch docType to INV & update form UI
   const docTypeEl = document.getElementById('doc-type');
   if (docTypeEl) docTypeEl.value = 'INV';
   
-  const newInvNo = await generateNextQtNo('KZ-INV');
-  handleDocTypeChange();
+  handleDocTypeChange(); // Sets label, placeholder, submit button text AND generates KZ-INV-2026-xxx
 
-  const qtNoInput = document.getElementById('qt-no');
+  const newInvNo = document.getElementById('qt-no') ? document.getElementById('qt-no').value : 'KZ-INV-2026-001';
   const qtRefInput = document.getElementById('qt-ref-no');
-
-  if (qtNoInput) qtNoInput.value = newInvNo;
   if (qtRefInput) qtRefInput.value = qtData.qtNo || '';
 
   const clientNameEl = document.getElementById('qt-client-name');
@@ -519,12 +509,13 @@ window.convertQtToInvoice = async function(idxOrNo) {
   if (payModeEl) payModeEl.value = 'full';
   if (durationEl) durationEl.value = qtData.duration || 'Serta-merta / Upon Receipt';
   if (notesEl) notesEl.value =
-  "1. Pembayaran hendaklah dibuat secara penuh mengikut invois ini.\n" +
+    "1. Pembayaran hendaklah dibuat secara penuh mengikut invois ini.\n" +
     "2. Sila kemukakan resit pembayaran melalui WhatsApp / Emel.";
 
   updateQtFormTotals();
   switchAdminTab('quotation');
-  alert(`⚡ Sebut Harga ${qtData.qtNo} telah sedia ditukar ke Invois Rasmi (${newInvNo})!\n\nTekan 'Jana Pratonton Sebut Harga' untuk simpan invois ini ke pangkalan data.`);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  alert(`⚡ Sebut Harga ${qtData.qtNo} telah sedia ditukar ke Invois Rasmi (${newInvNo})!\n\nTekan 'Jana Pratonton Invois Rasmi' di bawah untuk simpan dokumen ini.`);
 };
 
 window.addQuotationScopeItem = function(title = '', desc = '', price = 0) {
