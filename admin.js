@@ -788,12 +788,14 @@ function renderQuotationDocument(qtData) {
 
   setSafeText('a4-grand-total', `RM ${total.toLocaleString()}`);
 
-  if (qtData.payMode === 'deposit') {
+  if (qtData.payMode === 'full') {
+    setSafeText('a4-deposit-label', 'JUMLAH BAYARAN PENUH (100%):');
+    setSafeText('a4-deposit-amount', `RM ${total.toLocaleString()}`);
+    setSafeText('a4-balance-amount', `RM 0`);
+  } else {
+    setSafeText('a4-deposit-label', 'DEPOSIT 50% (BAYAR SEKARANG):');
     setSafeText('a4-deposit-amount', `RM ${deposit.toLocaleString()}`);
     setSafeText('a4-balance-amount', `RM ${balance.toLocaleString()}`);
-  } else {
-    setSafeText('a4-deposit-amount', `RM ${total.toLocaleString()} (100% Lunas)`);
-    setSafeText('a4-balance-amount', `RM 0`);
   }
 
   setSafeText('a4-duration', qtData.duration || '5 - 7 Hari Bekerja');
