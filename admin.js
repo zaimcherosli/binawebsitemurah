@@ -447,6 +447,27 @@ window.handleDocTypeChange = function() {
 
 window.autoGenerateQtNo = window.generateNextQtNo;
 
+window.makeDocRevision = function() {
+  const qtNoEl = document.getElementById('qt-no');
+  if (!qtNoEl || !qtNoEl.value.trim()) return;
+
+  let currentNo = qtNoEl.value.trim();
+  
+  const revMatch = currentNo.match(/^(.*?)-R(\d+)$/i);
+  if (revMatch) {
+    const base = revMatch[1];
+    const revNum = parseInt(revMatch[2], 10) + 1;
+    qtNoEl.value = `${base}-R${revNum}`;
+  } else {
+    qtNoEl.value = `${currentNo}-R1`;
+  }
+
+  qtNoEl.style.background = '#FFFBEB';
+  qtNoEl.style.borderColor = '#FCD34D';
+  qtNoEl.style.fontWeight = '800';
+  qtNoEl.style.color = '#B45309';
+};
+
 window.convertQtToInvoice = function(idxOrNo) {
   let qt = null;
   if (typeof idxOrNo === 'number') {
