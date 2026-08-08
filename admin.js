@@ -486,6 +486,13 @@ window.convertQtToInvoice = function(idxOrNo) {
     return;
   }
 
+  // Gard: Jangan buat INV daripada dokumen yang dah jadi INV
+  const existingNo = qt.qt_no || qt.qtNo || '';
+  if (existingNo.startsWith('KZ-INV')) {
+    alert('❌ Dokumen ini sudah pun Invois Rasmi (' + existingNo + ').\n\nHanya Sebut Harga (QT) boleh ditukar ke Invois.');
+    return;
+  }
+
   const qtData = normalizeQtFromApi(qt);
   const originalQtNo = qt.qt_no || qt.qtNo || qtData.qtNo || '';
 
@@ -1041,6 +1048,8 @@ function renderHistoryItemsUI(history, container) {
     const totVal = (qt.total || 0).toLocaleString();
     const depVal = (qt.deposit || Math.round((qt.total || 0) / 2)).toLocaleString();
     const isSigned = qt.status === 'SIGNED';
+    const isInvoice = (qt.qt_no || '').startsWith('KZ-INV');
+    const isPaid = qt.status === 'DIBAYAR' || qt.status === 'DIBAYAR (PAID)';
 
     html += `
       <div class="history-item-card" style="background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
@@ -1048,7 +1057,7 @@ function renderHistoryItemsUI(history, container) {
           <!-- Header Row: Badges & Date grouped cleanly on left -->
           <div class="hic-header" style="display: flex; align-items: center; justify-content: flex-start; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
             <span class="hic-badge" style="background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px; white-space: nowrap;">${qt.qt_no}</span>
-            ${isSigned ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 3px 8px; border-radius: 6px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DITANDATANGANI</span>` : `<span style="font-size: 10.5px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 3px 8px; border-radius: 6px; font-weight: 700; white-space: nowrap;">DRAFT</span>`}
+            ${isPaid ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 3px 8px; border-radius: 6px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DIBAYAR</span>` : isSigned ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 3px 8px; border-radius: 6px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DITANDATANGANI</span>` : isInvoice ? `<span style="font-size: 10.5px; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; padding: 3px 8px; border-radius: 6px; font-weight: 800; white-space: nowrap;">INVOIS</span>` : `<span style="font-size: 10.5px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 3px 8px; border-radius: 6px; font-weight: 700; white-space: nowrap;">DRAFT</span>`}
             <span class="hic-date" style="font-size: 11px; color: #64748b; font-weight: 600; white-space: nowrap; margin-left: 2px;">${createdDate}</span>
           </div>
 
@@ -1076,14 +1085,14 @@ function renderHistoryItemsUI(history, container) {
               <line x1="11.5" y1="14.5" x2="17.5" y2="14.5"></line>
             </svg>
           </button>
-          <button class="btn-history-icon" onclick="convertQtToInvoice(${idx})" title="Tukar Ke Invois Rasmi" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#ECFDF5!important;border:1.5px solid #A7F3D0!important;color:#047857!important;cursor:pointer!important;flex-shrink:0!important;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-            </svg>
-          </button>
+          ${isInvoice
+            ? `<a href="resit.html?rec=${encodeURIComponent(qt.qt_no)}&name=${encodeURIComponent(qt.client_name || '')}&amount=${qt.total || 0}&title=${encodeURIComponent(qt.project_title || '')}" target="_blank" class="btn-history-icon" title="Lihat Resit Rasmi" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#EFF6FF!important;border:1.5px solid #BFDBFE!important;color:#1D4ED8!important;cursor:pointer!important;flex-shrink:0!important;text-decoration:none!important;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="12" y1="17" x2="12" y2="11"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
+              </a>`
+            : `<button class="btn-history-icon" onclick="convertQtToInvoice(${idx})" title="Tukar Ke Invois Rasmi" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#ECFDF5!important;border:1.5px solid #A7F3D0!important;color:#047857!important;cursor:pointer!important;flex-shrink:0!important;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+              </button>`
+          }
           <button class="btn-history-icon" onclick="waHistoryQt(${idx})" title="Kongsi Ke WhatsApp" style="width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:10px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;cursor:pointer!important;flex-shrink:0!important;">
             <svg width="22" height="22" viewBox="0 0 32 32" fill="none"><path d="M16 2a13.9 13.9 0 0 0-11.8 21.2L2.3 29.7l6.7-1.8A13.9 13.9 0 1 0 16 2z" fill="#25D366"/><path d="M12.1 9.7c-.3-.7-.6-.7-.9-.7h-.7c-.2 0-.6.1-.9.4s-1.2 1.2-1.2 2.9 1.3 3.3 1.4 3.5c.2.2 2.5 3.8 6.1 5.4.9.4 1.5.6 2 .8.9.3 1.7.2 2.3.1.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4s-2.2-1.1-2.5-1.2c-.3-.2-.5-.2-.7.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.8 0s-1.7-.6-3.2-2c-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.1-.7s-.6-1.5-.9-2.1z" fill="#FFF"/></svg>
           </button>
