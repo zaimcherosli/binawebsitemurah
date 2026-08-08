@@ -911,6 +911,36 @@
   <!-- ==========================================
        FOOTER
        ========================================== -->
+  <!-- SUCCESS PAYMENT POPUP MODAL -->
+  <div id="payment-success-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 99999; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box;">
+    <div style="background: #ffffff; color: #0f172a; max-width: 440px; width: 100%; border-radius: 20px; padding: 32px 24px; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.4);">
+      
+      <!-- Icon -->
+      <div style="width: 68px; height: 68px; background: #ecfdf5; border: 2px solid #a7f3d0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px auto; color: #047857;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+
+      <!-- Title & Text -->
+      <h2 style="font-family: var(--font-headings); font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 10px 0;">Pembayaran Berjaya Dihantar!</h2>
+      <p style="font-size: 14px; color: #475569; line-height: 1.6; margin: 0 0 24px 0;">
+        Terima kasih! Bukti pembayaran &amp; resit anda telah berjaya dihantar ke sistem kami. Resit rasmi (PDF) juga telah dihantar ke emel anda.
+      </p>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <a id="btn-modal-view-receipt" href="#" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: #047857; color: #ffffff; font-size: 14px; font-weight: 800; padding: 14px 20px; border-radius: 12px; text-decoration: none; box-shadow: 0 4px 14px rgba(4, 120, 87, 0.3); transition: all 0.2s ease;">
+          📄 Lihat &amp; Cetak Resit PDF
+        </a>
+        <button type="button" onclick="closeSuccessModal()" style="display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; font-size: 14px; font-weight: 700; padding: 12px 20px; border-radius: 12px; cursor: pointer; transition: all 0.2s ease;">
+          Tutup &amp; Selesai
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <footer class="main-footer" style="padding: 50px 0 100px;">
     <div class="container text-center">
       <p style="font-size: 13px; color: var(--text-muted);">&copy; 2026 Kwikezee Studio. Hak Cipta Terpelihara.</p>
@@ -1292,9 +1322,15 @@
 
       // 4. Reset Button and Show Success Message
       submitBtn.disabled = false;
-      submitBtn.innerHTML = originalBtnText;
-
-      alert('✅ Terima kasih! Bukti pembayaran & resit anda telah berjaya dihantar ke sistem kami.');
+      // 4. Show Custom Success Modal Overlay
+      const successModal = document.getElementById('payment-success-modal');
+      const viewReceiptBtn = document.getElementById('btn-modal-view-receipt');
+      if (viewReceiptBtn) {
+        viewReceiptBtn.href = pdfReceiptUrl;
+      }
+      if (successModal) {
+        successModal.style.display = 'flex';
+      }
 
       // 4. Reset Form instead of WhatsApp Redirect
       const form = document.getElementById('pay-form');
@@ -1309,6 +1345,11 @@
         
         updatePaymentAmount(); // reset display amount
       }
+    }
+
+    function closeSuccessModal() {
+      const modal = document.getElementById('payment-success-modal');
+      if (modal) modal.style.display = 'none';
     }
 
     // QR Modal Lightbox Functions
