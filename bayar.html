@@ -584,13 +584,16 @@
     
     .file-upload-box {
       background-color: rgba(0, 0, 0, 0.015);
-      border: 1.5px dashed rgba(0, 0, 0, 0.08);
+      border: 1.5px dashed var(--gold-secondary);
       border-radius: 12px;
-      padding: 25px;
+      padding: 20px 14px;
       text-align: center;
       cursor: pointer;
       position: relative;
       transition: border-color 0.3s ease;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
     }
     
     .file-upload-box:hover {
@@ -609,8 +612,29 @@
     
     .upload-icon {
       font-size: 24px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       display: block;
+    }
+
+    .upload-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: block;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+    
+    .upload-filename {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--gold-secondary);
+      margin-top: 8px;
+      word-break: break-all;
+      overflow-wrap: anywhere;
+      max-width: 100%;
+      box-sizing: border-box;
+      white-space: normal;
     }
     
     .upload-text {
@@ -860,7 +884,7 @@
 
           <div class="form-group-pay">
             <label for="pay-email">Alamat Emel Anda <span style="color: #ef4444; font-weight: 800;">* (Wajib Untuk Resit)</span></label>
-            <input type="email" id="pay-email" required placeholder="Contoh: nama@gmail.com (Penting untuk terima resit rasmi)">
+            <input type="email" id="pay-email" required placeholder="Contoh: nama@gmail.com">
           </div>
 
           <div class="form-group-pay">
@@ -1094,7 +1118,12 @@
       const instruction = document.getElementById('upload-instruction');
       
       if (file) {
-        filenameTxt.innerText = 'Resit terpilih: ' + file.name;
+        let name = file.name;
+        if (name.length > 28) {
+          name = name.substring(0, 15) + '...' + name.substring(name.length - 10);
+        }
+        filenameTxt.innerText = '📎 Fail terpilih: ' + name;
+        filenameTxt.title = file.name;
         filenameTxt.style.display = 'block';
         instruction.innerText = 'Ubah fail resit:';
       } else {
