@@ -1272,8 +1272,8 @@
       if (EMAILJS_PUBLIC_KEY && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY_HERE' && EMAILJS_TEMPLATE_ID && EMAILJS_TEMPLATE_ID !== 'YOUR_TEMPLATE_ID_HERE') {
         try {
           const urlParams = new URLSearchParams(window.location.search);
-          const currentDocNo = urlParams.get('inv') || urlParams.get('qt') || 'KZ-INV-2026-001';
-          const pdfReceiptUrl = `https://binawebsitemurah-by.zaimrosli.my/invoice.html?inv=${encodeURIComponent(currentDocNo)}`;
+          const currentDocNo = urlParams.get('inv') || urlParams.get('qt') || 'KZ-REC-2026-001';
+          const pdfReceiptUrl = `https://binawebsitemurah-by.zaimrosli.my/resit.html?rec=${encodeURIComponent(currentDocNo)}&name=${encodeURIComponent(name)}&amount=${finalPrice}&title=${encodeURIComponent(packageName)}`;
 
           const emailPayload = {
             service_id: EMAILJS_SERVICE_ID,
