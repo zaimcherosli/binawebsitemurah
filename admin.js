@@ -581,7 +581,7 @@ window.addQuotationScopeItem = function(title = '', desc = '', price = 0) {
       </div>
       <div class="form-group-pay">
         <label>Penerangan Terperinci</label>
-        <textarea class="qb-input-desc" rows="2" placeholder="Contoh: Reka bentuk moden tema gelap, animasi halus, responsif peranti..." oninput="updateQtFormTotals()">${escapeHtml(desc)}</textarea>
+        <textarea class="qb-input-desc" rows="5" placeholder="Contoh: Reka bentuk moden tema gelap, animasi halus, responsif peranti..." oninput="updateQtFormTotals()" style="width: 100%; min-height: 120px; font-size: 14px; line-height: 1.6; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 10px; box-sizing: border-box; resize: vertical;">${escapeHtml(desc)}</textarea>
       </div>
       <div class="form-group-pay">
         <label>Harga Skop (RM)</label>
