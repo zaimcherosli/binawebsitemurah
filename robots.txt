@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://binawebsitemurah-by.zaimrosli.my/sitemap.xml
+Sitemap: https://kwikezee.my/sitemap.xml

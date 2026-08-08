@@ -894,8 +894,8 @@ window.sendQtToWhatsapp = function() {
   const docNoLabel = isInvoice ? 'No. Invois' : 'No. Quotation';
   
   const portalUrl = isInvoice ? 
-    `https://binawebsitemurah-by.zaimrosli.my/invoice.html?inv=${encodeURIComponent(currentQtData.qtNo || '001')}` :
-    `https://binawebsitemurah-by.zaimrosli.my/quotation.html?qt=${encodeURIComponent(currentQtData.qtNo || '001')}`;
+    `https://kwikezee.my/invoice.html?inv=${encodeURIComponent(currentQtData.qtNo || '001')}` :
+    `https://kwikezee.my/quotation.html?qt=${encodeURIComponent(currentQtData.qtNo || '001')}`;
   
   const actionText = isInvoice ? 'Semak & Bayar Invois Rasmi' : 'Semak & Tandatangan Digital (E-Signature)';
 
