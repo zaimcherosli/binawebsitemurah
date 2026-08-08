@@ -43,13 +43,16 @@ function initAdminDashboard() {
     });
   }
 
-  // Log keluar
-  btnLogout.addEventListener('click', () => {
+  // Log keluar (desktop + mobile)
+  const logoutAction = () => {
     localStorage.removeItem('kwikezee_admin_token');
     adminToken = '';
     gateway.style.display = 'flex';
     document.getElementById('submissions-list').innerHTML = '';
-  });
+  };
+  btnLogout.addEventListener('click', logoutAction);
+  const btnLogoutM = document.getElementById('btn-logout-m');
+  if (btnLogoutM) btnLogoutM.addEventListener('click', logoutAction);
 
   // Setup Lightbox
   const lightbox = document.getElementById('image-lightbox');
@@ -1020,13 +1023,18 @@ async function updateHistoryCountBadge() {
   try {
     const res = await fetch(`${API_BASE}/api/quotations`);
     const json = await res.json();
+    const count = (json.data || []).length;
     const countEl = document.getElementById('history-count');
-    if (countEl) countEl.innerText = (json.data || []).length;
+    const countElM = document.getElementById('history-count-m');
+    if (countEl) countEl.innerText = count;
+    if (countElM) countElM.innerText = count;
   } catch (e) {
-    // Fallback count to LocalStorage
     const localData = JSON.parse(localStorage.getItem('kwikezee_qt_history') || '[]');
+    const count = localData.length;
     const countEl = document.getElementById('history-count');
-    if (countEl) countEl.innerText = localData.length;
+    const countElM = document.getElementById('history-count-m');
+    if (countEl) countEl.innerText = count;
+    if (countElM) countElM.innerText = count;
   }
 }
 
