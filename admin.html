@@ -47,8 +47,8 @@
     </div>
   </header>
 
-  <!-- Admin Drawer Menu -->
-  <div id="admin-drawer" style="display: none; position: fixed; top: 70px; right: 0; width: 260px; background: #FFFFFF; border-left: 1.5px solid #CBD5E1; border-bottom: 1.5px solid #CBD5E1; border-radius: 0 0 0 16px; box-shadow: -4px 8px 24px rgba(0,0,0,0.10); z-index: 999; padding: 16px; box-sizing: border-box;">
+  <!-- Admin Drawer Menu (Full Width) -->
+  <div id="admin-drawer" style="display: none; position: fixed; top: 70px; left: 0; right: 0; width: 100%; background: #FFFFFF; border-bottom: 1.5px solid #CBD5E1; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 999; padding: 16px; box-sizing: border-box;">
     <div style="display: flex; flex-direction: column; gap: 8px;">
       <button class="admin-tab-btn active" id="tab-btn-submissions" onclick="switchAdminTab('submissions'); toggleAdminMenu()" style="width:100%; text-align:left; justify-content:flex-start; padding: 12px 16px; border-radius: 10px;">
         📋 Permohonan Klien
@@ -82,18 +82,9 @@
   <main class="brief-main no-print" style="padding: 4px 0 !important; width: 100% !important; box-sizing: border-box !important;">
     <div class="container" style="max-width: 100% !important; width: 100% !important; padding: 0 6px !important; margin: 0 !important; box-sizing: border-box !important;">
       
-      <!-- Tajuk Portal Admin -->
-      <div class="admin-main-header" style="margin-bottom: 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;">
-        <h1 style="color: #000000; font-size: 24px; font-weight: 900; margin: 0 0 6px 0; letter-spacing: -0.5px; text-align: center;">Portal Kawalan Admin Kwikezee</h1>
-        <p style="color: #475569; font-size: 14px; font-weight: 600; margin: 0; text-align: center;">Urus maklumat projek klien dan bina Sebut Harga (Quotation) rasmi secara automatik.</p>
-      </div>
 
-      <!-- Navigation Tabs (hidden — navigation moved to hamburger menu) -->
-      <div class="admin-nav-tabs" style="display: none;">
-        <button class="admin-tab-btn active" id="tab-btn-submissions-old" onclick="switchAdminTab('submissions')">📋 Permohonan Klien</button>
-        <button class="admin-tab-btn" id="tab-btn-quotation-old" onclick="switchAdminTab('quotation')">📄 Generator Sebut Harga</button>
-        <button class="admin-tab-btn" id="tab-btn-history-old" onclick="switchAdminTab('history')">📜 Arkib</button>
-      </div>
+
+
 
       <!-- TAB 1: SENARAI PERMOHONAN KLIEN -->
       <div id="admin-tab-submissions" class="admin-tab-content active">
