@@ -1046,7 +1046,10 @@ function renderHistoryItemsUI(history, container) {
   history.forEach((qt, idx) => {
     const createdDate = new Date(qt.created_at || Date.now()).toLocaleDateString('ms-MY', { day: '2-digit', month: 'short', year: 'numeric' });
     const totVal = (qt.total || 0).toLocaleString();
-    const depVal = (qt.deposit || Math.round((qt.total || 0) / 2)).toLocaleString();
+    const isFullPayment = (qt.pay_mode || qt.payMode || '') === 'full';
+    const depVal = isFullPayment
+      ? (qt.total || 0).toLocaleString()
+      : (qt.deposit || Math.round((qt.total || 0) / 2)).toLocaleString();
     const isSigned = qt.status === 'SIGNED';
     const isInvoice = (qt.qt_no || '').startsWith('KZ-INV');
     const isPaid = qt.status === 'DIBAYAR' || qt.status === 'DIBAYAR (PAID)';
@@ -1066,7 +1069,7 @@ function renderHistoryItemsUI(history, container) {
 
           <div class="hic-price-row" style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 10px 12px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 12px; font-weight: 700; color: #0f172a;">
             <span>Jumlah: <strong style="color: #000000; font-weight: 900; font-size: 13px;">RM ${totVal}</strong></span>
-            <span>Deposit: <strong style="color: #047857; font-weight: 900; font-size: 13px;">RM ${depVal}</strong></span>
+            <span>${isFullPayment ? 'Bayaran Penuh' : 'Deposit 50%'}: <strong style="color: ${isFullPayment ? '#1d4ed8' : '#047857'}; font-weight: 900; font-size: 13px;">RM ${depVal}</strong></span>
           </div>
         </div>
 
