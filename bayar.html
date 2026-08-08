@@ -1192,10 +1192,10 @@
         if (payMode === 'deposit') {
           const depositAmount = Math.round(finalPrice / 2);
           const balanceAmount = finalPrice - depositAmount;
-          priceText = `RM${depositAmount} (Deposit 50% dari jumlah RM${finalPrice})`;
-          balanceText = `RM${balanceAmount} (Dibayar selepas laman web siap)`;
+          priceText = `RM${depositAmount.toLocaleString()} (Deposit 50%)`;
+          balanceText = `RM${balanceAmount.toLocaleString()} (Selepas Siap)`;
         } else {
-          priceText = `RM${finalPrice} (100% Bayaran Penuh)` + (appliedDiscountCode ? ` (Kod ${appliedDiscountCode} diguna)` : '');
+          priceText = `RM${finalPrice.toLocaleString()} (100% Bayaran Penuh)`;
           balanceText = `RM0 (Lunas)`;
         }
       }
@@ -1218,6 +1218,10 @@
         emailInput.style.borderColor = '#ef4444';
         return;
       }
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const currentDocNo = urlParams.get('inv') || urlParams.get('qt') || 'KZ-REC-2026-001';
+      const pdfReceiptUrl = `https://binawebsitemurah-by.zaimrosli.my/resit.html?rec=${encodeURIComponent(currentDocNo)}&name=${encodeURIComponent(name)}&amount=${finalPrice}&title=${encodeURIComponent(packageName)}`;
 
       const timeStr = new Date().toLocaleString('ms-MY', { timeZone: 'Asia/Kuala_Lumpur' });
 
@@ -1271,10 +1275,6 @@
       // 2. Send via EmailJS REST API directly (no SDK)
       if (EMAILJS_PUBLIC_KEY && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY_HERE' && EMAILJS_TEMPLATE_ID && EMAILJS_TEMPLATE_ID !== 'YOUR_TEMPLATE_ID_HERE') {
         try {
-          const urlParams = new URLSearchParams(window.location.search);
-          const currentDocNo = urlParams.get('inv') || urlParams.get('qt') || 'KZ-REC-2026-001';
-          const pdfReceiptUrl = `https://binawebsitemurah-by.zaimrosli.my/resit.html?rec=${encodeURIComponent(currentDocNo)}&name=${encodeURIComponent(name)}&amount=${finalPrice}&title=${encodeURIComponent(packageName)}`;
-
           const emailPayload = {
             service_id: EMAILJS_SERVICE_ID,
             template_id: EMAILJS_TEMPLATE_ID,
@@ -1303,11 +1303,9 @@
           } else {
             const errText = await emailRes.text();
             console.error('Ralat EmailJS REST API:', emailRes.status, errText);
-            alert('⚠️ Ralat Emel: ' + emailRes.status + ' - ' + errText);
           }
         } catch (emailErr) {
           console.error('Ralat Sambungan EmailJS:', emailErr);
-          alert('⚠️ Ralat Sambungan Emel: ' + emailErr.message);
         }
       }
 
@@ -1320,9 +1318,10 @@
         }
       } catch(e) {}
 
-      // 4. Reset Button and Show Success Message
+      // 4. Reset Button & Show Custom Success Modal Overlay
       submitBtn.disabled = false;
-      // 4. Show Custom Success Modal Overlay
+      submitBtn.innerHTML = originalBtnText;
+
       const successModal = document.getElementById('payment-success-modal');
       const viewReceiptBtn = document.getElementById('btn-modal-view-receipt');
       if (viewReceiptBtn) {
@@ -1332,24 +1331,23 @@
         successModal.style.display = 'flex';
       }
 
-      // 4. Reset Form instead of WhatsApp Redirect
+      // 5. Reset Form
       const form = document.getElementById('pay-form');
       if (form) {
         form.reset();
-        
-        // Reset file upload label
         const filenameTxt = document.getElementById('upload-filename-txt');
         const instruction = document.getElementById('upload-instruction');
         if (filenameTxt) filenameTxt.style.display = 'none';
         if (instruction) instruction.innerText = 'Klik untuk pilih gambar resit atau seret fail ke sini';
-        
-        updatePaymentAmount(); // reset display amount
+        updatePaymentAmount();
       }
     }
 
     function closeSuccessModal() {
       const modal = document.getElementById('payment-success-modal');
       if (modal) modal.style.display = 'none';
+      // Redirect to main website
+      window.location.href = 'https://binawebsitemurah-by.zaimrosli.my';
     }
 
     // QR Modal Lightbox Functions
