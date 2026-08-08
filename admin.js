@@ -227,10 +227,12 @@ window.switchAdminTab = function(tabName) {
   document.querySelectorAll('.admin-tab-btn').forEach(btn => btn.classList.remove('active'));
   document.querySelectorAll('.admin-tab-content').forEach(content => content.classList.remove('active'));
 
-  const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+  const desktopBtn = document.getElementById(`tab-btn-${tabName}`);
+  const mobileBtn = document.getElementById(`tab-btn-${tabName}-m`);
   const activeContent = document.getElementById(`admin-tab-${tabName}`);
 
-  if (activeBtn) activeBtn.classList.add('active');
+  if (desktopBtn) desktopBtn.classList.add('active');
+  if (mobileBtn) mobileBtn.classList.add('active');
   if (activeContent) activeContent.classList.add('active');
 
   if (tabName === 'history') {
@@ -1019,23 +1021,35 @@ async function saveQuotationToHistory(qtData) {
   }
 }
 
-async function updateHistoryCountBadge() {
-  try {
-    const res = await fetch(`${API_BASE}/api/quotations`);
-    const json = await res.json();
-    const count = (json.data || []).length;
-    const countEl = document.getElementById('history-count');
-    const countElM = document.getElementById('history-count-m');
-    if (countEl) countEl.innerText = count;
-    if (countElM) countElM.innerText = count;
-  } catch (e) {
-    const localData = JSON.parse(localStorage.getItem('kwikezee_qt_history') || '[]');
-    const count = localData.length;
-    const countEl = document.getElementById('history-count');
-    const countElM = document.getElementById('history-count-m');
-    if (countEl) countEl.innerText = count;
-    if (countElM) countElM.innerText = count;
+async function updateHistoryCountBadge(forcedCount) {
+  let count = typeof forcedCount === 'number' ? forcedCount : null;
+
+  if (count === null && Array.isArray(_qtHistoryCache) && _qtHistoryCache.length > 0) {
+    count = _qtHistoryCache.length;
   }
+
+  if (count === null) {
+    try {
+      const res = await fetch(`${API_BASE}/api/quotations`);
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data)) {
+        count = json.data.length;
+        _qtHistoryCache = json.data;
+      }
+    } catch (e) {
+      try {
+        const localData = JSON.parse(localStorage.getItem('kwikezee_qt_history') || '[]');
+        count = localData.length;
+      } catch (err) { count = 0; }
+    }
+  }
+
+  if (count === null) count = 0;
+
+  const countEl = document.getElementById('history-count');
+  const countElM = document.getElementById('history-count-m');
+  if (countEl) countEl.innerText = count;
+  if (countElM) countElM.innerText = count;
 }
 
 function renderHistoryItemsUI(history, container) {
@@ -1144,6 +1158,7 @@ async function renderQuotationHistory() {
   }
 
   renderHistoryItemsUI(history, container);
+  updateHistoryCountBadge(history.length);
 }
 
 window.viewHistoryQt = async function(index) {
