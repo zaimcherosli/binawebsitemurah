@@ -1173,6 +1173,14 @@ window.editHistoryQt = async function(index) {
 
   switchAdminTab('quotation');
 
+  // Set doc-type dropdown betul ikut jenis dokumen
+  const docTypeEl = document.getElementById('doc-type');
+  const isInv = (qtData.qtNo || '').startsWith('KZ-INV');
+  if (docTypeEl) {
+    docTypeEl.value = isInv ? 'INV' : 'QT';
+    handleDocTypeChange();
+  }
+
   if (document.getElementById('qt-no')) document.getElementById('qt-no').value = qtData.qtNo || '';
   if (document.getElementById('qt-date')) document.getElementById('qt-date').value = qtData.qtDate || '';
   if (document.getElementById('qt-valid-until')) document.getElementById('qt-valid-until').value = qtData.qtValid || '';
@@ -1198,7 +1206,8 @@ window.editHistoryQt = async function(index) {
 
   updateQtFormTotals();
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  alert(`Sebut Harga (${qtData.qtNo}) telah dimuatkan ke dalam borang. Anda boleh kemaskini & jana semula PDF!`);
+  const docLabel = (qtData.qtNo || '').startsWith('KZ-INV') ? 'Invois Rasmi' : 'Sebut Harga';
+  alert(`${docLabel} (${qtData.qtNo}) telah dimuatkan ke dalam borang. Anda boleh kemaskini & jana semula PDF!`);
 };
 
 window.duplicateHistoryQt = async function(index) {
