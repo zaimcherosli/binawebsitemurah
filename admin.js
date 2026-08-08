@@ -890,7 +890,7 @@ window.sendQtToWhatsapp = function() {
 
   let paymentLines = '';
   if (isFullPayment) {
-    paymentLines = `💰 *Jumlah Bayaran Penuh*: RM${(currentQtData.total || 0).toLocaleString()} (100% Lunas)\n`;
+    paymentLines = `💰 *Jumlah Bayaran Penuh*: RM${(currentQtData.total || 0).toLocaleString()} (100% Dibayar)\n`;
   } else {
     paymentLines = `💰 *Jumlah Skop Kerja*: RM${(currentQtData.total || 0).toLocaleString()}\n` +
                    `⚡ *Deposit 50%*: RM${depositVal}\n` +

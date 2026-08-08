@@ -327,6 +327,22 @@
       document.getElementById('inv-client-phone').innerText = `Phone: ${phone}`;
       document.getElementById('inv-client-email').innerText = `Emel: ${email}`;
 
+      const statusBadge = document.getElementById('inv-status-badge');
+      const statusRaw = (data.status || '').toUpperCase();
+      if (statusBadge) {
+        if (statusRaw === 'PAID' || statusRaw === 'DIBAYAR' || statusRaw === 'LUNAS') {
+          statusBadge.innerText = 'DIBAYAR (PAID)';
+          statusBadge.style.background = '#ecfdf5';
+          statusBadge.style.color = '#047857';
+          statusBadge.style.borderColor = '#a7f3d0';
+        } else {
+          statusBadge.innerText = 'MENUNGGU PEMBAYARAN';
+          statusBadge.style.background = '#fffbeb';
+          statusBadge.style.color = '#b45309';
+          statusBadge.style.borderColor = '#fcd34d';
+        }
+      }
+
       const refNo = data.ref_no || data.refNo || '';
       if (refNo) {
         const refDisp = document.getElementById('inv-ref-display');
