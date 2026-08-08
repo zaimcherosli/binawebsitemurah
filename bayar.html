@@ -1221,7 +1221,7 @@
 
       const urlParams = new URLSearchParams(window.location.search);
       const currentDocNo = urlParams.get('inv') || urlParams.get('qt') || 'KZ-REC-2026-001';
-      const pdfReceiptUrl = `https://binawebsitemurah-by.zaimrosli.my/resit.html?rec=${encodeURIComponent(currentDocNo)}&name=${encodeURIComponent(name)}&amount=${finalPrice}&title=${encodeURIComponent(packageName)}`;
+      const pdfReceiptUrl = `https://kwikezee.my/resit.html?rec=${encodeURIComponent(currentDocNo)}&name=${encodeURIComponent(name)}&amount=${finalPrice}&title=${encodeURIComponent(packageName)}`;
 
       const timeStr = new Date().toLocaleString('ms-MY', { timeZone: 'Asia/Kuala_Lumpur' });
 
@@ -1347,7 +1347,7 @@
       const modal = document.getElementById('payment-success-modal');
       if (modal) modal.style.display = 'none';
       // Redirect to main website
-      window.location.href = 'https://binawebsitemurah-by.zaimrosli.my';
+      window.location.href = 'https://kwikezee.my';
     }
 
     // QR Modal Lightbox Functions
