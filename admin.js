@@ -1073,7 +1073,7 @@ function renderHistoryItemsUI(history, container) {
           </div>
         </div>
 
-        <div class="hic-actions" style="display: flex; gap: 3px; align-items: center; justify-content: flex-start; border-top: 1px dashed #e2e8f0; padding-top: 10px;">
+        <div class="hic-actions" style="display: flex; gap: 0px; align-items: center; justify-content: flex-start; border-top: 1px dashed #e2e8f0; padding-top: 10px;">
           <button class="btn-history-icon" onclick="viewHistoryQt(${idx})" title="Lihat Dokumen" style="width:32px!important;height:32px!important;min-width:32px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:8px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#000!important;cursor:pointer!important;flex-shrink:0!important;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
           </button>
