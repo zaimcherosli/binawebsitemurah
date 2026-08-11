@@ -804,14 +804,21 @@ function renderQuotationDocument(qtData) {
 
   setSafeText('a4-grand-total', `RM ${total.toLocaleString()}`);
 
-  if (qtData.payMode === 'full') {
+  const isFull = (qtData.payMode === 'full' || qtData.pay_mode === 'full');
+  const balanceRow = document.getElementById('a4-balance-row');
+  const bankTitle = document.getElementById('a4-bank-title');
+
+  if (isFull) {
     setSafeText('a4-deposit-label', 'JUMLAH BAYARAN PENUH (100%):');
     setSafeText('a4-deposit-amount', `RM ${total.toLocaleString()}`);
-    setSafeText('a4-balance-amount', `RM 0`);
+    if (balanceRow) balanceRow.style.display = 'none';
+    if (bankTitle) bankTitle.innerText = '💳 MAKLUMAT AKAUN PEMBAYARAN:';
   } else {
     setSafeText('a4-deposit-label', 'DEPOSIT 50% (BAYAR SEKARANG):');
     setSafeText('a4-deposit-amount', `RM ${deposit.toLocaleString()}`);
     setSafeText('a4-balance-amount', `RM ${balance.toLocaleString()}`);
+    if (balanceRow) balanceRow.style.display = 'flex';
+    if (bankTitle) bankTitle.innerText = '💳 MAKLUMAT AKAUN PEMBAYARAN DEPOSIT:';
   }
 
   setSafeText('a4-duration', qtData.duration || '5 - 7 Hari Bekerja');
@@ -843,9 +850,10 @@ function renderQuotationDocument(qtData) {
   // Terms list
   const termsList = document.getElementById('a4-terms-list');
   if (termsList) {
+    const payText = isFull ? 'bayaran penuh' : 'bayaran deposit';
     termsList.innerHTML = `
       <li>Tempoh Siap Projek: <strong>${escapeHtml(qtData.duration || '5 - 7 Hari Bekerja')}</strong>.</li>
-      <li>Pembangunan dimulakan serta-merta selepas bayaran deposit disahkan.</li>
+      <li>Pembangunan dimulakan serta-merta selepas ${payText} disahkan.</li>
     `;
     if (qtData.notes) {
       const noteLines = qtData.notes.split('\n');
