@@ -628,8 +628,11 @@ window.updateQtFormTotals = function() {
   const discountEl = document.getElementById('qt-discount');
   const discount = parseFloat(discountEl ? discountEl.value : 0) || 0;
   const total = Math.max(0, subtotal - discount);
-  const deposit = Math.round(total / 2);
-  const balance = total - deposit;
+
+  const payModeEl = document.getElementById('qt-pay-mode');
+  const payMode = payModeEl ? payModeEl.value : 'deposit';
+  const deposit = (payMode === 'full') ? total : Math.round(total / 2);
+  const balance = (payMode === 'full') ? 0 : (total - deposit);
 
   const subtotalEl = document.getElementById('qb-summary-subtotal');
   const totalEl = document.getElementById('qb-summary-total');
@@ -638,7 +641,7 @@ window.updateQtFormTotals = function() {
 
   if (subtotalEl) subtotalEl.innerText = `RM ${subtotal.toLocaleString()}`;
   if (totalEl) totalEl.innerText = `RM ${total.toLocaleString()}`;
-  if (depositEl) depositEl.innerText = `RM ${deposit.toLocaleString()}`;
+  if (depositEl) depositEl.innerText = (payMode === 'full') ? `RM ${total.toLocaleString()} (Bayaran Penuh)` : `RM ${deposit.toLocaleString()} (Deposit 50%)`;
   if (balanceEl) balanceEl.innerText = `RM ${balance.toLocaleString()}`;
 };
 
@@ -678,8 +681,8 @@ window.generateQuotationDocument = async function(event) {
 
   const subtotal = items.reduce((sum, item) => sum + item.price, 0);
   const total = Math.max(0, subtotal - discount);
-  const deposit = Math.round(total / 2);
-  const balance = total - deposit;
+  const deposit = (payMode === 'full') ? total : Math.round(total / 2);
+  const balance = (payMode === 'full') ? 0 : (total - deposit);
 
   const docTypeEl = document.getElementById('doc-type');
   const docType = docTypeEl ? docTypeEl.value : (qtNo.includes('INV') ? 'INV' : 'QT');
@@ -702,6 +705,7 @@ window.generateQuotationDocument = async function(event) {
     discount,
     total,
     payMode,
+    pay_mode: payMode,
     deposit,
     balance,
     duration,
@@ -889,13 +893,14 @@ window.sendQtToWhatsapp = function() {
   if (phone.startsWith('0')) phone = '60' + phone.slice(1);
 
   const isInvoice = (currentQtData.docType === 'INV') || (currentQtData.qtNo || '').includes('INV');
-  const isFullPayment = currentQtData.payMode === 'full';
+  const isFullPayment = currentQtData.payMode === 'full' || currentQtData.pay_mode === 'full';
+  const payModeText = isFullPayment ? 'full' : 'deposit';
   const docTypeName = isInvoice ? 'Invois Rasmi (Invoice)' : 'Sebut Harga Rasmi (Quotation)';
   const docNoLabel = isInvoice ? 'No. Invois' : 'No. Quotation';
   
   const portalUrl = isInvoice ? 
-    `https://kwikezee.my/invoice.html?inv=${encodeURIComponent(currentQtData.qtNo || '001')}` :
-    `https://kwikezee.my/quotation.html?qt=${encodeURIComponent(currentQtData.qtNo || '001')}`;
+    `https://kwikezee.my/invoice.html?inv=${encodeURIComponent(currentQtData.qtNo || '001')}&paymode=${payModeText}` :
+    `https://kwikezee.my/quotation.html?qt=${encodeURIComponent(currentQtData.qtNo || '001')}&paymode=${payModeText}`;
   
   const actionText = isInvoice ? 'Semak & Bayar Invois Rasmi' : 'Semak & Tandatangan Digital (E-Signature)';
 

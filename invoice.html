@@ -394,9 +394,15 @@
       }
 
       // Update Pay Direct Button URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlPayMode = urlParams.get('paymode');
+      const isFull = (data.pay_mode === 'full' || data.payMode === 'full' || urlPayMode === 'full');
+      const invPayMode = isFull ? 'full' : (data.pay_mode || data.payMode || 'full');
+      const invAmount = (invPayMode === 'full') ? total : (data.deposit || Math.round(total / 2));
+
       const btnPay = document.getElementById('btn-pay-direct');
       if (btnPay) {
-        btnPay.href = `bayar.html?qt=${encodeURIComponent(invNo)}&amount=${total}&total=${total}&paymode=full&name=${encodeURIComponent(clientName)}`;
+        btnPay.href = `bayar.html?qt=${encodeURIComponent(invNo)}&amount=${invAmount}&total=${total}&paymode=${invPayMode}&name=${encodeURIComponent(clientName)}`;
       }
     }
   </script>

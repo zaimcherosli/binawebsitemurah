@@ -1015,7 +1015,11 @@
         const customAmt = window._customQuotationAmount;
         const customNo = window._customQuotationNo || '';
         const payModeRadio = document.querySelector('input[name="pay-mode"]:checked');
-        const payMode = payModeRadio ? payModeRadio.value : 'deposit';
+        let payMode = payModeRadio ? payModeRadio.value : 'deposit';
+
+        if (window._customPayMode === 'full') {
+          payMode = 'full';
+        }
 
         if (payMode === 'deposit') {
           const depAmt = customAmt;
@@ -1037,7 +1041,7 @@
           document.getElementById('display-amount').innerHTML = `
             <div style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
               <span style="font-size: 26px; font-weight: 800; color: #09090b; line-height: 1.2;">RM${fullAmt.toLocaleString()}</span>
-              <span style="background: rgba(16, 185, 129, 0.1); color: #059669; border: 1px solid rgba(16, 185, 129, 0.2); font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 20px; text-transform: uppercase;">Sebut Harga (${customNo})</span>
+              <span style="background: rgba(16, 185, 129, 0.1); color: #059669; border: 1px solid rgba(16, 185, 129, 0.2); font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 20px; text-transform: uppercase;">BAYARAN PENUH (${customNo})</span>
             </div>
           `;
         }
@@ -1363,19 +1367,32 @@
     }
 
     // Get URL query params to auto-select package if passed
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('DOMContentLoaded', async () => {
       const urlParams = new URLSearchParams(window.location.search);
-      const qtParam = urlParams.get('qt');
+      const qtParam = urlParams.get('qt') || urlParams.get('inv');
       const amountParam = parseFloat(urlParams.get('amount'));
       const totalParam = parseFloat(urlParams.get('total'));
-      const paymodeParam = urlParams.get('paymode');
+      let paymodeParam = urlParams.get('paymode');
       const nameParam = urlParams.get('name');
       const titleParam = urlParams.get('title');
 
-      if (qtParam && !isNaN(amountParam)) {
+      if (qtParam) {
+        try {
+          const apiRes = await fetch(`https://api-qt.zaimrosli.my/api/quotations/${encodeURIComponent(qtParam)}`);
+          const apiJson = await apiRes.json();
+          if (apiJson.success && apiJson.data) {
+            if (apiJson.data.pay_mode === 'full' || apiJson.data.payMode === 'full') {
+              paymodeParam = 'full';
+            }
+          }
+        } catch (e) {}
+      }
+
+      if (qtParam && (!isNaN(amountParam) || paymodeParam === 'full')) {
         const select = document.getElementById('pay-package');
-        const fullTotal = (!isNaN(totalParam) && totalParam > 0) ? totalParam : (paymodeParam === 'deposit' ? amountParam * 2 : amountParam);
+        const fullTotal = (!isNaN(totalParam) && totalParam > 0) ? totalParam : (!isNaN(amountParam) ? (paymodeParam === 'deposit' ? amountParam * 2 : amountParam) : 0);
         const titleText = titleParam ? decodeURIComponent(titleParam) : 'Perkhidmatan Kwikezee';
+        const displayAmt = !isNaN(amountParam) ? amountParam : fullTotal;
 
         const opt = document.createElement('option');
         opt.value = 'quotation_custom';
@@ -1387,20 +1404,24 @@
 
         const depRadioOption = document.querySelector('input[name="pay-mode"][value="deposit"]');
         const depWrapper = depRadioOption ? depRadioOption.closest('.pay-mode-option') : null;
+        const fullRadio = document.querySelector('input[name="pay-mode"][value="full"]');
+        const modeSelectorBox = document.querySelector('.payment-mode-selector');
 
-        if (paymodeParam === 'deposit') {
-          if (depRadioOption) depRadioOption.checked = true;
-          if (depWrapper) depWrapper.style.display = 'flex';
-        } else if (paymodeParam === 'full') {
-          const fullRadio = document.querySelector('input[name="pay-mode"][value="full"]');
+        if (paymodeParam === 'full') {
           if (fullRadio) fullRadio.checked = true;
-          // Hide deposit option completely if full payment is set
-          if (depWrapper) depWrapper.style.display = 'none';
+          if (depRadioOption) depRadioOption.checked = false;
+          if (depWrapper) depWrapper.style.setProperty('display', 'none', 'important');
+          if (modeSelectorBox) modeSelectorBox.style.setProperty('display', 'none', 'important');
+        } else {
+          if (depRadioOption) depRadioOption.checked = true;
+          if (depWrapper) depWrapper.style.setProperty('display', 'flex', 'important');
+          if (modeSelectorBox) modeSelectorBox.style.setProperty('display', 'block', 'important');
         }
 
-        window._customQuotationAmount = amountParam;
+        window._customQuotationAmount = displayAmt;
         window._customQuotationTotal = fullTotal;
         window._customQuotationNo = qtParam;
+        window._customPayMode = paymodeParam;
 
         if (nameParam) {
           const nameInput = document.getElementById('pay-name');

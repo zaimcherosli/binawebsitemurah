@@ -571,14 +571,17 @@
         }
 
         // Update payment redirect button with exact quotation amount
-        const payAmount = (qt.pay_mode === 'full') ? (qt.total || 0) : (qt.deposit || Math.round((qt.total || 0) / 2));
-        const payModeText = (qt.pay_mode === 'full') ? 'full' : 'deposit';
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlPayMode = urlParams.get('paymode');
+        const isFull = (qt.pay_mode === 'full' || qt.payMode === 'full' || urlPayMode === 'full');
+        const payModeText = isFull ? 'full' : 'deposit';
+        const payAmount = isFull ? (qt.total || 0) : (qt.deposit || Math.round((qt.total || 0) / 2));
         const payUrl = `bayar.html?qt=${encodeURIComponent(qt.qt_no || '')}&amount=${payAmount}&total=${qt.total || 0}&paymode=${payModeText}&name=${encodeURIComponent(qt.client_name || '')}`;
 
         const payBtn = document.getElementById('btn-signed-pay-redirect');
         if (payBtn) {
           payBtn.href = payUrl;
-          if (qt.pay_mode === 'full') {
+          if (isFull) {
             payBtn.innerHTML = `💳 Teruskan Pembayaran Penuh (RM ${payAmount.toLocaleString()})`;
           } else {
             payBtn.innerHTML = `💳 Teruskan Pembayaran Deposit 50% (RM ${payAmount.toLocaleString()})`;
