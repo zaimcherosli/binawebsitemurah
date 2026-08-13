@@ -410,11 +410,18 @@ a {
    HERO SECTION
    ========================================== */
 .hero-section {
-  padding-top: calc(var(--nav-height) + 20px);
-  padding-bottom: 40px;
+  padding-top: 20px;
+  padding-bottom: 32px;
   min-height: auto;
   display: flex;
   align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .hero-section {
+    padding-top: 10px !important;
+    padding-bottom: 20px !important;
+  }
 }
 
 .hero-container {
@@ -439,7 +446,7 @@ a {
   font-weight: 700;
   color: var(--gold-primary);
   letter-spacing: 0.05em;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .badge-pulse {
@@ -490,8 +497,15 @@ a {
 .palette-fab-wrapper {
   position: fixed;
   bottom: 24px;
-  left: 24px;
-  z-index: 999;
+  left: 20px;
+  z-index: 10002;
+}
+
+@media (max-width: 768px) {
+  .palette-fab-wrapper {
+    bottom: 20px;
+    left: 14px;
+  }
 }
 
 .palette-fab-trigger {
@@ -2287,8 +2301,8 @@ input:focus, select:focus, textarea:focus {
 
 @media (max-width: 768px) {
   .hero-section {
-    padding-top: calc(var(--nav-height) + 12px);
-    padding-bottom: 24px;
+    padding-top: 10px !important;
+    padding-bottom: 20px !important;
   }
   .advantages-section,
   .portfolio-section,

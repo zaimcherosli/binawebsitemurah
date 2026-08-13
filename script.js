@@ -45,21 +45,52 @@ function initPaletteFab() {
     ruby: { primary: '#DC2626', secondary: '#F87171' }
   };
 
+  let isManualSelection = false;
+
   const savedColor = localStorage.getItem('kwikezee_accent_color') || 'gold';
-  setAccentColor(savedColor);
+  setAccentColor(savedColor, false);
 
   swatches.forEach(swatch => {
     swatch.addEventListener('click', () => {
+      isManualSelection = true;
       const colorKey = swatch.getAttribute('data-color');
-      setAccentColor(colorKey);
+      setAccentColor(colorKey, true);
     });
   });
 
-  function setAccentColor(key) {
+  // Scroll-Driven Dynamic Section Color Switcher
+  const sectionColors = [
+    { selector: '.hero-section', color: 'gold' },
+    { selector: '#kelebihan', color: 'emerald' },
+    { selector: '#portfolio', color: 'sapphire' },
+    { selector: '#harga', color: 'purple' },
+    { selector: '#faq', color: 'ruby' }
+  ];
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      if (isManualSelection) return;
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const match = sectionColors.find(s => entry.target.matches(s.selector));
+          if (match) {
+            setAccentColor(match.color, false);
+          }
+        }
+      });
+    }, { threshold: 0.35 });
+
+    sectionColors.forEach(s => {
+      const el = document.querySelector(s.selector);
+      if (el) observer.observe(el);
+    });
+  }
+
+  function setAccentColor(key, isManual = true) {
     const c = colors[key] || colors.gold;
     document.documentElement.style.setProperty('--gold-primary', c.primary);
     document.documentElement.style.setProperty('--gold-secondary', c.secondary);
-    localStorage.setItem('kwikezee_accent_color', key);
+    if (isManual) localStorage.setItem('kwikezee_accent_color', key);
 
     swatches.forEach(s => {
       if (s.getAttribute('data-color') === key) {
