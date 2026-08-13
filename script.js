@@ -4,6 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize all modules
+  initThemeToggle();
   initNavbar();
   initBeforeAfterSlider();
   initPortfolioFilter();
@@ -14,6 +15,34 @@ document.addEventListener('DOMContentLoaded', () => {
   initDraggableWaFab();
   initCountdownTimer();
 });
+
+/* ==========================================
+   THEME TOGGLE (DARK OBSIDIAN / LIGHT ALABASTER)
+   ========================================== */
+function initThemeToggle() {
+  const toggleBtn = document.getElementById('theme-toggle-btn');
+  const toggleBtnM = document.getElementById('theme-toggle-mobile');
+  const toggleText = document.getElementById('theme-toggle-text');
+  const toggleTextM = document.getElementById('theme-toggle-text-m');
+
+  const savedTheme = localStorage.getItem('kwikezee_theme') || 'light';
+  applyTheme(savedTheme);
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('kwikezee_theme', theme);
+    if (toggleText) toggleText.innerText = theme === 'dark' ? '☀️ Cerah' : '🌙 Gelap';
+    if (toggleTextM) toggleTextM.innerText = theme === 'dark' ? '☀️ Mode Cerah' : '🌙 Mode Gelap';
+  }
+
+  function handleToggle() {
+    const current = document.documentElement.getAttribute('data-theme') || 'light';
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  }
+
+  if (toggleBtn) toggleBtn.addEventListener('click', handleToggle);
+  if (toggleBtnM) toggleBtnM.addEventListener('click', handleToggle);
+}
 
 /* ==========================================
    NAVBAR & MOBILE MENU
