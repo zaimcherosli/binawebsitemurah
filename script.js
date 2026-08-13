@@ -13,7 +13,63 @@ document.addEventListener('DOMContentLoaded', () => {
   initPwaInstall();
   initDraggableWaFab();
   initCountdownTimer();
+  initPaletteFab();
 });
+
+/* ==========================================
+   LIVE BRAND PALETTE SWITCHER (OPTION 1)
+   ========================================== */
+function initPaletteFab() {
+  const trigger = document.getElementById('palette-fab-trigger');
+  const menu = document.getElementById('palette-menu');
+  const swatches = document.querySelectorAll('.palette-swatch');
+
+  if (trigger && menu) {
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menu.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target) && e.target !== trigger) {
+        menu.classList.remove('active');
+      }
+    });
+  }
+
+  const colors = {
+    gold: { primary: '#B8860B', secondary: '#D4AF37' },
+    emerald: { primary: '#059669', secondary: '#34D399' },
+    sapphire: { primary: '#2563EB', secondary: '#60A5FA' },
+    purple: { primary: '#9333EA', secondary: '#C084FC' },
+    ruby: { primary: '#DC2626', secondary: '#F87171' }
+  };
+
+  const savedColor = localStorage.getItem('kwikezee_accent_color') || 'gold';
+  setAccentColor(savedColor);
+
+  swatches.forEach(swatch => {
+    swatch.addEventListener('click', () => {
+      const colorKey = swatch.getAttribute('data-color');
+      setAccentColor(colorKey);
+    });
+  });
+
+  function setAccentColor(key) {
+    const c = colors[key] || colors.gold;
+    document.documentElement.style.setProperty('--gold-primary', c.primary);
+    document.documentElement.style.setProperty('--gold-secondary', c.secondary);
+    localStorage.setItem('kwikezee_accent_color', key);
+
+    swatches.forEach(s => {
+      if (s.getAttribute('data-color') === key) {
+        s.classList.add('active');
+      } else {
+        s.classList.remove('active');
+      }
+    });
+  }
+}
 
 /* ==========================================
    NAVBAR & MOBILE MENU
