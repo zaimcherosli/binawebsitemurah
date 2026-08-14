@@ -13,7 +13,51 @@ document.addEventListener('DOMContentLoaded', () => {
   initPwaInstall();
   initDraggableWaFab();
   initCountdownTimer();
+  initScrollAccentSwitch();
 });
+
+/* ==========================================
+   SCROLL-DRIVEN DYNAMIC THEME ACCENT SWITCHER
+   ========================================== */
+function initScrollAccentSwitch() {
+  const colors = {
+    gold: { primary: '#B8860B', secondary: '#D4AF37' },
+    emerald: { primary: '#059669', secondary: '#34D399' },
+    sapphire: { primary: '#2563EB', secondary: '#60A5FA' },
+    purple: { primary: '#9333EA', secondary: '#C084FC' },
+    ruby: { primary: '#DC2626', secondary: '#F87171' }
+  };
+
+  const sectionColors = [
+    { selector: '.hero-section', color: 'gold' },
+    { selector: '#kelebihan', color: 'emerald' },
+    { selector: '#portfolio', color: 'sapphire' },
+    { selector: '#harga', color: 'purple' },
+    { selector: '#kajian-kes', color: 'ruby' },
+    { selector: '#faq', color: 'gold' },
+    { selector: '#order-form', color: 'gold' }
+  ];
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const match = sectionColors.find(s => entry.target.matches(s.selector));
+          if (match && colors[match.color]) {
+            const c = colors[match.color];
+            document.documentElement.style.setProperty('--gold-primary', c.primary);
+            document.documentElement.style.setProperty('--gold-secondary', c.secondary);
+          }
+        }
+      });
+    }, { threshold: 0.3 });
+
+    sectionColors.forEach(s => {
+      const el = document.querySelector(s.selector);
+      if (el) observer.observe(el);
+    });
+  }
+}
 
 /* ==========================================
    NAVBAR & MOBILE MENU
