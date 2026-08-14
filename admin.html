@@ -15,7 +15,7 @@
   <link rel="icon" type="image/jpeg" sizes="16x16" href="images/logo-round.jpg">
   <link rel="shortcut icon" href="images/logo-round.jpg">
   <link rel="stylesheet" href="style.css?v=380">
-  <link rel="stylesheet" href="brief.css?v=400">
+  <link rel="stylesheet" href="brief.css?v=410">
 </head>
 <body class="admin-body">
 
@@ -315,8 +315,7 @@
 
               <!-- Sort Dropdown -->
               <div class="arkib-sort-wrap">
-                <label for="arkib-sort-select">Sort:</label>
-                <select id="arkib-sort-select" onchange="handleArkibFilterChange()">
+                <select id="arkib-sort-select" onchange="handleArkibFilterChange()" aria-label="Sort Archive Documents">
                   <option value="newest">🕒 Newest First</option>
                   <option value="oldest">⏳ Oldest First</option>
                   <option value="client_az">🔤 Client Name (A ➔ Z)</option>
@@ -533,6 +532,6 @@
     </div>
   </footer>
 
-  <script src="admin.js?v=480"></script>
+  <script src="admin.js?v=490"></script>
 </body>
 </html>

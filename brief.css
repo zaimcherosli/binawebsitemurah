@@ -1140,24 +1140,14 @@ body {
 .arkib-sort-wrap {
   display: flex !important;
   align-items: center !important;
-  gap: 8px !important;
   flex: 0 0 auto !important;
   max-width: 100% !important;
   box-sizing: border-box !important;
 }
 
-.arkib-sort-wrap label {
-  font-size: 12px !important;
-  font-weight: 800 !important;
-  color: #475569 !important;
-  margin: 0 !important;
-  white-space: nowrap !important;
-  flex-shrink: 0 !important;
-}
-
 .arkib-sort-wrap select {
   height: 42px !important;
-  padding: 6px 10px !important;
+  padding: 6px 12px !important;
   border: 1.5px solid #CBD5E1 !important;
   border-radius: 10px !important;
   font-size: 13px !important;
