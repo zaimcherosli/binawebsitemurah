@@ -83,12 +83,14 @@
   <!-- MODAL PANDUAN & PASANG PWA (ANDROID & APPLE) -->
   <div class="pwa-modal-overlay" id="pwa-install-modal" aria-hidden="true">
     <div class="pwa-modal-body">
+      <div class="pwa-modal-drag-handle"></div>
+
       <div class="pwa-modal-header">
         <div class="pwa-modal-logo-row">
-          <img src="images/logo-round.jpg" alt="Kwikezee Studio" class="pwa-modal-logo">
+          <img src="images/logo-round.jpg" alt="Kwikezee Studio" class="pwa-modal-logo" style="width: 44px !important; height: 44px !important; max-width: 44px !important; max-height: 44px !important; border-radius: 50% !important; object-fit: cover !important; flex-shrink: 0 !important; border: 2px solid var(--gold-primary) !important;">
           <div>
             <h3 class="pwa-modal-title">Pasang Aplikasi Kwikezee</h3>
-            <p class="pwa-modal-subtitle">Tambah ke Skrin Utama HP untuk akses pantas &amp; portfolio offline</p>
+            <p class="pwa-modal-subtitle">Akses portfolio &amp; tempahan pantas di skrin HP anda</p>
           </div>
         </div>
         <button class="pwa-modal-close" id="pwa-modal-close" aria-label="Tutup">✕</button>
@@ -101,32 +103,30 @@
         </button>
 
         <!-- Android Guide -->
-        <div class="pwa-guide-box android-guide">
+        <div class="pwa-guide-box android-guide" id="pwa-android-guide">
           <div class="pwa-guide-head">
-            <span class="pwa-guide-icon">🤖</span>
-            <span>Pengguna Android (Chrome):</span>
+            <span>🤖 Pengguna Android (Chrome):</span>
           </div>
           <ol class="pwa-guide-steps">
-            <li>Tekan menu <b>Tiga Titik (⋮)</b> di sudut atas kanan browser.</li>
-            <li>Pilih <b>"Add to Home screen"</b> atau <b>"Install App"</b>.</li>
+            <li>Tekan <b>Tiga Titik (⋮)</b> di atas kanan browser.</li>
+            <li>Pilih <b>"Add to Home screen"</b> / <b>"Install App"</b>.</li>
           </ol>
         </div>
 
         <!-- Apple Guide -->
-        <div class="pwa-guide-box apple-guide">
+        <div class="pwa-guide-box apple-guide" id="pwa-apple-guide">
           <div class="pwa-guide-head">
-            <span class="pwa-guide-icon">🍏</span>
-            <span>Pengguna iPhone (Safari):</span>
+            <span>🍏 Pengguna iPhone (Safari):</span>
           </div>
           <ol class="pwa-guide-steps">
-            <li>Tekan <b>Kongsi (Share ⎋)</b> di bawah browser Safari.</li>
+            <li>Tekan <b>Kongsi (Share ⎋)</b> di bawah Safari.</li>
             <li>Skrol &amp; pilih <b>"Add to Home Screen" (+ Tambah)</b>.</li>
           </ol>
         </div>
       </div>
 
       <div class="pwa-modal-footer">
-        <button class="btn btn-outline btn-block" id="pwa-modal-dismiss">Faham &amp; Teruskan</button>
+        <button class="btn btn-outline btn-block" id="pwa-modal-dismiss" style="padding: 10px 16px; font-size: 13.5px;">Faham &amp; Teruskan</button>
       </div>
     </div>
   </div>

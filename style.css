@@ -47,13 +47,20 @@
   backdrop-filter: blur(8px);
   z-index: 10005;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  padding: 16px;
+  padding: 0;
   box-sizing: border-box;
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
+}
+
+@media (min-width: 600px) {
+  .pwa-modal-overlay {
+    align-items: center;
+    padding: 16px;
+  }
 }
 
 .pwa-modal-overlay.active {
@@ -63,102 +70,130 @@
 
 .pwa-modal-body {
   background: #FFFFFF;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   border: 1.5px solid var(--border-gold);
-  border-radius: 24px;
   width: 100%;
-  max-width: 440px;
-  padding: 24px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-  transform: translateY(20px) scale(0.95);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 460px;
+  padding: 14px 18px 18px;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+@media (min-width: 600px) {
+  .pwa-modal-body {
+    border-radius: 24px;
+    transform: translateY(20px) scale(0.95);
+  }
+  .pwa-modal-overlay.active .pwa-modal-body {
+    transform: translateY(0) scale(1);
+  }
 }
 
 .pwa-modal-overlay.active .pwa-modal-body {
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
+}
+
+.pwa-modal-drag-handle {
+  width: 36px;
+  height: 4px;
+  background: #CBD5E1;
+  border-radius: 4px;
+  margin: 0 auto 10px;
 }
 
 .pwa-modal-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
 .pwa-modal-logo-row {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
+img.pwa-modal-logo,
 .pwa-modal-logo {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 2px solid var(--gold-primary);
-  flex-shrink: 0;
+  width: 44px !important;
+  height: 44px !important;
+  max-width: 44px !important;
+  max-height: 44px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  flex-shrink: 0 !important;
+  border: 2px solid var(--gold-primary) !important;
 }
 
 .pwa-modal-title {
-  font-size: 17px;
-  font-weight: 800;
-  color: #09090B;
-  margin: 0 0 2px 0;
+  font-size: 15.5px !important;
+  font-weight: 800 !important;
+  color: #09090B !important;
+  margin: 0 0 2px 0 !important;
+  line-height: 1.2 !important;
 }
 
 .pwa-modal-subtitle {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin: 0;
-  line-height: 1.35;
+  font-size: 11.5px !important;
+  color: #64748B !important;
+  margin: 0 !important;
+  line-height: 1.3 !important;
 }
 
 .pwa-modal-close {
-  background: rgba(0, 0, 0, 0.05);
+  background: #F1F5F9;
   border: none;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   font-weight: 800;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #52525B;
+  color: #475569;
+  flex-shrink: 0;
 }
 
 .pwa-direct-install-btn {
-  margin-bottom: 14px;
-  font-size: 14.5px;
-  padding: 14px 20px;
-  display: none; /* Shown via JS when beforeinstallprompt is ready */
+  margin-bottom: 10px;
+  font-size: 13.5px;
+  padding: 12px 16px;
+  display: none;
 }
 
 .pwa-guide-box {
-  background: #FAFAF9;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 14px;
-  padding: 12px 14px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 10px 12px;
   margin-bottom: 10px;
 }
 
 .pwa-guide-head {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 13px;
+  gap: 6px;
+  font-size: 12.5px;
   font-weight: 700;
-  color: #18181B;
-  margin-bottom: 6px;
+  color: #0F172A;
+  margin-bottom: 4px;
 }
 
 .pwa-guide-steps {
   margin: 0;
-  padding-left: 20px;
-  font-size: 12px;
-  color: #52525B;
-  line-height: 1.5;
+  padding-left: 18px;
+  font-size: 11.5px;
+  color: #475569;
+  line-height: 1.45;
 }
 
 /* Base Styles */

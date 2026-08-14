@@ -453,6 +453,19 @@ function initPwaInstall() {
     if (directBtn) directBtn.style.display = 'inline-flex';
   });
 
+  // Auto detect iOS vs Android to show relevant guide only
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  const androidGuide = document.getElementById('pwa-android-guide');
+  const appleGuide = document.getElementById('pwa-apple-guide');
+
+  if (isIOS) {
+    if (androidGuide) androidGuide.style.display = 'none';
+    if (appleGuide) appleGuide.style.display = 'block';
+  } else {
+    if (appleGuide) appleGuide.style.display = 'none';
+    if (androidGuide) androidGuide.style.display = 'block';
+  }
+
   // Check if user has already dismissed modal
   const hasDismissed = localStorage.getItem('kwikezee_pwa_dismissed_v2');
 
