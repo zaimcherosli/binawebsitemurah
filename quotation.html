@@ -477,7 +477,7 @@
 
     async function renderClientPortal() {
       const urlParams = new URLSearchParams(window.location.search);
-      const qtNo = urlParams.get('qt');
+      const qtNo = urlParams.get('qt') || urlParams.get('inv') || urlParams.get('id');
 
       if (!qtNo) {
         showQtError('Tiada nombor sebut harga dalam URL. Sila gunakan pautan yang diberikan oleh Kwikezee Studio.');

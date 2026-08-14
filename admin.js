@@ -1045,8 +1045,8 @@ window.sendQtToWhatsapp = function() {
   const docNoLabel = isInvoice ? 'No. Invois' : 'No. Quotation';
   
   const portalUrl = isInvoice ? 
-    `https://kwikezee.my/invoice.html?inv=${encodeURIComponent(currentQtData.qtNo || '001')}&paymode=${payModeText}` :
-    `https://kwikezee.my/quotation.html?qt=${encodeURIComponent(currentQtData.qtNo || '001')}&paymode=${payModeText}`;
+    `https://kwikezee.my/invoice?inv=${encodeURIComponent(currentQtData.qtNo || '001')}` :
+    `https://kwikezee.my/quotation?qt=${encodeURIComponent(currentQtData.qtNo || '001')}`;
   
   const actionText = isInvoice ? 'Semak & Bayar Invois Rasmi' : 'Semak & Tandatangan Digital (E-Signature)';
 
