@@ -303,6 +303,51 @@
               🗑️ Padam Semua Arkib
             </button>
           </div>
+
+          <!-- CRM Arkib Management Toolbar (Search, Filter Pills, Sorter) -->
+          <div class="arkib-toolbar" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px; background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 14px 16px;">
+            <!-- Top Toolbar Row: Search Box + Sort Selector -->
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;">
+              <!-- Search Box -->
+              <div style="flex: 1; min-width: 250px; position: relative;">
+                <input type="text" id="arkib-search-input" oninput="handleArkibFilterChange()" placeholder="🔍 Cari nama klien, projek, atau no. rujukan (cth: Faris, Wan, 007)..." style="width: 100%; height: 42px; padding: 8px 12px 8px 36px; border: 1.5px solid #cbd5e1; border-radius: 10px; font-size: 13.5px; font-weight: 600; color: #0f172a; background: #ffffff; box-sizing: border-box;">
+                <span style="position: absolute; left: 12px; top: 12px; color: #94a3b8; pointer-events: none; font-size: 14px;">🔍</span>
+              </div>
+
+              <!-- Sort Dropdown -->
+              <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
+                <label for="arkib-sort-select" style="font-size: 12.5px; font-weight: 800; color: #475569; margin: 0; white-space: nowrap;">Susun:</label>
+                <select id="arkib-sort-select" onchange="handleArkibFilterChange()" style="height: 42px; padding: 6px 12px; border: 1.5px solid #cbd5e1; border-radius: 10px; font-size: 13px; font-weight: 700; color: #0f172a; background: #ffffff; cursor: pointer;">
+                  <option value="newest">🕒 Terkini Dibuat (Default)</option>
+                  <option value="oldest">⏳ Terlama Dahulu</option>
+                  <option value="client_az">🔤 Nama Klien (A ➔ Z)</option>
+                  <option value="price_high">💰 Nilai Projek (Tertinggi)</option>
+                  <option value="price_low">💵 Nilai Projek (Terendah)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Bottom Toolbar Row: Filter Pills -->
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; border-top: 1px dashed #cbd5e1; padding-top: 10px;">
+              <span style="font-size: 12px; font-weight: 800; color: #64748b; margin-right: 4px;">Kategori:</span>
+              <button type="button" class="arkib-filter-pill active" onclick="setArkibCategoryFilter('all', this)" data-cat="all" style="padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; border: 1.5px solid #0f172a; background: #0f172a; color: #ffffff; cursor: pointer; transition: all 0.2s;">
+                Semua (<span id="count-cat-all">0</span>)
+              </button>
+              <button type="button" class="arkib-filter-pill" onclick="setArkibCategoryFilter('qt', this)" data-cat="qt" style="padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; border: 1.5px solid #cbd5e1; background: #ffffff; color: #475569; cursor: pointer; transition: all 0.2s;">
+                📄 Sebut Harga (<span id="count-cat-qt">0</span>)
+              </button>
+              <button type="button" class="arkib-filter-pill" onclick="setArkibCategoryFilter('inv', this)" data-cat="inv" style="padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; border: 1.5px solid #cbd5e1; background: #ffffff; color: #475569; cursor: pointer; transition: all 0.2s;">
+                🧾 Invois (<span id="count-cat-inv">0</span>)
+              </button>
+              <button type="button" class="arkib-filter-pill" onclick="setArkibCategoryFilter('signed', this)" data-cat="signed" style="padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; border: 1.5px solid #cbd5e1; background: #ffffff; color: #475569; cursor: pointer; transition: all 0.2s;">
+                ✅ Ditandatangani / Lunas (<span id="count-cat-signed">0</span>)
+              </button>
+              <button type="button" class="arkib-filter-pill" onclick="setArkibCategoryFilter('pinned', this)" data-cat="pinned" style="padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; border: 1.5px solid #cbd5e1; background: #ffffff; color: #475569; cursor: pointer; transition: all 0.2s;">
+                ⭐ Disemat (<span id="count-cat-pinned">0</span>)
+              </button>
+            </div>
+          </div>
+
           <div id="quotation-history-list">
             <!-- Rendered by JS -->
           </div>
@@ -490,6 +535,6 @@
     </div>
   </footer>
 
-  <script src="admin.js?v=440"></script>
+  <script src="admin.js?v=450"></script>
 </body>
 </html>

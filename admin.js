@@ -1207,16 +1207,176 @@ function renderHistoryItemsUI(history, container) {
   if (history.length === 0) {
     container.innerHTML = `
       <div class="no-submissions" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 20px; min-height: 320px; width: 100%; box-sizing: border-box; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
-        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.5" style="margin: 0 auto 16px auto; display: block;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        <h3 style="color: #0F172A !important; font-size: 19px; font-weight: 800; margin: 0 0 8px 0; text-align: center;">Tiada Sebut Harga Disimpan</h3>
-        <p style="color: #64748B !important; font-size: 14px; font-weight: 600; margin: 0; text-align: center; max-width: 440px; line-height: 1.5;">Sebut harga yang dijana akan disimpan secara automatik di sini.</p>
+/* ==========================================================================
+   SMART CRM ARKIB MANAGEMENT SYSTEM (SEARCH, FILTER PILLS & SORTER)
+   ========================================================================== */
+window._arkibFilterCategory = 'all';
+window._arkibSearchQuery = '';
+window._arkibSortOption = 'newest';
+
+function getPinnedQtList() {
+  try {
+    return JSON.parse(localStorage.getItem('kwikezee_pinned_qts') || '[]');
+  } catch(e) {
+    return [];
+  }
+}
+
+window.togglePinQt = function(qtNo) {
+  let pinned = getPinnedQtList();
+  const index = pinned.indexOf(qtNo);
+  if (index >= 0) {
+    pinned.splice(index, 1);
+  } else {
+    pinned.unshift(qtNo);
+  }
+  localStorage.setItem('kwikezee_pinned_qts', JSON.stringify(pinned));
+  applyArkibFiltersAndRender();
+};
+
+window.setArkibCategoryFilter = function(category, buttonEl) {
+  window._arkibFilterCategory = category;
+  document.querySelectorAll('.arkib-filter-pill').forEach(btn => {
+    btn.style.borderColor = '#cbd5e1';
+    btn.style.background = '#ffffff';
+    btn.style.color = '#475569';
+    btn.classList.remove('active');
+  });
+
+  if (buttonEl) {
+    buttonEl.classList.add('active');
+    if (category === 'all') {
+      buttonEl.style.background = '#0f172a';
+      buttonEl.style.borderColor = '#0f172a';
+      buttonEl.style.color = '#ffffff';
+    } else if (category === 'qt') {
+      buttonEl.style.background = '#fef3c7';
+      buttonEl.style.borderColor = '#f59e0b';
+      buttonEl.style.color = '#92400e';
+    } else if (category === 'inv') {
+      buttonEl.style.background = '#eff6ff';
+      buttonEl.style.borderColor = '#2563eb';
+      buttonEl.style.color = '#1e40af';
+    } else if (category === 'signed') {
+      buttonEl.style.background = '#ecfdf5';
+      buttonEl.style.borderColor = '#059669';
+      buttonEl.style.color = '#047857';
+    } else if (category === 'pinned') {
+      buttonEl.style.background = '#fffbeb';
+      buttonEl.style.borderColor = '#d97706';
+      buttonEl.style.color = '#b45309';
+    }
+  }
+
+  applyArkibFiltersAndRender();
+};
+
+window.handleArkibFilterChange = function() {
+  const searchInput = document.getElementById('arkib-search-input');
+  const sortSelect = document.getElementById('arkib-sort-select');
+  if (searchInput) window._arkibSearchQuery = searchInput.value.trim().toLowerCase();
+  if (sortSelect) window._arkibSortOption = sortSelect.value;
+  applyArkibFiltersAndRender();
+};
+
+function updateCategoryCounts(allList, pinnedList) {
+  const elAll = document.getElementById('count-cat-all');
+  const elQt = document.getElementById('count-cat-qt');
+  const elInv = document.getElementById('count-cat-inv');
+  const elSigned = document.getElementById('count-cat-signed');
+  const elPinned = document.getElementById('count-cat-pinned');
+
+  if (elAll) elAll.innerText = allList.length;
+  if (elQt) elQt.innerText = allList.filter(q => !(q.qt_no || q.qtNo || '').startsWith('KZ-INV')).length;
+  if (elInv) elInv.innerText = allList.filter(q => (q.qt_no || q.qtNo || '').startsWith('KZ-INV')).length;
+  if (elSigned) elSigned.innerText = allList.filter(q => q.status === 'SIGNED' || q.status === 'DIBAYAR' || q.status === 'DIBAYAR (PAID)').length;
+  if (elPinned) elPinned.innerText = allList.filter(q => pinnedList.includes(q.qt_no || q.qtNo)).length;
+}
+
+function applyArkibFiltersAndRender() {
+  const container = document.getElementById('quotation-history-list');
+  if (!container) return;
+
+  let list = [...(_qtHistoryCache || [])];
+  const pinnedList = getPinnedQtList();
+
+  // Update counts on filter buttons
+  updateCategoryCounts(list, pinnedList);
+
+  // 1. Filter by Search Query
+  if (window._arkibSearchQuery) {
+    const q = window._arkibSearchQuery;
+    list = list.filter(item => {
+      const matchNo = (item.qt_no || item.qtNo || '').toLowerCase().includes(q);
+      const matchName = (item.client_name || item.clientName || '').toLowerCase().includes(q);
+      const matchTitle = (item.project_title || item.projectTitle || '').toLowerCase().includes(q);
+      return matchNo || matchName || matchTitle;
+    });
+  }
+
+  // 2. Filter by Category
+  const cat = window._arkibFilterCategory || 'all';
+  if (cat === 'qt') {
+    list = list.filter(item => !(item.qt_no || item.qtNo || '').startsWith('KZ-INV'));
+  } else if (cat === 'inv') {
+    list = list.filter(item => (item.qt_no || item.qtNo || '').startsWith('KZ-INV'));
+  } else if (cat === 'signed') {
+    list = list.filter(item => item.status === 'SIGNED' || item.status === 'DIBAYAR' || item.status === 'DIBAYAR (PAID)');
+  } else if (cat === 'pinned') {
+    list = list.filter(item => pinnedList.includes(item.qt_no || item.qtNo));
+  }
+
+  // 3. Sorting
+  const sort = window._arkibSortOption || 'newest';
+  list.sort((a, b) => {
+    // Pinned items always go first
+    const isAPinned = pinnedList.includes(a.qt_no || a.qtNo);
+    const isBPinned = pinnedList.includes(b.qt_no || b.qtNo);
+    if (isAPinned && !isBPinned) return -1;
+    if (!isAPinned && isBPinned) return 1;
+
+    if (sort === 'oldest') {
+      const dateA = new Date(a.created_at || a.qt_date || 0).getTime();
+      const dateB = new Date(b.created_at || b.qt_date || 0).getTime();
+      return dateA - dateB;
+    } else if (sort === 'client_az') {
+      const nameA = (a.client_name || a.clientName || '').toLowerCase();
+      const nameB = (b.client_name || b.clientName || '').toLowerCase();
+      return nameA.localeCompare(nameB);
+    } else if (sort === 'price_high') {
+      return (b.total || 0) - (a.total || 0);
+    } else if (sort === 'price_low') {
+      return (a.total || 0) - (b.total || 0);
+    } else {
+      // Default: newest first
+      const dateA = new Date(a.created_at || a.qt_date || 0).getTime();
+      const dateB = new Date(b.created_at || b.qt_date || 0).getTime();
+      return dateB - dateA;
+    }
+  });
+
+  renderHistoryItemsUI(list, container);
+}
+
+function renderHistoryItemsUI(history, container) {
+  if (!history || history.length === 0) {
+    const isFiltered = window._arkibSearchQuery || (window._arkibFilterCategory && window._arkibFilterCategory !== 'all');
+    container.innerHTML = `
+      <div style="text-align: center; padding: 48px 20px; background: #f8fafc; border: 1.5px dashed #cbd5e1; border-radius: 16px; margin: 10px 0;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.5" style="margin: 0 auto 12px auto; display: block;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <h3 style="color: #0F172A !important; font-size: 17px; font-weight: 800; margin: 0 0 6px 0;">${isFiltered ? 'Tiada Rekod Dijumpai' : 'Tiada Sebut Harga Disimpan'}</h3>
+        <p style="color: #64748B !important; font-size: 13.5px; font-weight: 600; margin: 0;">${isFiltered ? 'Sila cuba carian kata kunci atau kategori lain.' : 'Sebut harga yang dijana akan disimpan secara automatik di sini.'}</p>
       </div>
     `;
     return;
   }
 
+  const pinnedList = getPinnedQtList();
   let html = `<div class="history-grid">`;
-  history.forEach((qt, idx) => {
+
+  history.forEach((qt) => {
+    const qtNo = qt.qt_no || qt.qtNo || '';
+    const isPinned = pinnedList.includes(qtNo);
     const createdDate = new Date(qt.created_at || Date.now()).toLocaleDateString('ms-MY', { day: '2-digit', month: 'short', year: 'numeric' });
     const totVal = (qt.total || 0).toLocaleString();
     const isFullPayment = (qt.pay_mode || qt.payMode || '') === 'full';
@@ -1224,11 +1384,11 @@ function renderHistoryItemsUI(history, container) {
       ? (qt.total || 0).toLocaleString()
       : (qt.deposit || Math.round((qt.total || 0) / 2)).toLocaleString();
     const isSigned = qt.status === 'SIGNED';
-    const isInvoice = (qt.qt_no || '').startsWith('KZ-INV');
+    const isInvoice = qtNo.startsWith('KZ-INV');
     const isPaid = qt.status === 'DIBAYAR' || qt.status === 'DIBAYAR (PAID)';
 
-    const cardBg = isInvoice ? '#F4F7FF' : '#FFFFFF';
-    const cardTopBorder = isInvoice ? '4px solid #2563EB' : '4px solid #F59E0B';
+    const cardBg = isPinned ? '#FFFDF5' : isInvoice ? '#F4F7FF' : '#FFFFFF';
+    const cardTopBorder = isPinned ? '4px solid #F59E0B' : isInvoice ? '4px solid #2563EB' : '4px solid #F59E0B';
     const badgeBg = isInvoice ? '#EFF6FF' : '#FEF3C7';
     const badgeColor = isInvoice ? '#1E40AF' : '#92400E';
     const badgeBorder = isInvoice ? '1.5px solid #93C5FD' : '1px solid #FCD34D';
@@ -1237,26 +1397,24 @@ function renderHistoryItemsUI(history, container) {
       : `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#92400E" stroke-width="2.5" style="margin-right:4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>`;
 
     html += `
-      <div class="history-item-card" style="background: ${cardBg}; border: 1.5px solid #cbd5e1; border-top: ${cardTopBorder}; border-radius: 16px; padding: 14px 16px 16px 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03); position: relative;">
+      <div class="history-item-card" style="background: ${cardBg}; border: 1.5px solid ${isPinned ? '#FCD34D' : '#cbd5e1'}; border-top: ${cardTopBorder}; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: ${isPinned ? '0 6px 16px rgba(245,158,11,0.12)' : '0 4px 12px rgba(0,0,0,0.03)'}; position: relative;">
         <div>
-          <!-- Clean Drag Handle Bar -->
-          <div class="hic-drag-bar" style="cursor: grab; user-select: none; background: #F1F5F9; border: 1px solid #E2E8F0; border-radius: 8px; padding: 4px 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; font-size: 11px; font-weight: 800; color: #64748B;" title="Tarik pemegang ini untuk ubah susunan kad">
-            <span style="display: inline-flex; align-items: center; gap: 5px;">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2.5"><circle cx="9" cy="5" r="1.2"/><circle cx="9" cy="12" r="1.2"/><circle cx="9" cy="19" r="1.2"/><circle cx="15" cy="5" r="1.2"/><circle cx="15" cy="12" r="1.2"/><circle cx="15" cy="19" r="1.2"/></svg>
-              Tarik Untuk Susun
-            </span>
-            <span style="font-size: 11px; font-weight: 900; color: #94A3B8;">⠿</span>
+          <!-- Header Row: Badges, Date & Pin Button -->
+          <div class="hic-header" style="display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+              <span class="hic-badge" style="background: ${badgeBg}; color: ${badgeColor}; border: ${badgeBorder}; font-size: 11.5px; font-weight: 900; padding: 3px 8px; border-radius: 6px; white-space: nowrap; display: inline-flex; align-items: center;">${docIconSvg}${qtNo}</span>
+              ${isPaid ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 3px 8px; border-radius: 6px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DIBAYAR</span>` : isSigned ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 3px 8px; border-radius: 6px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DITANDATANGANI</span>` : isInvoice ? `<span style="font-size: 10.5px; background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; padding: 3px 8px; border-radius: 6px; font-weight: 900; white-space: nowrap;">INVOIS</span>` : `<span style="font-size: 10.5px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 3px 8px; border-radius: 6px; font-weight: 700; white-space: nowrap;">SEBUT HARGA</span>`}
+              <span class="hic-date" style="font-size: 11px; color: #64748b; font-weight: 600; white-space: nowrap; margin-left: 2px;">${createdDate}</span>
+            </div>
+            
+            <!-- Pin Button -->
+            <button type="button" onclick="togglePinQt('${qtNo}')" title="${isPinned ? 'Nyahsemat (Unpin)' : 'Sematkan ke baris teratas'}" style="background: ${isPinned ? '#FEF3C7' : '#F1F5F9'}; border: 1px solid ${isPinned ? '#F59E0B' : '#CBD5E1'}; border-radius: 6px; padding: 3px 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 800; color: ${isPinned ? '#92400E' : '#64748B'}; flex-shrink: 0; transition: all 0.2s;">
+              ${isPinned ? '⭐ Disemat' : '☆ Pin'}
+            </button>
           </div>
 
-          <!-- Header Row: Badges & Date grouped cleanly on left -->
-          <div class="hic-header" style="display: flex; align-items: center; justify-content: flex-start; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
-            <span class="hic-badge" style="background: ${badgeBg}; color: ${badgeColor}; border: ${badgeBorder}; font-size: 11.5px; font-weight: 900; padding: 3px 8px; border-radius: 6px; white-space: nowrap; display: inline-flex; align-items: center;">${docIconSvg}${qt.qt_no}</span>
-            ${isPaid ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 3px 8px; border-radius: 6px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DIBAYAR</span>` : isSigned ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 3px 8px; border-radius: 6px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DITANDATANGANI</span>` : isInvoice ? `<span style="font-size: 10.5px; background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; padding: 3px 8px; border-radius: 6px; font-weight: 900; white-space: nowrap;">INVOIS</span>` : `<span style="font-size: 10.5px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 3px 8px; border-radius: 6px; font-weight: 700; white-space: nowrap;">SEBUT HARGA</span>`}
-            <span class="hic-date" style="font-size: 11px; color: #64748b; font-weight: 600; white-space: nowrap; margin-left: 2px;">${createdDate}</span>
-          </div>
-
-          <h3 class="hic-title" style="font-size: 16px; font-weight: 800; color: #0f172a; margin: 0 0 4px 0; line-height: 1.3;">${escapeHtml(qt.client_name || 'Klien')}</h3>
-          <p class="hic-sub" style="font-size: 12.5px; font-weight: 600; color: #475569; margin: 0 0 12px 0; line-height: 1.4;">${escapeHtml(qt.project_title || 'Projek Web')}</p>
+          <h3 class="hic-title" style="font-size: 16px; font-weight: 800; color: #0f172a; margin: 0 0 4px 0; line-height: 1.3;">${escapeHtml(qt.client_name || qt.clientName || 'Klien')}</h3>
+          <p class="hic-sub" style="font-size: 12.5px; font-weight: 600; color: #475569; margin: 0 0 12px 0; line-height: 1.4;">${escapeHtml(qt.project_title || qt.projectTitle || 'Projek Web')}</p>
 
           <div class="hic-price-row" style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 9px 10px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: #0f172a; white-space: nowrap !important; box-sizing: border-box;">
             <span style="white-space: nowrap !important;">Jumlah: <strong style="color: #000000; font-weight: 900; font-size: 12px;">RM ${totVal}</strong></span>
@@ -1265,13 +1423,13 @@ function renderHistoryItemsUI(history, container) {
         </div>
 
         <div class="hic-actions" style="display: flex; gap: 0px; align-items: center; justify-content: flex-start; border-top: 1px dashed #e2e8f0; padding-top: 10px;">
-          <button class="btn-history-icon" onclick="viewHistoryQt('${qt.qt_no}')" title="Lihat Dokumen" style="width:32px!important;height:32px!important;min-width:32px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:8px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#000!important;cursor:pointer!important;flex-shrink:0!important;">
+          <button class="btn-history-icon" onclick="viewHistoryQt('${qtNo}')" title="Lihat Dokumen" style="width:32px!important;height:32px!important;min-width:32px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:8px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#000!important;cursor:pointer!important;flex-shrink:0!important;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
           </button>
-          <button class="btn-history-icon" onclick="editHistoryQt('${qt.qt_no}')" title="Edit / Kemaskini" style="width:32px!important;height:32px!important;min-width:32px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:8px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#000!important;cursor:pointer!important;flex-shrink:0!important;">
+          <button class="btn-history-icon" onclick="editHistoryQt('${qtNo}')" title="Edit / Kemaskini" style="width:32px!important;height:32px!important;min-width:32px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:8px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#000!important;cursor:pointer!important;flex-shrink:0!important;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path><path d="M15 5l4 4"></path></svg>
           </button>
-          <button class="btn-history-icon" onclick="duplicateHistoryQt('${qt.qt_no}')" title="Duplikasi Sebut Harga (Salin & Cipta Baru)" style="width:32px!important;height:32px!important;min-width:32px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:8px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#0F172A!important;cursor:pointer!important;flex-shrink:0!important;">
+          <button class="btn-history-icon" onclick="duplicateHistoryQt('${qtNo}')" title="Duplikasi Sebut Harga (Salin & Cipta Baru)" style="width:32px!important;height:32px!important;min-width:32px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:8px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#0F172A!important;cursor:pointer!important;flex-shrink:0!important;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="8" y="8" width="13" height="13" rx="2" ry="2"></rect>
               <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
@@ -1280,30 +1438,30 @@ function renderHistoryItemsUI(history, container) {
             </svg>
           </button>
           ${isInvoice
-            ? `<a href="resit.html?rec=${encodeURIComponent(qt.qt_no)}&name=${encodeURIComponent(qt.client_name || '')}&amount=${qt.total || 0}&title=${encodeURIComponent(qt.project_title || '')}" target="_blank" class="btn-history-icon" title="Lihat Resit Rasmi" style="width:32px!important;height:32px!important;min-width:32px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:8px!important;background:#EFF6FF!important;border:1.5px solid #BFDBFE!important;color:#1D4ED8!important;cursor:pointer!important;flex-shrink:0!important;text-decoration:none!important;">
+            ? `<a href="resit.html?rec=${encodeURIComponent(qtNo)}&name=${encodeURIComponent(qt.client_name || qt.clientName || '')}&amount=${qt.total || 0}&title=${encodeURIComponent(qt.project_title || qt.projectTitle || '')}" target="_blank" class="btn-history-icon" title="Lihat Resit Rasmi" style="width:32px!important;height:32px!important;min-width:32px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:8px!important;background:#EFF6FF!important;border:1.5px solid #BFDBFE!important;color:#1D4ED8!important;cursor:pointer!important;flex-shrink:0!important;text-decoration:none!important;">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="12" y1="17" x2="12" y2="11"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
               </a>`
-            : `<button class="btn-history-icon" onclick="convertQtToInvoice('${qt.qt_no}')" title="Tukar Ke Invois Rasmi" style="width:32px!important;height:32px!important;min-width:32px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:8px!important;background:#ECFDF5!important;border:1.5px solid #A7F3D0!important;color:#047857!important;cursor:pointer!important;flex-shrink:0!important;">
+            : `<button class="btn-history-icon" onclick="convertQtToInvoice('${qtNo}')" title="Tukar Ke Invois Rasmi" style="width:32px!important;height:32px!important;min-width:32px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:8px!important;background:#ECFDF5!important;border:1.5px solid #A7F3D0!important;color:#047857!important;cursor:pointer!important;flex-shrink:0!important;">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
               </button>`
           }
-          <button class="btn-history-icon" onclick="waHistoryQt('${qt.qt_no}')" title="Kongsi Ke WhatsApp" style="width:32px!important;height:32px!important;min-width:32px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:8px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;cursor:pointer!important;flex-shrink:0!important;">
+          <button class="btn-history-icon" onclick="waHistoryQt('${qtNo}')" title="Kongsi Ke WhatsApp" style="width:32px!important;height:32px!important;min-width:32px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:8px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;cursor:pointer!important;flex-shrink:0!important;">
             <svg width="18" height="18" viewBox="0 0 32 32" fill="none"><path d="M16 2a13.9 13.9 0 0 0-11.8 21.2L2.3 29.7l6.7-1.8A13.9 13.9 0 1 0 16 2z" fill="#25D366"/><path d="M12.1 9.7c-.3-.7-.6-.7-.9-.7h-.7c-.2 0-.6.1-.9.4s-1.2 1.2-1.2 2.9 1.3 3.3 1.4 3.5c.2.2 2.5 3.8 6.1 5.4.9.4 1.5.6 2 .8.9.3 1.7.2 2.3.1.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.6.2-1.8-.1-.1-.3-.2-.7-.4s-2.2-1.1-2.5-1.2c-.3-.2-.5-.2-.7.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.8 0s-1.7-.6-3.2-2c-1.2-1.1-2-2.4-2.2-2.8-.2-.4 0-.6.2-.8.2-.2.4-.4.6-.7.2-.2.2-.4.1-.7s-.6-1.5-.9-2.1z" fill="#FFF"/></svg>
           </button>
-          <button class="btn-history-icon" onclick="deleteHistoryQt('${qt.qt_no}')" title="Padam" style="width:32px!important;height:32px!important;min-width:32px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:8px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#DC2626!important;cursor:pointer!important;flex-shrink:0!important;">
+          <button class="btn-history-icon" onclick="deleteHistoryQt('${qtNo}')" title="Padam" style="width:32px!important;height:32px!important;min-width:32px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;border-radius:8px!important;background:#FFFFFF!important;border:1.5px solid #CBD5E1!important;color:#DC2626!important;cursor:pointer!important;flex-shrink:0!important;">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
           </button>
         </div>
       </div>
     `;
   });
+
   html += `</div>`;
   container.innerHTML = html;
-  initHistoryCardsDragDrop();
 }
 
 /* ==========================================================================
-   DRAG & DROP REORDERING SYSTEM (SKOP KERJA & ARKIB KAD)
+   DRAG & DROP REORDERING SYSTEM (SKOP KERJA BORANG)
    ========================================================================== */
 
 function initScopeItemsDragDrop() {
@@ -1324,98 +1482,6 @@ function initScopeItemsDragDrop() {
       container.insertBefore(draggingRow, afterElement);
     }
   });
-}
-
-function initHistoryCardsDragDrop() {
-  const container = document.querySelector('.history-grid');
-  if (!container) return;
-
-  const cards = container.querySelectorAll('.history-item-card');
-  cards.forEach(card => {
-    card.setAttribute('draggable', 'true');
-
-    const dragBar = card.querySelector('.hic-drag-bar');
-    if (dragBar) {
-      dragBar.addEventListener('mousedown', () => {
-        dragBar.style.cursor = 'grabbing';
-      });
-      dragBar.addEventListener('mouseup', () => {
-        dragBar.style.cursor = 'grab';
-      });
-    }
-
-    card.addEventListener('dragstart', (e) => {
-      card.classList.add('dragging');
-      e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.setData('text/plain', '');
-    });
-
-    card.addEventListener('dragend', () => {
-      card.classList.remove('dragging');
-      saveHistoryNewOrder();
-    });
-  });
-
-  if (!container.dataset.dragInited) {
-    container.dataset.dragInited = 'true';
-    container.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      e.dataTransfer.dropEffect = 'move';
-      const draggingCard = container.querySelector('.history-item-card.dragging');
-      if (!draggingCard) return;
-
-      const afterElement = getGridDragAfterElement(container, e.clientX, e.clientY, '.history-item-card');
-      if (afterElement == null) {
-        container.appendChild(draggingCard);
-      } else {
-        container.insertBefore(draggingCard, afterElement);
-      }
-    });
-  }
-}
-
-function saveHistoryNewOrder() {
-  const container = document.querySelector('.history-grid');
-  if (!container) return;
-
-  const cards = container.querySelectorAll('.history-item-card');
-  const newHistoryOrder = [];
-
-  cards.forEach(card => {
-    const qtBadge = card.querySelector('.hic-badge');
-    if (qtBadge) {
-      const fullText = qtBadge.innerText.trim();
-      const match = fullText.match(/(KZ-[A-Z0-9-]+)/i);
-      const qtNo = match ? match[1] : fullText;
-      const found = _qtHistoryCache.find(q => (q.qt_no || q.qtNo || '').trim().toUpperCase() === qtNo.toUpperCase());
-      if (found) {
-        newHistoryOrder.push(found);
-      }
-    }
-  });
-
-  if (newHistoryOrder.length > 0) {
-    _qtHistoryCache = newHistoryOrder;
-    try {
-      localStorage.setItem('kwikezee_qt_history', JSON.stringify(newHistoryOrder));
-    } catch (e) {}
-  }
-}
-
-function getGridDragAfterElement(container, x, y, selector) {
-  const draggableElements = [...container.querySelectorAll(`${selector}:not(.dragging)`)];
-  return draggableElements.reduce((closest, child) => {
-    const box = child.getBoundingClientRect();
-    const centerX = box.left + box.width / 2;
-    const centerY = box.top + box.height / 2;
-    const distance = Math.hypot(x - centerX, y - centerY);
-
-    if (distance < closest.distance) {
-      return { distance: distance, element: child };
-    } else {
-      return closest;
-    }
-  }, { distance: Number.POSITIVE_INFINITY }).element;
 }
 
 function getDragAfterElement(container, y, selector) {
@@ -1456,7 +1522,7 @@ async function renderQuotationHistory() {
     _qtHistoryCache = history;
   }
 
-  renderHistoryItemsUI(history, container);
+  applyArkibFiltersAndRender();
   updateHistoryCountBadge(history.length);
 }
 

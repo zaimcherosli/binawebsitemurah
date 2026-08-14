@@ -1070,23 +1070,21 @@ body {
     height: 36px !important;
     min-width: 36px !important;
   }
+}
 
-/* Drag & Drop Reordering Enhancements */
+/* Arkib CRM Filter Pills & Cards */
+.arkib-filter-pill:hover {
+  filter: brightness(0.96);
+  transform: translateY(-1px);
+}
+
 .history-item-card {
-  transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.15s ease, opacity 0.15s ease !important;
-  touch-action: manipulation;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
 }
 
-.history-item-card.dragging {
-  opacity: 0.3 !important;
-  border: 2px dashed #2563EB !important;
-  background: #EFF6FF !important;
-  transform: scale(0.97) !important;
-}
-
-.hic-drag-bar:hover {
-  background: #E2E8F0 !important;
-  color: #0F172A !important;
+.history-item-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06) !important;
 }
 
 .qb-item-row {
