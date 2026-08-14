@@ -15,19 +15,19 @@
   <link rel="icon" type="image/jpeg" sizes="16x16" href="images/logo-round.jpg">
   <link rel="shortcut icon" href="images/logo-round.jpg">
   <link rel="stylesheet" href="style.css?v=380">
-  <link rel="stylesheet" href="brief.css?v=380">
+  <link rel="stylesheet" href="brief.css?v=390">
 </head>
 <body class="admin-body">
 
-  <!-- Passcode Gateway (Pelindung Pintu Masuk) -->
+  <!-- Passcode Gateway (Security Access) -->
   <div class="passcode-gateway" id="passcode-gateway">
     <div class="passcode-card">
       <div class="logo-icon" style="background: var(--gold-primary); color: #FFFFFF; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 900; margin: 0 auto 20px;">K</div>
-      <h2>Akses Terhad Admin</h2>
-      <p>Sila masukkan kata laluan keselamatan untuk memaparkan senarai maklumat projek klien.</p>
+      <h2>Admin Restricted Access</h2>
+      <p>Please enter the security passcode to access the client project dashboard.</p>
       <form id="passcode-form">
         <input type="password" id="passcode-input" placeholder="••••••" required autocomplete="current-password">
-        <button type="submit" class="btn btn-primary" style="width: 100%;">Masuk Dashboard</button>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Enter Dashboard</button>
       </form>
     </div>
   </div>
@@ -57,14 +57,14 @@
 
       <!-- Desktop Nav (≥769px) -->
       <nav class="admin-desktop-nav">
-        <button class="admin-tab-btn active" id="tab-btn-submissions" onclick="switchAdminTab('submissions')">📋 Permohonan Klien</button>
-        <button class="admin-tab-btn" id="tab-btn-quotation" onclick="switchAdminTab('quotation')">📄 Generator Sebut Harga</button>
-        <button class="admin-tab-btn" id="tab-btn-history" onclick="switchAdminTab('history')">📜 Arkib (<span id="history-count">0</span>)</button>
+        <button class="admin-tab-btn active" id="tab-btn-submissions" onclick="switchAdminTab('submissions')">📋 Client Requests</button>
+        <button class="admin-tab-btn" id="tab-btn-quotation" onclick="switchAdminTab('quotation')">📄 Quotation Generator</button>
+        <button class="admin-tab-btn" id="tab-btn-history" onclick="switchAdminTab('history')">📜 Archive (<span id="history-count">0</span>)</button>
       </nav>
       <div class="admin-desktop-logout-wrap">
         <button id="btn-logout" class="admin-desktop-logout">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-          Log Keluar
+          Log Out
         </button>
       </div>
 
@@ -83,18 +83,18 @@
   <div id="admin-drawer" style="position: fixed; top: 70px; left: 0; right: 0; width: 100%; background: #FFFFFF; border-bottom: 1.5px solid #CBD5E1; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 999; padding: 16px; box-sizing: border-box;">
     <div style="display: flex; flex-direction: column; gap: 8px;">
       <button class="admin-tab-btn active" id="tab-btn-submissions-m" onclick="switchAdminTab('submissions'); toggleAdminMenu()" style="width:100%; text-align:left; justify-content:flex-start; padding: 12px 16px; border-radius: 10px;">
-        📋 Permohonan Klien
+        📋 Client Requests
       </button>
       <button class="admin-tab-btn" id="tab-btn-quotation-m" onclick="switchAdminTab('quotation'); toggleAdminMenu()" style="width:100%; text-align:left; justify-content:flex-start; padding: 12px 16px; border-radius: 10px;">
-        📄 Generator Sebut Harga
+        📄 Quotation Generator
       </button>
       <button class="admin-tab-btn" id="tab-btn-history-m" onclick="switchAdminTab('history'); toggleAdminMenu()" style="width:100%; text-align:left; justify-content:flex-start; padding: 12px 16px; border-radius: 10px;">
-        📜 Arkib Sebut Harga (<span id="history-count-m">0</span>)
+        📜 Archive (<span id="history-count-m">0</span>)
       </button>
       <hr style="border: none; border-top: 1.5px solid #E2E8F0; margin: 4px 0;">
       <button id="btn-logout-m" style="width:100%; text-align:center; justify-content:center; background: rgba(239,68,68,0.08); border: 1.5px solid rgba(239,68,68,0.25); color: #DC2626; font-weight: 800; font-size: 14px; padding: 12px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-        Log Keluar
+        Log Out
       </button>
     </div>
   </div>
@@ -294,56 +294,54 @@
         </div>
       </div>
 
-      <!-- TAB 3: ARKIB SEBUT HARGA -->
+      <!-- TAB 3: DOCUMENT ARCHIVE -->
       <div id="admin-tab-history" class="admin-tab-content">
         <div class="history-card">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-            <h2>Senarai Sebut Harga Yang Pernah Dijana</h2>
-            <button class="btn btn-sm btn-outline" onclick="clearAllQuotationsHistory()" style="color: #ef4444; border-color: rgba(239,68,68,0.3);">
-              🗑️ Padam Semua Arkib
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+            <h2 style="font-size: 1.25rem; font-weight: 800; color: #0F172A; margin: 0;">Quotations &amp; Invoices Archive</h2>
+            <button class="btn btn-sm btn-outline" onclick="clearAllQuotationsHistory()" style="color: #ef4444; border-color: rgba(239,68,68,0.3); padding: 5px 12px; font-size: 12px; border-radius: 8px;">
+              🗑️ Clear Archive
             </button>
           </div>
 
           <!-- CRM Arkib Management Toolbar (Search, Filter Pills, Sorter) -->
-          <div class="arkib-toolbar" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px; background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 14px 16px;">
+          <div class="arkib-toolbar">
             <!-- Top Toolbar Row: Search Box + Sort Selector -->
-            <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <div class="arkib-toolbar-top">
               <!-- Search Box -->
-              <div style="flex: 1; min-width: 250px; position: relative;">
-                <input type="text" id="arkib-search-input" oninput="handleArkibFilterChange()" placeholder="🔍 Cari nama klien, projek, atau no. rujukan (cth: Faris, Wan, 007)..." style="width: 100%; height: 42px; padding: 8px 12px 8px 36px; border: 1.5px solid #cbd5e1; border-radius: 10px; font-size: 13.5px; font-weight: 600; color: #0f172a; background: #ffffff; box-sizing: border-box;">
-                <span style="position: absolute; left: 12px; top: 12px; color: #94a3b8; pointer-events: none; font-size: 14px;">🔍</span>
+              <div class="arkib-search-wrap">
+                <input type="text" id="arkib-search-input" oninput="handleArkibFilterChange()" placeholder="Search client name, project, or ref no..." autocomplete="off">
               </div>
 
               <!-- Sort Dropdown -->
-              <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
-                <label for="arkib-sort-select" style="font-size: 12.5px; font-weight: 800; color: #475569; margin: 0; white-space: nowrap;">Susun:</label>
-                <select id="arkib-sort-select" onchange="handleArkibFilterChange()" style="height: 42px; padding: 6px 12px; border: 1.5px solid #cbd5e1; border-radius: 10px; font-size: 13px; font-weight: 700; color: #0f172a; background: #ffffff; cursor: pointer;">
-                  <option value="newest">🕒 Terkini Dibuat (Default)</option>
-                  <option value="oldest">⏳ Terlama Dahulu</option>
-                  <option value="client_az">🔤 Nama Klien (A ➔ Z)</option>
-                  <option value="price_high">💰 Nilai Projek (Tertinggi)</option>
-                  <option value="price_low">💵 Nilai Projek (Terendah)</option>
+              <div class="arkib-sort-wrap">
+                <label for="arkib-sort-select">Sort:</label>
+                <select id="arkib-sort-select" onchange="handleArkibFilterChange()">
+                  <option value="newest">🕒 Newest First</option>
+                  <option value="oldest">⏳ Oldest First</option>
+                  <option value="client_az">🔤 Client Name (A ➔ Z)</option>
+                  <option value="price_high">💰 Value (Highest)</option>
+                  <option value="price_low">💵 Value (Lowest)</option>
                 </select>
               </div>
             </div>
 
-            <!-- Bottom Toolbar Row: Filter Pills -->
-            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; border-top: 1px dashed #cbd5e1; padding-top: 10px;">
-              <span style="font-size: 12px; font-weight: 800; color: #64748b; margin-right: 4px;">Kategori:</span>
-              <button type="button" class="arkib-filter-pill active" onclick="setArkibCategoryFilter('all', this)" data-cat="all" style="padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; border: 1.5px solid #0f172a; background: #0f172a; color: #ffffff; cursor: pointer; transition: all 0.2s;">
-                Semua (<span id="count-cat-all">0</span>)
+            <!-- Bottom Toolbar Row: Horizontally scrollable Pills -->
+            <div class="arkib-pills-scroll-container">
+              <button type="button" class="arkib-filter-pill active" onclick="setArkibCategoryFilter('all', this)" data-cat="all">
+                All (<span id="count-cat-all">0</span>)
               </button>
-              <button type="button" class="arkib-filter-pill" onclick="setArkibCategoryFilter('qt', this)" data-cat="qt" style="padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; border: 1.5px solid #cbd5e1; background: #ffffff; color: #475569; cursor: pointer; transition: all 0.2s;">
-                📄 Sebut Harga (<span id="count-cat-qt">0</span>)
+              <button type="button" class="arkib-filter-pill" onclick="setArkibCategoryFilter('qt', this)" data-cat="qt">
+                📄 Quotations (<span id="count-cat-qt">0</span>)
               </button>
-              <button type="button" class="arkib-filter-pill" onclick="setArkibCategoryFilter('inv', this)" data-cat="inv" style="padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; border: 1.5px solid #cbd5e1; background: #ffffff; color: #475569; cursor: pointer; transition: all 0.2s;">
-                🧾 Invois (<span id="count-cat-inv">0</span>)
+              <button type="button" class="arkib-filter-pill" onclick="setArkibCategoryFilter('inv', this)" data-cat="inv">
+                🧾 Invoices (<span id="count-cat-inv">0</span>)
               </button>
-              <button type="button" class="arkib-filter-pill" onclick="setArkibCategoryFilter('signed', this)" data-cat="signed" style="padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; border: 1.5px solid #cbd5e1; background: #ffffff; color: #475569; cursor: pointer; transition: all 0.2s;">
-                ✅ Ditandatangani / Lunas (<span id="count-cat-signed">0</span>)
+              <button type="button" class="arkib-filter-pill" onclick="setArkibCategoryFilter('signed', this)" data-cat="signed">
+                ✅ Signed / Paid (<span id="count-cat-signed">0</span>)
               </button>
-              <button type="button" class="arkib-filter-pill" onclick="setArkibCategoryFilter('pinned', this)" data-cat="pinned" style="padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; border: 1.5px solid #cbd5e1; background: #ffffff; color: #475569; cursor: pointer; transition: all 0.2s;">
-                ⭐ Disemat (<span id="count-cat-pinned">0</span>)
+              <button type="button" class="arkib-filter-pill" onclick="setArkibCategoryFilter('pinned', this)" data-cat="pinned">
+                ⭐ Pinned (<span id="count-cat-pinned">0</span>)
               </button>
             </div>
           </div>
@@ -535,6 +533,6 @@
     </div>
   </footer>
 
-  <script src="admin.js?v=460"></script>
+  <script src="admin.js?v=470"></script>
 </body>
 </html>

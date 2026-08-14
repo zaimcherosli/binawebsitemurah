@@ -1072,10 +1072,150 @@ body {
   }
 }
 
-/* Arkib CRM Filter Pills & Cards */
+/* Arkib CRM Toolbar & Responsive Polish */
+.arkib-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.arkib-toolbar-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.arkib-search-wrap {
+  flex: 1;
+  position: relative;
+  min-width: 0;
+}
+
+.arkib-search-wrap input {
+  width: 100%;
+  height: 42px;
+  padding: 8px 12px 8px 36px;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #0F172A;
+  background: #FFFFFF;
+  box-sizing: border-box;
+}
+
+.arkib-search-wrap input:focus {
+  border-color: #2563EB;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+}
+
+.arkib-search-wrap::before {
+  content: "🔍";
+  position: absolute;
+  left: 11px;
+  top: 11px;
+  font-size: 14px;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.arkib-sort-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.arkib-sort-wrap label {
+  font-size: 12px;
+  font-weight: 800;
+  color: #475569;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.arkib-sort-wrap select {
+  height: 42px;
+  padding: 6px 12px;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0F172A;
+  background: #FFFFFF;
+  cursor: pointer;
+}
+
+.arkib-pills-scroll-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 2px 6px 2px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  border-top: 1px dashed #CBD5E1;
+  margin-top: 2px;
+  padding-top: 10px;
+}
+
+.arkib-pills-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.arkib-filter-pill {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  border: 1.5px solid #CBD5E1;
+  background: #FFFFFF;
+  color: #475569;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
 .arkib-filter-pill:hover {
   filter: brightness(0.96);
   transform: translateY(-1px);
+}
+
+.arkib-filter-pill.active {
+  background: #0F172A !important;
+  border-color: #0F172A !important;
+  color: #FFFFFF !important;
+}
+
+@media (max-width: 680px) {
+  .arkib-toolbar {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+  .arkib-toolbar-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .arkib-sort-wrap {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .arkib-sort-wrap select {
+    flex: 1;
+  }
 }
 
 .history-item-card {
