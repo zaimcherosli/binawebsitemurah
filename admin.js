@@ -1237,10 +1237,10 @@ function renderHistoryItemsUI(history, container) {
       : `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#92400E" stroke-width="2.5" style="margin-right:4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>`;
 
     html += `
-      <div class="history-item-card" style="background: ${cardBg}; border: 1.5px solid #cbd5e1; border-top: ${cardTopBorder}; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+      <div class="history-item-card" style="background: ${cardBg}; border: 1.5px solid #cbd5e1; border-top: ${cardTopBorder}; border-radius: 16px; padding: 14px 16px 16px 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03); position: relative;">
         <div>
-          <!-- Drag Handle Bar -->
-          <div class="hic-drag-bar" style="cursor: grab; user-select: none; background: #F8FAFC; border-bottom: 1px solid #E2E8F0; padding: 6px 12px; margin: -16px -16px 12px -16px; border-top-left-radius: 14px; border-top-right-radius: 14px; display: flex; align-items: center; justify-content: space-between; font-size: 11px; font-weight: 800; color: #64748B;" title="Tarik pemegang ini untuk ubah susunan kad">
+          <!-- Clean Drag Handle Bar -->
+          <div class="hic-drag-bar" style="cursor: grab; user-select: none; background: #F1F5F9; border: 1px solid #E2E8F0; border-radius: 8px; padding: 4px 10px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; font-size: 11px; font-weight: 800; color: #64748B;" title="Tarik pemegang ini untuk ubah susunan kad">
             <span style="display: inline-flex; align-items: center; gap: 5px;">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2.5"><circle cx="9" cy="5" r="1.2"/><circle cx="9" cy="12" r="1.2"/><circle cx="9" cy="19" r="1.2"/><circle cx="15" cy="5" r="1.2"/><circle cx="15" cy="12" r="1.2"/><circle cx="15" cy="19" r="1.2"/></svg>
               Tarik Untuk Susun
@@ -1460,15 +1460,47 @@ async function renderQuotationHistory() {
   updateHistoryCountBadge(history.length);
 }
 
-window.viewHistoryQt = async function(index) {
-  let qt = _qtHistoryCache[index];
-  if (!qt) return;
+function getHistoryQtItem(idxOrNo) {
+  if (idxOrNo === undefined || idxOrNo === null) return null;
+  
+  let list = _qtHistoryCache;
+  if (!list || !list.length) {
+    try { list = JSON.parse(localStorage.getItem('kwikezee_qt_history') || '[]'); } catch(e) { list = []; }
+  }
+
+  // If passed an integer / number index
+  if (typeof idxOrNo === 'number') {
+    return list[idxOrNo] || null;
+  }
+
+  // If passed a string (e.g. 'KZ-QT-2026-007' or '3')
+  const str = String(idxOrNo).trim().toUpperCase();
+  
+  // Try exact match by qt_no or qtNo
+  let found = list.find(q => (q.qt_no || q.qtNo || '').trim().toUpperCase() === str);
+  if (found) return found;
+
+  // Try numeric index fallback if string was a number
+  const num = parseInt(idxOrNo, 10);
+  if (!isNaN(num) && list[num]) {
+    return list[num];
+  }
+
+  return null;
+}
+
+window.viewHistoryQt = async function(idxOrNo) {
+  let qt = getHistoryQtItem(idxOrNo);
+  if (!qt) {
+    console.error('Dokumen tidak dijumpai:', idxOrNo);
+    return;
+  }
 
   // Ambil data penuh (termasuk items_json) dari API
   try {
-    const res = await fetch(`${API_BASE}/api/quotations/${encodeURIComponent(qt.qt_no)}`);
+    const res = await fetch(`${API_BASE}/api/quotations/${encodeURIComponent(qt.qt_no || qt.qtNo)}`);
     const json = await res.json();
-    if (json.success) qt = json.data;
+    if (json.success && json.data) qt = json.data;
   } catch (e) { /* guna cache */ }
 
   // Normalize field names dari D1 (snake_case) ke format currentQtData (camelCase)
@@ -1484,14 +1516,17 @@ window.viewHistoryQt = async function(index) {
   }
 };
 
-window.editHistoryQt = async function(index) {
-  let qt = _qtHistoryCache[index];
-  if (!qt) return;
+window.editHistoryQt = async function(idxOrNo) {
+  let qt = getHistoryQtItem(idxOrNo);
+  if (!qt) {
+    console.error('Dokumen tidak dijumpai:', idxOrNo);
+    return;
+  }
 
   try {
-    const res = await fetch(`${API_BASE}/api/quotations/${encodeURIComponent(qt.qt_no)}`);
+    const res = await fetch(`${API_BASE}/api/quotations/${encodeURIComponent(qt.qt_no || qt.qtNo)}`);
     const json = await res.json();
-    if (json.success) qt = json.data;
+    if (json.success && json.data) qt = json.data;
   } catch (e) { /* guna cache */ }
 
   const qtData = normalizeQtFromApi(qt);
@@ -1531,36 +1566,31 @@ window.editHistoryQt = async function(index) {
   }
 
   updateQtFormTotals();
+  refreshAllAdminTextareas();
   window.scrollTo({ top: 0, behavior: 'smooth' });
   const docLabel = (qtData.qtNo || '').startsWith('KZ-INV') ? 'Invois Rasmi' : 'Sebut Harga';
   alert(`${docLabel} (${qtData.qtNo}) telah dimuatkan ke dalam borang. Anda boleh kemaskini & jana semula PDF!`);
 };
 
-window.duplicateHistoryQt = async function(index) {
-  let qt = _qtHistoryCache[index];
-  if (!qt) return;
+window.duplicateHistoryQt = async function(idxOrNo) {
+  let qt = getHistoryQtItem(idxOrNo);
+  if (!qt) {
+    console.error('Dokumen tidak dijumpai:', idxOrNo);
+    return;
+  }
 
   try {
-    const res = await fetch(`${API_BASE}/api/quotations/${encodeURIComponent(qt.qt_no)}`);
+    const res = await fetch(`${API_BASE}/api/quotations/${encodeURIComponent(qt.qt_no || qt.qtNo)}`);
     const json = await res.json();
-    if (json.success) qt = json.data;
+    if (json.success && json.data) qt = json.data;
   } catch (e) { /* guna cache */ }
 
   const qtData = normalizeQtFromApi(qt);
 
-  // Jana nombor quotation baru
-  const currentYear = new Date().getFullYear();
-  let nextNum = 1;
-  try {
-    const res = await fetch(`${API_BASE}/api/quotations`);
-    const json = await res.json();
-    const list = json.data || [];
-    nextNum = list.length + 1;
-  } catch (e) {
-    const local = JSON.parse(localStorage.getItem('kwikezee_qt_history') || '[]');
-    nextNum = local.length + 1;
-  }
-  const newQtNo = `KZ-QT-${currentYear}-${String(nextNum).padStart(3, '0')}`;
+  // Gunakan generator nombor baharu sequential
+  const isInv = (qtData.qtNo || '').startsWith('KZ-INV');
+  const prefix = isInv ? 'KZ-INV' : 'KZ-QT';
+  const newQtNo = generateNextQtNo(prefix);
 
   const todayStr = new Date().toISOString().split('T')[0];
   const validDate = new Date();
@@ -1628,9 +1658,12 @@ window.duplicateHistoryQt = async function(index) {
 };
 
 
-window.waHistoryQt = async function(index) {
-  let qt = _qtHistoryCache[index];
-  if (!qt) return;
+window.waHistoryQt = async function(idxOrNo) {
+  let qt = getHistoryQtItem(idxOrNo);
+  if (!qt) {
+    console.error('Dokumen tidak dijumpai:', idxOrNo);
+    return;
+  }
   currentQtData = normalizeQtFromApi(qt);
   sendQtToWhatsapp();
 };
