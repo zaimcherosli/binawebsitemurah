@@ -1,9 +1,0 @@
-# Cloudflare Pages Clean URLs & Shortlink Redirects
-/invoice /invoice.html 200
-/quotation /quotation.html 200
-/bayar /bayar.html 200
-/resit /resit.html 200
-/admin /admin.html 200
-/brief /brief.html 200
-/inv/* /invoice.html?inv=:splat 302
-/qt/* /quotation.html?qt=:splat 302
