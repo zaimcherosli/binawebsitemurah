@@ -369,18 +369,38 @@ window.loadEnFarisPreset = function() {
   if (validUntilInput) validUntilInput.value = validUntil.toISOString().split('T')[0];
 
   document.getElementById('qt-client-name').value = 'En Faris';
-  document.getElementById('qt-project-title').value = 'Social Media Management Package (1 Month)';
-  document.getElementById('qt-client-phone').value = '0102030990';
-  document.getElementById('qt-client-email').value = 'kwikezeeresources@gmail.com';
+  document.getElementById('qt-project-title').value = 'Pembangunan Website & Sistem Konsultasi JomConsult.com.my';
+  document.getElementById('qt-client-phone').value = '010-8118559';
+  document.getElementById('qt-client-email').value = 'faris@jomconsult.com.my';
 
   const itemsContainer = document.getElementById('quotation-items-list');
   if (itemsContainer) itemsContainer.innerHTML = '';
   qbItemCounter = 0;
 
   addQuotationScopeItem(
-    "Social Media Management Package (1 Month)",
-    "• Management of Facebook, Instagram & Threads accounts\n• 3 posts daily for each platform (Facebook, Instagram & Threads)\n• Content creation & post scheduling\n• Additional graphic/picture creation\n• Sample AI video production",
-    1000
+    "Pembangunan Website Konsultasi Premium (JomConsult.com.my)",
+    "Reka bentuk UI/UX custom bertaraf dunia, copywriting berkonversi tinggi, mobile responsive 100% & struktur SEO tempatan.",
+    600
+  );
+  addQuotationScopeItem(
+    "Sistem Konsultasi & Pengurusan Tempahan Temujanji",
+    "Borang tempahan konsultasi interaktif, borang permohonan pra-kelayakan & integrasi notifikasi automatik.",
+    250
+  );
+  addQuotationScopeItem(
+    "Keupayaan Mobile PWA App (Progressive Web App)",
+    "Kebolehan aplikasi dipasang terus ke skrin utama telefon bimbit pengguna (iOS & Android) tanpa sewa bulanan.",
+    200
+  );
+  addQuotationScopeItem(
+    "Integrasi Payment Gateway & DuitNow QR",
+    "Sistem bayaran yuran konsultasi automatik via DuitNow QR & Online Banking FPX bersama muat turun resit rasmi.",
+    150
+  );
+  addQuotationScopeItem(
+    "Setup Domain jomconsult.com.my & Cloud Hosting 1 Tahun",
+    "Penyambungan DNS domain rasmi jomconsult.com.my & cloud hosting kelajuan tinggi (Percuma Tahun Pertama).",
+    0
   );
 
   const discountEl = document.getElementById('qt-discount');
@@ -390,14 +410,14 @@ window.loadEnFarisPreset = function() {
 
   if (discountEl) discountEl.value = '0';
   if (payModeEl) payModeEl.value = 'full';
-  if (durationEl) durationEl.value = '1 Bulan (Bulanan)';
+  if (durationEl) durationEl.value = '5 - 7 Hari Bekerja';
   if (notesEl) notesEl.value =
-    "1. Pakej pengurusan akaun merangkumi platform Facebook, Instagram & Threads.\n" +
-    "2. 3 siaran (posts) harian disiarkan bagi setiap platform.\n" +
-    "3. Reka bentuk grafik & hasil video AI disediakan sepanjang tempoh 1 bulan.";
+    "1. Pembangunan laman web & sistem merangkumi domain jomconsult.com.my.\n" +
+    "2. Borang tempahan & integrasi bayaran DuitNow QR sedia untuk kegunaan serta-merta.\n" +
+    "3. Jaminan penyelenggaraan & sokongan teknikal disediakan selama 1 tahun.";
 
   updateQtFormTotals();
-  alert('⚡ Sebut Harga En Faris (Social Media Management - RM 1,000) telah diisi secara automatik!');
+  alert('⚡ Sebut Harga En Faris (JomConsult.com.my) telah diisi secara automatik!');
 };
 
 window.generateNextQtNo = function(customPrefix) {
