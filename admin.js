@@ -1356,7 +1356,7 @@ window.duplicateHistoryQt = async function(index) {
   };
 
   // SIMPAN SECARA TERUS KE CLOUDFLARE D1 & LOCALSTORAGE
-  await saveQtToD1(duplicatedRecord);
+  await saveQuotationToHistory(duplicatedRecord);
   updateHistoryCountBadge();
 
   // Switch ke Generator tab & isi borang
@@ -1387,6 +1387,7 @@ window.duplicateHistoryQt = async function(index) {
   }
 
   updateQtFormTotals();
+  refreshAllAdminTextareas();
   window.scrollTo({ top: 0, behavior: 'smooth' });
   alert(`✅ Sebut Harga baharu (${newQtNo}) telah berjaya diduplikasi & disimpan secara automatik ke Arkib Cloud!`);
 };
