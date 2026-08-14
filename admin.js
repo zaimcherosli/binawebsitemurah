@@ -1203,10 +1203,6 @@ async function updateHistoryCountBadge(forcedCount) {
   if (countElM) countElM.innerText = count;
 }
 
-function renderHistoryItemsUI(history, container) {
-  if (history.length === 0) {
-    container.innerHTML = `
-      <div class="no-submissions" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 20px; min-height: 320px; width: 100%; box-sizing: border-box; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
 /* ==========================================================================
    SMART CRM ARKIB MANAGEMENT SYSTEM (SEARCH, FILTER PILLS & SORTER)
    ========================================================================== */
