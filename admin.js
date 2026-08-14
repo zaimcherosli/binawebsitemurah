@@ -1205,13 +1205,22 @@ function renderHistoryItemsUI(history, container) {
     const isInvoice = (qt.qt_no || '').startsWith('KZ-INV');
     const isPaid = qt.status === 'DIBAYAR' || qt.status === 'DIBAYAR (PAID)';
 
+    const cardBg = isInvoice ? '#F4F7FF' : '#FFFFFF';
+    const cardTopBorder = isInvoice ? '4px solid #2563EB' : '4px solid #F59E0B';
+    const badgeBg = isInvoice ? '#EFF6FF' : '#FEF3C7';
+    const badgeColor = isInvoice ? '#1E40AF' : '#92400E';
+    const badgeBorder = isInvoice ? '1.5px solid #93C5FD' : '1px solid #FCD34D';
+    const docIconSvg = isInvoice 
+      ? `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1E40AF" stroke-width="2.5" style="margin-right:4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>` 
+      : `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#92400E" stroke-width="2.5" style="margin-right:4px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>`;
+
     html += `
-      <div class="history-item-card" style="background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+      <div class="history-item-card" style="background: ${cardBg}; border: 1.5px solid #cbd5e1; border-top: ${cardTopBorder}; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
         <div>
           <!-- Header Row: Badges & Date grouped cleanly on left -->
           <div class="hic-header" style="display: flex; align-items: center; justify-content: flex-start; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
-            <span class="hic-badge" style="background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 6px; white-space: nowrap;">${qt.qt_no}</span>
-            ${isPaid ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 3px 8px; border-radius: 6px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DIBAYAR</span>` : isSigned ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 3px 8px; border-radius: 6px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DITANDATANGANI</span>` : isInvoice ? `<span style="font-size: 10.5px; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; padding: 3px 8px; border-radius: 6px; font-weight: 800; white-space: nowrap;">INVOIS</span>` : `<span style="font-size: 10.5px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 3px 8px; border-radius: 6px; font-weight: 700; white-space: nowrap;">DRAFT</span>`}
+            <span class="hic-badge" style="background: ${badgeBg}; color: ${badgeColor}; border: ${badgeBorder}; font-size: 11.5px; font-weight: 900; padding: 3px 8px; border-radius: 6px; white-space: nowrap; display: inline-flex; align-items: center;">${docIconSvg}${qt.qt_no}</span>
+            ${isPaid ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 3px 8px; border-radius: 6px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DIBAYAR</span>` : isSigned ? `<span style="font-size: 10.5px; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 3px 8px; border-radius: 6px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> DITANDATANGANI</span>` : isInvoice ? `<span style="font-size: 10.5px; background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; padding: 3px 8px; border-radius: 6px; font-weight: 900; white-space: nowrap;">INVOIS</span>` : `<span style="font-size: 10.5px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 3px 8px; border-radius: 6px; font-weight: 700; white-space: nowrap;">SEBUT HARGA</span>`}
             <span class="hic-date" style="font-size: 11px; color: #64748b; font-weight: 600; white-space: nowrap; margin-left: 2px;">${createdDate}</span>
           </div>
 
