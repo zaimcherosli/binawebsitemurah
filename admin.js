@@ -354,6 +354,7 @@ window.loadAbgWanPreset = function() {
   );
 
   updateQtFormTotals();
+  refreshAllAdminTextareas();
   alert('Templat Sebut Harga Abg Wan (Ejen Hartanah) telah diisi secara automatik!');
 };
 
@@ -417,6 +418,7 @@ window.loadEnFarisPreset = function() {
     "3. Jaminan penyelenggaraan & sokongan teknikal disediakan selama 1 tahun.";
 
   updateQtFormTotals();
+  refreshAllAdminTextareas();
   alert('⚡ Sebut Harga En Faris (JomConsult.com.my) telah diisi secara automatik!');
 };
 
@@ -580,6 +582,33 @@ window.convertQtToInvoice = function(idxOrNo) {
   alert(`⚡ Sebut Harga (${originalQtNo}) telah sedia ditukar ke Invois Rasmi (${newInvNo})!\n\nNo. Rujukan QT (${originalQtNo}) telah disalin secara automatik.\nTekan 'Jana Pratonton Invois Rasmi' di bawah untuk simpan dokumen ini.`);
 };
 
+/* ==========================================================================
+   DYNAMIC AUTO-EXPANDING TEXTAREA HELPER
+   ========================================================================== */
+window.autoExpandTextarea = function(el) {
+  if (!el) return;
+  el.style.overflowY = 'hidden';
+  el.style.resize = 'none';
+  el.style.height = 'auto';
+  const newHeight = Math.max(el.scrollHeight, 48);
+  el.style.height = newHeight + 'px';
+};
+
+window.refreshAllAdminTextareas = function() {
+  setTimeout(() => {
+    document.querySelectorAll('#admin-tab-quotation textarea').forEach(ta => {
+      autoExpandTextarea(ta);
+    });
+  }, 40);
+};
+
+// Global event listener for auto-expanding any textareas inside admin dashboard in realtime
+document.addEventListener('input', function(e) {
+  if (e.target && e.target.tagName === 'TEXTAREA') {
+    autoExpandTextarea(e.target);
+  }
+});
+
 window.addQuotationScopeItem = function(title = '', desc = '', price = 0) {
   qbItemCounter++;
   const container = document.getElementById('quotation-items-list');
@@ -601,7 +630,7 @@ window.addQuotationScopeItem = function(title = '', desc = '', price = 0) {
       </div>
       <div class="form-group-pay">
         <label>Penerangan Terperinci</label>
-        <textarea class="qb-input-desc" rows="5" placeholder="Contoh: Reka bentuk moden tema gelap, animasi halus, responsif peranti..." oninput="updateQtFormTotals()" style="width: 100%; min-height: 120px; font-size: 14px; line-height: 1.6; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 10px; box-sizing: border-box; resize: vertical;">${escapeHtml(desc)}</textarea>
+        <textarea class="qb-input-desc" placeholder="Contoh: Reka bentuk moden tema gelap, animasi halus, responsif peranti..." oninput="updateQtFormTotals(); autoExpandTextarea(this);" style="width: 100%; min-height: 48px; font-size: 14px; line-height: 1.6; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 10px; box-sizing: border-box; overflow-y: hidden; resize: none;">${escapeHtml(desc)}</textarea>
       </div>
       <div class="form-group-pay">
         <label>Harga Skop (RM)</label>
@@ -613,6 +642,9 @@ window.addQuotationScopeItem = function(title = '', desc = '', price = 0) {
   container.appendChild(row);
   reindexQbItemNumbers();
   updateQtFormTotals();
+
+  const newTa = row.querySelector('textarea');
+  if (newTa) autoExpandTextarea(newTa);
 };
 
 window.removeQuotationScopeItem = function(id) {

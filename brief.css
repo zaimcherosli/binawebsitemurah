@@ -11,6 +11,16 @@ body {
   min-height: 100vh;
 }
 
+/* Dynamic Auto-Expanding Textarea for Admin Quotation Generator */
+.admin-body textarea,
+.qb-input-desc,
+#qt-notes {
+  overflow-y: hidden !important;
+  resize: none !important;
+  box-sizing: border-box !important;
+  transition: height 0.1s ease-out;
+}
+
 .brief-header {
   height: var(--nav-height);
   background: rgba(255, 255, 255, 0.8);
