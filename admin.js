@@ -626,7 +626,7 @@ window.addQuotationScopeItem = function(title = '', desc = '', price = 0) {
     <div class="qb-item-body">
       <div class="form-group-pay">
         <label>Skop / Nama Fungsi</label>
-        <input type="text" class="qb-input-title" value="${escapeHtml(title)}" placeholder="Contoh: Pembangunan 5 Halaman Landing Page" required oninput="updateQtFormTotals()">
+        <textarea class="qb-input-title qb-auto-textarea" rows="1" placeholder="Contoh: Pembangunan 5 Halaman Landing Page" required oninput="updateQtFormTotals(); autoExpandTextarea(this);" style="width: 100%; min-height: 44px; font-size: 14px; font-weight: 700; line-height: 1.5; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 10px; box-sizing: border-box; overflow-y: hidden; resize: none;">${escapeHtml(title)}</textarea>
       </div>
       <div class="form-group-pay">
         <label>Penerangan Terperinci</label>
