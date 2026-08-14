@@ -436,6 +436,59 @@ Sila maklum balas bila berkelapangan. Terima kasih!`;
 };
 
 /* ==========================================
+   PWA INSTALLATION MODAL & PROMPT LOGIC
+   ========================================== */
+function initPwaInstall() {
+  const modal = document.getElementById('pwa-install-modal');
+  const closeBtn = document.getElementById('pwa-modal-close');
+  const dismissBtn = document.getElementById('pwa-modal-dismiss');
+  const directBtn = document.getElementById('pwa-direct-install-btn');
+
+  let deferredPrompt = null;
+
+  // Listen for Chrome / Android beforeinstallprompt
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (directBtn) directBtn.style.display = 'inline-flex';
+  });
+
+  // Check if user has already dismissed modal
+  const hasDismissed = localStorage.getItem('kwikezee_pwa_dismissed_v2');
+
+  // Auto-show modal on mobile after 3.5 seconds if not dismissed
+  if (!hasDismissed && window.innerWidth <= 768) {
+    setTimeout(() => {
+      openPwaModal();
+    }, 3500);
+  }
+
+  function openPwaModal() {
+    if (modal) modal.classList.add('active');
+  }
+
+  function closePwaModal() {
+    if (modal) modal.classList.remove('active');
+    localStorage.setItem('kwikezee_pwa_dismissed_v2', 'true');
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', closePwaModal);
+  if (dismissBtn) dismissBtn.addEventListener('click', closePwaModal);
+
+  if (directBtn) {
+    directBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log('PWA Install choice:', outcome);
+        deferredPrompt = null;
+        closePwaModal();
+      }
+    });
+  }
+}
+
+/* ==========================================
    PORTFOLIO HORIZONTAL CAROUSEL (MOBILE)
    ========================================== */
 function initPortfolioSlider() {

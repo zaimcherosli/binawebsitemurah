@@ -80,18 +80,53 @@
     <div class="glow-orb orb-3"></div>
   </div>
 
-  <!-- PWA Elegant Custom Install Bottom Sheet -->
-  <div class="pwa-install-sheet" id="pwa-sheet" role="alert" aria-hidden="true">
-    <div class="pwa-sheet-drag-bar"></div>
-    <div class="pwa-sheet-content">
-      <img src="images/logo-round.jpg" alt="Kwikezee Studio Logo" class="pwa-sheet-logo-img">
-      <div class="pwa-sheet-text">
-        <h3>Pasang Aplikasi Kwikezee</h3>
-        <p>Akses portfolio offline, kalkulator kos &amp; hubungi kami terus dari skrin utama telefon anda.</p>
+  <!-- MODAL PANDUAN & PASANG PWA (ANDROID & APPLE) -->
+  <div class="pwa-modal-overlay" id="pwa-install-modal" aria-hidden="true">
+    <div class="pwa-modal-body">
+      <div class="pwa-modal-header">
+        <div class="pwa-modal-logo-row">
+          <img src="images/logo-round.jpg" alt="Kwikezee Studio" class="pwa-modal-logo">
+          <div>
+            <h3 class="pwa-modal-title">Pasang Aplikasi Kwikezee</h3>
+            <p class="pwa-modal-subtitle">Tambah ke Skrin Utama HP untuk akses pantas &amp; portfolio offline</p>
+          </div>
+        </div>
+        <button class="pwa-modal-close" id="pwa-modal-close" aria-label="Tutup">✕</button>
       </div>
-      <div class="pwa-sheet-actions">
-        <button class="btn btn-primary" id="pwa-btn-install">Pasang Sekarang</button>
-        <button class="btn btn-outline" id="pwa-btn-ignore">Nanti Dahulu</button>
+
+      <div class="pwa-modal-content">
+        <!-- Direct Chrome Install Button (if supported) -->
+        <button class="btn btn-primary btn-block pwa-direct-install-btn" id="pwa-direct-install-btn">
+          <span>⚡ Pasang Aplikasi Sekarang (1-Click)</span>
+        </button>
+
+        <!-- Android Guide -->
+        <div class="pwa-guide-box android-guide">
+          <div class="pwa-guide-head">
+            <span class="pwa-guide-icon">🤖</span>
+            <span>Pengguna Android (Chrome):</span>
+          </div>
+          <ol class="pwa-guide-steps">
+            <li>Tekan menu <b>Tiga Titik (⋮)</b> di sudut atas kanan browser.</li>
+            <li>Pilih <b>"Add to Home screen"</b> atau <b>"Install App"</b>.</li>
+          </ol>
+        </div>
+
+        <!-- Apple Guide -->
+        <div class="pwa-guide-box apple-guide">
+          <div class="pwa-guide-head">
+            <span class="pwa-guide-icon">🍏</span>
+            <span>Pengguna iPhone (Safari):</span>
+          </div>
+          <ol class="pwa-guide-steps">
+            <li>Tekan <b>Kongsi (Share ⎋)</b> di bawah browser Safari.</li>
+            <li>Skrol &amp; pilih <b>"Add to Home Screen" (+ Tambah)</b>.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="pwa-modal-footer">
+        <button class="btn btn-outline btn-block" id="pwa-modal-dismiss">Faham &amp; Teruskan</button>
       </div>
     </div>
   </div>

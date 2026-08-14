@@ -34,6 +34,133 @@
   --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ==========================================
+   PWA INSTALL MODAL OVERLAY STYLES
+   ========================================== */
+.pwa-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  z-index: 10005;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.pwa-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.pwa-modal-body {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-gold);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 440px;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pwa-modal-overlay.active .pwa-modal-body {
+  transform: translateY(0) scale(1);
+}
+
+.pwa-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.pwa-modal-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.pwa-modal-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--gold-primary);
+  flex-shrink: 0;
+}
+
+.pwa-modal-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #09090B;
+  margin: 0 0 2px 0;
+}
+
+.pwa-modal-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.pwa-modal-close {
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #52525B;
+}
+
+.pwa-direct-install-btn {
+  margin-bottom: 14px;
+  font-size: 14.5px;
+  padding: 14px 20px;
+  display: none; /* Shown via JS when beforeinstallprompt is ready */
+}
+
+.pwa-guide-box {
+  background: #FAFAF9;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.pwa-guide-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #18181B;
+  margin-bottom: 6px;
+}
+
+.pwa-guide-steps {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 12px;
+  color: #52525B;
+  line-height: 1.5;
+}
+
 /* Base Styles */
 * {
   box-sizing: border-box;
