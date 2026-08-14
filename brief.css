@@ -1070,5 +1070,39 @@ body {
     height: 36px !important;
     min-width: 36px !important;
   }
+
+/* Drag & Drop Reordering Enhancements */
+.history-item-card {
+  transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.15s ease, opacity 0.15s ease !important;
+  touch-action: manipulation;
+}
+
+.history-item-card.dragging {
+  opacity: 0.3 !important;
+  border: 2px dashed #2563EB !important;
+  background: #EFF6FF !important;
+  transform: scale(0.97) !important;
+}
+
+.hic-drag-bar:hover {
+  background: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+.qb-item-row {
+  transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.15s ease, opacity 0.15s ease !important;
+}
+
+.qb-item-row.dragging {
+  opacity: 0.3 !important;
+  border: 2px dashed #F59E0B !important;
+  background: #FEF3C7 !important;
+  transform: scale(0.98) !important;
+}
+
+.qb-drag-handle:hover {
+  opacity: 1 !important;
+  background: #E2E8F0 !important;
+  border-radius: 4px;
 }
 

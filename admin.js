@@ -1239,6 +1239,15 @@ function renderHistoryItemsUI(history, container) {
     html += `
       <div class="history-item-card" style="background: ${cardBg}; border: 1.5px solid #cbd5e1; border-top: ${cardTopBorder}; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
         <div>
+          <!-- Drag Handle Bar -->
+          <div class="hic-drag-bar" style="cursor: grab; user-select: none; background: #F8FAFC; border-bottom: 1px solid #E2E8F0; padding: 6px 12px; margin: -16px -16px 12px -16px; border-top-left-radius: 14px; border-top-right-radius: 14px; display: flex; align-items: center; justify-content: space-between; font-size: 11px; font-weight: 800; color: #64748B;" title="Tarik pemegang ini untuk ubah susunan kad">
+            <span style="display: inline-flex; align-items: center; gap: 5px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2.5"><circle cx="9" cy="5" r="1.2"/><circle cx="9" cy="12" r="1.2"/><circle cx="9" cy="19" r="1.2"/><circle cx="15" cy="5" r="1.2"/><circle cx="15" cy="12" r="1.2"/><circle cx="15" cy="19" r="1.2"/></svg>
+              Tarik Untuk Susun
+            </span>
+            <span style="font-size: 11px; font-weight: 900; color: #94A3B8;">⠿</span>
+          </div>
+
           <!-- Header Row: Badges & Date grouped cleanly on left -->
           <div class="hic-header" style="display: flex; align-items: center; justify-content: flex-start; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
             <span class="hic-badge" style="background: ${badgeBg}; color: ${badgeColor}; border: ${badgeBorder}; font-size: 11.5px; font-weight: 900; padding: 3px 8px; border-radius: 6px; white-space: nowrap; display: inline-flex; align-items: center;">${docIconSvg}${qt.qt_no}</span>
@@ -1324,19 +1333,25 @@ function initHistoryCardsDragDrop() {
   const cards = container.querySelectorAll('.history-item-card');
   cards.forEach(card => {
     card.setAttribute('draggable', 'true');
-    card.style.cursor = 'grab';
+
+    const dragBar = card.querySelector('.hic-drag-bar');
+    if (dragBar) {
+      dragBar.addEventListener('mousedown', () => {
+        dragBar.style.cursor = 'grabbing';
+      });
+      dragBar.addEventListener('mouseup', () => {
+        dragBar.style.cursor = 'grab';
+      });
+    }
 
     card.addEventListener('dragstart', (e) => {
       card.classList.add('dragging');
-      card.style.opacity = '0.4';
-      card.style.transform = 'scale(0.98)';
       e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', '');
     });
 
     card.addEventListener('dragend', () => {
       card.classList.remove('dragging');
-      card.style.opacity = '1';
-      card.style.transform = 'none';
       saveHistoryNewOrder();
     });
   });
@@ -1349,7 +1364,7 @@ function initHistoryCardsDragDrop() {
       const draggingCard = container.querySelector('.history-item-card.dragging');
       if (!draggingCard) return;
 
-      const afterElement = getDragAfterElement(container, e.clientY, '.history-item-card');
+      const afterElement = getGridDragAfterElement(container, e.clientX, e.clientY, '.history-item-card');
       if (afterElement == null) {
         container.appendChild(draggingCard);
       } else {
@@ -1385,6 +1400,22 @@ function saveHistoryNewOrder() {
       localStorage.setItem('kwikezee_qt_history', JSON.stringify(newHistoryOrder));
     } catch (e) {}
   }
+}
+
+function getGridDragAfterElement(container, x, y, selector) {
+  const draggableElements = [...container.querySelectorAll(`${selector}:not(.dragging)`)];
+  return draggableElements.reduce((closest, child) => {
+    const box = child.getBoundingClientRect();
+    const centerX = box.left + box.width / 2;
+    const centerY = box.top + box.height / 2;
+    const distance = Math.hypot(x - centerX, y - centerY);
+
+    if (distance < closest.distance) {
+      return { distance: distance, element: child };
+    } else {
+      return closest;
+    }
+  }, { distance: Number.POSITIVE_INFINITY }).element;
 }
 
 function getDragAfterElement(container, y, selector) {
