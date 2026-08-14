@@ -466,14 +466,19 @@ function initPwaInstall() {
     if (androidGuide) androidGuide.style.display = 'block';
   }
 
-  // Check if user has already dismissed modal
-  const hasDismissed = localStorage.getItem('kwikezee_pwa_dismissed_v2');
+  // Global window opener for testing or manual triggers
+  window.openPwaInstallModal = function() {
+    if (modal) modal.classList.add('active');
+  };
 
-  // Auto-show modal on mobile after 3.5 seconds if not dismissed
-  if (!hasDismissed && window.innerWidth <= 768) {
+  // Check if user has already dismissed modal in current session
+  const hasDismissed = sessionStorage.getItem('kwikezee_pwa_dismissed_v5');
+
+  // Auto-show modal after 2.0 seconds
+  if (!hasDismissed) {
     setTimeout(() => {
       openPwaModal();
-    }, 3500);
+    }, 2000);
   }
 
   function openPwaModal() {
@@ -482,7 +487,7 @@ function initPwaInstall() {
 
   function closePwaModal() {
     if (modal) modal.classList.remove('active');
-    localStorage.setItem('kwikezee_pwa_dismissed_v2', 'true');
+    sessionStorage.setItem('kwikezee_pwa_dismissed_v5', 'true');
   }
 
   if (closeBtn) closeBtn.addEventListener('click', closePwaModal);
