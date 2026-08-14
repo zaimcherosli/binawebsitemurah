@@ -1227,9 +1227,9 @@ function renderHistoryItemsUI(history, container) {
           <h3 class="hic-title" style="font-size: 16px; font-weight: 800; color: #0f172a; margin: 0 0 4px 0; line-height: 1.3;">${escapeHtml(qt.client_name || 'Klien')}</h3>
           <p class="hic-sub" style="font-size: 12.5px; font-weight: 600; color: #475569; margin: 0 0 12px 0; line-height: 1.4;">${escapeHtml(qt.project_title || 'Projek Web')}</p>
 
-          <div class="hic-price-row" style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 10px 12px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 12px; font-weight: 700; color: #0f172a;">
-            <span>Jumlah: <strong style="color: #000000; font-weight: 900; font-size: 13px;">RM ${totVal}</strong></span>
-            <span>${isFullPayment ? 'Bayaran Penuh' : 'Deposit 50%'}: <strong style="color: ${isFullPayment ? '#1d4ed8' : '#047857'}; font-weight: 900; font-size: 13px;">RM ${depVal}</strong></span>
+          <div class="hic-price-row" style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 9px 10px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: #0f172a; white-space: nowrap !important; box-sizing: border-box;">
+            <span style="white-space: nowrap !important;">Jumlah: <strong style="color: #000000; font-weight: 900; font-size: 12px;">RM ${totVal}</strong></span>
+            <span style="white-space: nowrap !important;">${isFullPayment ? 'Penuh' : 'Deposit'}: <strong style="color: ${isFullPayment ? '#1d4ed8' : '#047857'}; font-weight: 900; font-size: 12px;">RM ${depVal}</strong></span>
           </div>
         </div>
 
