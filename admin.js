@@ -441,15 +441,74 @@ window.generateNextQtNo = function(customPrefix) {
     } catch (e) { list = []; }
   }
 
-  const matching = list.filter(q => (q.qt_no || q.qtNo || '').startsWith(prefix));
-  const nextNum = matching.length + 1;
-  const newNo = `${prefix}-${currentYear}-${String(nextNum).padStart(3, '0')}`;
+  let maxNum = 0;
+  const pattern = new RegExp(`^${prefix}-${currentYear}-(\\d+)`, 'i');
+
+  list.forEach(q => {
+    const no = (q.qt_no || q.qtNo || '').trim();
+    const match = no.match(pattern);
+    if (match) {
+      const num = parseInt(match[1], 10);
+      if (!isNaN(num) && num > maxNum) {
+        maxNum = num;
+      }
+    }
+  });
+
+  let nextNum = maxNum + 1;
+  let candidateNo = `${prefix}-${currentYear}-${String(nextNum).padStart(3, '0')}`;
+
+  while (list.some(q => (q.qt_no || q.qtNo || '').trim().toUpperCase() === candidateNo.toUpperCase())) {
+    nextNum++;
+    candidateNo = `${prefix}-${currentYear}-${String(nextNum).padStart(3, '0')}`;
+  }
 
   const qtNoEl = document.getElementById('qt-no');
   if (qtNoEl) {
-    qtNoEl.value = newNo;
+    qtNoEl.value = candidateNo;
+    checkQtNoUnique();
   }
-  return newNo;
+  return candidateNo;
+};
+
+window.checkQtNoUnique = function() {
+  const qtNoEl = document.getElementById('qt-no');
+  if (!qtNoEl) return true;
+
+  const val = qtNoEl.value.trim();
+  if (!val) return true;
+
+  let warningEl = document.getElementById('qt-no-warning');
+  if (!warningEl) {
+    warningEl = document.createElement('div');
+    warningEl.id = 'qt-no-warning';
+    warningEl.style.cssText = 'margin-top: 6px; font-size: 12px; font-weight: 800; border-radius: 8px; padding: 6px 10px; transition: all 0.2s ease;';
+    qtNoEl.parentNode.appendChild(warningEl);
+  }
+
+  let list = _qtHistoryCache || [];
+  if (!list.length) {
+    try { list = JSON.parse(localStorage.getItem('kwikezee_qt_history') || '[]'); } catch (e) { list = []; }
+  }
+
+  const existing = list.find(q => (q.qt_no || q.qtNo || '').trim().toUpperCase() === val.toUpperCase());
+  const isEditingCurrent = window._editingOriginalQtNo && window._editingOriginalQtNo.toUpperCase() === val.toUpperCase();
+
+  if (existing && !isEditingCurrent) {
+    warningEl.style.display = 'flex';
+    warningEl.style.alignItems = 'center';
+    warningEl.style.gap = '6px';
+    warningEl.style.background = '#FEF2F2';
+    warningEl.style.border = '1.5px solid #FCA5A5';
+    warningEl.style.color = '#991B1B';
+    warningEl.innerHTML = `⚠️ Nombor <strong>${val}</strong> dah wujud dlm Arkib. Sila klik <button type="button" onclick="generateNextQtNo()" style="background:#0F172A;color:#FFF;border:none;border-radius:4px;padding:2px 6px;font-size:11px;cursor:pointer;margin:0 2px;">🔄 Auto No. Baru</button> atau guna <button type="button" onclick="makeDocRevision()" style="background:#92400E;color:#FFF;border:none;border-radius:4px;padding:2px 6px;font-size:11px;cursor:pointer;">✏️ -R1 Pindaan</button>`;
+    qtNoEl.style.borderColor = '#EF4444';
+    return false;
+  } else {
+    warningEl.style.display = 'none';
+    qtNoEl.style.borderColor = '#CBD5E1';
+    return true;
+  }
 };
 
 window.handleDocTypeChange = function() {
@@ -701,6 +760,11 @@ window.generateQuotationDocument = async function(event) {
   event.preventDefault();
 
   const qtNo = document.getElementById('qt-no').value.trim();
+  const isUnique = checkQtNoUnique();
+  if (!isUnique) {
+    alert(`❌ Nombor Dokumen '${qtNo}' telah pernah digunakan dalam Arkib.\n\nSila klik '🔄 Auto No. Baru' untuk jana nombor unik seterusnya, atau '✏️ -R1 Pindaan' untuk versi pindaan.`);
+    return;
+  }
   const qtDate = document.getElementById('qt-date').value;
   const qtValid = document.getElementById('qt-valid-until').value;
   const clientName = document.getElementById('qt-client-name').value.trim();
@@ -1261,6 +1325,7 @@ window.editHistoryQt = async function(index) {
   } catch (e) { /* guna cache */ }
 
   const qtData = normalizeQtFromApi(qt);
+  window._editingOriginalQtNo = qtData.qtNo || '';
 
   switchAdminTab('quotation');
 

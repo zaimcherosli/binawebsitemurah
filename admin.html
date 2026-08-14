@@ -14,8 +14,8 @@
   <link rel="icon" type="image/jpeg" sizes="32x32" href="images/logo-round.jpg">
   <link rel="icon" type="image/jpeg" sizes="16x16" href="images/logo-round.jpg">
   <link rel="shortcut icon" href="images/logo-round.jpg">
-  <link rel="stylesheet" href="style.css?v=360">
-  <link rel="stylesheet" href="brief.css?v=360">
+  <link rel="stylesheet" href="style.css?v=380">
+  <link rel="stylesheet" href="brief.css?v=380">
 </head>
 <body class="admin-body">
 
@@ -172,7 +172,7 @@
                       <button type="button" onclick="generateNextQtNo()" style="background: #e2e8f0; border: none; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; color: #0f172a; cursor: pointer;" title="Jana nombor dokumen baru automatik">🔄 Auto No. Baru</button>
                     </div>
                   </label>
-                  <input type="text" id="qt-no" required placeholder="KZ-QT-2026-001">
+                  <input type="text" id="qt-no" required placeholder="KZ-QT-2026-001" oninput="checkQtNoUnique()" onchange="checkQtNoUnique()">
                 </div>
                 <div class="form-group-pay">
                   <label>Tarikh Dikeluarkan</label>
@@ -490,6 +490,6 @@
     </div>
   </footer>
 
-  <script src="admin.js?v=370"></script>
+  <script src="admin.js?v=380"></script>
 </body>
 </html>
