@@ -482,13 +482,47 @@ Sila maklum balas bila berkelapangan. Terima kasih!`;
 /* ==========================================
    PWA INSTALLATION MODAL & PROMPT LOGIC
    ========================================== */
-function initPwaInstall() {
+async function initPwaInstall() {
   const modal = document.getElementById('pwa-install-modal');
   const closeBtn = document.getElementById('pwa-modal-close');
   const dismissBtn = document.getElementById('pwa-modal-dismiss');
   const directBtn = document.getElementById('pwa-direct-install-btn');
 
   let deferredPrompt = null;
+
+  // 1. Detect if website is opened inside installed PWA / standalone mode (Mobile & Desktop)
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+                       window.matchMedia('(display-mode: window-controls-overlay)').matches ||
+                       window.matchMedia('(display-mode: fullscreen)').matches ||
+                       window.matchMedia('(display-mode: minimal-ui)').matches ||
+                       window.navigator.standalone === true;
+
+  // 2. Check if marked as installed in localStorage
+  const isMarkedInstalled = localStorage.getItem('kwikezee_pwa_installed') === 'true';
+
+  // 3. Check browser getInstalledRelatedApps API (Chrome / Edge / Android)
+  let isAppInstalledApi = false;
+  if ('getInstalledRelatedApps' in navigator) {
+    try {
+      const relatedApps = await navigator.getInstalledRelatedApps();
+      if (relatedApps && relatedApps.length > 0) {
+        isAppInstalledApi = true;
+        localStorage.setItem('kwikezee_pwa_installed', 'true');
+      }
+    } catch (err) {}
+  }
+
+  // If already installed or running as installed app, abort popup completely!
+  if (isStandalone || isMarkedInstalled || isAppInstalledApi) {
+    if (modal) modal.classList.remove('active');
+    return;
+  }
+
+  // Listen for native appinstalled event when user completes install
+  window.addEventListener('appinstalled', () => {
+    localStorage.setItem('kwikezee_pwa_installed', 'true');
+    if (modal) modal.classList.remove('active');
+  });
 
   // Listen for Chrome / Android beforeinstallprompt
   window.addEventListener('beforeinstallprompt', (e) => {
@@ -525,10 +559,10 @@ function initPwaInstall() {
     if (modal) modal.classList.add('active');
   };
 
-  // Check if user has already dismissed modal in current session
-  const hasDismissed = sessionStorage.getItem('kwikezee_pwa_dismissed_v5');
+  // Check if user has already dismissed modal in current session or localStorage
+  const hasDismissed = sessionStorage.getItem('kwikezee_pwa_dismissed_v5') || localStorage.getItem('kwikezee_pwa_dismissed');
 
-  // Auto-show modal after 2.0 seconds
+  // Auto-show modal after 2.0 seconds only if NOT dismissed and NOT installed
   if (!hasDismissed) {
     setTimeout(() => {
       openPwaModal();
@@ -536,12 +570,16 @@ function initPwaInstall() {
   }
 
   function openPwaModal() {
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true || localStorage.getItem('kwikezee_pwa_installed') === 'true') {
+      return;
+    }
     if (modal) modal.classList.add('active');
   }
 
   function closePwaModal() {
     if (modal) modal.classList.remove('active');
     sessionStorage.setItem('kwikezee_pwa_dismissed_v5', 'true');
+    localStorage.setItem('kwikezee_pwa_dismissed', 'true');
   }
 
   if (closeBtn) closeBtn.addEventListener('click', closePwaModal);
@@ -553,6 +591,9 @@ function initPwaInstall() {
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
         console.log('PWA Install choice:', outcome);
+        if (outcome === 'accepted') {
+          localStorage.setItem('kwikezee_pwa_installed', 'true');
+        }
         deferredPrompt = null;
         closePwaModal();
       }
