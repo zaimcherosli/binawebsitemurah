@@ -37,7 +37,169 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=310">
+  <link rel="stylesheet" href="style.css?v=325">
+
+  <style>
+    /* PWA Modal Standalone Critical Styles (Bypasses Cache) */
+    .pwa-modal-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: rgba(0, 0, 0, 0.75) !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+      z-index: 10005 !important;
+      display: flex !important;
+      align-items: flex-end !important;
+      justify-content: center !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      transition: opacity 0.3s ease, visibility 0.3s ease !important;
+    }
+
+    @media (min-width: 600px) {
+      .pwa-modal-overlay {
+        align-items: center !important;
+        padding: 16px !important;
+      }
+    }
+
+    .pwa-modal-overlay.active {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .pwa-modal-body {
+      background: #FFFFFF !important;
+      border-top-left-radius: 24px !important;
+      border-top-right-radius: 24px !important;
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+      border: 1.5px solid var(--border-gold, #B8860B) !important;
+      width: 100% !important;
+      max-width: 460px !important;
+      padding: 14px 18px 20px !important;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4) !important;
+      transform: translateY(100%) !important;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      box-sizing: border-box !important;
+    }
+
+    @media (min-width: 600px) {
+      .pwa-modal-body {
+        border-radius: 24px !important;
+        transform: translateY(20px) scale(0.95) !important;
+      }
+      .pwa-modal-overlay.active .pwa-modal-body {
+        transform: translateY(0) scale(1) !important;
+      }
+    }
+
+    .pwa-modal-overlay.active .pwa-modal-body {
+      transform: translateY(0) !important;
+    }
+
+    .pwa-modal-drag-handle {
+      width: 36px !important;
+      height: 4px !important;
+      background: #CBD5E1 !important;
+      border-radius: 4px !important;
+      margin: 0 auto 10px !important;
+    }
+
+    .pwa-modal-header {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 10px !important;
+      margin-bottom: 12px !important;
+    }
+
+    .pwa-modal-logo-row {
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+    }
+
+    img.pwa-modal-logo {
+      width: 44px !important;
+      height: 44px !important;
+      max-width: 44px !important;
+      max-height: 44px !important;
+      border-radius: 50% !important;
+      object-fit: cover !important;
+      flex-shrink: 0 !important;
+      border: 2px solid var(--gold-primary, #B8860B) !important;
+    }
+
+    .pwa-modal-title {
+      font-size: 15.5px !important;
+      font-weight: 800 !important;
+      color: #09090B !important;
+      margin: 0 0 2px 0 !important;
+      line-height: 1.2 !important;
+    }
+
+    .pwa-modal-subtitle {
+      font-size: 11.5px !important;
+      color: #64748B !important;
+      margin: 0 !important;
+      line-height: 1.3 !important;
+    }
+
+    .pwa-modal-close {
+      background: #F1F5F9 !important;
+      border: none !important;
+      width: 30px !important;
+      height: 30px !important;
+      border-radius: 50% !important;
+      font-weight: 800 !important;
+      font-size: 14px !important;
+      cursor: pointer !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #475569 !important;
+      flex-shrink: 0 !important;
+    }
+
+    .pwa-direct-install-btn {
+      margin-bottom: 10px !important;
+      font-size: 13.5px !important;
+      padding: 12px 16px !important;
+      display: none;
+    }
+
+    .pwa-guide-box {
+      background: #F8FAFC !important;
+      border: 1px solid #E2E8F0 !important;
+      border-radius: 12px !important;
+      padding: 10px 12px !important;
+      margin-bottom: 10px !important;
+    }
+
+    .pwa-guide-head {
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      font-size: 12.5px !important;
+      font-weight: 700 !important;
+      color: #0F172A !important;
+      margin-bottom: 4px !important;
+    }
+
+    .pwa-guide-steps {
+      margin: 0 !important;
+      padding-left: 18px !important;
+      font-size: 11.5px !important;
+      color: #475569 !important;
+      line-height: 1.45 !important;
+    }
+  </style>
 
   <!-- Schema LocalBusiness JSON-LD -->
   <script type="application/ld+json">
