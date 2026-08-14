@@ -673,13 +673,22 @@ window.addQuotationScopeItem = function(title = '', desc = '', price = 0) {
   const container = document.getElementById('quotation-items-list');
   if (!container) return;
 
+  initScopeItemsDragDrop();
+
   const row = document.createElement('div');
   row.className = 'qb-item-row';
   row.id = `qb-item-${qbItemCounter}`;
+  row.setAttribute('draggable', 'true');
+  row.style.cursor = 'grab';
 
   row.innerHTML = `
-    <div class="qb-item-header">
-      <span class="qb-item-num">#${container.children.length + 1}</span>
+    <div class="qb-item-header" style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="qb-drag-handle" style="cursor: grab; opacity: 0.6; padding: 2px 4px; display: inline-flex; align-items: center;" title="Tarik untuk ubah susunan (Drag & Drop)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2.5"><circle cx="9" cy="5" r="1.2"/><circle cx="9" cy="12" r="1.2"/><circle cx="9" cy="19" r="1.2"/><circle cx="15" cy="5" r="1.2"/><circle cx="15" cy="12" r="1.2"/><circle cx="15" cy="19" r="1.2"/></svg>
+        </span>
+        <span class="qb-item-num">#${container.children.length + 1}</span>
+      </div>
       <button type="button" class="btn-remove-row" onclick="removeQuotationScopeItem(${qbItemCounter})" title="Padam Skop Ini">&times;</button>
     </div>
     <div class="qb-item-body">
@@ -697,6 +706,19 @@ window.addQuotationScopeItem = function(title = '', desc = '', price = 0) {
       </div>
     </div>
   `;
+
+  row.addEventListener('dragstart', (e) => {
+    row.classList.add('dragging');
+    row.style.opacity = '0.4';
+    e.dataTransfer.effectAllowed = 'move';
+  });
+
+  row.addEventListener('dragend', () => {
+    row.classList.remove('dragging');
+    row.style.opacity = '1';
+    reindexQbItemNumbers();
+    updateQtFormTotals();
+  });
 
   container.appendChild(row);
   reindexQbItemNumbers();
@@ -1268,6 +1290,114 @@ function renderHistoryItemsUI(history, container) {
   });
   html += `</div>`;
   container.innerHTML = html;
+  initHistoryCardsDragDrop();
+}
+
+/* ==========================================================================
+   DRAG & DROP REORDERING SYSTEM (SKOP KERJA & ARKIB KAD)
+   ========================================================================== */
+
+function initScopeItemsDragDrop() {
+  const container = document.getElementById('quotation-items-list');
+  if (!container || container.dataset.dragInited) return;
+  container.dataset.dragInited = 'true';
+
+  container.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    const draggingRow = container.querySelector('.qb-item-row.dragging');
+    if (!draggingRow) return;
+
+    const afterElement = getDragAfterElement(container, e.clientY, '.qb-item-row');
+    if (afterElement == null) {
+      container.appendChild(draggingRow);
+    } else {
+      container.insertBefore(draggingRow, afterElement);
+    }
+  });
+}
+
+function initHistoryCardsDragDrop() {
+  const container = document.querySelector('.history-grid');
+  if (!container) return;
+
+  const cards = container.querySelectorAll('.history-item-card');
+  cards.forEach(card => {
+    card.setAttribute('draggable', 'true');
+    card.style.cursor = 'grab';
+
+    card.addEventListener('dragstart', (e) => {
+      card.classList.add('dragging');
+      card.style.opacity = '0.4';
+      card.style.transform = 'scale(0.98)';
+      e.dataTransfer.effectAllowed = 'move';
+    });
+
+    card.addEventListener('dragend', () => {
+      card.classList.remove('dragging');
+      card.style.opacity = '1';
+      card.style.transform = 'none';
+      saveHistoryNewOrder();
+    });
+  });
+
+  if (!container.dataset.dragInited) {
+    container.dataset.dragInited = 'true';
+    container.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      const draggingCard = container.querySelector('.history-item-card.dragging');
+      if (!draggingCard) return;
+
+      const afterElement = getDragAfterElement(container, e.clientY, '.history-item-card');
+      if (afterElement == null) {
+        container.appendChild(draggingCard);
+      } else {
+        container.insertBefore(draggingCard, afterElement);
+      }
+    });
+  }
+}
+
+function saveHistoryNewOrder() {
+  const container = document.querySelector('.history-grid');
+  if (!container) return;
+
+  const cards = container.querySelectorAll('.history-item-card');
+  const newHistoryOrder = [];
+
+  cards.forEach(card => {
+    const qtBadge = card.querySelector('.hic-badge');
+    if (qtBadge) {
+      const fullText = qtBadge.innerText.trim();
+      const match = fullText.match(/(KZ-[A-Z0-9-]+)/i);
+      const qtNo = match ? match[1] : fullText;
+      const found = _qtHistoryCache.find(q => (q.qt_no || q.qtNo || '').trim().toUpperCase() === qtNo.toUpperCase());
+      if (found) {
+        newHistoryOrder.push(found);
+      }
+    }
+  });
+
+  if (newHistoryOrder.length > 0) {
+    _qtHistoryCache = newHistoryOrder;
+    try {
+      localStorage.setItem('kwikezee_qt_history', JSON.stringify(newHistoryOrder));
+    } catch (e) {}
+  }
+}
+
+function getDragAfterElement(container, y, selector) {
+  const draggableElements = [...container.querySelectorAll(`${selector}:not(.dragging)`)];
+  return draggableElements.reduce((closest, child) => {
+    const box = child.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+    if (offset < 0 && offset > closest.offset) {
+      return { offset: offset, element: child };
+    } else {
+      return closest;
+    }
+  }, { offset: Number.NEGATIVE_INFINITY }).element;
 }
 
 async function renderQuotationHistory() {
