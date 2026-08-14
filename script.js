@@ -453,17 +453,27 @@ function initPwaInstall() {
     if (directBtn) directBtn.style.display = 'inline-flex';
   });
 
-  // Auto detect iOS vs Android to show relevant guide only
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  // Auto detect device type (iOS vs Android vs Desktop)
+  const userAgent = navigator.userAgent || '';
+  const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent) || window.innerWidth <= 768;
+
   const androidGuide = document.getElementById('pwa-android-guide');
   const appleGuide = document.getElementById('pwa-apple-guide');
+  const desktopGuide = document.getElementById('pwa-desktop-guide');
 
   if (isIOS) {
-    if (androidGuide) androidGuide.style.display = 'none';
     if (appleGuide) appleGuide.style.display = 'block';
-  } else {
-    if (appleGuide) appleGuide.style.display = 'none';
+    if (androidGuide) androidGuide.style.display = 'none';
+    if (desktopGuide) desktopGuide.style.display = 'none';
+  } else if (isMobile) {
     if (androidGuide) androidGuide.style.display = 'block';
+    if (appleGuide) appleGuide.style.display = 'none';
+    if (desktopGuide) desktopGuide.style.display = 'none';
+  } else {
+    if (desktopGuide) desktopGuide.style.display = 'block';
+    if (androidGuide) androidGuide.style.display = 'none';
+    if (appleGuide) appleGuide.style.display = 'none';
   }
 
   // Global window opener for testing or manual triggers
