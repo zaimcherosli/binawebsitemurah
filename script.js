@@ -667,16 +667,17 @@ async function initPwaInstall() {
     if (modal) modal.classList.add('active');
   };
 
-  // Auto-show modal after 1.8 seconds if not running standalone and not installed
+  // Auto-show modal after 1.5 seconds if not running standalone
   setTimeout(() => {
     openPwaModal();
-  }, 1800);
+  }, 1500);
 
   function openPwaModal() {
-    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true || localStorage.getItem('kwikezee_pwa_installed') === 'true') {
+    if (!modal) return;
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
       return;
     }
-    if (modal) modal.classList.add('active');
+    modal.classList.add('active');
   }
 
   function closePwaModal() {
