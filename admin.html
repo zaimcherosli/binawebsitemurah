@@ -14,8 +14,8 @@
   <link rel="icon" type="image/jpeg" sizes="32x32" href="images/logo-round.jpg">
   <link rel="icon" type="image/jpeg" sizes="16x16" href="images/logo-round.jpg">
   <link rel="shortcut icon" href="images/logo-round.jpg">
-  <link rel="stylesheet" href="style.css?v=390">
-  <link rel="stylesheet" href="brief.css?v=420">
+  <link rel="stylesheet" href="style.css?v=400">
+  <link rel="stylesheet" href="brief.css?v=430">
 </head>
 <body class="admin-body">
 
@@ -41,7 +41,6 @@
     #btn-hamburger { display: none; }
     #admin-drawer { display: none; }
     #admin-drawer-overlay { display: none; }
-    .qb-input-desc { min-height: 120px !important; font-size: 14px !important; line-height: 1.6 !important; padding: 10px 12px !important; }
     @media (max-width: 768px) {
       .admin-desktop-nav { display: none !important; }
       .admin-desktop-logout-wrap { display: none !important; }
@@ -165,21 +164,27 @@
               </div>
               <div class="qb-grid-3">
                 <div class="form-group-pay">
-                  <label style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                    <span id="lbl-doc-no">No. Sebut Harga</span>
-                    <div style="display: flex; gap: 4px;">
-                      <button type="button" onclick="makeDocRevision()" style="background: #FEF3C7; border: 1px solid #FCD34D; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; color: #92400E; cursor: pointer;" title="Tukar ke versi pindaan (-R1, -R2)">✏️ -R1 Pindaan</button>
-                      <button type="button" onclick="generateNextQtNo()" style="background: #e2e8f0; border: none; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; color: #0f172a; cursor: pointer;" title="Jana nombor dokumen baru automatik">🔄 Auto No. Baru</button>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; min-height: 24px;">
+                    <label style="margin: 0; font-weight: 800;"><span id="lbl-doc-no">No. Sebut Harga</span></label>
+                  </div>
+                  <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                    <input type="text" id="qt-no" required placeholder="KZ-QT-2026-001" oninput="checkQtNoUnique()" onchange="checkQtNoUnique()" style="padding-right: 125px !important; width: 100%;">
+                    <div style="position: absolute; right: 6px; display: flex; gap: 4px; z-index: 2;">
+                      <button type="button" onclick="makeDocRevision()" style="background: #FEF3C7; border: 1px solid #FCD34D; padding: 4px 7px; border-radius: 6px; font-size: 11px; font-weight: 700; color: #92400E; cursor: pointer; white-space: nowrap;" title="Tukar ke versi pindaan (-R1, -R2)">✏️ -R1</button>
+                      <button type="button" onclick="generateNextQtNo()" style="background: #E2E8F0; border: none; padding: 4px 7px; border-radius: 6px; font-size: 11px; font-weight: 700; color: #0F172A; cursor: pointer; white-space: nowrap;" title="Jana nombor dokumen baru automatik">🔄 Auto</button>
                     </div>
-                  </label>
-                  <input type="text" id="qt-no" required placeholder="KZ-QT-2026-001" oninput="checkQtNoUnique()" onchange="checkQtNoUnique()">
+                  </div>
                 </div>
                 <div class="form-group-pay">
-                  <label>Tarikh Dikeluarkan</label>
+                  <div style="display: flex; align-items: center; margin-bottom: 6px; min-height: 24px;">
+                    <label style="margin: 0; font-weight: 800;">Tarikh Dikeluarkan</label>
+                  </div>
                   <input type="date" id="qt-date" required>
                 </div>
                 <div class="form-group-pay">
-                  <label>Tarikh Tamat Sah</label>
+                  <div style="display: flex; align-items: center; margin-bottom: 6px; min-height: 24px;">
+                    <label style="margin: 0; font-weight: 800;">Tarikh Tamat Sah</label>
+                  </div>
                   <input type="date" id="qt-valid-until" required>
                 </div>
               </div>
@@ -532,6 +537,6 @@
     </div>
   </footer>
 
-  <script src="admin.js?v=500"></script>
+  <script src="admin.js?v=510"></script>
 </body>
 </html>
