@@ -37,7 +37,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=325">
+  <link rel="stylesheet" href="style.css?v=410">
 
   <style>
     /* PWA Modal Standalone Critical Styles (Bypasses Cache) */
@@ -370,48 +370,103 @@
   </header>
 
   <!-- ==========================================
-       SECTION 1: HERO
+       SECTION 1: PRODUCTIZED STUDIO HERO
        ========================================== -->
-  <section class="hero-section">
-    <div class="container hero-container">
+  <section class="hero-section" style="padding-top: 40px; padding-bottom: 60px;">
+    <div class="container hero-container" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
       
-      <div class="hero-content reveal">
-        <!-- Eyebrow Target Badge with Pulsing Green Dot -->
-        <div class="hero-badge">
-          <span class="badge-pulse" style="background-color: #10B981; box-shadow: 0 0 10px #10B981;"></span>
-          <span>KHAS UNTUK EJEN, SALESPERSON &amp; USAHAWAN MALAYSIA</span>
+      <div class="hero-content reveal" style="max-width: 900px; margin: 0 auto; text-align: center;">
+        <!-- Status Indicator Pill -->
+        <div class="studio-hero-badge">
+          <span class="pulse-dot"></span>
+          <span>KWIKEZEE PRODUCTIZED STUDIO • SIAP DALAM 5 HARI BEKERJA</span>
         </div>
 
-        <h1 class="hero-title">
-          Trafik Iklan Banyak Tapi Lead Kena Sidai?
-          <span class="hero-title-accent">Bina Landing Page Yang Auto-Convert Lead Ke WhatsApp!</span>
+        <h1 class="studio-hero-title">
+          Website Bertaraf Agensi Antarabangsa.<br>
+          <span class="text-gradient-gold">Siap Pantas Dalam 5 Hari Bekerja.</span>
         </h1>
         
-        <p class="hero-lead">
-          Kami membina <strong>Landing Page Malaysia</strong> berprestasi tinggi bertema eksklusif &amp; PWA mudah alih. Siap pantas 3–5 hari, sedia sistem sebut harga automatik &amp; tiada kos sewa bulanan.
+        <p class="studio-hero-sub">
+          Lupakan agensi konvensional yang caj puluhan ribu &amp; makan masa berbulan-bulan. Kami membina laman web premium bertaraf dunia, lengkap DuitNow QR, PWA Mobile &amp; automasi jualan WhatsApp — pada harga tetap telus tanpa yuran bulanan.
         </p>
 
-        <div class="hero-cta-row">
-          <a href="#order-form" class="btn btn-primary btn-lg magnetic-btn shiny-cta-btn">
-            <span>Mula Projek (Diskaun 60%)</span>
+        <div class="hero-cta-row" style="justify-content: center; gap: 16px;">
+          <a href="#harga" class="btn btn-primary btn-lg magnetic-btn shiny-cta-btn">
+            <span>✨ Lihat Pakej &amp; Harga Telus</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-          <a href="#kelebihan" class="btn btn-outline btn-lg">Lihat Perbezaan</a>
+          <a href="https://wa.me/60108118559?text=Hai%20Kwikezee%20Studio,%20saya%20berminat%20nak%20bina%20website%20moden" target="_blank" rel="noopener" class="btn btn-outline btn-lg">
+            <span>💬 Mula Projek (WhatsApp)</span>
+          </a>
         </div>
         
-        <div class="hero-trust-bar">
+        <div class="hero-trust-bar" style="justify-content: center; margin-top: 32px;">
           <div class="trust-badge">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--emerald-primary)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-            Mobile-App (PWA) Sedia-Ada
+            📱 100% PWA Mobile-App
           </div>
           <div class="trust-badge">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--emerald-primary)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-            Kelajuan Loading &lt; 1.0s
+            ⚡ Kelajuan Loading &lt; 0.5s
           </div>
           <div class="trust-badge">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--emerald-primary)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-            WhatsApp Sales Funnel
+            💳 DuitNow QR &amp; Invois Rasmi
           </div>
+        </div>
+      </div>
+
+      <!-- Floating Live Project Showcase Mini-Grid -->
+      <div class="hero-showcase-wrapper reveal">
+        <div class="hero-showcase-grid">
+          <!-- Card 1: Zaim Rosli Real Estate -->
+          <a href="https://zaimrosli.my/" target="_blank" rel="noopener" class="showcase-mini-card">
+            <div class="showcase-mini-thumb">
+              <img src="images/portfolio-hartanah.jpg" alt="Zaim Rosli Real Estate Specialist" loading="lazy">
+            </div>
+            <div class="showcase-mini-body">
+              <span class="showcase-mini-tag">Hartanah / REN</span>
+              <h3 class="showcase-mini-title">Zaim Rosli Property Specialist</h3>
+              <span class="showcase-mini-status">● Live di Cloudflare &rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 2: Shah Plaster Renovation -->
+          <a href="https://binawebsitemurah-by.zaimrosli.my/shah-plaster-renovations/" target="_blank" rel="noopener" class="showcase-mini-card">
+            <div class="showcase-mini-thumb">
+              <img src="images/portfolio-shahreno.jpg" alt="Shah Plaster Siling &amp; Renovation" loading="lazy">
+            </div>
+            <div class="showcase-mini-body">
+              <span class="showcase-mini-tag">Renovasi &amp; Kontraktor</span>
+              <h3 class="showcase-mini-title">Shah Plaster &amp; Interior Deco</h3>
+              <span class="showcase-mini-status">● Live di Cloudflare &rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 3: Semenyih CCTV -->
+          <a href="https://semenyih-cctv-aircond.pages.dev/" target="_blank" rel="noopener" class="showcase-mini-card">
+            <div class="showcase-mini-thumb">
+              <img src="images/portfolio-cctv.jpg?v=2" alt="Semenyih CCTV &amp; Aircond" loading="lazy">
+            </div>
+            <div class="showcase-mini-body">
+              <span class="showcase-mini-tag">Servis Komersial</span>
+              <h3 class="showcase-mini-title">Semenyih CCTV &amp; Aircond Hub</h3>
+              <span class="showcase-mini-status">● Live di Cloudflare &rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 4: Telekung Premium -->
+          <a href="https://telekung-premium.pages.dev/" target="_blank" rel="noopener" class="showcase-mini-card">
+            <div class="showcase-mini-thumb">
+              <img src="images/portfolio-telekung.jpg" alt="Telekung Premium Eksklusif" loading="lazy">
+            </div>
+            <div class="showcase-mini-body">
+              <span class="showcase-mini-tag">Produk &amp; Fesyen</span>
+              <h3 class="showcase-mini-title">Telekung Premium Eksklusif</h3>
+              <span class="showcase-mini-status">● Live di Cloudflare &rarr;</span>
+            </div>
+          </a>
         </div>
       </div>
 
@@ -425,75 +480,135 @@
     <div class="container">
       <div class="stats-grid">
         <div class="stat-item reveal">
-          <div class="stat-num" data-target="97" data-suffix="%">0</div>
-          <div class="stat-title">Kadar Kepuasan Klien</div>
+          <div class="stat-num" data-target="99" data-suffix="%">0</div>
+          <div class="stat-title">Skor Kelajuan Google Lighthouse</div>
         </div>
         <div class="stat-divider" aria-hidden="true"></div>
         <div class="stat-item reveal">
-          <div class="stat-num" data-target="3" data-suffix="x">0</div>
-          <div class="stat-title">Gandaan Conversion Iklan</div>
+          <div class="stat-num" data-target="5" data-suffix=" Hari">0</div>
+          <div class="stat-title">Purata Siap Penuh &amp; Live</div>
         </div>
         <div class="stat-divider" aria-hidden="true"></div>
         <div class="stat-item reveal">
-          <div class="stat-num" data-target="45" data-suffix="mms">0</div>
-          <div class="stat-title">Purata Masa Load Halaman</div>
+          <div class="stat-num" data-target="100" data-suffix="%">0</div>
+          <div class="stat-title">Hak Milik Kod &amp; Domain Anda</div>
         </div>
       </div>
     </div>
   </section>
 
-
-
   <!-- ==========================================
-       SECTION 4: KEY ADVANTAGES (KELEBIHAN)
+       SECTION 3: BENTO GRID FEATURE MATRIX
        ========================================== -->
-  <section id="kelebihan" class="advantages-section">
+  <section id="kelebihan" class="bento-section">
     <div class="container">
       <div class="section-header text-center reveal">
-        <span class="section-eyebrow">Mengapa Kwikezee Studio?</span>
-        <h2 class="section-title">Direka Khas Untuk <span class="text-grad-emerald">Conversion</span> Tinggi</h2>
-        <p class="section-sub">Kami tidak membina website templated biasa. Setiap projek adalah karya seni digital khusus untuk bisnes anda.</p>
+        <span class="section-eyebrow">Seni Bina Moden 2026</span>
+        <h2 class="section-title">Dibina Dengan Standard <span class="text-grad-gold">Teknologi Terkini</span></h2>
+        <p class="section-sub">Bukan template WordPress lambat. Kami membina sistem web ultra-pantas yang direka khas untuk meningkatkan kredibiliti dan jualan anda.</p>
       </div>
 
-      <div class="advantages-grid">
-        <!-- Card 1: PWA -->
-        <div class="advantage-card reveal">
-          <div class="card-glow"></div>
-          <div class="adv-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      <div class="bento-grid">
+        <!-- Bento Card 1: 8-col Large Speed & CDN -->
+        <div class="bento-card bento-col-8 reveal">
+          <div>
+            <div class="bento-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <h3>Kelajuan Turbo Cloudflare CDN Global</h3>
+            <p>Setiap saat kelewatan membazirkan wang iklan anda. Website kami dimuat turun dalam masa kurang 0.5 saat melalui rangkaian Cloudflare Edge Server di seluruh dunia, memberikan pengalaman layaran segera tanpa lag.</p>
           </div>
-          <h3>Progressive Web App (PWA)</h3>
-          <p>Laman web anda boleh dipasang seperti aplikasi native di telefon pelanggan. Boleh dilayari secara offline dan tiada browser tabs yang mengganggu.</p>
+          <div class="bento-speed-stat">
+            <span class="bento-speed-score">99/100</span>
+            <div>
+              <span class="bento-speed-label">Google Lighthouse Performance</span>
+              <p style="margin: 0; font-size: 11px; color: #10B981;">⚡ Ultra Fast • Zero CLS • 100% SEO Friendly</p>
+            </div>
+          </div>
         </div>
 
-        <!-- Card 2: Kelajuan -->
-        <div class="advantage-card reveal">
-          <div class="card-glow"></div>
-          <div class="adv-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <!-- Bento Card 2: 4-col DuitNow QR & Invoicing -->
+        <div class="bento-card bento-col-4 reveal">
+          <div>
+            <div class="bento-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <h3>DuitNow QR &amp; Invois Pintar</h3>
+            <p>Terima bayaran deposit &amp; penuh terus ke akaun bank anda dengan modul DuitNow QR automatik &amp; penjana resit rasmi berformat PDF.</p>
           </div>
-          <h3>Loading Super-Pantas</h3>
-          <p>Setiap saat kelewatan mengurangkan jualan anda sebanyak 20%. Halaman kami dioptimumkan untuk memuat kurang dari 1.0 saat, menjimatkan kos iklan anda.</p>
+          <span style="font-size: 12px; font-weight: 700; color: #F59E0B; margin-top: 16px;">✓ Tiada Yuran Komisen Bulanan</span>
         </div>
 
-        <!-- Card 3: Copywriting -->
-        <div class="advantage-card reveal">
-          <div class="card-glow"></div>
-          <div class="adv-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <!-- Bento Card 3: 4-col PWA App -->
+        <div class="bento-card bento-col-4 reveal">
+          <div>
+            <div class="bento-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            </div>
+            <h3>Progressive Web App (PWA)</h3>
+            <p>Klien boleh 'Install' website anda terus ke skrin telefon bimbit (iOS &amp; Android) seperti aplikasi native tanpa perlu muat turun dari App Store.</p>
           </div>
-          <h3>Copywriting Psikologi Jualan</h3>
-          <p>Bukan sekadar hiasan ayat. Kami menyusun struktur teks berdasarkan psikologi jualan (AIDA framework) bagi menukarkan pelawat santai menjadi pembeli tegar.</p>
+          <span style="font-size: 12px; font-weight: 700; color: #10B981; margin-top: 16px;">✓ Akses Pantas Skrin Utama</span>
         </div>
 
-        <!-- Card 4: WhatsApp Funnel -->
-        <div class="advantage-card reveal">
-          <div class="card-glow"></div>
-          <div class="adv-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <!-- Bento Card 4: 4-col Lead Capture & WhatsApp -->
+        <div class="bento-card bento-col-4 reveal">
+          <div>
+            <div class="bento-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </div>
+            <h3>Automasi Notifikasi WhatsApp</h3>
+            <p>Setiap borang tempahan yang diisi oleh pelanggan akan dihantar secara tersusun terus ke WhatsApp &amp; emel anda bersama pangkalan data selamat.</p>
           </div>
-          <h3>Automated Lead Capture</h3>
-          <p>Pelanggan mengisi borang pintar di landing page dahulu, data disimpan, dan butiran dihantar terus ke WhatsApp anda dengan kemas. Pengurusan jualan lebih teratur.</p>
+          <span style="font-size: 12px; font-weight: 700; color: #F59E0B; margin-top: 16px;">✓ Notifikasi Serta-Merta</span>
+        </div>
+
+        <!-- Bento Card 5: 4-col Domain & Security -->
+        <div class="bento-card bento-col-4 reveal">
+          <div>
+            <div class="bento-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <h3>Domain &amp; SSL Percuma 1 Tahun</h3>
+            <p>Pendaftaran nama domain rasmi jenama anda (.my / .com) bersama sijil keselamatan SSL gred bank dan hosting cloud percuma untuk tahun pertama.</p>
+          </div>
+          <span style="font-size: 12px; font-weight: 700; color: #10B981; margin-top: 16px;">✓ 100% Sedia Digunakan</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SECTION 4: 3-STEP PRODUCTIZED WORKFLOW
+       ========================================== -->
+  <section class="workflow-section">
+    <div class="container">
+      <div class="section-header text-center reveal">
+        <span class="section-eyebrow">Aliran Kerja Mudah</span>
+        <h2 class="section-title">Bagaimana Kwikezee <span class="text-grad-gold">Berfungsi</span></h2>
+        <p class="section-sub">Proses yang telus, pantas, dan tersusun rapi dari mula tempahan hingga pelancaran laman web rasmi anda.</p>
+      </div>
+
+      <div class="workflow-grid">
+        <!-- Step 1 -->
+        <div class="workflow-card reveal">
+          <div class="workflow-num">01</div>
+          <h3>Pilih Pakej &amp; Isi Briefing (10 Minit)</h3>
+          <p>Pilih pakej yang sesuai dengan bisnes anda dan isi borang ringkas tentang produk, servis, gambar, dan maklumat syarikat anda.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="workflow-card reveal">
+          <div class="workflow-num">02</div>
+          <h3>Pembangunan &amp; Live Draft (3 - 5 Hari)</h3>
+          <p>Kami bina laman web berprestasi tinggi, reka bentuk UI/UX eksklusif, dan berikan pautan pratonton *live* untuk anda semak.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="workflow-card reveal">
+          <div class="workflow-num">03</div>
+          <h3>Pelancaran Rasmi &amp; Serahan (100% Siap)</h3>
+          <p>Selepas anda berpuas hati, kami sambungkan domain rasmi (.my/.com) dan laman web anda sedia menerima jualan serta-merta!</p>
         </div>
       </div>
     </div>
@@ -1175,6 +1290,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=350"></script>
+  <script src="script.js?v=360"></script>
 </body>
 </html>
