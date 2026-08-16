@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=740">
+  <link rel="stylesheet" href="style.css?v=990">
 
   <!-- EmailJS via Direct REST API - no SDK needed -->
   
@@ -214,16 +214,16 @@
       grid-template-columns: 1fr 1fr;
       gap: 10px;
       background-color: #18181B;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
       padding: 6px;
       border-radius: 14px;
       margin-bottom: 25px;
     }
     
     .tab-btn {
-      background: none;
-      border: none;
-      color: #94A3B8;
+      background: rgba(255, 255, 255, 0.06) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      color: #CBD5E1 !important;
       padding: 12px;
       font-size: 14px;
       font-weight: 700;
@@ -237,9 +237,11 @@
     }
     
     .tab-btn.active {
-      background-color: var(--gold-secondary);
-      color: #000000;
-      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+      background: linear-gradient(135deg, var(--gold-secondary) 0%, #B8860B 100%) !important;
+      color: #000000 !important;
+      border-color: var(--gold-secondary) !important;
+      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4) !important;
+      font-weight: 800 !important;
     }
     
     .tab-content {
@@ -671,7 +673,7 @@
       <div class="dock-action-group" style="display: flex; align-items: center; gap: 8px;">
         <button class="dock-switch-btn" id="dockSwitchBtn" aria-label="Tukar Posisi Menu" title="Tukar Posisi (Bawah / Tepi / Atas)">🔄</button>
         <a href="https://wa.me/60108118559?text=Hai%20Kwikezee%20Studio,%20saya%20berminat%20nak%20bincang%20projek%20website" target="_blank" rel="noopener" class="dock-cta-wa">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="14" height="14" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>WhatsApp Now!
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="14" height="14" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>Bincang Projek
         </a>
         <button class="dock-close-btn" id="dockCloseBtn" aria-label="Tutup menu">✕</button>
       </div>
@@ -701,7 +703,7 @@
         <a href="bayar" class="nav-mobile-link active" style="color: var(--gold-secondary); font-weight: 700;">Portal Bayaran</a>
         <a href="admin" class="nav-mobile-link" style="color: #60a5fa; font-weight: 700;">Portal Admin</a>
         <a href="https://wa.me/60108118559?text=Hai%20Kwikezee%20Studio,%20saya%20berminat%20nak%20bincang%20projek%20website" target="_blank" rel="noopener" class="nav-mobile-link nav-mobile-cta">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20" fill="currentColor" style="display:inline-block; vertical-align:middle; margin-right:8px;"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>WhatsApp Now!
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20" fill="currentColor" style="display:inline-block; vertical-align:middle; margin-right:8px;"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>Bincang Projek
         </a>
       </div>
     </div>
@@ -741,29 +743,29 @@
             </div>
 
             <!-- Mode Pembayaran: Full vs 50% Deposit -->
-            <div class="payment-mode-selector" style="margin-top: 18px; background: rgba(0, 0, 0, 0.015); border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 14px; padding: 16px; box-sizing: border-box; width: 100%;">
-              <label style="display: block; font-weight: 700; font-size: 13px; color: var(--text-main); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Pilihan Jenis Pembayaran:</label>
+            <div class="payment-mode-selector" style="margin-top: 18px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 16px; box-sizing: border-box; width: 100%;">
+              <label style="display: block; font-weight: 700; font-size: 13px; color: #FFFFFF; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Pilihan Jenis Pembayaran:</label>
               <div class="payment-mode-grid" style="display: flex !important; flex-direction: column !important; gap: 10px !important; width: 100% !important;">
-                <label class="pay-mode-option" style="display: flex !important; align-items: center !important; justify-content: flex-start !important; gap: 12px !important; padding: 14px 16px !important; background: #ffffff !important; border: 2px solid #cbd5e1 !important; border-radius: 12px !important; cursor: pointer !important; width: 100% !important; box-sizing: border-box !important;">
-                  <input type="radio" name="pay-mode" value="full" checked onchange="updatePaymentAmount()" style="accent-color: var(--gold-primary); width: 18px !important; height: 18px !important; min-width: 18px !important; flex-shrink: 0 !important; margin: 0 !important;">
-                  <span style="font-size: 14px !important; font-weight: 800 !important; color: #0f172a !important; text-align: left !important; white-space: normal !important; flex: 1 !important;">💳 Bayaran Penuh (100%)</span>
+                <label class="pay-mode-option" style="display: flex !important; align-items: center !important; justify-content: flex-start !important; gap: 12px !important; padding: 14px 16px !important; background: #18181B !important; border: 1.5px solid rgba(255, 255, 255, 0.16) !important; border-radius: 12px !important; cursor: pointer !important; width: 100% !important; box-sizing: border-box !important;">
+                  <input type="radio" name="pay-mode" value="full" checked onchange="updatePaymentAmount()" style="accent-color: var(--gold-secondary); width: 18px !important; height: 18px !important; min-width: 18px !important; flex-shrink: 0 !important; margin: 0 !important;">
+                  <span style="font-size: 14px !important; font-weight: 700 !important; color: #FFFFFF !important; text-align: left !important; white-space: normal !important; flex: 1 !important;">💳 Bayaran Penuh (100%)</span>
                 </label>
-                <label class="pay-mode-option" style="display: flex !important; align-items: center !important; justify-content: flex-start !important; gap: 12px !important; padding: 14px 16px !important; background: #ffffff !important; border: 2px solid #cbd5e1 !important; border-radius: 12px !important; cursor: pointer !important; width: 100% !important; box-sizing: border-box !important;">
-                  <input type="radio" name="pay-mode" value="deposit" onchange="updatePaymentAmount()" style="accent-color: var(--gold-primary); width: 18px !important; height: 18px !important; min-width: 18px !important; flex-shrink: 0 !important; margin: 0 !important;">
-                  <span style="font-size: 14px !important; font-weight: 800 !important; color: #0f172a !important; text-align: left !important; white-space: normal !important; flex: 1 !important;">⚡ Deposit 50% (Separuh)</span>
+                <label class="pay-mode-option" style="display: flex !important; align-items: center !important; justify-content: flex-start !important; gap: 12px !important; padding: 14px 16px !important; background: #18181B !important; border: 1.5px solid rgba(255, 255, 255, 0.16) !important; border-radius: 12px !important; cursor: pointer !important; width: 100% !important; box-sizing: border-box !important;">
+                  <input type="radio" name="pay-mode" value="deposit" onchange="updatePaymentAmount()" style="accent-color: var(--gold-secondary); width: 18px !important; height: 18px !important; min-width: 18px !important; flex-shrink: 0 !important; margin: 0 !important;">
+                  <span style="font-size: 14px !important; font-weight: 700 !important; color: #FFFFFF !important; text-align: left !important; white-space: normal !important; flex: 1 !important;">⚡ Deposit 50% (Separuh)</span>
                 </label>
               </div>
-              <div id="deposit-note" style="display: none; margin-top: 12px; font-size: 12.5px; color: #b45309; font-weight: 600; background: #fffbeb; border: 1px solid #fcd34d; padding: 10px 14px; border-radius: 10px; line-height: 1.5; box-sizing: border-box; width: 100%;">
+              <div id="deposit-note" style="display: none; margin-top: 12px; font-size: 12.5px; color: #FDE68A; font-weight: 600; background: rgba(212, 175, 55, 0.12); border: 1px solid rgba(212, 175, 55, 0.35); padding: 10px 14px; border-radius: 10px; line-height: 1.5; box-sizing: border-box; width: 100%;">
                 💡 <strong>Pilihan Deposit 50%:</strong> Bayar separuh dahulu untuk memulakan projek. Baki 50% lagi akan dibayar selepas perkhidmatan / projek siap sepenuhnya!
               </div>
             </div>
 
             <!-- Kod Diskaun Input -->
-            <div class="form-group-pay" style="margin-top: 18px; border-top: 1px solid rgba(0, 0, 0, 0.08); padding-top: 15px;">
-              <label for="discount-code" style="font-weight: 600; color: var(--text-main);">Kod Diskaun (Ada promo?)</label>
+            <div class="form-group-pay" style="margin-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 15px;">
+              <label for="discount-code" style="font-weight: 600; color: #FFFFFF; font-size: 13px; margin-bottom: 8px; display: block;">KOD DISKAUN (ADA PROMO?)</label>
               <div style="display: flex; gap: 10px;">
-                <input type="text" id="discount-code" placeholder="Masukkan kod diskaun" style="flex: 1; text-transform: uppercase; background: #fff; border: 1.5px solid rgba(0, 0, 0, 0.08); border-radius: 10px; padding: 0 16px; height: 48px;">
-                <button type="button" id="btn-apply-discount" class="btn-copy" onclick="applyDiscountCode()" style="background: rgba(0, 0, 0, 0.03); border: 1.5px solid rgba(0, 0, 0, 0.08); color: var(--gold-secondary); font-size: 13px; font-weight: 700; padding: 0 20px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; height: 48px; min-width: 90px;">Guna</button>
+                <input type="text" id="discount-code" placeholder="MASUKKAN KOD DISKAUN" style="flex: 1; text-transform: uppercase; background: #18181B !important; color: #FFFFFF !important; border: 1.5px solid rgba(255, 255, 255, 0.18) !important; border-radius: 10px; padding: 0 16px; height: 48px; font-size: 14px; font-weight: 600;">
+                <button type="button" id="btn-apply-discount" class="btn-copy" onclick="applyDiscountCode()" style="background: rgba(212, 175, 55, 0.15) !important; border: 1.5px solid var(--gold-secondary) !important; color: var(--gold-secondary) !important; font-size: 13px; font-weight: 700; padding: 0 20px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; height: 48px; min-width: 90px;">Guna</button>
               </div>
               <span id="discount-message" style="display: none; font-size: 13px; margin-top: 6px; font-weight: 600;"></span>
             </div>
@@ -1453,6 +1455,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=680"></script>
+  <script src="script.js?v=920"></script>
 </body>
 </html>
