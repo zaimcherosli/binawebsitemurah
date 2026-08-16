@@ -4468,18 +4468,26 @@ body.admin-body .no-submissions svg {
 }
 
 .solehin-hero-title .line-2 {
-  display: block;
+  display: inline-block;
+  min-height: 1.25em;
   background: linear-gradient(135deg, #FDE68A 0%, #D97706 45%, #60A5FA 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmerGrad 6s ease infinite;
 }
 
-@keyframes shimmerGrad {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.typewriter-cursor {
+  display: inline-block;
+  color: var(--gold-secondary);
+  -webkit-text-fill-color: var(--gold-secondary);
+  font-weight: 300;
+  margin-left: 3px;
+  animation: blinkTypeCursor 0.75s infinite;
+}
+
+@keyframes blinkTypeCursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .solehin-hero-desc {

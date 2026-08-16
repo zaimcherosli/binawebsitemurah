@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCountdownTimer();
   initScrollAccentSwitch();
   initConstellationCanvas();
+  initTypewriterEffect();
 });
 
 /* ==========================================
@@ -999,6 +1000,56 @@ function initConstellationCanvas() {
   }
 
   animate();
+}
+
+/* ==========================================
+   DYNAMIC TYPEWRITER & ROLE SWITCHER (OPTION 1)
+   ========================================== */
+function initTypewriterEffect() {
+  const textEl = document.getElementById('typewriter-text');
+  if (!textEl) return;
+
+  const roles = [
+    'Web Designer & Developer.',
+    'Landing Page Specialist.',
+    'PWA Mobile App Builder.',
+    'Pakar Siap Dalam 5 Hari.'
+  ];
+
+  let roleIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  const typingSpeed = 85;
+  const deletingSpeed = 45;
+  const pauseEnd = 2000;
+  const pauseStart = 350;
+
+  function type() {
+    const currentRole = roles[roleIndex];
+
+    if (isDeleting) {
+      charIndex--;
+      textEl.textContent = currentRole.substring(0, charIndex);
+    } else {
+      charIndex++;
+      textEl.textContent = currentRole.substring(0, charIndex);
+    }
+
+    let delay = isDeleting ? deletingSpeed : typingSpeed;
+
+    if (!isDeleting && charIndex === currentRole.length) {
+      delay = pauseEnd;
+      isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      roleIndex = (roleIndex + 1) % roles.length;
+      delay = pauseStart;
+    }
+
+    setTimeout(type, delay);
+  }
+
+  type();
 }
 
 
