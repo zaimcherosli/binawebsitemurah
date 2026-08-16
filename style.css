@@ -519,20 +519,25 @@ a {
 /* /* Expandable Horizontal Bottom Dock Navigation (Mobile & Desktop) */
 .floating-menu-fab.expanded {
   max-width: 1160px !important;
-  width: calc(100vw - 32px) !important;
-  right: 16px !important;
-  left: 16px !important;
+  width: calc(100vw - 20px) !important;
+  right: 10px !important;
+  left: 10px !important;
   margin: 0 auto !important;
   transform: none !important;
   justify-content: flex-start !important;
-  padding: 8px 14px 8px 18px !important;
+  padding: 8px 12px !important;
   border: 2px solid rgba(212, 175, 55, 0.85) !important;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.98), 0 0 40px rgba(212, 175, 55, 0.4) !important;
   cursor: default !important;
   overflow-x: auto !important;
+  overflow-y: hidden !important;
   -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-x !important;
   border-radius: 99px !important;
   z-index: 10000 !important;
+  pointer-events: auto !important;
+  display: block !important;
+  white-space: nowrap !important;
 }
 
 .floating-menu-fab.expanded::-webkit-scrollbar {
@@ -540,12 +545,15 @@ a {
 }
 
 .floating-menu-fab.expanded .fab-dock-links {
-  display: flex !important;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
   align-items: center !important;
-  gap: 14px !important;
+  gap: 12px !important;
   width: max-content !important;
-  min-width: 100% !important;
-  justify-content: space-between !important;
+  min-width: max-content !important;
+  justify-content: flex-start !important;
+  pointer-events: auto !important;
   animation: fadeInDock 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -556,7 +564,6 @@ a {
 
 @media (max-width: 768px) {
   .floating-menu-fab {
-    bottom: 14px !important;
     right: 14px !important;
   }
   .floating-menu-fab.expanded {
@@ -4614,17 +4621,18 @@ body.admin-body .no-submissions svg {
   .solehin-hero-bg-layer {
     width: 100%;
     right: 0;
-    align-items: flex-end;
+    align-items: flex-start;
     justify-content: center;
-    opacity: 0.85;
+    opacity: 0.55;
   }
   .solehin-hero-bg-img {
-    height: 88%;
-    max-height: 75vh;
-    object-position: bottom center;
+    height: 82%;
+    max-height: 70vh;
+    object-position: top center;
+    margin-top: 15px;
   }
   .solehin-hero-overlay {
-    background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.92) 88%);
+    background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 45%, #000000 92%);
   }
   .solehin-hero-title {
     font-size: clamp(1.75rem, 6.5vw, 2.2rem) !important;

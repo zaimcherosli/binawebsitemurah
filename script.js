@@ -127,6 +127,14 @@ function initNavbar() {
         floatingMenuFab.classList.add('expanded');
       }
     });
+
+    floatingMenuFab.addEventListener('touchstart', (e) => {
+      e.stopPropagation();
+    }, { passive: true });
+
+    floatingMenuFab.addEventListener('touchmove', (e) => {
+      e.stopPropagation();
+    }, { passive: true });
   }
 
   // Close desktop dock on close button
@@ -1409,6 +1417,9 @@ function initAppSlideNavigation() {
   }, { passive: true });
 
   stage.addEventListener('touchmove', (e) => {
+    if (e.target.closest('.floating-menu-fab') || e.target.closest('#phone3dStage')) {
+      return;
+    }
     if (!isSwiping) return;
 
     deltaX = e.touches[0].clientX - startX;
