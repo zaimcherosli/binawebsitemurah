@@ -237,6 +237,8 @@ window.switchAdminTab = function(tabName) {
 
   if (tabName === 'history') {
     renderQuotationHistory();
+  } else if (tabName === 'quotation') {
+    refreshAllAdminTextareas();
   }
 };
 
@@ -293,6 +295,7 @@ function initQuotationForm() {
 
   updateQtFormTotals();
   updateHistoryCountBadge();
+  refreshAllAdminTextareas();
 }
 
 window.loadAbgWanPreset = function() {
@@ -642,30 +645,39 @@ window.convertQtToInvoice = function(idxOrNo) {
 };
 
 /* ==========================================================================
-   DYNAMIC AUTO-EXPANDING TEXTAREA HELPER
+   DYNAMIC AUTO-EXPANDING TEXTAREA HELPER (NO SCROLLBARS, FULL AUTO-FIT)
    ========================================================================== */
 window.autoExpandTextarea = function(el) {
-  if (!el) return;
-  el.style.overflowY = 'hidden';
-  el.style.resize = 'none';
-  el.style.height = 'auto';
-  const newHeight = Math.max(el.scrollHeight, 48);
-  el.style.height = newHeight + 'px';
+  if (!el || el.tagName !== 'TEXTAREA') return;
+  el.style.setProperty('overflow-y', 'hidden', 'important');
+  el.style.setProperty('resize', 'none', 'important');
+  el.style.setProperty('box-sizing', 'border-box', 'important');
+  el.style.setProperty('height', 'auto', 'important');
+  const scrollH = el.scrollHeight;
+  const newHeight = Math.max(scrollH, 44);
+  el.style.setProperty('height', (newHeight + 2) + 'px', 'important');
 };
 
 window.refreshAllAdminTextareas = function() {
-  setTimeout(() => {
-    document.querySelectorAll('#admin-tab-quotation textarea').forEach(ta => {
+  requestAnimationFrame(() => {
+    document.querySelectorAll('textarea').forEach(ta => {
       autoExpandTextarea(ta);
     });
-  }, 40);
+  });
+  setTimeout(() => {
+    document.querySelectorAll('textarea').forEach(ta => {
+      autoExpandTextarea(ta);
+    });
+  }, 100);
 };
 
-// Global event listener for auto-expanding any textareas inside admin dashboard in realtime
-document.addEventListener('input', function(e) {
-  if (e.target && e.target.tagName === 'TEXTAREA') {
-    autoExpandTextarea(e.target);
-  }
+// Global event listeners for auto-expanding all textareas dynamically in realtime
+['input', 'change', 'focus', 'keyup', 'paste'].forEach(evt => {
+  document.addEventListener(evt, function(e) {
+    if (e.target && e.target.tagName === 'TEXTAREA') {
+      autoExpandTextarea(e.target);
+    }
+  }, { passive: true });
 });
 
 window.addQuotationScopeItem = function(title = '', desc = '', price = 0) {
@@ -698,7 +710,7 @@ window.addQuotationScopeItem = function(title = '', desc = '', price = 0) {
       </div>
       <div class="form-group-pay">
         <label>Penerangan Terperinci</label>
-        <textarea class="qb-input-desc" placeholder="Contoh: Reka bentuk moden tema gelap, animasi halus, responsif peranti..." oninput="updateQtFormTotals(); autoExpandTextarea(this);" style="width: 100%; min-height: 48px; font-size: 14px; line-height: 1.6; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 10px; box-sizing: border-box; overflow-y: hidden; resize: none;">${escapeHtml(desc)}</textarea>
+        <textarea class="qb-input-desc qb-auto-textarea" placeholder="Contoh: Reka bentuk moden tema gelap, animasi halus, responsif peranti..." oninput="updateQtFormTotals(); autoExpandTextarea(this);" style="width: 100%; min-height: 44px; font-size: 14px; line-height: 1.6; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 10px; box-sizing: border-box; overflow-y: hidden; resize: none;">${escapeHtml(desc)}</textarea>
       </div>
       <div class="form-group-pay">
         <label>Harga Skop (RM)</label>
@@ -724,8 +736,8 @@ window.addQuotationScopeItem = function(title = '', desc = '', price = 0) {
   reindexQbItemNumbers();
   updateQtFormTotals();
 
-  const newTa = row.querySelector('textarea');
-  if (newTa) autoExpandTextarea(newTa);
+  row.querySelectorAll('textarea').forEach(ta => autoExpandTextarea(ta));
+  refreshAllAdminTextareas();
 };
 
 window.removeQuotationScopeItem = function(id) {
