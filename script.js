@@ -69,12 +69,14 @@ function initScrollAccentSwitch() {
 function initNavbar() {
   const navbar = document.getElementById('navbar');
   const hamburger = document.getElementById('nav-hamburger');
+  const floatingMenuFab = document.getElementById('floatingMenuFab');
   const mobileMenu = document.getElementById('nav-mobile-menu');
   const mobileLinks = document.querySelectorAll('.nav-mobile-link');
   const closeBtn = document.getElementById('nav-overlay-close');
 
   // Change navbar appearance on scroll
   window.addEventListener('scroll', () => {
+    if (!navbar) return;
     if (window.scrollY > 50) {
       navbar.classList.add('scrolled');
     } else {
@@ -83,26 +85,39 @@ function initNavbar() {
   });
 
   function openMenu() {
-    if (!hamburger || !mobileMenu) return;
-    hamburger.setAttribute('aria-expanded', 'true');
+    if (!mobileMenu) return;
     mobileMenu.classList.add('active');
     mobileMenu.setAttribute('aria-hidden', 'false');
-    hamburger.classList.add('open');
-    document.body.style.overflow = 'hidden'; // Freeze background scrolling
+    if (hamburger) {
+      hamburger.setAttribute('aria-expanded', 'true');
+      hamburger.classList.add('open');
+    }
+    document.body.style.overflow = 'hidden';
   }
 
   function closeMenu() {
-    if (!hamburger || !mobileMenu) return;
-    hamburger.setAttribute('aria-expanded', 'false');
+    if (!mobileMenu) return;
     mobileMenu.classList.remove('active');
     mobileMenu.setAttribute('aria-hidden', 'true');
-    hamburger.classList.remove('open');
-    document.body.style.overflow = ''; // Restore background scrolling
+    if (hamburger) {
+      hamburger.setAttribute('aria-expanded', 'false');
+      hamburger.classList.remove('open');
+    }
+    document.body.style.overflow = '';
   }
 
-  // Toggle mobile menu drawer
+  // Floating Menu FAB Button
+  if (floatingMenuFab) {
+    floatingMenuFab.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openMenu();
+    });
+  }
+
+  // Hamburger button
   if (hamburger) {
-    hamburger.addEventListener('click', () => {
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
       const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
       if (isExpanded) {
         closeMenu();
@@ -120,6 +135,13 @@ function initNavbar() {
   // Close menu when clicking mobile links
   mobileLinks.forEach(link => {
     link.addEventListener('click', closeMenu);
+  });
+
+  // ESC key to close
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('active')) {
+      closeMenu();
+    }
   });
 }
 
