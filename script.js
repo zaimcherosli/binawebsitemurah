@@ -667,15 +667,10 @@ async function initPwaInstall() {
     if (modal) modal.classList.add('active');
   };
 
-  // Check if user has already dismissed modal in current session or localStorage
-  const hasDismissed = sessionStorage.getItem('kwikezee_pwa_dismissed_v5') || localStorage.getItem('kwikezee_pwa_dismissed');
-
-  // Auto-show modal after 2.0 seconds only if NOT dismissed and NOT installed
-  if (!hasDismissed) {
-    setTimeout(() => {
-      openPwaModal();
-    }, 2000);
-  }
+  // Auto-show modal after 1.8 seconds if not running standalone and not installed
+  setTimeout(() => {
+    openPwaModal();
+  }, 1800);
 
   function openPwaModal() {
     if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true || localStorage.getItem('kwikezee_pwa_installed') === 'true') {
@@ -686,8 +681,6 @@ async function initPwaInstall() {
 
   function closePwaModal() {
     if (modal) modal.classList.remove('active');
-    sessionStorage.setItem('kwikezee_pwa_dismissed_v5', 'true');
-    localStorage.setItem('kwikezee_pwa_dismissed', 'true');
   }
 
   if (closeBtn) closeBtn.addEventListener('click', closePwaModal);

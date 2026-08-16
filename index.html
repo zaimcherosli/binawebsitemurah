@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=780">
+  <link rel="stylesheet" href="style.css?v=790">
   
   <style>
     @keyframes featuresPillScroll {
@@ -476,9 +476,35 @@
         </div>
       </div>
 
+  <!-- Modern PWA Install Popup Bottom Sheet Modal -->
+  <div class="pwa-install-modal-backdrop" id="pwa-install-modal" aria-hidden="true">
+    <div class="pwa-install-sheet" id="pwa-install-sheet">
+      <div class="pwa-sheet-drag-bar"></div>
+      <button class="pwa-sheet-close" id="pwa-modal-close" aria-label="Tutup popup">&times;</button>
+      <div class="pwa-sheet-content">
+        <img src="images/icon-192.png" alt="Kwikezee Studio App" class="pwa-sheet-logo-img">
+        <div class="pwa-sheet-text">
+          <h3>Pasang Aplikasi Kwikezee Studio</h3>
+          <p>Dapatkan akses pantas, buka offline tanpa sambungan internet, dan pengalaman Web App 100% lebih laju di telefon anda.</p>
+          
+          <div class="pwa-guide-box" id="pwa-android-guide" style="display: none; font-size: 12px; color: #94A3B8; margin-bottom: 12px; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 10px;">
+            Tekan butang <strong>"Pasang Sekarang"</strong> di bawah untuk memasang terus ke skrin utama.
+          </div>
+          <div class="pwa-guide-box" id="pwa-apple-guide" style="display: none; font-size: 12px; color: #94A3B8; margin-bottom: 12px; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 10px;">
+            Tekan butang <strong>Kongsi (Share)</strong> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline; vertical-align:middle;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> di Safari, kemudian pilih <strong>"Add to Home Screen"</strong>.
+          </div>
+          <div class="pwa-guide-box" id="pwa-desktop-guide" style="display: none; font-size: 12px; color: #94A3B8; margin-bottom: 12px; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 10px;">
+            Tekan butang <strong>"Pasang Sekarang"</strong> atau klik ikon pasang di bar carian Chrome/Edge anda.
+          </div>
+        </div>
+        <div class="pwa-sheet-actions">
+          <button class="btn btn-outline btn-sm" id="pwa-modal-dismiss">Lain Kali</button>
+          <button class="btn btn-primary btn-sm" id="pwa-direct-install-btn">Pasang Sekarang</button>
+        </div>
+      </div>
     </div>
-  </main>
+  </div>
 
-  <script src="script.js?v=710"></script>
+  <script src="script.js?v=720"></script>
 </body>
 </html>
