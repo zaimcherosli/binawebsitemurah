@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=530">
+  <link rel="stylesheet" href="style.css?v=540">
 </head>
 <body>
 
@@ -167,71 +167,116 @@
   </div>
 
   <!-- ==========================================
-       SECTION 2: SELECTED WORKS SHOWCASE (CADANGAN 1)
+       SECTION 2: 3D CIRCULAR PHONE PORTFOLIO SHOWCASE
        ========================================== -->
-  <section class="portfolio-section" style="padding: 70px 0 60px 0;">
+  <section class="portfolio-section" style="padding: 70px 0 60px 0; overflow: hidden;">
     <div class="container">
       <div class="section-header text-center reveal">
         <span class="section-eyebrow">PORTFOLIO TERPILIH</span>
         <h2 class="section-title">Hasil Kerja <span class="text-grad-gold">Terbaik Kami</span></h2>
-        <p class="section-sub">Semua projek dibina dengan kod tersuai (*custom code*), kelajuan pantas, dan visual bertaraf antarabangsa.</p>
+        <p class="section-sub">Pusingkan atau klik mana-mana telefon untuk melihat rekaan aplikasi web moden berprestasi tinggi.</p>
       </div>
 
-      <div class="hero-showcase-grid reveal">
-        <!-- Project 1 -->
-        <a href="https://zaimrosli.my/" target="_blank" rel="noopener" class="showcase-mini-card">
-          <div class="showcase-mini-thumb">
-            <img src="images/portfolio-hartanah.jpg" alt="Zaim Rosli Real Estate Specialist" loading="lazy">
+      <!-- 3D Circular Phone Stage -->
+      <div class="phone-3d-stage reveal" id="phone3dStage">
+        <div class="phone-3d-carousel" id="phone3dCarousel">
+          
+          <!-- Phone 1: Hartanah -->
+          <div class="circular-phone-item">
+            <div class="iphone-frame-box">
+              <div class="iphone-notch"></div>
+              <div class="iphone-screen-area">
+                <img src="images/portfolio-hartanah.jpg" alt="Zaim Rosli Property Specialist" loading="lazy">
+                <a href="https://zaimrosli.my/" target="_blank" rel="noopener" class="iphone-overlay-badge">
+                  <span class="iphone-badge-tag">HARTANAH / REAL ESTATE</span>
+                  <span class="iphone-badge-title">Zaim Rosli Specialist &rarr;</span>
+                </a>
+              </div>
+            </div>
           </div>
-          <div class="showcase-mini-body">
-            <span class="showcase-mini-tag">Hartanah / Real Estate</span>
-            <h3 class="showcase-mini-title">Zaim Rosli Property Specialist</h3>
-            <span class="showcase-mini-status">● Live di Cloudflare &rarr;</span>
-          </div>
-        </a>
 
-        <!-- Project 2 -->
-        <a href="https://binawebsitemurah-by.zaimrosli.my/shah-plaster-renovations/" target="_blank" rel="noopener" class="showcase-mini-card">
-          <div class="showcase-mini-thumb">
-            <img src="images/portfolio-shahreno.jpg" alt="Shah Plaster Siling &amp; Renovation" loading="lazy">
+          <!-- Phone 2: Shah Reno -->
+          <div class="circular-phone-item">
+            <div class="iphone-frame-box">
+              <div class="iphone-notch"></div>
+              <div class="iphone-screen-area">
+                <img src="images/portfolio-shahreno.jpg" alt="Shah Plaster Siling &amp; Renovation" loading="lazy">
+                <a href="https://binawebsitemurah-by.zaimrosli.my/shah-plaster-renovations/" target="_blank" rel="noopener" class="iphone-overlay-badge">
+                  <span class="iphone-badge-tag">RENOVASI &amp; INTERIOR</span>
+                  <span class="iphone-badge-title">Shah Plaster Siling &rarr;</span>
+                </a>
+              </div>
+            </div>
           </div>
-          <div class="showcase-mini-body">
-            <span class="showcase-mini-tag">Renovasi &amp; Kontraktor</span>
-            <h3 class="showcase-mini-title">Shah Plaster Siling &amp; Deco</h3>
-            <span class="showcase-mini-status">● Live di Cloudflare &rarr;</span>
-          </div>
-        </a>
 
-        <!-- Project 3 -->
-        <a href="https://semenyih-cctv-aircond.pages.dev/" target="_blank" rel="noopener" class="showcase-mini-card">
-          <div class="showcase-mini-thumb">
-            <img src="images/portfolio-cctv.jpg?v=2" alt="Semenyih CCTV &amp; Aircond" loading="lazy">
+          <!-- Phone 3: CCTV Aircond -->
+          <div class="circular-phone-item">
+            <div class="iphone-frame-box">
+              <div class="iphone-notch"></div>
+              <div class="iphone-screen-area">
+                <img src="images/portfolio-cctv.jpg?v=2" alt="Semenyih CCTV &amp; Aircond" loading="lazy">
+                <a href="https://semenyih-cctv-aircond.pages.dev/" target="_blank" rel="noopener" class="iphone-overlay-badge">
+                  <span class="iphone-badge-tag">SERVIS KOMERSIAL</span>
+                  <span class="iphone-badge-title">Semenyih CCTV &amp; Aircond &rarr;</span>
+                </a>
+              </div>
+            </div>
           </div>
-          <div class="showcase-mini-body">
-            <span class="showcase-mini-tag">Servis Komersial</span>
-            <h3 class="showcase-mini-title">Semenyih CCTV &amp; Aircond Hub</h3>
-            <span class="showcase-mini-status">● Live di Cloudflare &rarr;</span>
-          </div>
-        </a>
 
-        <!-- Project 4 -->
-        <a href="https://telekung-premium.pages.dev/" target="_blank" rel="noopener" class="showcase-mini-card">
-          <div class="showcase-mini-thumb">
-            <img src="images/portfolio-telekung.jpg" alt="Telekung Premium Eksklusif" loading="lazy">
+          <!-- Phone 4: Telekung -->
+          <div class="circular-phone-item">
+            <div class="iphone-frame-box">
+              <div class="iphone-notch"></div>
+              <div class="iphone-screen-area">
+                <img src="images/portfolio-telekung.jpg" alt="Telekung Premium Eksklusif" loading="lazy">
+                <a href="https://telekung-premium.pages.dev/" target="_blank" rel="noopener" class="iphone-overlay-badge">
+                  <span class="iphone-badge-tag">E-COMMERCE &amp; FESYEN</span>
+                  <span class="iphone-badge-title">Telekung Premium &rarr;</span>
+                </a>
+              </div>
+            </div>
           </div>
-          <div class="showcase-mini-body">
-            <span class="showcase-mini-tag">Produk &amp; Fesyen</span>
-            <h3 class="showcase-mini-title">Telekung Premium Eksklusif</h3>
-            <span class="showcase-mini-status">● Live di Cloudflare &rarr;</span>
+
+          <!-- Phone 5: Cleaning Pro -->
+          <div class="circular-phone-item">
+            <div class="iphone-frame-box">
+              <div class="iphone-notch"></div>
+              <div class="iphone-screen-area">
+                <img src="images/portfolio-cleaning.jpg" alt="Home Cleaning Pro Specialist" loading="lazy">
+                <a href="https://cuci-rumah-pro.pages.dev/" target="_blank" rel="noopener" class="iphone-overlay-badge">
+                  <span class="iphone-badge-tag">PEMBERSIHAN &amp; SERVIS</span>
+                  <span class="iphone-badge-title">Home Cleaning Pro &rarr;</span>
+                </a>
+              </div>
+            </div>
           </div>
-        </a>
+
+          <!-- Phone 6: Homestay D'Lekir -->
+          <div class="circular-phone-item">
+            <div class="iphone-frame-box">
+              <div class="iphone-notch"></div>
+              <div class="iphone-screen-area">
+                <img src="images/portfolio-dlekir.jpg" alt="D'Lekir Homestay &amp; Booking" loading="lazy">
+                <a href="https://dlekir-homestay.pages.dev/" target="_blank" rel="noopener" class="iphone-overlay-badge">
+                  <span class="iphone-badge-tag">PELANCONGAN &amp; HOMESTAY</span>
+                  <span class="iphone-badge-title">D'Lekir Homestay Hub &rarr;</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
 
-      <div style="text-align: center; margin-top: 40px;" class="reveal">
-        <a href="portfolio" class="btn btn-outline btn-lg">
-          <span>Lihat Semua 10+ Projek Portfolio &rarr;</span>
+      <!-- Navigation Arrows & Controls -->
+      <div class="phone-3d-controls reveal">
+        <button class="phone-nav-btn" id="phone3dPrev" aria-label="Telefon Sebelumnya">&#8592;</button>
+        <a href="portfolio" class="btn btn-outline btn-sm">
+          <span>Lihat Semua 10+ Projek &rarr;</span>
         </a>
+        <button class="phone-nav-btn" id="phone3dNext" aria-label="Telefon Seterusnya">&#8594;</button>
       </div>
+
     </div>
   </section>
 
@@ -411,6 +456,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=470"></script>
+  <script src="script.js?v=480"></script>
 </body>
 </html>

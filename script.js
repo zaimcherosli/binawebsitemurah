@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initConstellationCanvas();
   initTypewriterEffect();
   initSpotlightCards();
+  initCircularPhoneCarousel();
 });
 
 /* ==========================================
@@ -1067,6 +1068,136 @@ function initSpotlightCards() {
       card.style.setProperty('--mouse-y', `${y}px`);
     });
   });
+}
+
+/* ==========================================
+   3D CIRCULAR ROTATING PHONE CAROUSEL (ORBITAL RING)
+   ========================================== */
+function initCircularPhoneCarousel() {
+  const stage = document.getElementById('phone3dStage');
+  const carousel = document.getElementById('phone3dCarousel');
+  if (!stage || !carousel) return;
+
+  const items = carousel.querySelectorAll('.circular-phone-item');
+  const total = items.length;
+  if (total === 0) return;
+
+  let currentAngle = 0;
+  let isDragging = false;
+  let startX = 0;
+  let startAngle = 0;
+  const autoRotateSpeed = 0.12; // Ultra smooth continuous slow spin
+  let isPaused = false;
+
+  function getRadius() {
+    return window.innerWidth < 768 ? 210 : 360;
+  }
+
+  function updatePositions() {
+    const radius = getRadius();
+    items.forEach((item, index) => {
+      const itemAngle = (index * (360 / total)) + currentAngle;
+      const rad = (itemAngle * Math.PI) / 180;
+      
+      const cosVal = Math.cos(rad);
+      const zIndex = Math.round(100 + cosVal * 100);
+      const scale = window.innerWidth < 768 ? (0.85 + cosVal * 0.15) : (0.82 + cosVal * 0.18);
+      const opacity = 0.35 + Math.max(0, cosVal) * 0.65;
+      
+      item.style.transform = `rotateY(${itemAngle}deg) translateZ(${radius}px) scale(${scale})`;
+      item.style.zIndex = zIndex;
+      item.style.opacity = Math.max(0.25, opacity);
+
+      if (cosVal > 0.8) {
+        item.classList.add('is-front');
+      } else {
+        item.classList.remove('is-front');
+      }
+    });
+  }
+
+  function animate() {
+    if (!isDragging && !isPaused) {
+      currentAngle -= autoRotateSpeed;
+      updatePositions();
+    }
+    requestAnimationFrame(animate);
+  }
+
+  // Hover pause on stage
+  stage.addEventListener('mouseenter', () => { isPaused = true; });
+  stage.addEventListener('mouseleave', () => { isPaused = false; isDragging = false; });
+
+  // Mouse Drag
+  stage.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.clientX;
+    startAngle = currentAngle;
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const deltaX = e.clientX - startX;
+    currentAngle = startAngle + (deltaX * 0.35);
+    updatePositions();
+  });
+
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+  });
+
+  // Touch Drag for Mobile
+  stage.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    startX = e.touches[0].clientX;
+    startAngle = currentAngle;
+  }, { passive: true });
+
+  stage.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const deltaX = e.touches[0].clientX - startX;
+    currentAngle = startAngle + (deltaX * 0.45);
+    updatePositions();
+  }, { passive: true });
+
+  stage.addEventListener('touchend', () => {
+    isDragging = false;
+  });
+
+  // Navigation button controls (Prev / Next)
+  const prevBtn = document.getElementById('phone3dPrev');
+  const nextBtn = document.getElementById('phone3dNext');
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      currentAngle += (360 / total);
+      updatePositions();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      currentAngle -= (360 / total);
+      updatePositions();
+    });
+  }
+
+  // Clicking a phone item snaps it to front
+  items.forEach((item, index) => {
+    item.addEventListener('click', (e) => {
+      if (item.classList.contains('is-front')) {
+        // If user clicks the live link inside front phone, let it open
+        return;
+      }
+      e.preventDefault();
+      currentAngle = -(index * (360 / total));
+      updatePositions();
+    });
+  });
+
+  window.addEventListener('resize', updatePositions);
+  updatePositions();
+  animate();
 }
 
 
