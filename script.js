@@ -107,13 +107,63 @@ function initNavbar() {
     document.body.style.overflow = '';
   }
 
-  // Floating Menu FAB Button
+  // Floating Menu FAB Button & Desktop Bottom Dock
+  const dockCloseBtn = document.getElementById('dockCloseBtn');
+  const dockNavLinks = document.querySelectorAll('.dock-link');
+
   if (floatingMenuFab) {
     floatingMenuFab.addEventListener('click', (e) => {
+      // If clicking inside links or close button when expanded, let them handle it
+      if (e.target.closest('.dock-close-btn') || e.target.closest('.dock-link') || e.target.closest('.dock-cta-wa') || e.target.closest('.dock-brand')) {
+        return;
+      }
+
       e.stopPropagation();
-      openMenu();
+
+      // If desktop, toggle expanded dock
+      if (window.innerWidth > 768) {
+        if (floatingMenuFab.classList.contains('expanded')) {
+          floatingMenuFab.classList.remove('expanded');
+        } else {
+          floatingMenuFab.classList.add('expanded');
+        }
+      } else {
+        // Mobile: open full drawer menu
+        openMenu();
+      }
     });
   }
+
+  // Close desktop dock on close button
+  if (dockCloseBtn) {
+    dockCloseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (floatingMenuFab) {
+        floatingMenuFab.classList.remove('expanded');
+      }
+    });
+  }
+
+  // Close desktop dock when clicking outside
+  document.addEventListener('click', (e) => {
+    if (floatingMenuFab && floatingMenuFab.classList.contains('expanded')) {
+      if (!floatingMenuFab.contains(e.target)) {
+        floatingMenuFab.classList.remove('expanded');
+      }
+    }
+  });
+
+  // Dock slide navigation links
+  dockNavLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const slideNav = link.getAttribute('data-slide-nav');
+      if (slideNav !== null && typeof window.goToAppSlide === 'function') {
+        e.preventDefault();
+        window.goToAppSlide(parseInt(slideNav, 10));
+        if (floatingMenuFab) floatingMenuFab.classList.remove('expanded');
+      }
+    });
+  });
 
   // Hamburger button
   if (hamburger) {
@@ -140,8 +190,9 @@ function initNavbar() {
 
   // ESC key to close
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('active')) {
-      closeMenu();
+    if (e.key === 'Escape') {
+      if (mobileMenu && mobileMenu.classList.contains('active')) closeMenu();
+      if (floatingMenuFab && floatingMenuFab.classList.contains('expanded')) floatingMenuFab.classList.remove('expanded');
     }
   });
 }
