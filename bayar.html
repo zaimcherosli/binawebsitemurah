@@ -18,26 +18,32 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=700">
+  <link rel="stylesheet" href="style.css?v=710">
 
   <!-- EmailJS via Direct REST API - no SDK needed -->
   
   <style>
-    /* Custom CSS for Payment Page */
+    /* Custom Dark Luxury CSS for Payment Page */
+    body {
+      background-color: #000000 !important;
+      color: #FFFFFF !important;
+      font-family: var(--font-body);
+    }
+
     .payment-container {
       max-width: 800px;
-      margin: 100px auto 60px;
-      padding: 0 12px;
+      margin: 0 auto;
+      padding: 95px 16px 80px 16px;
       box-sizing: border-box;
       width: 100%;
     }
     
     .payment-card {
-      background-color: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 24px;
-      padding: 32px 24px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      background-color: #0B0B0E !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      border-radius: 24px !important;
+      padding: 36px 28px !important;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85) !important;
       position: relative;
       box-sizing: border-box;
       width: 100%;
@@ -55,7 +61,7 @@
       font-family: var(--font-headings);
       font-size: 18px;
       font-weight: 700;
-      color: var(--text-main);
+      color: #FFFFFF !important;
       display: flex;
       align-items: center;
       gap: 12px;
@@ -65,7 +71,7 @@
     }
     
     .step-num {
-      background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%);
+      background: var(--gold-secondary);
       color: #000;
       width: 28px;
       height: 28px;
@@ -88,21 +94,41 @@
     
     .select-wrapper select {
       width: 100%;
-      background-color: #FFFFFF;
-      border: 1.5px solid rgba(0, 0, 0, 0.08);
-      color: var(--text-main);
+      background-color: #18181B !important;
+      border: 1.5px solid rgba(255, 255, 255, 0.16) !important;
+      color: #FFFFFF !important;
       border-radius: 12px;
       padding: 16px 36px 16px 18px;
       font-size: 14.5px;
-      font-weight: 600;
+      font-weight: 700;
       appearance: none;
       outline: none;
       transition: border-color 0.3s ease;
       cursor: pointer;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
       box-sizing: border-box;
+    }
+
+    .select-wrapper select option {
+      background-color: #18181B !important;
+      color: #FFFFFF !important;
+      font-size: 14px;
+      padding: 10px;
+    }
+    
+    .select-wrapper select:focus {
+      border-color: var(--gold-secondary) !important;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25) !important;
+    }
+    
+    .select-wrapper::after {
+      content: '▼';
+      font-size: 11px;
+      color: var(--gold-secondary) !important;
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
     }
 
     .payment-mode-grid {
@@ -118,19 +144,26 @@
       align-items: center !important;
       justify-content: flex-start !important;
       gap: 12px !important;
-      background: #FFFFFF !important;
-      border: 2px solid #CBD5E1 !important;
+      background: #18181B !important;
+      border: 1.5px solid rgba(255, 255, 255, 0.14) !important;
       padding: 14px 16px !important;
-      border-radius: 12px !important;
+      border-radius: 14px !important;
       cursor: pointer !important;
       font-size: 14px !important;
       font-weight: 700 !important;
-      color: #0F172A !important;
+      color: #FFFFFF !important;
       text-align: left !important;
       transition: all 0.2s ease !important;
       user-select: none !important;
       box-sizing: border-box !important;
       width: 100% !important;
+    }
+
+    .pay-mode-option:hover,
+    .pay-mode-option.active {
+      border-color: var(--gold-secondary) !important;
+      background: rgba(212, 175, 55, 0.08) !important;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.2) !important;
     }
 
     .pay-mode-option input[type="radio"] {
@@ -139,61 +172,23 @@
       min-width: 18px !important;
       flex-shrink: 0 !important;
       margin: 0 !important;
-      accent-color: var(--gold-primary) !important;
+      accent-color: var(--gold-secondary) !important;
     }
 
     .pay-mode-option span {
       white-space: normal !important;
       text-align: left !important;
-      color: #0F172A !important;
-      font-weight: 800 !important;
+      color: #FFFFFF !important;
+      font-weight: 700 !important;
       font-size: 14px !important;
       flex: 1 !important;
       line-height: 1.3 !important;
     }
-
-    @media (max-width: 640px) {
-      .payment-container {
-        margin: 80px auto 30px !important;
-        padding: 0 6px !important;
-      }
-      .payment-card {
-        padding: 20px 12px !important;
-        border-radius: 16px !important;
-      }
-      .payment-mode-grid {
-        gap: 8px !important;
-      }
-      .select-wrapper select {
-        padding-right: 30px !important;
-        font-size: 13px !important;
-      }
-    }
-    
-    .select-wrapper select option {
-      background-color: #FFFFFF;
-      color: var(--text-main);
-    }
-    
-    .select-wrapper select:focus {
-      border-color: var(--gold-primary);
-    }
-    
-    .select-wrapper::after {
-      content: '▼';
-      font-size: 10px;
-      color: var(--text-muted);
-      position: absolute;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      pointer-events: none;
-    }
     
     .price-display {
       margin-top: 15px;
-      background: rgba(212, 175, 55, 0.05);
-      border: 1px dashed rgba(212, 175, 55, 0.2);
+      background: rgba(212, 175, 55, 0.06);
+      border: 1px dashed rgba(212, 175, 55, 0.3);
       border-radius: 12px;
       padding: 15px 20px;
       display: flex;
@@ -203,7 +198,7 @@
     
     .price-display span {
       font-size: 14px;
-      color: var(--text-muted);
+      color: #94A3B8;
     }
     
     .price-display strong {
@@ -218,8 +213,8 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      background-color: rgba(0, 0, 0, 0.015);
-      border: 1px solid rgba(0, 0, 0, 0.05);
+      background-color: #18181B;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       padding: 6px;
       border-radius: 14px;
       margin-bottom: 25px;
@@ -228,10 +223,10 @@
     .tab-btn {
       background: none;
       border: none;
-      color: #71717a;
+      color: #94A3B8;
       padding: 12px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
       border-radius: 10px;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -242,9 +237,9 @@
     }
     
     .tab-btn.active {
-      background-color: #FFFFFF;
-      color: var(--gold-secondary);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      background-color: var(--gold-secondary);
+      color: #000000;
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
     }
     
     .tab-content {
@@ -264,10 +259,10 @@
     /* QR Display */
     .qr-container {
       text-align: center;
-      background-color: rgba(0, 0, 0, 0.015);
+      background-color: #18181B;
       border-radius: 18px;
       padding: 30px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
     }
     
     .qr-image-wrapper {
@@ -284,13 +279,13 @@
       border: 4px solid #fff;
       margin: 0 auto;
       display: block;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .qr-image-wrapper:hover .qr-image {
       transform: scale(1.02);
-      box-shadow: 0 8px 25px rgba(184, 134, 11, 0.2);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
     }
     
     .qr-hover-hint {
@@ -298,7 +293,7 @@
       bottom: 12px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.85);
       color: #fff;
       font-size: 11px;
       font-weight: 700;
@@ -321,7 +316,7 @@
     }
     
     .btn-qr-download {
-      background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%);
+      background: linear-gradient(135deg, var(--gold-secondary) 0%, #B8860B 100%);
       color: #000;
       font-weight: 800;
       font-size: 12.5px;
@@ -331,20 +326,20 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 4px 12px rgba(184, 134, 11, 0.3);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     
     .btn-qr-download:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(184, 134, 11, 0.4);
+      box-shadow: 0 6px 18px rgba(212, 175, 55, 0.4);
       color: #000;
     }
 
     .btn-qr-enlarge {
-      background: rgba(0, 0, 0, 0.04);
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #FFFFFF;
       font-weight: 700;
       font-size: 12.5px;
       padding: 9px 16px;
@@ -357,12 +352,12 @@
     }
 
     .btn-qr-enlarge:hover {
-      background: rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.15);
     }
     
     .qr-info {
       font-size: 13.5px;
-      color: var(--text-muted);
+      color: #94A3B8;
       line-height: 1.5;
     }
 
@@ -393,13 +388,13 @@
     .qr-modal-content {
       position: relative;
       background: #18181b;
-      border: 1px solid rgba(184, 134, 11, 0.5);
+      border: 1px solid rgba(212, 175, 55, 0.5);
       border-radius: 20px;
       padding: 24px 20px;
       max-width: 360px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
       transform: scale(0.9);
       transition: transform 0.3s ease;
     }
@@ -436,10 +431,10 @@
     
     /* Bank details */
     .bank-card {
-      background-color: rgba(0, 0, 0, 0.015);
-      border-radius: 18px;
-      padding: 20px 18px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
+      background-color: #18181B !important;
+      border-radius: 18px !important;
+      padding: 20px 18px !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
     }
     
     .bank-row {
@@ -447,7 +442,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 12px 0;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       gap: 8px;
     }
     
@@ -462,7 +457,7 @@
     
     .bank-label {
       font-size: 12.5px;
-      color: var(--text-muted);
+      color: #94A3B8;
       white-space: nowrap;
       flex-shrink: 0;
     }
@@ -470,7 +465,7 @@
     .bank-value {
       font-size: 14px;
       font-weight: 700;
-      color: var(--text-main);
+      color: #FFFFFF !important;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -478,8 +473,8 @@
     }
     
     .btn-copy {
-      background: rgba(0, 0, 0, 0.04);
-      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       color: var(--gold-secondary);
       font-size: 11px;
       font-weight: 700;
@@ -492,15 +487,15 @@
     }
     
     .btn-copy:hover {
-      background: var(--gold-primary);
+      background: var(--gold-secondary);
       color: #000;
     }
 
     /* Bank Shortcut Links */
     .bank-shortcut-box {
       margin-top: 18px;
-      background: rgba(0, 0, 0, 0.015);
-      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
       padding: 16px;
     }
@@ -508,7 +503,7 @@
     .bank-shortcut-title {
       font-size: 12.5px;
       font-weight: 700;
-      color: var(--text-main);
+      color: #E2E8F0;
       margin-bottom: 12px;
       display: block;
     }
@@ -523,22 +518,22 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      background: #FFFFFF;
-      border: 1px solid rgba(0, 0, 0, 0.1);
+      background: #18181B;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 10px;
       padding: 9px 12px;
       font-size: 12px;
       font-weight: 700;
-      color: #111827;
+      color: #FFFFFF;
       text-decoration: none;
       transition: all 0.2s ease;
       box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
     
     .bank-shortcut-item:hover {
-      border-color: var(--gold-primary);
+      border-color: var(--gold-secondary);
       transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(184, 134, 11, 0.15);
+      box-shadow: 0 4px 10px rgba(212, 175, 55, 0.15);
     }
 
     @media (max-width: 480px) {
@@ -563,45 +558,50 @@
     
     .form-group-pay label {
       display: block;
+      font-weight: 700;
       font-size: 13.5px;
-      color: var(--text-muted);
       margin-bottom: 8px;
+      color: #F1F5F9;
     }
     
-    .form-group-pay input[type="text"],
-    .form-group-pay input[type="email"] {
+    input[type="text"], input[type="tel"], input[type="email"] {
       width: 100%;
-      background-color: #FFFFFF;
-      border: 1.5px solid rgba(0, 0, 0, 0.08);
-      color: var(--text-main);
-      border-radius: 10px;
-      padding: 12px 16px;
+      padding: 13px 16px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(255, 255, 255, 0.14);
+      background: #18181B;
+      color: #FFFFFF;
       font-size: 14px;
-      outline: none;
-      transition: border-color 0.3s ease;
+      font-family: inherit;
+      box-sizing: border-box;
+      transition: all 0.25s ease;
     }
-    
-    .form-group-pay input[type="text"]:focus,
-    .form-group-pay input[type="email"]:focus {
-      border-color: var(--gold-primary);
+
+    input::placeholder {
+      color: #71717A;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--gold-secondary);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+      background: #111113;
     }
     
     .file-upload-box {
-      background-color: rgba(0, 0, 0, 0.015);
-      border: 1.5px dashed var(--gold-secondary);
-      border-radius: 12px;
-      padding: 20px 14px;
+      border: 2px dashed rgba(212, 175, 55, 0.35);
+      background: rgba(212, 175, 55, 0.04);
+      border-radius: 16px;
+      padding: 24px 18px;
       text-align: center;
-      cursor: pointer;
       position: relative;
-      transition: border-color 0.3s ease;
-      max-width: 100%;
-      box-sizing: border-box;
-      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
     
     .file-upload-box:hover {
-      border-color: var(--gold-primary);
+      border-color: var(--gold-secondary);
+      background: rgba(212, 175, 55, 0.09);
     }
     
     .file-upload-box input[type="file"] {
@@ -622,31 +622,12 @@
 
     .upload-text {
       font-size: 13px;
-      color: var(--text-muted);
+      color: #94A3B8;
       display: block;
-      word-break: break-word;
-      overflow-wrap: break-word;
     }
     
     .upload-filename {
       display: block;
-      font-size: 12.5px;
-      font-weight: 700;
-      color: var(--gold-secondary);
-      margin-top: 8px;
-      word-break: break-all;
-      overflow-wrap: anywhere;
-      max-width: 100%;
-      box-sizing: border-box;
-      white-space: normal;
-    }
-    
-    .upload-text {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-    
-    .upload-filename {
       font-size: 13.5px;
       color: var(--gold-secondary);
       font-weight: 600;
@@ -654,18 +635,13 @@
       display: none;
     }
     
-    @media (max-width: 768px) {
+    @media (max-width: 640px) {
       .payment-container {
-        margin: 100px auto 60px;
+        padding: 85px 12px 60px 12px !important;
       }
       .payment-card {
-        padding: 24px;
-        border-radius: 20px;
-      }
-      .price-display {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
+        padding: 24px 16px !important;
+        border-radius: 18px !important;
       }
     }
   </style>
@@ -1476,6 +1452,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=640"></script>
+  <script src="script.js?v=650"></script>
 </body>
 </html>
