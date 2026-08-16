@@ -517,34 +517,48 @@ a {
 }
 
 /* /* Expandable Horizontal Bottom Dock Navigation (Mobile & Desktop) */
+/* Telegram-Style Multi-Position Menu (Bottom -> Left -> Top -> Reset) */
 .floating-menu-fab.expanded {
-  max-width: 1160px !important;
-  width: calc(100vw - 20px) !important;
-  right: 10px !important;
-  left: 10px !important;
-  margin: 0 auto !important;
-  transform: none !important;
-  justify-content: flex-start !important;
-  padding: 8px 12px !important;
+  z-index: 10000 !important;
+  pointer-events: auto !important;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  background: rgba(18, 18, 22, 0.96) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
   border: 2px solid rgba(212, 175, 55, 0.85) !important;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.98), 0 0 40px rgba(212, 175, 55, 0.4) !important;
   cursor: default !important;
-  overflow-x: auto !important;
-  overflow-y: hidden !important;
-  -webkit-overflow-scrolling: touch !important;
-  touch-action: pan-x !important;
-  border-radius: 99px !important;
-  z-index: 10000 !important;
-  pointer-events: auto !important;
-  display: block !important;
-  white-space: nowrap !important;
+}
+
+.floating-menu-fab.expanded .fab-menu-bars,
+.floating-menu-fab.expanded .fab-menu-text {
+  display: none !important;
 }
 
 .floating-menu-fab.expanded::-webkit-scrollbar {
   display: none;
 }
 
-.floating-menu-fab.expanded .fab-dock-links {
+/* STATE 1: POS-BOTTOM (PWA Horizontal Bottom Bar) */
+.floating-menu-fab.expanded.pos-bottom {
+  max-width: 1160px !important;
+  width: calc(100vw - 20px) !important;
+  top: auto !important;
+  bottom: 12px !important;
+  left: 10px !important;
+  right: 10px !important;
+  margin: 0 auto !important;
+  border-radius: 99px !important;
+  padding: 8px 12px !important;
+  display: block !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-x !important;
+  white-space: nowrap !important;
+}
+
+.floating-menu-fab.expanded.pos-bottom .fab-dock-links {
   display: inline-flex !important;
   flex-direction: row !important;
   flex-wrap: nowrap !important;
@@ -553,13 +567,209 @@ a {
   width: max-content !important;
   min-width: max-content !important;
   justify-content: flex-start !important;
-  pointer-events: auto !important;
-  animation: fadeInDock 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.floating-menu-fab.expanded .fab-menu-bars,
-.floating-menu-fab.expanded .fab-menu-text {
-  display: none !important;
+/* STATE 2: POS-LEFT (Telegram Vertical Left Sidebar) */
+.floating-menu-fab.expanded.pos-left {
+  top: 75px !important;
+  bottom: 75px !important;
+  left: 10px !important;
+  right: auto !important;
+  width: 74px !important;
+  max-width: 74px !important;
+  height: calc(100vh - 150px) !important;
+  max-height: calc(100vh - 150px) !important;
+  border-radius: 24px !important;
+  padding: 14px 6px !important;
+  display: block !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-y !important;
+  white-space: normal !important;
+}
+
+.floating-menu-fab.expanded.pos-left .fab-dock-links {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 12px !important;
+  width: 100% !important;
+}
+
+.floating-menu-fab.expanded.pos-left .dock-brand {
+  font-size: 11px !important;
+  margin: 0 0 4px 0 !important;
+  text-align: center !important;
+  line-height: 1.1 !important;
+  white-space: normal !important;
+}
+
+.floating-menu-fab.expanded.pos-left .dock-nav-links {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+}
+
+.floating-menu-fab.expanded.pos-left .dock-link {
+  font-size: 11px !important;
+  padding: 6px 2px !important;
+  text-align: center !important;
+  width: 100% !important;
+  border-radius: 8px !important;
+  white-space: normal !important;
+}
+
+.floating-menu-fab.expanded.pos-left .dock-cta-wa {
+  font-size: 10px !important;
+  padding: 6px 2px !important;
+  width: 100% !important;
+  text-align: center !important;
+  justify-content: center !important;
+  border-radius: 10px !important;
+}
+
+.floating-menu-fab.expanded.pos-left .dock-action-group {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 6px !important;
+  width: 100% !important;
+}
+
+/* STATE 3: POS-TOP (Telegram Top Horizontal Category Bar) */
+.floating-menu-fab.expanded.pos-top {
+  max-width: 1160px !important;
+  width: calc(100vw - 20px) !important;
+  top: 55px !important;
+  bottom: auto !important;
+  left: 10px !important;
+  right: 10px !important;
+  margin: 0 auto !important;
+  border-radius: 20px !important;
+  padding: 8px 12px !important;
+  display: block !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-x !important;
+  white-space: nowrap !important;
+}
+
+.floating-menu-fab.expanded.pos-top .fab-dock-links {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 12px !important;
+  width: max-content !important;
+  min-width: max-content !important;
+  justify-content: flex-start !important;
+}
+
+.dock-brand {
+  font-family: var(--font-headings);
+  font-weight: 800;
+  font-size: 16px;
+  color: #FFFFFF;
+  text-decoration: none;
+  margin-right: 10px;
+  white-space: nowrap;
+}
+
+.dock-brand em {
+  font-style: normal;
+  color: var(--gold-secondary);
+}
+
+.dock-nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.5vw, 18px);
+  flex-wrap: nowrap;
+}
+
+.dock-link {
+  font-family: var(--font-headings);
+  font-size: clamp(12.5px, 1vw, 15px);
+  font-weight: 700;
+  color: #E2E8F0;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+  padding: 6px 8px;
+}
+
+.dock-link:hover, .dock-link.active {
+  color: var(--gold-secondary);
+  transform: translateY(-1px);
+}
+
+.dock-cta-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  background: #25D366;
+  color: #000000 !important;
+  font-weight: 800;
+  font-size: 13px;
+  border-radius: 99px;
+  text-decoration: none;
+  box-shadow: 0 0 16px rgba(37, 211, 102, 0.45);
+  white-space: nowrap;
+}
+
+.dock-cta-wa:hover {
+  background: #1eb956;
+  transform: scale(1.05);
+}
+
+.dock-switch-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.18);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.dock-switch-btn:hover {
+  background: var(--gold-secondary);
+  color: #000000;
+  transform: rotate(45deg);
+}
+
+.dock-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  margin-left: 4px;
+  flex-shrink: 0;
+}
+
+.dock-close-btn:hover {
+  background: rgba(239, 68, 68, 0.8);
+  border-color: #EF4444;
+  transform: scale(1.1);
 }
 
 @media (max-width: 768px) {

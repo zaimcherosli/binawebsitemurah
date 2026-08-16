@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSpotlightCards();
   initCircularPhoneCarousel();
   initAppSlideNavigation();
+  initFeaturesTickerScroll();
 });
 
 /* ==========================================
@@ -107,25 +108,44 @@ function initNavbar() {
     document.body.style.overflow = '';
   }
 
-  // Floating Menu FAB Button & Desktop Bottom Dock
-  const dockCloseBtn = document.getElementById('dockCloseBtn');
-  const dockNavLinks = document.querySelectorAll('.dock-link');
+  // Floating Menu 4-State Cycle (0: Closed -> 1: Bottom -> 2: Left -> 3: Top -> 0: Closed)
+  let menuCycleState = 0; // 0 = closed, 1 = bottom, 2 = left, 3 = top
+  const dockSwitchBtn = document.getElementById('dockSwitchBtn');
+
+  function setMenuState(state) {
+    menuCycleState = state % 4;
+    if (!floatingMenuFab) return;
+
+    floatingMenuFab.classList.remove('expanded', 'pos-bottom', 'pos-left', 'pos-top');
+
+    if (menuCycleState === 1) {
+      floatingMenuFab.classList.add('expanded', 'pos-bottom');
+    } else if (menuCycleState === 2) {
+      floatingMenuFab.classList.add('expanded', 'pos-left');
+    } else if (menuCycleState === 3) {
+      floatingMenuFab.classList.add('expanded', 'pos-top');
+    }
+  }
 
   if (floatingMenuFab) {
     floatingMenuFab.addEventListener('click', (e) => {
-      // If clicking inside links or close button when expanded, let them handle it
-      if (e.target.closest('.dock-close-btn') || e.target.closest('.dock-link') || e.target.closest('.dock-cta-wa') || e.target.closest('.dock-brand')) {
+      // If clicking inside links or close button, let them handle it
+      if (e.target.closest('.dock-close-btn')) {
+        e.stopPropagation();
+        setMenuState(0);
+        return;
+      }
+      if (e.target.closest('.dock-switch-btn')) {
+        e.stopPropagation();
+        setMenuState(menuCycleState + 1);
+        return;
+      }
+      if (e.target.closest('.dock-link') || e.target.closest('.dock-cta-wa') || e.target.closest('.dock-brand')) {
         return;
       }
 
       e.stopPropagation();
-
-      // Toggle expanded bottom dock (Mobile & Desktop)
-      if (floatingMenuFab.classList.contains('expanded')) {
-        floatingMenuFab.classList.remove('expanded');
-      } else {
-        floatingMenuFab.classList.add('expanded');
-      }
+      setMenuState(menuCycleState + 1);
     });
 
     floatingMenuFab.addEventListener('touchstart', (e) => {
@@ -137,13 +157,19 @@ function initNavbar() {
     }, { passive: true });
   }
 
+  // Position switcher button inside dock
+  if (dockSwitchBtn) {
+    dockSwitchBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setMenuState(menuCycleState + 1);
+    });
+  }
+
   // Close desktop dock on close button
   if (dockCloseBtn) {
     dockCloseBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (floatingMenuFab) {
-        floatingMenuFab.classList.remove('expanded');
-      }
+      setMenuState(0);
     });
   }
 
@@ -151,7 +177,7 @@ function initNavbar() {
   document.addEventListener('click', (e) => {
     if (floatingMenuFab && floatingMenuFab.classList.contains('expanded')) {
       if (!floatingMenuFab.contains(e.target)) {
-        floatingMenuFab.classList.remove('expanded');
+        setMenuState(0);
       }
     }
   });
@@ -163,7 +189,7 @@ function initNavbar() {
       if (slideNav !== null && typeof window.goToAppSlide === 'function') {
         e.preventDefault();
         window.goToAppSlide(parseInt(slideNav, 10));
-        if (floatingMenuFab) floatingMenuFab.classList.remove('expanded');
+        setMenuState(0);
       }
     });
   });
@@ -1486,6 +1512,42 @@ function initAppSlideNavigation() {
   // Initialize first slide
   goToSlide(0);
 }
+
+/* ==========================================
+   CONTINUOUS JS MARQUEE TICKER FOR TECH CHIPS
+   ========================================== */
+function initFeaturesTickerScroll() {
+  const track = document.querySelector('.features-pill-track');
+  const strip = document.querySelector('.kwikezee-features-strip');
+  if (!track || !strip) return;
+
+  // Clear CSS animation to give JS 100% full reliable continuous 60fps control
+  track.style.animation = 'none';
+
+  let offset = 0;
+  const speed = 0.85;
+  let isPaused = false;
+
+  strip.addEventListener('mouseenter', () => { isPaused = true; });
+  strip.addEventListener('mouseleave', () => { isPaused = false; });
+  strip.addEventListener('touchstart', () => { isPaused = true; }, { passive: true });
+  strip.addEventListener('touchend', () => { isPaused = false; }, { passive: true });
+
+  function step() {
+    if (!isPaused) {
+      offset += speed;
+      const halfWidth = track.scrollWidth / 2;
+      if (halfWidth > 0 && offset >= halfWidth) {
+        offset = 0;
+      }
+      track.style.transform = `translate3d(-${offset}px, 0, 0)`;
+    }
+    requestAnimationFrame(step);
+  }
+
+  requestAnimationFrame(step);
+}
+
 
 
 
