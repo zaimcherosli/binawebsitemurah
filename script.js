@@ -681,7 +681,11 @@ async function initPwaInstall() {
   }
 
   function closePwaModal() {
-    if (modal) modal.classList.remove('active');
+    if (!modal) return;
+    if (document.activeElement && modal.contains(document.activeElement)) {
+      document.activeElement.blur();
+    }
+    modal.classList.remove('active');
   }
 
   if (closeBtn) closeBtn.addEventListener('click', closePwaModal);
