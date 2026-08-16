@@ -4388,16 +4388,16 @@ body.admin-body .no-submissions svg {
 
 @media (max-width: 900px) {
   .solehin-hero-section {
-    padding-top: 110px;
-    padding-bottom: 50px;
-    min-height: 95vh;
+    padding-top: 85px;
+    padding-bottom: 40px;
+    min-height: 90vh;
   }
   .solehin-hero-bg-img {
-    object-position: center 8%;
+    object-position: center 5%;
     opacity: 0.88;
   }
   .solehin-hero-overlay {
-    background: linear-gradient(180deg, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0.62) 42%, rgba(0,0,0,0.95) 90%);
+    background: linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.60) 40%, rgba(0,0,0,0.95) 90%);
   }
 }
 
