@@ -728,10 +728,10 @@ function initPortfolioSlider() {
 }
 
 /* ==========================================================================
-   DRAGGABLE FLOATING WHATSAPP BUTTON (FAB)
+   DRAGGABLE FLOATING MENU BUTTON (FAB)
    ========================================================================== */
 function initDraggableWaFab() {
-  const fab = document.querySelector('.wa-fab');
+  const fab = document.querySelector('.floating-menu-fab') || document.querySelector('.wa-fab');
   if (!fab) return;
 
   let isDragging = false;
@@ -755,8 +755,9 @@ function initDraggableWaFab() {
     if (wasDragged) {
       e.preventDefault();
       e.stopPropagation();
+      e.stopImmediatePropagation();
     }
-  });
+  }, true);
 
   function dragStart(e) {
     isDragging = true;
@@ -775,6 +776,7 @@ function initDraggableWaFab() {
     fab.style.bottom = 'auto';
     fab.style.left = `${rect.left}px`;
     fab.style.top = `${rect.top}px`;
+    fab.style.transform = 'none';
 
     offsetX = clientX - rect.left;
     offsetY = clientY - rect.top;
@@ -798,7 +800,7 @@ function initDraggableWaFab() {
     let newY = clientY - offsetY;
 
     // Clamp coordinates inside the viewport boundaries
-    const margin = 16;
+    const margin = 12;
     const rect = fab.getBoundingClientRect();
     const maxLeft = window.innerWidth - rect.width - margin;
     const maxTop = window.innerHeight - rect.height - margin;
@@ -813,7 +815,7 @@ function initDraggableWaFab() {
 
     // Determine if drag distance is large enough to classify as dragging instead of clicking
     const dragDistance = Math.sqrt(Math.pow(clientX - startX, 2) + Math.pow(clientY - startY, 2));
-    if (dragDistance > 5) {
+    if (dragDistance > 6) {
       wasDragged = true;
     }
   }
@@ -822,13 +824,13 @@ function initDraggableWaFab() {
     if (!isDragging) return;
     isDragging = false;
     
-    // Re-enable smooth hover scale transition
-    fab.style.transition = 'transform 0.2s ease, box-shadow 0.2s ease';
+    // Re-enable smooth transition
+    fab.style.transition = 'box-shadow 0.2s ease, border-color 0.2s ease';
 
     // Clear wasDragged flags shortly after touch/mouseup has bubbled to the click event
     setTimeout(() => {
       wasDragged = false;
-    }, 50);
+    }, 150);
   }
 }
 
