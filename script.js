@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAccentSwitch();
   initConstellationCanvas();
   initTypewriterEffect();
+  initSpotlightCards();
 });
 
 /* ==========================================
@@ -1050,6 +1051,22 @@ function initTypewriterEffect() {
   }
 
   type();
+}
+
+/* ==========================================
+   INTERACTIVE SPOTLIGHT CARDS (APPLE / LINEAR EFFECT)
+   ========================================== */
+function initSpotlightCards() {
+  const cards = document.querySelectorAll('.spotlight-card, .advantage-card, .showcase-mini-card, .journey-step-card, .pricing-card');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
+  });
 }
 
 

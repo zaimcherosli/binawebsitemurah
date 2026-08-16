@@ -4944,5 +4944,170 @@ body.admin-body .no-submissions svg {
   margin: 0;
 }
 
+/* ==========================================================================
+   SPOTLIGHT CARD HOVER EFFECT (APPLE / LINEAR STYLE)
+   ========================================================================== */
+.advantage-card, .showcase-mini-card, .journey-step-card, .spotlight-card {
+  position: relative;
+  overflow: hidden;
+  background: #0B0B0E !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 20px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.advantage-card::before, .showcase-mini-card::before, .journey-step-card::before, .spotlight-card::before {
+  content: '';
+  position: absolute;
+  top: var(--mouse-y, -500px);
+  left: var(--mouse-x, -500px);
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.18) 0%, rgba(96, 165, 250, 0.08) 45%, transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.advantage-card:hover::before, .showcase-mini-card:hover::before, .journey-step-card:hover::before, .spotlight-card:hover::before {
+  opacity: 1;
+}
+
+.advantage-card:hover, .showcase-mini-card:hover, .journey-step-card:hover, .spotlight-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(212, 175, 55, 0.45) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(212, 175, 55, 0.15) !important;
+}
+
+/* ==========================================================================
+   GLOWING VERTICAL TIMELINE: 5-DAY PROCESS (AHMAD SOLEHIN JOURNEY STYLE)
+   ========================================================================== */
+.timeline-journey-section {
+  padding: 80px 0 90px 0;
+  position: relative;
+  background: #000000;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.timeline-track-container {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  padding: 20px 0 20px 54px;
+}
+
+.timeline-vertical-line {
+  position: absolute;
+  top: 30px;
+  bottom: 30px;
+  left: 20px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--gold-secondary) 0%, #3b82f6 50%, var(--gold-secondary) 100%);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+}
+
+.timeline-step-row {
+  position: relative;
+  margin-bottom: 36px;
+}
+
+.timeline-step-row:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-node-dot {
+  position: absolute;
+  left: -54px;
+  top: 24px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #09090b;
+  border: 2px solid var(--gold-secondary);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  z-index: 2;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-step-row:hover .timeline-node-dot {
+  transform: scale(1.15);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.9);
+}
+
+.journey-step-card {
+  padding: 28px 32px;
+  background: #0B0B0E;
+  border-radius: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.journey-step-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.journey-day-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold-secondary);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+}
+
+.journey-step-role {
+  font-size: 13px;
+  font-weight: 700;
+  color: #60A5FA;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.journey-step-card h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+  font-family: var(--font-headings);
+}
+
+.journey-step-card p {
+  color: #94A3B8;
+  font-size: 14.5px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .timeline-track-container {
+    padding-left: 36px;
+  }
+  .timeline-vertical-line {
+    left: 12px;
+  }
+  .timeline-node-dot {
+    left: -36px;
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+  .journey-step-card {
+    padding: 20px 22px;
+  }
+}
+
 
 
