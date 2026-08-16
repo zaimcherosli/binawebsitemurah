@@ -623,19 +623,41 @@ a {
 }
 
 .floating-menu-fab.expanded.pos-left .dock-cta-wa {
-  font-size: 10px !important;
-  padding: 6px 2px !important;
-  width: 100% !important;
-  text-align: center !important;
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
   justify-content: center !important;
-  border-radius: 10px !important;
+  font-size: 0 !important;
+  color: transparent !important;
+  text-indent: -9999px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  margin: 0 auto !important;
+  flex-shrink: 0 !important;
+  box-shadow: 0 0 14px rgba(37, 211, 102, 0.45) !important;
+}
+
+.floating-menu-fab.expanded.pos-left .dock-cta-wa svg {
+  text-indent: 0 !important;
+  margin: 0 !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 18px !important;
+  height: 18px !important;
+  color: #000000 !important;
 }
 
 .floating-menu-fab.expanded.pos-left .dock-action-group {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  gap: 6px !important;
+  gap: 8px !important;
   width: 100% !important;
 }
 
@@ -6342,11 +6364,13 @@ body.app-slider-mode {
   width: 100% !important;
   max-width: 100% !important;
   overflow: hidden !important;
-  background: rgba(11, 11, 14, 0.95) !important;
-  backdrop-filter: blur(12px) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-  padding: 12px 0 !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  padding: 8px 0 !important;
   position: relative !important;
   display: block !important;
   white-space: nowrap !important;
