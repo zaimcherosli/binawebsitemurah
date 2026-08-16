@@ -4564,6 +4564,10 @@ body.admin-body .no-submissions svg {
     padding-top: 80px;
     padding-bottom: 30px;
     min-height: 88vh;
+    padding-top: 15px !important;
+    padding-bottom: 10px !important;
+    min-height: 0 !important;
+    flex: 1 !important;
   }
   .solehin-hero-bg-layer {
     width: 100%;
@@ -4578,6 +4582,15 @@ body.admin-body .no-submissions svg {
   }
   .solehin-hero-overlay {
     background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 40%, #000000 90%);
+  }
+  .solehin-hero-title {
+    font-size: clamp(1.75rem, 6.5vw, 2.2rem) !important;
+    margin-bottom: 8px !important;
+  }
+  .solehin-hero-desc {
+    font-size: 0.88rem !important;
+    margin-bottom: 12px !important;
+    line-height: 1.45 !important;
   }
 }
 
@@ -5961,8 +5974,8 @@ body.app-slider-mode {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  padding-top: 70px;
-  padding-bottom: 95px;
+  padding-top: 60px;
+  padding-bottom: 75px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -5970,7 +5983,12 @@ body.app-slider-mode {
 }
 
 .app-slide-item[data-slide-index="0"] .app-slide-scrollable {
-  padding-top: 55px;
+  padding-top: 50px !important;
+  padding-bottom: 0px !important;
+  overflow-y: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
 }
 
 /* Custom minimal scrollbar */
