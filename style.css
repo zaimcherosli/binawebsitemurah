@@ -4421,7 +4421,7 @@ body.admin-body .no-submissions svg {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 72% 15%;
+  object-position: 70% 18%;
   display: block;
   opacity: 0.95;
 }
@@ -4442,11 +4442,11 @@ body.admin-body .no-submissions svg {
     min-height: 90vh;
   }
   .solehin-hero-bg-img {
-    object-position: center 5%;
-    opacity: 0.88;
+    object-position: center 10%;
+    opacity: 0.90;
   }
   .solehin-hero-overlay {
-    background: linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.60) 40%, rgba(0,0,0,0.95) 90%);
+    background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.65) 45%, rgba(0,0,0,0.98) 90%);
   }
 }
 

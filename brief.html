@@ -4,31 +4,73 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Borang Maklumat Projek | Kwikezee Studio</title>
+  <meta name="description" content="Sila lengkapkan maklumat perniagaan anda untuk proses pembinaan laman web pantas siap 5 hari oleh Kwikezee Studio.">
   
-  <meta name="theme-color" content="#FAFAF9">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/icon-192.png">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=9">
-  <link rel="stylesheet" href="brief.css?v=3">
+  <link rel="stylesheet" href="style.css?v=630">
+  <link rel="stylesheet" href="brief.css?v=310">
 </head>
 <body>
 
-  <!-- Header Ringkas (Logo Sahaja) -->
-  <header class="brief-header">
-    <div class="container header-inner">
-      <a href="#" class="nav-logo">
-        <div class="logo-icon">K</div>
-        <span class="logo-text">Kwikezee <em>Studio</em></span>
+  <!-- Floating Draggable Modern Menu Button (Mobile & Desktop) -->
+  <button class="floating-menu-fab" id="floatingMenuFab" aria-label="Buka Menu Navigasi" title="Tarik atau Tekan Menu">
+    <span class="fab-menu-bars">
+      <span class="fab-bar"></span>
+      <span class="fab-bar"></span>
+      <span class="fab-bar"></span>
+    </span>
+    <span class="fab-menu-text">Menu</span>
+  </button>
+
+  <!-- HEADER (CENTERED BRAND TITLE) -->
+  <header class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="./" class="nav-brand-centered" aria-label="Kwikezee Studio Utama">
+        Kwikezee <em>Studio</em>
       </a>
-      <div class="header-badge">📋 Borang Maklumat Projek</div>
+    </div>
+
+    <!-- Global Drawer Navigation Modal -->
+    <div class="nav-overlay" id="nav-mobile-menu" aria-hidden="true">
+      <button class="nav-overlay-close" id="nav-overlay-close" aria-label="Tutup menu">✕</button>
+      <div class="nav-overlay-inner">
+        <div class="nav-overlay-brand">
+          Kwikezee <em>Studio</em>
+        </div>
+        <a href="./" class="nav-mobile-link">Utama</a>
+        <a href="portfolio" class="nav-mobile-link">Portfolio</a>
+        <a href="harga" class="nav-mobile-link">Pakej Harga</a>
+        <a href="testimoni" class="nav-mobile-link">Testimoni &amp; FAQ</a>
+        <a href="brief" class="nav-mobile-link active" style="color: var(--gold-secondary); font-weight: 700;">Borang Tempahan</a>
+        <a href="bayar" class="nav-mobile-link" style="color: var(--gold-secondary); font-weight: 700;">Portal Bayaran</a>
+        <a href="admin" class="nav-mobile-link" style="color: #60a5fa; font-weight: 700;">Portal Admin</a>
+        <a href="https://wa.me/60108118559?text=Hai%20Kwikezee%20Studio,%20saya%20berminat%20nak%20bincang%20projek%20website" target="_blank" rel="noopener" class="nav-mobile-link nav-mobile-cta">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20" fill="currentColor" style="display:inline-block; vertical-align:middle; margin-right:8px;"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>WhatsApp Now!
+        </a>
+      </div>
     </div>
   </header>
 
   <main class="brief-main">
     <div class="container form-container">
       
+      <!-- Top Title Header -->
+      <div class="brief-page-header text-center">
+        <span class="studio-hero-badge" style="margin-bottom: 12px;">
+          <span class="pulse-dot"></span>
+          <span>BORANG TEMPAHAN RASMI</span>
+        </span>
+        <h1 class="brief-main-title">Borang Maklumat Projek</h1>
+        <p class="brief-main-sub">Lengkapkan maklumat penjenamaan, servis, dan portfolio perniagaan anda untuk kami siapkan web dalam 5 hari.</p>
+      </div>
+
       <!-- Progress Tracker -->
       <div class="step-tracker">
         <div class="step-progress-bar">
@@ -41,7 +83,7 @@
           </div>
           <div class="step-indicator" data-step="2">
             <span class="step-num">2</span>
-            <span class="step-label">Servis & USP</span>
+            <span class="step-label">Servis &amp; USP</span>
           </div>
           <div class="step-indicator" data-step="3">
             <span class="step-num">3</span>
@@ -60,12 +102,12 @@
           
           <!-- LANGKAH 1: BRANDING & ASAS -->
           <div class="form-step active" data-step="1">
-            <h2 class="step-title">1. Profil Syarikat & Penjenamaan</h2>
+            <h2 class="step-title">1. Profil Syarikat &amp; Penjenamaan</h2>
             <p class="step-desc">Sila masukkan nama perniagaan anda serta bahan penjenamaan asas seperti logo dan tagline.</p>
             
             <div class="form-group">
               <label for="companyName">Nama Syarikat / Bisnes <span class="required">*</span></label>
-              <input type="text" id="companyName" name="companyName" placeholder="Contoh: Shah Plaster & Renovations" required>
+              <input type="text" id="companyName" name="companyName" placeholder="Contoh: Shah Plaster &amp; Renovations" required>
               <span class="error-msg">Sila masukkan nama syarikat anda.</span>
             </div>
 
@@ -76,7 +118,7 @@
 
             <div class="form-group">
               <label for="brandColors">Warna Tema Pilihan</label>
-              <input type="text" id="brandColors" name="brandColors" placeholder="Contoh: Gold & Hitam, Hijau Emerald, dsb.">
+              <input type="text" id="brandColors" name="brandColors" placeholder="Contoh: Gold &amp; Hitam, Hijau Emerald, dsb.">
             </div>
 
             <div class="form-group">
@@ -84,8 +126,8 @@
               <div class="file-upload-zone" id="logo-dropzone">
                 <input type="file" id="logo" name="logo" accept="image/*" class="file-input">
                 <div class="upload-zone-content">
-                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
-                  <p class="upload-title">Tarik & Lepaskan fail di sini, atau <span>Pilih Fail</span></p>
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                  <p class="upload-title">Tarik &amp; Lepaskan fail di sini, atau <span>Pilih Fail</span></p>
                   <p class="upload-info">PNG, JPG atau SVG sahaja. Maksimum 5MB.</p>
                 </div>
                 <div class="file-preview-container" id="logo-preview-container"></div>
@@ -95,12 +137,12 @@
 
           <!-- LANGKAH 2: SERVIS & USP -->
           <div class="form-step" data-step="2">
-            <h2 class="step-title">2. Jenis Servis & Kelebihan (USP)</h2>
+            <h2 class="step-title">2. Jenis Servis &amp; Kelebihan (USP)</h2>
             <p class="step-desc">Maklumat ini akan dipaparkan di bahagian utama laman web untuk menarik minat bakal pelanggan anda.</p>
 
             <div class="form-group">
               <label for="services">Senarai Servis Utama <span class="required">*</span></label>
-              <textarea id="services" name="services" rows="4" placeholder="Nyatakan servis yang ditawarkan secara ringkas.&#10;Contoh:&#10;- Ubah suai dapur & bilik air&#10;- Pasang plaster ceiling & partition&#10;- Kerja mengecat & wiring" required></textarea>
+              <textarea id="services" name="services" rows="4" placeholder="Nyatakan servis yang ditawarkan secara ringkas.&#10;Contoh:&#10;- Ubah suai dapur &amp; bilik air&#10;- Pasang plaster ceiling &amp; partition&#10;- Kerja mengecat &amp; wiring" required></textarea>
               <span class="error-msg">Sila nyatakan servis utama anda.</span>
             </div>
 
@@ -112,19 +154,19 @@
 
             <div class="form-group">
               <label for="coverageArea">Kawasan Liputan Servis <span class="required">*</span></label>
-              <input type="text" id="coverageArea" name="coverageArea" placeholder="Contoh: Seluruh Selangor & Kuala Lumpur" required>
+              <input type="text" id="coverageArea" name="coverageArea" placeholder="Contoh: Seluruh Selangor &amp; Kuala Lumpur" required>
               <span class="error-msg">Sila masukkan kawasan operasi anda.</span>
             </div>
 
             <div class="form-group">
               <label for="workflow">Proses Kerja (Langkah demi Langkah)</label>
-              <textarea id="workflow" name="workflow" rows="4" placeholder="Langkah urusan dengan pelanggan.&#10;Contoh:&#10;1. Hubungi WhatsApp -> 2. Lawatan Tapak & Ukuran -> 3. Pengesahan Sebutharga -> 4. Kerja Bermula -> 5. Penyerahan Kunci"></textarea>
+              <textarea id="workflow" name="workflow" rows="4" placeholder="Langkah urusan dengan pelanggan.&#10;Contoh:&#10;1. Hubungi WhatsApp -> 2. Lawatan Tapak &amp; Ukuran -> 3. Pengesahan Sebutharga -> 4. Kerja Bermula -> 5. Penyerahan Kunci"></textarea>
             </div>
           </div>
 
           <!-- LANGKAH 3: PORTFOLIO & SIJIL -->
           <div class="form-step" data-step="3">
-            <h2 class="step-title">3. Portfolio Kerja & Sijil Kredibiliti</h2>
+            <h2 class="step-title">3. Portfolio Kerja &amp; Sijil Kredibiliti</h2>
             <p class="step-desc">Muat naik gambar projek terdahulu untuk dijadikan galeri portfolio yang memukau bakal pelanggan.</p>
 
             <div class="form-group">
@@ -132,8 +174,8 @@
               <div class="file-upload-zone" id="portfolio-dropzone">
                 <input type="file" id="portfolio" name="portfolio" accept="image/*" multiple class="file-input">
                 <div class="upload-zone-content">
-                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
-                  <p class="upload-title">Tarik & Lepaskan fail di sini, atau <span>Pilih Fail</span></p>
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                  <p class="upload-title">Tarik &amp; Lepaskan fail di sini, atau <span>Pilih Fail</span></p>
                   <p class="upload-info">Gambar sahaja (JPG, PNG). Maksimum 5 fail, maks 5MB setiap satu.</p>
                 </div>
                 <div class="file-preview-container" id="portfolio-preview-container"></div>
@@ -145,8 +187,8 @@
               <div class="file-upload-zone" id="docs-dropzone">
                 <input type="file" id="docs" name="docs" accept="image/*,application/pdf" multiple class="file-input">
                 <div class="upload-zone-content">
-                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
-                  <p class="upload-title">Tarik & Lepaskan fail di sini, atau <span>Pilih Fail</span></p>
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                  <p class="upload-title">Tarik &amp; Lepaskan fail di sini, atau <span>Pilih Fail</span></p>
                   <p class="upload-info">Format fail: Gambar atau PDF sahaja. Maksimum 2 fail, maks 5MB setiap satu.</p>
                 </div>
                 <div class="file-preview-container" id="docs-preview-container"></div>
@@ -161,7 +203,7 @@
 
           <!-- LANGKAH 4: HUBUNGI & HANTAR -->
           <div class="form-step" data-step="4">
-            <h2 class="step-title">4. Maklumat Hubungi & Sosial Media</h2>
+            <h2 class="step-title">4. Maklumat Hubungi &amp; Sosial Media</h2>
             <p class="step-desc">Maklumat perhubungan utama yang akan dihubungkan ke butang tindakan utama laman web.</p>
 
             <div class="form-group">
@@ -187,16 +229,16 @@
 
             <div class="form-group checkbox-group">
               <input type="checkbox" id="declaration" name="declaration" required>
-              <label for="declaration">Saya mengesahkan semua maklumat yang diberikan adalah betul & benar. <span class="required">*</span></label>
+              <label for="declaration">Saya mengesahkan semua maklumat yang diberikan adalah betul &amp; benar. <span class="required">*</span></label>
               <span class="error-msg block-error">Sila tanda pengesahan ini untuk meneruskan.</span>
             </div>
           </div>
 
           <!-- Butang Kawalan Form -->
-          <div class="form-actions">
+          <div class="form-actions" style="margin-top: 32px; display: flex; gap: 14px; justify-content: flex-end;">
             <button type="button" class="btn btn-outline" id="btn-prev" style="display: none;">Sebelumnya</button>
-            <button type="button" class="btn btn-primary" id="btn-next">Seterusnya</button>
-            <button type="submit" class="btn btn-primary" id="btn-submit" style="display: none;">Hantar Maklumat</button>
+            <button type="button" class="btn btn-primary" id="btn-next">Seterusnya &rarr;</button>
+            <button type="submit" class="btn btn-primary shiny-cta-btn" id="btn-submit" style="display: none;">Hantar Maklumat Projek &rarr;</button>
           </div>
 
         </form>
@@ -228,18 +270,20 @@
         </svg>
       </div>
       <h2>Maklumat Berjaya Dihantar!</h2>
-      <p>Terima kasih kerana melengkapkan maklumat projek anda. Kami telah menerima maklumat & fail yang dihantar.</p>
+      <p>Terima kasih kerana melengkapkan maklumat projek anda. Kami telah menerima maklumat &amp; fail yang dihantar.</p>
       <p class="sub-desc">Kami akan mula memproses reka bentuk landing page anda. Anda boleh hubungi kami terus melalui WhatsApp untuk maklum balas pantas.</p>
       <a href="https://wa.me/60108118559" class="btn btn-primary btn-lg">Hubungi Kami di WhatsApp</a>
     </div>
   </div>
 
-  <footer class="brief-footer">
-    <div class="container">
-      <p>&copy; 2026 Kwikezee Studio. Hak Cipta Terpelihara.</p>
+  <!-- Minimal Dark Footer -->
+  <footer class="main-footer">
+    <div class="container text-center">
+      <p>&copy; 2026 Kwikezee Studio (SA0476962-A). Hak Cipta Terpelihara.</p>
     </div>
   </footer>
 
-  <script src="brief.js?v=308"></script>
+  <script src="script.js?v=570"></script>
+  <script src="brief.js?v=310"></script>
 </body>
 </html>
