@@ -239,7 +239,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.2;
-  color: #09090B; /* Deepest black for headings */
+  color: #FFFFFF; /* Pure white for dark theme headings */
 }
 
 p {
@@ -1044,27 +1044,31 @@ a {
 }
 
 .section-eyebrow {
-  display: block;
+  display: inline-block;
   font-family: var(--font-headings);
   font-size: 13px;
-  font-weight: 700;
-  color: var(--gold-primary);
-  letter-spacing: 0.1em;
+  font-weight: 800;
+  color: var(--gold-secondary) !important;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: 12px;
 }
 
 .section-title {
-  font-size: 38px;
+  font-size: clamp(2rem, 4vw, 2.7rem);
   font-weight: 800;
   margin-bottom: 16px;
-  color: #09090B;
+  color: #FFFFFF !important;
+  font-family: var(--font-headings);
+  letter-spacing: -0.5px;
 }
 
 .section-sub {
-  max-width: 600px;
+  max-width: 620px;
   margin: 0 auto;
-  font-size: 15px;
+  font-size: 15.5px;
+  color: #94A3B8 !important;
+  line-height: 1.6;
 }
 
 /* Drag Slider CSS */
