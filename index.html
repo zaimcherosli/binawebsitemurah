@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=470">
+  <link rel="stylesheet" href="style.css?v=480">
 </head>
 <body>
 
@@ -88,15 +88,21 @@
   </header>
 
   <!-- ==========================================
-       SECTION 1: HERO (AHMAD SOLEHIN MODERN HYBRID STYLE)
+       SECTION 1: HERO (AHMAD SOLEHIN + BACKGROUND PORTRAIT HYBRID)
        ========================================== -->
   <section class="solehin-hero-section">
     <!-- Interactive Constellation Canvas Layer (Cursor Lines) -->
     <canvas id="hero-particle-canvas" class="hero-constellation-canvas"></canvas>
 
+    <!-- Background Portrait Layer with Smooth Gradient Overlay -->
+    <div class="solehin-hero-bg-layer">
+      <img src="images/founder-portrait.jpg?v=2" alt="Zaim Rosli - Founder Kwikezee Studio" class="solehin-hero-bg-img">
+      <div class="solehin-hero-overlay"></div>
+    </div>
+
     <div class="container solehin-hero-container">
       
-      <!-- Left Content -->
+      <!-- Content in Front of Background -->
       <div class="solehin-hero-left">
         <!-- Glowing Status Pill -->
         <div class="solehin-status-badge">
@@ -130,13 +136,6 @@
           <div class="dhil-award-badge">
             <span>CLOUDFLARE SPEED</span>
           </div>
-        </div>
-      </div>
-
-      <!-- Right Card Frame Photo -->
-      <div class="solehin-hero-right">
-        <div class="solehin-card-frame">
-          <img src="images/founder-portrait.jpg?v=2" alt="Zaim Rosli - Founder Kwikezee Studio" loading="eager">
         </div>
       </div>
 
@@ -344,6 +343,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=410"></script>
+  <script src="script.js?v=420"></script>
 </body>
 </html>
