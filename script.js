@@ -120,16 +120,11 @@ function initNavbar() {
 
       e.stopPropagation();
 
-      // If desktop, toggle expanded dock
-      if (window.innerWidth > 768) {
-        if (floatingMenuFab.classList.contains('expanded')) {
-          floatingMenuFab.classList.remove('expanded');
-        } else {
-          floatingMenuFab.classList.add('expanded');
-        }
+      // Toggle expanded bottom dock (Mobile & Desktop)
+      if (floatingMenuFab.classList.contains('expanded')) {
+        floatingMenuFab.classList.remove('expanded');
       } else {
-        // Mobile: open full drawer menu
-        openMenu();
+        floatingMenuFab.classList.add('expanded');
       }
     });
   }
