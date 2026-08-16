@@ -110,6 +110,8 @@ function initNavbar() {
   // Floating Menu 4-State Cycle (0: Closed -> 1: Bottom -> 2: Left -> 3: Top -> 0: Closed)
   let menuCycleState = 0; // 0 = closed, 1 = bottom, 2 = left, 3 = top
   const dockSwitchBtn = document.getElementById('dockSwitchBtn');
+  const dockCloseBtn = document.getElementById('dockCloseBtn');
+  const dockNavLinks = document.querySelectorAll('.dock-link');
 
   function setMenuState(state) {
     menuCycleState = state % 4;
