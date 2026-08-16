@@ -2359,15 +2359,15 @@ a {
 
 .cs-client-profile h3 {
   font-size: 22px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   font-family: var(--font-headings);
   font-weight: 800;
-  color: #09090B;
+  color: #FFFFFF !important;
 }
 
 .cs-duration {
-  font-size: 12px;
-  color: var(--text-muted);
+  font-size: 13px;
+  color: #94A3B8 !important;
   margin-bottom: 24px;
 }
 
@@ -2379,21 +2379,21 @@ a {
 
 .cs-metric-chip {
   flex: 1;
-  background: rgba(0, 0, 0, 0.01);
-  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
   padding: 16px;
   border-radius: 16px;
   text-align: center;
 }
 
 .cs-metric-chip:hover {
-  background: rgba(0, 0, 0, 0.02);
+  background: rgba(255, 255, 255, 0.07) !important;
 }
 
 .cs-metric-label {
   display: block;
-  font-size: 10px;
-  color: var(--text-muted);
+  font-size: 11px;
+  color: #94A3B8 !important;
   text-transform: uppercase;
   margin-bottom: 4px;
   letter-spacing: 0.5px;
@@ -6134,6 +6134,44 @@ body.admin-body .no-submissions svg {
   justify-content: center;
   gap: 18px;
   margin-top: 25px;
+}
+
+.cs-detail-box strong {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--gold-secondary) !important;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+  font-weight: 800;
+}
+
+.cs-detail-box p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #CBD5E1 !important;
+}
+
+.cs-quote {
+  font-style: italic;
+  font-size: 14px;
+  color: #E2E8F0 !important;
+  background: rgba(212, 175, 55, 0.08) !important;
+  border-left: 3px solid var(--gold-secondary) !important;
+  padding: 18px 20px;
+  border-radius: 0 14px 14px 0;
+  margin-top: auto;
+  line-height: 1.6;
+}
+
+.cs-quote cite {
+  display: block;
+  font-style: normal;
+  font-size: 12px;
+  color: var(--gold-secondary) !important;
+  margin-top: 8px;
+  text-align: right;
+  font-weight: 700;
 }
 
 .phone-nav-btn {
