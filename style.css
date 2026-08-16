@@ -3,26 +3,26 @@
    ========================================================================== */
 
 :root {
-  /* Color Tokens - Light Luxury Alabaster Theme */
-  --bg-color: #FAFAF9;          /* Off-White Alabaster */
-  --bg-card: #FFFFFF;          /* Pure White */
-  --bg-card-hover: #F4F4F5;    /* Very Soft Gray */
+  /* Color Tokens - Dhil Studio Style Deep Obsidian Theme */
+  --bg-color: #000000;          /* Pitch Black */
+  --bg-card: #0F0F12;          /* Deep Card Dark */
+  --bg-card-hover: #18181D;    /* Soft Dark Hover */
   
-  --gold-primary: #B8860B;     /* Dark Goldenrod (Gold with high readability on white) */
+  --gold-primary: #B8860B;     /* Dark Goldenrod */
   --gold-secondary: #D4AF37;   /* Liquid Accent Gold */
   --gold-dark: #8B6508;        /* Antique Bronze */
-  --gold-glow: rgba(184, 134, 11, 0.08);
+  --gold-glow: rgba(184, 134, 11, 0.15);
   
-  --emerald-primary: #059669;  /* Deep Emerald Green */
-  --emerald-glow: rgba(5, 150, 105, 0.06);
+  --emerald-primary: #10B981;  /* Deep Emerald Green */
+  --emerald-glow: rgba(16, 185, 129, 0.15);
   
-  --text-main: #18181B;        /* Charcoal Black (Zinc-900) */
-  --text-muted: #52525B;       /* Muted Slate Gray (Zinc-600) */
-  --text-dark: #FFFFFF;        /* High-contrast white for dark backgrounds */
+  --text-main: #FFFFFF;        /* Crisp White */
+  --text-muted: #94A3B8;       /* Slate Gray */
+  --text-dark: #FFFFFF;        /* Pure White */
   
-  --border-color: rgba(0, 0, 0, 0.07);
-  --border-gold: rgba(184, 134, 11, 0.16);
-  --border-gold-hover: rgba(184, 134, 11, 0.35);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-gold: rgba(184, 134, 11, 0.35);
+  --border-gold-hover: rgba(184, 134, 11, 0.6);
   
   /* Fonts */
   --font-headings: 'Outfit', sans-serif;
@@ -30,7 +30,7 @@
   
   /* Layout */
   --nav-height: 80px;
-  --container-width: 1140px;
+  --container-width: 1240px;
   --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -401,22 +401,23 @@ a {
    NAVIGATION
    ========================================== */
 .navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: var(--nav-height);
   z-index: 1000;
-  background: rgba(250, 250, 249, 0.92);
+  background: rgba(0, 0, 0, 0.88);
   backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border-color);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.3s ease;
 }
 
 .navbar.scrolled {
-  background: rgba(250, 250, 249, 0.95);
+  background: rgba(0, 0, 0, 0.96);
   height: 70px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
 }
 
 .nav-inner {
@@ -436,6 +437,8 @@ a {
   font-weight: 800;
   font-size: 20px;
   font-family: var(--font-headings);
+  color: #FFFFFF;
+  text-decoration: none;
 }
 
 .logo-icon {
@@ -4330,26 +4333,32 @@ body.admin-body .no-submissions svg {
 /* ==========================================================================
    DHIL STUDIO STYLE MINIMALIST PORTRAIT HERO
    ========================================================================== */
+/* ==========================================================================
+   DHIL STUDIO STYLE MINIMALIST PORTRAIT HERO (PIXEL-PERFECT REPLICA)
+   ========================================================================== */
 .dhil-hero-section {
   position: relative;
   background: #000000;
-  min-height: calc(100vh - 70px);
+  min-height: calc(100vh - 80px);
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: 100px 0 60px 0;
+  padding: 120px 0 60px 0;
+  box-sizing: border-box;
 }
 
 .dhil-hero-container {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-columns: 1.2fr 0.8fr;
   align-items: center;
   gap: 40px;
   width: 100%;
-  max-width: 1280px;
+  max-width: 1240px;
   margin: 0 auto;
+  padding: 0 24px;
   position: relative;
   z-index: 2;
+  box-sizing: border-box;
 }
 
 .dhil-hero-left {
@@ -4361,12 +4370,12 @@ body.admin-body .no-submissions svg {
 }
 
 .dhil-hero-heading {
-  font-size: clamp(3rem, 6.5vw, 5.2rem);
+  font-size: clamp(3.2rem, 6.5vw, 5.2rem);
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: -2px;
   color: #FFFFFF;
-  margin: 0 0 28px 0;
+  margin: 0 0 24px 0;
   font-family: var(--font-headings);
 }
 
@@ -4374,16 +4383,19 @@ body.admin-body .no-submissions svg {
   font-style: normal;
   display: block;
   font-weight: 800;
-  color: #E2E8F0;
+  font-size: clamp(1.8rem, 3.8vw, 3rem);
+  color: #FFFFFF;
+  letter-spacing: -1px;
+  margin-top: 4px;
 }
 
 .dhil-hero-intro {
-  font-size: clamp(1.05rem, 1.6vw, 1.22rem);
-  color: #CBD5E1;
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  color: #E2E8F0;
   line-height: 1.65;
   font-weight: 400;
-  max-width: 580px;
-  margin: 0 0 20px 0;
+  max-width: 600px;
+  margin: 0 0 16px 0;
 }
 
 .dhil-hero-title-tag {
@@ -4391,13 +4403,13 @@ body.admin-body .no-submissions svg {
   font-weight: 700;
   color: #94A3B8;
   letter-spacing: 0.2px;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
 .dhil-hero-badges {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
   margin-top: 10px;
 }
@@ -4405,12 +4417,12 @@ body.admin-body .no-submissions svg {
 .dhil-award-badge {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 12px;
   padding: 8px 16px;
-  color: #E2E8F0;
+  color: #FFFFFF;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -4426,7 +4438,7 @@ body.admin-body .no-submissions svg {
 
 .dhil-portrait-wrap {
   width: 100%;
-  max-width: 520px;
+  max-width: 500px;
   position: relative;
   border-radius: 24px;
   overflow: hidden;
@@ -4435,11 +4447,17 @@ body.admin-body .no-submissions svg {
 .dhil-portrait-wrap img {
   width: 100%;
   height: auto;
+  max-height: 75vh;
   display: block;
   object-fit: cover;
+  border-radius: 20px;
 }
 
 @media (max-width: 900px) {
+  .dhil-hero-section {
+    padding-top: 100px;
+    padding-bottom: 40px;
+  }
   .dhil-hero-container {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -4452,6 +4470,9 @@ body.admin-body .no-submissions svg {
   .dhil-hero-heading {
     text-align: center;
   }
+  .dhil-hero-heading em {
+    text-align: center;
+  }
   .dhil-hero-intro {
     text-align: center;
   }
@@ -4459,7 +4480,7 @@ body.admin-body .no-submissions svg {
     justify-content: center;
   }
   .dhil-portrait-wrap {
-    max-width: 360px;
+    max-width: 320px;
     margin: 0 auto;
   }
 }
