@@ -35,7 +35,7 @@ body {
 
 .brief-main {
   flex: 1;
-  padding: 40px 0 80px 0;
+  padding: 85px 0 80px 0;
 }
 
 .form-container {
@@ -968,9 +968,10 @@ body {
   }
   .brief-main,
   main.brief-main {
-    padding: 4px 0 !important;
+    padding: 75px 8px 40px 8px !important;
     margin: 0 !important;
     width: 100% !important;
+    box-sizing: border-box !important;
   }
   .brief-main .container,
   body.brief-body .container,
