@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTypewriterEffect();
   initSpotlightCards();
   initCircularPhoneCarousel();
+  initAppSlideNavigation();
 });
 
 /* ==========================================
@@ -1223,5 +1224,173 @@ function initCircularPhoneCarousel() {
   updatePositions();
   animate();
 }
+
+/* ==========================================================================
+   MOBILE APP STORY / SWIPE SLIDE NAVIGATION MODULE
+   ========================================================================== */
+function initAppSlideNavigation() {
+  const stage = document.getElementById('appSliderStage');
+  const track = document.getElementById('appSlidesTrack');
+  const slides = document.querySelectorAll('.app-slide-item');
+  const pills = document.querySelectorAll('.story-pill');
+  const prevBtn = document.getElementById('slidePrevBtn');
+  const nextBtn = document.getElementById('slideNextBtn');
+
+  if (!stage || !track || slides.length === 0) return;
+
+  // Add class to body to lock viewport
+  document.body.classList.add('app-slider-mode');
+
+  let currentSlide = 0;
+  const totalSlides = slides.length;
+  let isSwiping = false;
+  let startX = 0;
+  let startY = 0;
+  let deltaX = 0;
+  let deltaY = 0;
+  let isHorizontalSwipe = null;
+
+  function goToSlide(index) {
+    if (index < 0) index = 0;
+    if (index >= totalSlides) index = totalSlides - 1;
+
+    currentSlide = index;
+    const offset = -(currentSlide * 100);
+    track.style.transform = `translateX(${offset}vw)`;
+
+    // Update Progress Pills
+    pills.forEach((pill, i) => {
+      pill.classList.remove('active', 'completed');
+      if (i < currentSlide) {
+        pill.classList.add('completed');
+      } else if (i === currentSlide) {
+        pill.classList.add('active');
+      }
+    });
+
+    // Update Slide Items Active State
+    slides.forEach((slide, i) => {
+      if (i === currentSlide) {
+        slide.classList.add('active');
+        // Trigger reveal animations inside the active slide
+        slide.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+      } else {
+        slide.classList.remove('active');
+      }
+    });
+
+    // Toggle Arrow States
+    if (prevBtn) prevBtn.style.opacity = currentSlide === 0 ? '0.3' : '1';
+    if (nextBtn) nextBtn.style.opacity = currentSlide === totalSlides - 1 ? '0.3' : '1';
+  }
+
+  // Pill Click Navigation
+  pills.forEach((pill, idx) => {
+    pill.addEventListener('click', () => {
+      goToSlide(idx);
+    });
+  });
+
+  // Next / Prev Button Controls
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      goToSlide(currentSlide - 1);
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      goToSlide(currentSlide + 1);
+    });
+  }
+
+  // Keyboard Left / Right Navigation
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') {
+      goToSlide(currentSlide + 1);
+    } else if (e.key === 'ArrowLeft') {
+      goToSlide(currentSlide - 1);
+    }
+  });
+
+  // Touch Swipe Gestures
+  stage.addEventListener('touchstart', (e) => {
+    // If touching inside interactive 3D carousel or draggable FAB, let their handlers run
+    if (e.target.closest('#phone3dStage') || e.target.closest('.floating-menu-fab') || e.target.closest('.nav-overlay')) {
+      return;
+    }
+
+    isSwiping = true;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    deltaX = 0;
+    deltaY = 0;
+    isHorizontalSwipe = null;
+  }, { passive: true });
+
+  stage.addEventListener('touchmove', (e) => {
+    if (!isSwiping) return;
+
+    deltaX = e.touches[0].clientX - startX;
+    deltaY = e.touches[0].clientY - startY;
+
+    // Detect direction intent
+    if (isHorizontalSwipe === null) {
+      if (Math.abs(deltaX) > 8 || Math.abs(deltaY) > 8) {
+        isHorizontalSwipe = Math.abs(deltaX) > Math.abs(deltaY);
+      }
+    }
+
+    if (isHorizontalSwipe) {
+      // Prevent default page scroll if swiping horizontally
+      if (e.cancelable) e.preventDefault();
+    }
+  }, { passive: false });
+
+  stage.addEventListener('touchend', () => {
+    if (!isSwiping) return;
+    isSwiping = false;
+
+    if (isHorizontalSwipe) {
+      const threshold = 45; // min px to trigger slide
+      if (deltaX < -threshold) {
+        // Swiped Left -> Next Slide
+        goToSlide(currentSlide + 1);
+      } else if (deltaX > threshold) {
+        // Swiped Right -> Prev Slide
+        goToSlide(currentSlide - 1);
+      }
+    }
+    isHorizontalSwipe = null;
+  });
+
+  // Global Helper for Menu Links
+  window.goToAppSlide = function(slideIndex) {
+    goToSlide(slideIndex);
+  };
+
+  // Connect drawer menu links to slide index if clicked on homepage
+  const drawerLinks = document.querySelectorAll('.nav-overlay-inner a');
+  drawerLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href === './' || href === '#') {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        goToSlide(0);
+      });
+    } else if (href === 'portfolio') {
+      link.addEventListener('click', (e) => {
+        if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/') || !window.location.pathname.includes('.')) {
+          e.preventDefault();
+          goToSlide(1);
+        }
+      });
+    }
+  });
+
+  // Initialize first slide
+  goToSlide(0);
+}
+
 
 
