@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=450">
+  <link rel="stylesheet" href="style.css?v=460">
 </head>
 <body>
 
@@ -88,9 +88,12 @@
   </header>
 
   <!-- ==========================================
-       SECTION 1: HERO (DHIL STUDIO MINIMALIST STYLE)
+       SECTION 1: HERO (INTERACTIVE CONSTELLATION & DHIL STUDIO HYBRID)
        ========================================== -->
   <section class="dhil-hero-section">
+    <!-- Interactive Constellation Canvas Layer (Cursor Lines) -->
+    <canvas id="hero-particle-canvas" class="hero-constellation-canvas"></canvas>
+
     <!-- Background Portrait Layer with Smooth Gradient Overlay -->
     <div class="dhil-hero-bg-layer">
       <img src="images/founder-portrait.jpg?v=2" alt="Zaim Rosli - Founder Kwikezee Studio" class="dhil-hero-bg-img">
@@ -101,6 +104,12 @@
       
       <!-- Content In Front of Image -->
       <div class="dhil-hero-left">
+        <!-- Glowing Status Pill (Ahmad Solehin Style) -->
+        <div class="solehin-status-badge">
+          <span class="pulse-dot-blue"></span>
+          <span>AVAILABLE FOR NEW PROJECTS</span>
+        </div>
+
         <h1 class="dhil-hero-heading">
           We Design<br>
           <em>Website for you.</em>
@@ -328,6 +337,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=380"></script>
+  <script src="script.js?v=400"></script>
 </body>
 </html>
