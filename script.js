@@ -1530,7 +1530,7 @@ function initCreativeParallaxAnd3DTilt() {
       watermarkEls.forEach((el, index) => {
         const speed = index % 2 === 0 ? 0.08 : -0.06;
         const offset = Math.max(-40, Math.min(40, scrollY * speed));
-        el.style.transform = `translate(calc(-50% + ${offset}px), -50%)`;
+        el.style.transform = `translateY(-50%) translateX(${offset}px)`;
       });
       ticking = false;
     }
