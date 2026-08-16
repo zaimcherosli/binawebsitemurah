@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Portfolio &amp; Hasil Kerja | Kwikezee Studio Malaysia</title>
+  <meta name="title" content="Portfolio &amp; Hasil Kerja | Kwikezee Studio Malaysia">
+  <meta name="description" content="Semak koleksi projek laman web dan landing page yang telah dibina oleh Kwikezee Studio untuk pelbagai industri di Malaysia.">
+  <link rel="canonical" href="https://kwikezee.my/portfolio">
+
+  <meta name="theme-color" content="#0A0A0C">
+  <link rel="icon" type="image/jpeg" sizes="32x32" href="images/logo-round.jpg">
+  <link rel="shortcut icon" href="images/logo-round.jpg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=420">
+</head>
+<body>
+
+  <!-- Floating WhatsApp Action Button -->
+  <a href="https://wa.me/60108118559?text=Hai%20Kwikezee%20Studio,%20saya%20tengok%20portfolio%20dan%20berminat%20nak%20bina%20website"
+     class="wa-fab" target="_blank" rel="noopener" aria-label="WhatsApp Kwikezee Studio" title="WhatsApp Sekarang">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24">
+      <path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+    </svg>
+    <span class="wa-fab-ripple"></span>
+  </a>
+
+  <!-- DESKTOP NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="./" class="nav-logo" aria-label="Kwikezee Studio Utama">
+        <img src="images/logo-round.jpg" alt="Kwikezee Studio" class="nav-logo-img">
+        <span class="logo-text">Kwikezee <em>Studio</em></span>
+      </a>
+
+      <nav class="nav-links" aria-label="Navigasi Utama">
+        <a href="./" class="nav-link">Utama</a>
+        <a href="portfolio" class="nav-link active">Portfolio</a>
+        <a href="harga" class="nav-link">Pakej Harga</a>
+        <a href="testimoni" class="nav-link">Testimoni &amp; FAQ</a>
+        <a href="brief" class="nav-link" style="color: var(--gold-secondary); font-weight: 700;">Borang Briefing</a>
+        <a href="admin" class="nav-link" style="color: #60a5fa; font-weight: 700;">🔐 Admin</a>
+      </nav>
+
+      <div class="nav-right">
+        <a href="https://wa.me/60108118559?text=Hai%20Kwikezee%20Studio,%20saya%20berminat%20nak%20bincang%20projek%20website" target="_blank" rel="noopener" class="btn btn-primary btn-sm">WhatsApp Kami</a>
+      </div>
+
+      <button class="hamburger" id="nav-hamburger" aria-label="Buka menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="nav-overlay" id="nav-mobile-menu" aria-hidden="true">
+      <button class="nav-overlay-close" id="nav-overlay-close" aria-label="Tutup menu">✕</button>
+      <div class="nav-overlay-inner">
+        <a href="./" class="nav-mobile-link">Utama</a>
+        <a href="portfolio" class="nav-mobile-link active">Portfolio</a>
+        <a href="harga" class="nav-mobile-link">Pakej Harga</a>
+        <a href="testimoni" class="nav-mobile-link">Testimoni &amp; FAQ</a>
+        <a href="brief" class="nav-mobile-link" style="color: var(--gold-secondary); font-weight: 700;">📋 Borang Tempahan</a>
+        <a href="bayar" class="nav-mobile-link" style="color: var(--gold-secondary); font-weight: 700;">💳 Portal Bayaran</a>
+        <a href="admin" class="nav-mobile-link" style="color: #60a5fa; font-weight: 700;">🔐 Portal Admin</a>
+        <a href="https://wa.me/60108118559" target="_blank" rel="noopener" class="nav-mobile-link nav-mobile-cta">💬 WhatsApp Pengasas</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE HEADER BANNER -->
+  <section class="page-banner" style="padding: 120px 0 40px 0; text-align: center;">
+    <div class="container">
+      <div class="studio-hero-badge" style="margin-bottom: 16px;">
+        <span class="pulse-dot"></span>
+        <span>KOLEKSI HASIL KERJA SEBENAR</span>
+      </div>
+      <h1 class="section-title" style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 14px;">
+        Portfolio &amp; <span class="text-grad-gold">Karya Studio Kami</span>
+      </h1>
+      <p class="section-sub" style="max-width: 620px; margin: 0 auto;">
+        Semua projek dibina dengan standard kod moden, reka bentuk responsif, dan kelajuan luar biasa di Cloudflare. Klik mana-mana projek untuk melihat demo secara <em>live</em>.
+      </p>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO SECTION -->
+  <section id="portfolio" class="portfolio-section" style="padding-top: 20px; padding-bottom: 100px;">
+    <div class="container">
+      
+      <!-- Portfolio Filter Tabs -->
+      <div class="portfolio-tabs-container reveal">
+        <button class="tab-btn active" data-filter="all">Semua Projek</button>
+        <button class="tab-btn" data-filter="property">Hartanah &amp; REN</button>
+        <button class="tab-btn" data-filter="renovation">Renovasi &amp; Kontraktor</button>
+        <button class="tab-btn" data-filter="service">Servis &amp; Konsultasi</button>
+        <button class="tab-btn" data-filter="product">Produk &amp; E-Commerce</button>
+      </div>
+
+      <!-- Portfolio Grid -->
+      <div class="portfolio-grid">
+        
+        <!-- Item 1: Zaim Rosli Hartanah Specialist -->
+        <a href="https://zaimrosli.my/" target="_blank" rel="noopener" class="portfolio-item property reveal" data-category="property" style="text-decoration: none; color: inherit;">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+              <div class="mobile-portfolio-frame">
+                <div class="mobile-portfolio-notch"></div>
+                <div class="mobile-portfolio-screen">
+                  <img src="images/portfolio-hartanah.jpg" alt="Zaim Rosli Hartanah Specialist">
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">HARTANAH / REAL ESTATE</span>
+              <h3>Zaim Rosli Hartanah Specialist</h3>
+              <p>Landing page ejen hartanah REN berprestasi tinggi dengan borang kelayakan leads dan integrasi WhatsApp.</p>
+              <span class="portfolio-link">Buka Laman Web Live &#8594;</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Item 2: Shah Plaster Siling & Renovation -->
+        <a href="https://binawebsitemurah-by.zaimrosli.my/shah-plaster-renovations/" target="_blank" rel="noopener" class="portfolio-item renovation reveal" data-category="renovation" style="text-decoration: none; color: inherit;">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #7c2d12 0%, #1c1917 100%);">
+              <div class="mobile-portfolio-frame">
+                <div class="mobile-portfolio-notch"></div>
+                <div class="mobile-portfolio-screen">
+                  <img src="images/portfolio-shahreno.jpg" alt="Shah Plaster Siling &amp; Renovation">
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">RENOVASI &amp; KONTRAKTOR</span>
+              <h3>Shah Plaster Siling &amp; Renovation</h3>
+              <p>Laman web penawaran servis renovasi rumah, plaster siling, tile &amp; wiring dengan portfolio projek lengkap.</p>
+              <span class="portfolio-link">Buka Laman Web Live &#8594;</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Item 3: Kwikezee Renovations -->
+        <a href="https://kwikezeerenovations-by.zaimrosli.my/" target="_blank" rel="noopener" class="portfolio-item renovation reveal" data-category="renovation" style="text-decoration: none; color: inherit;">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #3b2a0c 0%, #1e1503 100%);">
+              <div class="mobile-portfolio-frame">
+                <div class="mobile-portfolio-notch"></div>
+                <div class="mobile-portfolio-screen">
+                  <img src="images/portfolio-kwikezeereno.jpg" alt="Kwikezee Renovations">
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">RENOVASI &amp; PERUNDINGAN</span>
+              <h3>Kwikezee Renovations Portal</h3>
+              <p>Laman perkhidmatan perundingan &amp; pengurusan renovasi rumah tanpa pening kepala dengan perbandingan sebut harga.</p>
+              <span class="portfolio-link">Buka Laman Web Live &#8594;</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Item 4: Semenyih CCTV & Aircond -->
+        <a href="https://semenyih-cctv-aircond.pages.dev/" target="_blank" rel="noopener" class="portfolio-item service reveal" data-category="service" style="text-decoration: none; color: inherit;">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);">
+              <div class="mobile-portfolio-frame">
+                <div class="mobile-portfolio-notch"></div>
+                <div class="mobile-portfolio-screen">
+                  <img src="images/portfolio-cctv.jpg?v=2" alt="Semenyih CCTV &amp; Aircond">
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">PERKHIDMATAN TEMPATAN</span>
+              <h3>Semenyih CCTV &amp; Aircond</h3>
+              <p>Landing page pakar jual &amp; pasang CCTV serta aircond untuk rumah &amp; premis perniagaan dengan tempahan pantas.</p>
+              <span class="portfolio-link">Buka Laman Web Live &#8594;</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Item 5: Millennium Metier Cleaning -->
+        <a href="https://millennium-metier-cleaning.pages.dev/" target="_blank" rel="noopener" class="portfolio-item service reveal" data-category="service" style="text-decoration: none; color: inherit;">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #0d9488 0%, #0f172a 100%);">
+              <div class="mobile-portfolio-frame">
+                <div class="mobile-portfolio-notch"></div>
+                <div class="mobile-portfolio-screen">
+                  <img src="images/portfolio-cleaning.jpg" alt="Millennium Metier Cleaning Services">
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">SERVIS KOMERSIAL</span>
+              <h3>Millennium Metier Cleaning</h3>
+              <p>Laman web perkhidmatan pembersihan pejabat dan bangunan komersial (commercial cleaning) bertaraf profesional.</p>
+              <span class="portfolio-link">Buka Laman Web Live &#8594;</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Item 6: Aneka Kek Pisang -->
+        <a href="https://aneka-kek-pisang.pages.dev/" target="_blank" rel="noopener" class="portfolio-item product reveal" data-category="product" style="text-decoration: none; color: inherit;">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #854d0e 0%, #291507 100%);">
+              <div class="mobile-portfolio-frame">
+                <div class="mobile-portfolio-notch"></div>
+                <div class="mobile-portfolio-screen">
+                  <img src="images/portfolio-kekpisang.jpg" alt="Aneka Kek Pisang Premium">
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">PRODUK &amp; E-COMMERCE</span>
+              <h3>Aneka Kek Pisang Premium</h3>
+              <p>Landing page produk kek pisang moist premium dengan pelbagai topping mewah dan borang pesanan automatik.</p>
+              <span class="portfolio-link">Buka Laman Web Live &#8594;</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Item 7: Surau Al-Mustaqim -->
+        <a href="https://surau-al-mustaqim.pages.dev/" target="_blank" rel="noopener" class="portfolio-item service reveal" data-category="service" style="text-decoration: none; color: inherit;">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #047857 0%, #022c22 100%);">
+              <div class="mobile-portfolio-frame">
+                <div class="mobile-portfolio-notch"></div>
+                <div class="mobile-portfolio-screen">
+                  <img src="images/portfolio-surau.jpg" alt="Surau Al-Mustaqim Vista Seri Putra">
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">SERVIS &amp; KOMUNITI</span>
+              <h3>Surau Al-Mustaqim Portal</h3>
+              <p>Aplikasi PWA warta solat &amp; portal kutipan dana sumbangan komuniti dengan fungsi waktu solat real-time.</p>
+              <span class="portfolio-link">Buka Laman Web Live &#8594;</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Item 8: Misi Pintar Kids -->
+        <a href="https://misi-pintar.pages.dev/" target="_blank" rel="noopener" class="portfolio-item product reveal" data-category="product" style="text-decoration: none; color: inherit;">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #059669 0%, #064e3b 100%);">
+              <div class="mobile-portfolio-frame">
+                <div class="mobile-portfolio-notch"></div>
+                <div class="mobile-portfolio-screen">
+                  <img src="images/portfolio-misipintar.png" alt="Misi Pintar Kids App">
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">PENDIDIKAN &amp; KANAK-KANAK</span>
+              <h3>Misi Pintar Kids Learning App</h3>
+              <p>Aplikasi kembara belajar kanak-kanak yang interaktif dengan elemen permainan dan pendidikan kreatif.</p>
+              <span class="portfolio-link">Buka Laman Web Live &#8594;</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Item 9: Telekung Premium -->
+        <a href="https://telekung-premium.pages.dev/" target="_blank" rel="noopener" class="portfolio-item product reveal" data-category="product" style="text-decoration: none; color: inherit;">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #4c1d95 0%, #1e1b4b 100%);">
+              <div class="mobile-portfolio-frame">
+                <div class="mobile-portfolio-notch"></div>
+                <div class="mobile-portfolio-screen">
+                  <img src="images/portfolio-telekung.jpg" alt="Telekung Premium Eksklusif">
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">FESYEN &amp; PRODUK PREMUM</span>
+              <h3>Telekung Premium Eksklusif</h3>
+              <p>Landing page jualan koleksi telekung gred premium dengan rekaan patuh syariah dan pilihan warna mewah.</p>
+              <span class="portfolio-link">Buka Laman Web Live &#8594;</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Item 10: Seputra Eagle Supporters -->
+        <a href="https://seputraeagles.pages.dev/order-baju-supporters" target="_blank" rel="noopener" class="portfolio-item product reveal" data-category="product" style="text-decoration: none; color: inherit;">
+          <div class="portfolio-card-inner">
+            <div class="portfolio-visual-box" style="background: linear-gradient(135deg, #ea580c 0%, #1e1b4b 100%);">
+              <div class="mobile-portfolio-frame">
+                <div class="mobile-portfolio-notch"></div>
+                <div class="mobile-portfolio-screen">
+                  <img src="images/portfolio-seputraeagles.png" alt="Borang Tempahan Jersi Seputra Eagle">
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-body">
+              <span class="item-tag">PRODUK &amp; BORANG TEMPAHAN</span>
+              <h3>Borang Tempahan Jersi Seputra Eagle</h3>
+              <p>Landing page borang tempahan jersi rasmi kelab dengan pilihan saiz, rekaan baju, &amp; pengesahan bayaran.</p>
+              <span class="portfolio-link">Buka Laman Web Live &#8594;</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- CTA Box at bottom of Portfolio -->
+      <div style="margin-top: 60px; background: rgba(18, 18, 22, 0.7); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 20px; padding: 36px 24px; text-align: center;" class="reveal">
+        <h3 style="font-size: 22px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">Tertarik Dengan Kualiti Kerja Kami?</h3>
+        <p style="color: #94A3B8; font-size: 14.5px; max-width: 540px; margin: 0 auto 20px auto;">Jom bincangkan idea atau keperluan laman web bisnes anda bersama kami hari ini.</p>
+        <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+          <a href="https://wa.me/60108118559?text=Hai%20Kwikezee%20Studio,%20saya%20berminat%20nak%20bincang%20projek%20website" target="_blank" rel="noopener" class="btn btn-primary btn-lg">
+            <span>💬 Bincang Projek di WhatsApp</span>
+          </a>
+          <a href="harga" class="btn btn-outline btn-lg">
+            <span>Lihat Pakej Harga &rarr;</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="container text-center">
+      <p>&copy; 2026 Kwikezee Studio (SA0476962-A). Hak Cipta Terpelihara.</p>
+    </div>
+  </footer>
+
+  <script src="script.js?v=370"></script>
+</body>
+</html>
