@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=820">
+  <link rel="stylesheet" href="style.css?v=830">
   
   <style>
     @keyframes featuresPillScroll {
@@ -602,14 +602,14 @@
   </main>
 
   <!-- Modern PWA Install Popup Center Modal -->
-  <div class="pwa-install-modal-backdrop" id="pwa-install-modal" aria-hidden="true">
-    <div class="pwa-install-sheet" id="pwa-install-sheet">
+  <div class="pwa-install-modal-backdrop" id="pwa-install-modal" aria-hidden="true" style="position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; width: 100vw !important; height: 100vh !important; z-index: 999999 !important; display: flex !important; align-items: center !important; justify-content: center !important; padding: 20px !important; margin: 0 !important; box-sizing: border-box !important;">
+    <div class="pwa-install-sheet" id="pwa-install-sheet" style="position: relative !important; width: 100% !important; max-width: 350px !important; margin: auto !important; background: #121216 !important; border: 2px solid rgba(212, 175, 55, 0.85) !important; border-radius: 24px !important; padding: 26px 20px 22px 20px !important; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.98), 0 0 45px rgba(212, 175, 55, 0.4) !important; display: flex !important; flex-direction: column !important; align-items: center !important; text-align: center !important; top: auto !important; bottom: auto !important; left: auto !important; right: auto !important; box-sizing: border-box !important;">
       <button class="pwa-sheet-close" id="pwa-modal-close" aria-label="Tutup popup">&times;</button>
-      <div class="pwa-sheet-content">
-        <img src="images/logo-round.jpg" alt="Kwikezee Studio Logo" class="pwa-sheet-logo-img">
-        <div class="pwa-sheet-text">
-          <h3>Pasang Aplikasi Kwikezee Studio</h3>
-          <p>Dapatkan akses pantas, buka offline tanpa sambungan internet, dan pengalaman Web App 100% lebih laju di telefon anda.</p>
+      <div class="pwa-sheet-content" style="width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <img src="images/logo-round.jpg" alt="Kwikezee Studio Logo" class="pwa-sheet-logo-img" style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-secondary); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.45); margin-bottom: 14px;">
+        <div class="pwa-sheet-text" style="width: 100%;">
+          <h3 style="font-family: var(--font-headings); font-size: 19px; font-weight: 800; color: #FFFFFF; margin-bottom: 6px;">Pasang Aplikasi Kwikezee Studio</h3>
+          <p style="font-size: 13.5px; color: #94A3B8; line-height: 1.5; margin-bottom: 14px;">Dapatkan akses pantas, buka offline tanpa sambungan internet, dan pengalaman Web App 100% lebih laju di telefon anda.</p>
           
           <div class="pwa-guide-box" id="pwa-android-guide" style="display: none; font-size: 12px; color: #94A3B8; margin-bottom: 12px; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 10px;">
             Tekan butang <strong>"Pasang Sekarang"</strong> di bawah untuk memasang terus ke skrin utama.
@@ -621,14 +621,14 @@
             Tekan butang <strong>"Pasang Sekarang"</strong> atau klik ikon pasang di bar carian Chrome/Edge anda.
           </div>
         </div>
-        <div class="pwa-sheet-actions">
-          <button class="btn btn-outline btn-sm" id="pwa-modal-dismiss">Lain Kali</button>
-          <button class="btn btn-primary btn-sm" id="pwa-direct-install-btn">Pasang Sekarang</button>
+        <div class="pwa-sheet-actions" style="display: flex; gap: 12px; width: 100%; margin-top: 14px;">
+          <button class="btn btn-outline btn-sm" id="pwa-modal-dismiss" style="flex: 1; padding: 11px 0; font-size: 14px; font-weight: 700; border-radius: 99px; text-align: center;">Lain Kali</button>
+          <button class="btn btn-primary btn-sm" id="pwa-direct-install-btn" style="flex: 1; padding: 11px 0; font-size: 14px; font-weight: 700; border-radius: 99px; text-align: center;">Pasang Sekarang</button>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="script.js?v=750"></script>
+  <script src="script.js?v=760"></script>
 </body>
 </html>
