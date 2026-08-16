@@ -5439,6 +5439,75 @@ body.admin-body .no-submissions svg {
 }
 
 /* ==========================================================================
+   KWIKEEZEE MODERN TECH CHIPS STRIP
+   ========================================================================== */
+.kwikezee-features-strip {
+  width: 100%;
+  overflow: hidden;
+  background: rgba(11, 11, 14, 0.88);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px 0;
+  position: relative;
+  display: flex;
+  white-space: nowrap !important;
+  user-select: none;
+  z-index: 10;
+}
+
+.features-pill-track {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 12px !important;
+  width: max-content !important;
+  white-space: nowrap !important;
+  animation: featuresPillScroll 30s linear infinite !important;
+  will-change: transform;
+}
+
+.kwikezee-features-strip:hover .features-pill-track {
+  animation-play-state: paused;
+}
+
+.feature-chip {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  padding: 6px 14px !important;
+  background: rgba(24, 24, 27, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 99px !important;
+  color: #E2E8F0 !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.2px !important;
+  transition: all 0.25s ease !important;
+  flex-shrink: 0 !important;
+}
+
+.feature-chip:hover {
+  border-color: var(--gold-secondary) !important;
+  background: rgba(212, 175, 55, 0.15) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3) !important;
+}
+
+.chip-icon {
+  font-size: 13px !important;
+}
+
+@keyframes featuresPillScroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* ==========================================================================
    3D CIRCULAR ROTATING PHONE CAROUSEL (CYLINDER WHEEL)
    ========================================================================== */
 .phone-3d-stage {

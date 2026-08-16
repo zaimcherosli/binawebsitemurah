@@ -1040,7 +1040,7 @@ function initTypewriterEffect() {
     'Web Designer & Developer.',
     'Landing Page Specialist.',
     'PWA Mobile App Builder.',
-    'Pakar Siap Dalam 5 Hari.'
+    'Siap Dalam 5 Hari.'
   ];
 
   let roleIndex = 0;
