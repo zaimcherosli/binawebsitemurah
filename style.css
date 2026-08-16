@@ -4464,7 +4464,7 @@ body.admin-body .no-submissions svg {
 
 @media (max-width: 900px) {
   .dhil-hero-section {
-    padding-top: 110px;
+    padding-top: 100px;
     padding-bottom: 50px;
     min-height: 90vh;
   }
@@ -4483,6 +4483,8 @@ body.admin-body .no-submissions svg {
     text-align: center;
   }
   .dhil-hero-badges {
+    justify-content: center;
+  }
 }
 
 /* ==========================================================================
@@ -4492,21 +4494,24 @@ body.admin-body .no-submissions svg {
   width: 100%;
   overflow: hidden;
   background: #000000;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 28px 0;
   position: relative;
   display: flex;
-  white-space: nowrap;
+  white-space: nowrap !important;
   user-select: none;
+  z-index: 10;
 }
 
 .studio-marquee-track {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  width: max-content;
-  animation: studioMarqueeScroll 55s linear infinite;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 36px !important;
+  width: max-content !important;
+  white-space: nowrap !important;
+  animation: studioMarqueeScroll 55s linear infinite !important;
   will-change: transform;
 }
 
@@ -4515,34 +4520,36 @@ body.admin-body .no-submissions svg {
 }
 
 .studio-marquee-item {
-  font-family: var(--font-headings);
-  font-size: clamp(1.8rem, 3.8vw, 3.2rem);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  display: inline-flex;
-  align-items: center;
-  color: #FFFFFF;
+  font-family: var(--font-headings) !important;
+  font-size: clamp(2rem, 4vw, 3.4rem) !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  color: #FFFFFF !important;
+  flex-shrink: 0 !important;
 }
 
 .studio-marquee-item.outline-text {
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.65);
+  color: transparent !important;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.7) !important;
 }
 
 .studio-marquee-track .marquee-sep {
-  color: var(--gold-secondary);
-  font-size: 1.5rem;
-  opacity: 0.7;
-  padding: 0 8px;
+  color: var(--gold-secondary) !important;
+  font-size: 1.6rem !important;
+  opacity: 0.85 !important;
+  padding: 0 10px !important;
+  flex-shrink: 0 !important;
 }
 
 @keyframes studioMarqueeScroll {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
