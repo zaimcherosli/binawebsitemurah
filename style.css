@@ -5030,10 +5030,43 @@ body.admin-body .no-submissions svg {
    GLOWING VERTICAL TIMELINE: 5-DAY PROCESS (AHMAD SOLEHIN JOURNEY STYLE)
    ========================================================================== */
 .timeline-journey-section {
-  padding: 80px 0 90px 0;
+  padding: 70px 0 50px 0;
   position: relative;
   background: #000000;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Glowing Divider Line Separator */
+.glowing-divider-wrap {
+  width: 100%;
+  max-width: 900px;
+  margin: 10px auto 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.glowing-divider-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.7) 50%, transparent 100%);
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.5);
+  position: relative;
+}
+
+.glowing-divider-line::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  background: var(--gold-secondary);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--gold-secondary);
 }
 
 .timeline-track-container {
