@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initSpotlightCards();
   initCircularPhoneCarousel();
   initAppSlideNavigation();
-  initFeaturesTickerScroll();
 });
 
 /* ==========================================
@@ -1511,41 +1510,6 @@ function initAppSlideNavigation() {
 
   // Initialize first slide
   goToSlide(0);
-}
-
-/* ==========================================
-   CONTINUOUS JS MARQUEE TICKER FOR TECH CHIPS
-   ========================================== */
-function initFeaturesTickerScroll() {
-  const track = document.querySelector('.features-pill-track');
-  const strip = document.querySelector('.kwikezee-features-strip');
-  if (!track || !strip) return;
-
-  // Clear CSS animation to give JS 100% full reliable continuous 60fps control
-  track.style.animation = 'none';
-
-  let offset = 0;
-  const speed = 0.85;
-  let isPaused = false;
-
-  strip.addEventListener('mouseenter', () => { isPaused = true; });
-  strip.addEventListener('mouseleave', () => { isPaused = false; });
-  strip.addEventListener('touchstart', () => { isPaused = true; }, { passive: true });
-  strip.addEventListener('touchend', () => { isPaused = false; }, { passive: true });
-
-  function step() {
-    if (!isPaused) {
-      offset += speed;
-      const halfWidth = track.scrollWidth / 2;
-      if (halfWidth > 0 && offset >= halfWidth) {
-        offset = 0;
-      }
-      track.style.transform = `translate3d(-${offset}px, 0, 0)`;
-    }
-    requestAnimationFrame(step);
-  }
-
-  requestAnimationFrame(step);
 }
 
 
