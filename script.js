@@ -1528,8 +1528,8 @@ function initCreativeParallaxAnd3DTilt() {
     function updateWatermarkParallax() {
       const scrollY = window.scrollY;
       watermarkEls.forEach((el, index) => {
-        const speed = index % 2 === 0 ? 0.22 : -0.18;
-        const offset = scrollY * speed;
+        const speed = index % 2 === 0 ? 0.08 : -0.06;
+        const offset = Math.max(-40, Math.min(40, scrollY * speed));
         el.style.transform = `translate(calc(-50% + ${offset}px), -50%)`;
       });
       ticking = false;
@@ -1542,6 +1542,9 @@ function initCreativeParallaxAnd3DTilt() {
         ticking = true;
       }
     }, { passive: true });
+    
+    // Initial trigger
+    updateWatermarkParallax();
   }
 
   // 2. Interactive 3D Card Tilt on Hover (Desktop Only)

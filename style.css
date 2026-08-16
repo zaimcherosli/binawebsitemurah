@@ -6553,18 +6553,19 @@ body.app-slider-mode {
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: var(--font-headings);
-  font-size: clamp(6rem, 18vw, 16rem);
+  font-size: clamp(3.5rem, 11vw, 8.5rem);
   font-weight: 900;
   text-transform: uppercase;
   color: transparent;
-  -webkit-text-stroke: 1.5px rgba(212, 175, 55, 0.07);
+  -webkit-text-stroke: 1.5px rgba(212, 175, 55, 0.14);
   white-space: nowrap;
   pointer-events: none;
   z-index: 0;
   user-select: none;
-  letter-spacing: 6px;
-  will-change: transform;
-  transition: transform 0.15s ease-out;
+  letter-spacing: clamp(6px, 1.5vw, 16px);
+  line-height: 1;
+  text-align: center;
+  width: 100%;
 }
 
 /* 3D Interactive Tilt on Portfolio & Advantage Cards */
