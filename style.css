@@ -6031,19 +6031,19 @@ body.app-slider-mode {
 }
 
 /* ==========================================================================
-   KWIKEEZEE MODERN TECH CHIPS STRIP (CLEAN HORIZONTAL TICKER)
+   KWIKEEZEE MODERN TECH CHIPS STRIP (CLEAN HORIZONTAL RUNNING TICKER)
    ========================================================================== */
 .kwikezee-features-strip {
   width: 100% !important;
   max-width: 100% !important;
   overflow: hidden !important;
-  background: rgba(11, 11, 14, 0.9) !important;
+  background: rgba(11, 11, 14, 0.95) !important;
   backdrop-filter: blur(12px) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
   padding: 12px 0 !important;
   position: relative !important;
-  display: flex !important;
+  display: block !important;
   white-space: nowrap !important;
   user-select: none !important;
   z-index: 10 !important;
@@ -6051,14 +6051,15 @@ body.app-slider-mode {
 }
 
 .features-pill-track {
-  display: flex !important;
+  display: inline-flex !important;
   flex-direction: row !important;
+  flex-wrap: nowrap !important;
   align-items: center !important;
-  gap: 14px !important;
+  gap: 16px !important;
   width: max-content !important;
   white-space: nowrap !important;
-  animation: featuresPillScroll 30s linear infinite !important;
-  will-change: transform;
+  animation: featuresPillScroll 24s linear infinite !important;
+  will-change: transform !important;
 }
 
 .kwikezee-features-strip:hover .features-pill-track {
@@ -6068,23 +6069,33 @@ body.app-slider-mode {
 .feature-chip {
   display: inline-flex !important;
   align-items: center !important;
-  padding: 8px 18px !important;
-  background: rgba(24, 24, 27, 0.9) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.14) !important;
+  padding: 8px 20px !important;
+  background: #18181B !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.16) !important;
   border-radius: 99px !important;
-  color: #F1F5F9 !important;
-  font-size: 14.5px !important;
+  color: #F8FAFC !important;
+  font-size: 15px !important;
   font-weight: 700 !important;
   letter-spacing: 0.3px !important;
   transition: all 0.25s ease !important;
   flex-shrink: 0 !important;
+  white-space: nowrap !important;
 }
 
 .feature-chip:hover {
   border-color: var(--gold-secondary) !important;
-  background: rgba(212, 175, 55, 0.18) !important;
+  background: rgba(212, 175, 55, 0.2) !important;
   color: #FFFFFF !important;
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.35) !important;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4) !important;
+}
+
+@keyframes featuresPillScroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
 }
 
 @media (max-width: 768px) {
