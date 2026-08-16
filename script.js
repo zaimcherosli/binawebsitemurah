@@ -1357,12 +1357,42 @@ function initAppSlideNavigation() {
     // Toggle Arrow States
     if (prevBtn) prevBtn.style.opacity = currentSlide === 0 ? '0.3' : '1';
     if (nextBtn) nextBtn.style.opacity = currentSlide === totalSlides - 1 ? '0.3' : '1';
+
+    resetAutoSlideTimer();
   }
 
-  // Disable Auto-Slide Timer so screen never turns dark on idle
-  function startAutoSlideTimer() {}
-  function stopAutoSlideTimer() {}
-  function resetAutoSlideTimer() {}
+  // Smart Auto-Slide Timer (Auto advance every 8s like Instagram Story)
+  let autoSlideTimer = null;
+  const autoSlideDelay = 8000;
+
+  function startAutoSlideTimer() {
+    stopAutoSlideTimer();
+    autoSlideTimer = setInterval(() => {
+      let nextIndex = currentSlide + 1;
+      if (nextIndex >= totalSlides) nextIndex = 0;
+      goToSlide(nextIndex);
+    }, autoSlideDelay);
+  }
+
+  function stopAutoSlideTimer() {
+    if (autoSlideTimer) {
+      clearInterval(autoSlideTimer);
+      autoSlideTimer = null;
+    }
+  }
+
+  function resetAutoSlideTimer() {
+    startAutoSlideTimer();
+  }
+
+  // Start auto-slide on load
+  startAutoSlideTimer();
+
+  // Pause on user mouse hover (desktop)
+  if (stage) {
+    stage.addEventListener('mouseenter', stopAutoSlideTimer);
+    stage.addEventListener('mouseleave', startAutoSlideTimer);
+  }
 
   // Pill Click Navigation
   pills.forEach((pill, idx) => {
