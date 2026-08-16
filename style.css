@@ -5446,5 +5446,22 @@ body.admin-body .no-submissions svg {
   }
 }
 
+/* ==========================================================================
+   CLEAN MINIMAL DARK FOOTER
+   ========================================================================== */
+.main-footer {
+  background: #000000 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding: 36px 0 100px 0 !important;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
 
-
+.main-footer p {
+  color: #64748B !important;
+  font-size: 13.5px !important;
+  font-weight: 500;
+  margin: 0;
+  letter-spacing: 0.2px;
+}
