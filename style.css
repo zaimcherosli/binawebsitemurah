@@ -6536,11 +6536,69 @@ body.app-slider-mode {
 @media (max-width: 768px) {
   .kwikezee-features-strip {
     margin-bottom: 22px !important;
+  }
+}
+
+/* ==========================================================================
+   DSN-INSPIRED PARALLAX WATERMARK & CREATIVE AGENCY ANIMATIONS
+   ========================================================================== */
+.watermark-parallax-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.watermark-bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-headings);
+  font-size: clamp(6rem, 18vw, 16rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(212, 175, 55, 0.07);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+  letter-spacing: 6px;
+  will-change: transform;
+  transition: transform 0.15s ease-out;
+}
+
+/* 3D Interactive Tilt on Portfolio & Advantage Cards */
+.portfolio-card-inner, .advantage-card, .casestudy-card {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.portfolio-card-inner {
+  border-radius: 20px;
+  background-color: #121216 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease !important;
+}
+
+.portfolio-card-inner:hover {
+  border-color: var(--gold-secondary) !important;
+  box-shadow: 0 20px 45px rgba(212, 175, 55, 0.15), 0 0 25px rgba(212, 175, 55, 0.1) !important;
+}
+
+/* Magnetic Button Animation State */
+.magnetic-btn, .slide-nav-arrow, .floating-menu-fab {
+  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+@media (max-width: 768px) {
+  .kwikezee-features-strip {
     padding: 8px 0 !important;
   }
   .feature-chip {
     padding: 6px 14px !important;
     font-size: 13px !important;
   }
-}
 

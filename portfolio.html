@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=840">
+  <link rel="stylesheet" href="style.css?v=920">
 </head>
 <body>
 
@@ -81,24 +81,26 @@
   </header>
 
   <!-- PAGE HEADER BANNER -->
-  <section class="page-banner" style="padding: 120px 0 40px 0; text-align: center;">
-    <div class="container">
+  <section class="page-banner watermark-parallax-container" style="padding: 150px 0 40px 0; text-align: center; position: relative;">
+    <div class="watermark-bg-text" id="portfolioWatermarkText">KWIKEEZE</div>
+    <div class="container" style="position: relative; z-index: 2;">
       <div class="studio-hero-badge" style="margin-bottom: 16px;">
         <span class="pulse-dot"></span>
         <span>KOLEKSI HASIL KERJA SEBENAR</span>
       </div>
-      <h1 class="section-title" style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 14px;">
+      <h1 class="section-title" style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 14px; color: #FFFFFF;">
         Portfolio &amp; <span class="text-grad-gold">Karya Studio Kami</span>
       </h1>
-      <p class="section-sub" style="max-width: 620px; margin: 0 auto;">
+      <p class="section-sub" style="max-width: 620px; margin: 0 auto; color: #94A3B8;">
         Semua projek dibina dengan standard kod moden, reka bentuk responsif, dan pelayan awan berkelajuan ultra pantas. Klik mana-mana projek untuk melihat demo secara <em>live</em>.
       </p>
     </div>
   </section>
 
   <!-- PORTFOLIO SECTION -->
-  <section id="portfolio" class="portfolio-section" style="padding-top: 20px; padding-bottom: 100px;">
-    <div class="container">
+  <section id="portfolio" class="portfolio-section watermark-parallax-container" style="padding-top: 20px; padding-bottom: 100px; position: relative;">
+    <div class="watermark-bg-text" style="top: 30%; -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.04);" id="gridWatermarkText">PROJECTS</div>
+    <div class="container" style="position: relative; z-index: 2;">
       
       <!-- Portfolio Filter Tabs -->
       <div class="portfolio-tabs-container reveal">
@@ -398,6 +400,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=770"></script>
+  <script src="script.js?v=850"></script>
 </body>
 </html>

@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSpotlightCards();
   initCircularPhoneCarousel();
   initAppSlideNavigation();
+  initCreativeParallaxAnd3DTilt();
 });
 
 /* ==========================================
@@ -1512,6 +1513,80 @@ function initAppSlideNavigation() {
 
   // Initialize first slide
   goToSlide(0);
+}
+
+/* ==========================================================================
+   CREATIVE AGENCY ANIMATION ENGINE (DSN PARALLAX & 3D MAGNETIC PHYSICS)
+   ========================================================================== */
+function initCreativeParallaxAnd3DTilt() {
+  // 1. Watermark Typography Parallax on Scroll
+  const watermarkEls = document.querySelectorAll('.watermark-bg-text');
+  if (watermarkEls.length > 0) {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    function updateWatermarkParallax() {
+      const scrollY = window.scrollY;
+      watermarkEls.forEach((el, index) => {
+        const speed = index % 2 === 0 ? 0.22 : -0.18;
+        const offset = scrollY * speed;
+        el.style.transform = `translate(calc(-50% + ${offset}px), -50%)`;
+      });
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      lastScrollY = window.scrollY;
+      if (!ticking) {
+        window.requestAnimationFrame(updateWatermarkParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  // 2. Interactive 3D Card Tilt on Hover (Desktop Only)
+  if (window.matchMedia('(hover: hover) and (min-width: 992px)').matches) {
+    const tiltCards = document.querySelectorAll('.portfolio-card-inner, .advantage-card, .casestudy-card');
+    
+    tiltCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((y - centerY) / centerY) * -7;
+        const rotateY = ((x - centerX) / centerX) * 7;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+      });
+    });
+  }
+
+  // 3. Magnetic Hover Pull on Primary Buttons
+  if (window.matchMedia('(hover: hover) and (min-width: 992px)').matches) {
+    const magneticBtns = document.querySelectorAll('.dock-cta-wa, .slide-nav-arrow, .phone-nav-btn, .dock-switch-btn');
+    
+    magneticBtns.forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        btn.style.transform = `translate(${x * 0.28}px, ${y * 0.28}px) scale(1.05)`;
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0px, 0px) scale(1)';
+      });
+    });
+  }
 }
 
 
