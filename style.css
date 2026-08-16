@@ -519,15 +519,15 @@ a {
 /* Desktop Bottom Dock Menu (Expands horizontally to the left) */
 @media (min-width: 769px) {
   .floating-menu-fab.expanded {
-    max-width: 960px !important;
-    width: calc(100vw - 64px) !important;
-    right: 32px !important;
+    max-width: 1160px !important;
+    width: calc(100vw - 40px) !important;
+    right: 20px !important;
     left: auto !important;
     transform: none !important;
     justify-content: space-between !important;
-    padding: 8px 16px 8px 24px !important;
-    border-color: rgba(212, 175, 55, 0.75) !important;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.98), 0 0 35px rgba(212, 175, 55, 0.35) !important;
+    padding: 10px 20px 10px 28px !important;
+    border: 2px solid rgba(212, 175, 55, 0.8) !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.98), 0 0 40px rgba(212, 175, 55, 0.4) !important;
     cursor: default !important;
   }
 
@@ -545,10 +545,10 @@ a {
 .dock-brand {
   font-family: var(--font-headings);
   font-weight: 800;
-  font-size: 15px;
+  font-size: 17px;
   color: #FFFFFF;
   text-decoration: none;
-  margin-right: 8px;
+  margin-right: 12px;
   white-space: nowrap;
 }
 
@@ -560,53 +560,47 @@ a {
 .dock-nav-links {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: clamp(10px, 1.8vw, 22px);
   flex-wrap: nowrap;
 }
 
 .dock-link {
   font-family: var(--font-headings);
-  font-size: 13px;
-  font-weight: 600;
-  color: #CBD5E1;
+  font-size: clamp(13px, 1.1vw, 15.5px);
+  font-weight: 700;
+  color: #E2E8F0;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, transform 0.2s ease;
   white-space: nowrap;
-  padding: 4px 6px;
+  padding: 6px 8px;
 }
 
 .dock-link:hover, .dock-link.active {
   color: var(--gold-secondary);
+  transform: translateY(-1px);
 }
 
 .dock-cta-wa {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
+  gap: 7px;
+  padding: 8px 18px;
   background: #25D366;
   color: #000000 !important;
-  font-weight: 700;
-  font-size: 12px;
+  font-weight: 800;
+  font-size: 13.5px;
   border-radius: 99px;
   text-decoration: none;
-  box-shadow: 0 0 12px rgba(37, 211, 102, 0.4);
+  box-shadow: 0 0 16px rgba(37, 211, 102, 0.45);
   white-space: nowrap;
 }
 
 .dock-cta-wa:hover {
   background: #1eb956;
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
 .dock-close-btn {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #FFFFFF;
-  display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -4532,21 +4526,27 @@ body.admin-body .no-submissions svg {
 .solehin-hero-bg-layer {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
+  right: 0;
+  width: 58%;
   height: 100%;
   z-index: 1;
   overflow: hidden;
   pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
 .solehin-hero-bg-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 70% 18%;
+  width: auto;
+  max-width: 100%;
+  height: 92%;
+  max-height: 85vh;
+  object-fit: contain;
+  object-position: bottom right;
   display: block;
   opacity: 0.95;
+  filter: drop-shadow(0 0 50px rgba(0,0,0,0.9));
 }
 
 .solehin-hero-overlay {
@@ -4555,21 +4555,29 @@ body.admin-body .no-submissions svg {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.72) 48%, rgba(0,0,0,0.2) 100%);
+  background: linear-gradient(90deg, #000000 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0.2) 75%, transparent 100%),
+              linear-gradient(0deg, #000000 0%, transparent 20%);
 }
 
 @media (max-width: 900px) {
   .solehin-hero-section {
-    padding-top: 85px;
-    padding-bottom: 40px;
-    min-height: 90vh;
+    padding-top: 80px;
+    padding-bottom: 30px;
+    min-height: 88vh;
+  }
+  .solehin-hero-bg-layer {
+    width: 100%;
+    right: 0;
+    align-items: flex-start;
+    justify-content: center;
+    opacity: 0.35;
   }
   .solehin-hero-bg-img {
-    object-position: center 10%;
-    opacity: 0.90;
+    height: 75%;
+    object-position: top center;
   }
   .solehin-hero-overlay {
-    background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.65) 45%, rgba(0,0,0,0.98) 90%);
+    background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 40%, #000000 90%);
   }
 }
 
@@ -6019,6 +6027,70 @@ body.app-slider-mode {
   .story-progress-container {
     top: 6px;
     width: calc(100% - 24px);
+  }
+}
+
+/* ==========================================================================
+   KWIKEEZEE MODERN TECH CHIPS STRIP (CLEAN HORIZONTAL TICKER)
+   ========================================================================== */
+.kwikezee-features-strip {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  background: rgba(11, 11, 14, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding: 12px 0 !important;
+  position: relative !important;
+  display: flex !important;
+  white-space: nowrap !important;
+  user-select: none !important;
+  z-index: 10 !important;
+  box-sizing: border-box !important;
+}
+
+.features-pill-track {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 14px !important;
+  width: max-content !important;
+  white-space: nowrap !important;
+  animation: featuresPillScroll 30s linear infinite !important;
+  will-change: transform;
+}
+
+.kwikezee-features-strip:hover .features-pill-track {
+  animation-play-state: paused;
+}
+
+.feature-chip {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 8px 18px !important;
+  background: rgba(24, 24, 27, 0.9) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 99px !important;
+  color: #F1F5F9 !important;
+  font-size: 14.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.3px !important;
+  transition: all 0.25s ease !important;
+  flex-shrink: 0 !important;
+}
+
+.feature-chip:hover {
+  border-color: var(--gold-secondary) !important;
+  background: rgba(212, 175, 55, 0.18) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.35) !important;
+}
+
+@media (max-width: 768px) {
+  .feature-chip {
+    padding: 6px 14px !important;
+    font-size: 13px !important;
   }
 }
 
