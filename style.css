@@ -5984,6 +5984,56 @@ body.admin-body .no-submissions svg {
 }
 
 /* ==========================================================================
+   MODERN DARK LUXURY PWA INSTALLATION CENTER MODAL
+   ========================================================================== */
+.pwa-install-modal-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  z-index: 999999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 20px !important;
+  box-sizing: border-box !important;
+}
+
+.pwa-install-modal-backdrop.active {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+.pwa-install-sheet {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 380px !important;
+  margin: auto !important;
+  background: #121216 !important;
+  border: 2px solid rgba(212, 175, 55, 0.85) !important;
+  border-radius: 24px !important;
+  padding: 26px 20px 22px 20px !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.98), 0 0 40px rgba(212, 175, 55, 0.35) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+  transform: scale(0.92) !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pwa-install-modal-backdrop.active .pwa-install-sheet {
+  transform: scale(1) !important;
+}
+
+/* ==========================================================================
    3D CIRCULAR ROTATING PHONE CAROUSEL (CYLINDER WHEEL)
    ========================================================================== */
 .phone-3d-stage {
