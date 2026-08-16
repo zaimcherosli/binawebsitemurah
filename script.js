@@ -1357,40 +1357,12 @@ function initAppSlideNavigation() {
     // Toggle Arrow States
     if (prevBtn) prevBtn.style.opacity = currentSlide === 0 ? '0.3' : '1';
     if (nextBtn) nextBtn.style.opacity = currentSlide === totalSlides - 1 ? '0.3' : '1';
-
-    resetAutoSlideTimer();
   }
 
-  // Auto-Slide Timer (Auto advance every 6.5s)
-  let autoSlideTimer = null;
-  const autoSlideDelay = 6500;
-
-  function startAutoSlideTimer() {
-    stopAutoSlideTimer();
-    autoSlideTimer = setInterval(() => {
-      let nextIndex = currentSlide + 1;
-      if (nextIndex >= totalSlides) nextIndex = 0;
-      goToSlide(nextIndex);
-    }, autoSlideDelay);
-  }
-
-  function stopAutoSlideTimer() {
-    if (autoSlideTimer) {
-      clearInterval(autoSlideTimer);
-      autoSlideTimer = null;
-    }
-  }
-
-  function resetAutoSlideTimer() {
-    startAutoSlideTimer();
-  }
-
-  // Start auto-slide on load
-  startAutoSlideTimer();
-
-  // Pause on user mouse hover (desktop)
-  stage.addEventListener('mouseenter', stopAutoSlideTimer);
-  stage.addEventListener('mouseleave', startAutoSlideTimer);
+  // Disable Auto-Slide Timer so screen never turns dark on idle
+  function startAutoSlideTimer() {}
+  function stopAutoSlideTimer() {}
+  function resetAutoSlideTimer() {}
 
   // Pill Click Navigation
   pills.forEach((pill, idx) => {
