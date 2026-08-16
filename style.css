@@ -4483,7 +4483,66 @@ body.admin-body .no-submissions svg {
     text-align: center;
   }
   .dhil-hero-badges {
-    justify-content: center;
+}
+
+/* ==========================================================================
+   INFINITE SLOW MARQUEE TICKER (DHIL STUDIO STYLE)
+   ========================================================================== */
+.studio-marquee-wrap {
+  width: 100%;
+  overflow: hidden;
+  background: #000000;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px 0;
+  position: relative;
+  display: flex;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.studio-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  width: max-content;
+  animation: studioMarqueeScroll 55s linear infinite;
+  will-change: transform;
+}
+
+.studio-marquee-wrap:hover .studio-marquee-track {
+  animation-play-state: paused;
+}
+
+.studio-marquee-item {
+  font-family: var(--font-headings);
+  font-size: clamp(1.8rem, 3.8vw, 3.2rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: inline-flex;
+  align-items: center;
+  color: #FFFFFF;
+}
+
+.studio-marquee-item.outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.65);
+}
+
+.studio-marquee-track .marquee-sep {
+  color: var(--gold-secondary);
+  font-size: 1.5rem;
+  opacity: 0.7;
+  padding: 0 8px;
+}
+
+@keyframes studioMarqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
 
