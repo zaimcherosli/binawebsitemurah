@@ -1196,8 +1196,8 @@ function initCircularPhoneCarousel() {
 
   function getRadius() {
     if (window.innerWidth >= 768) return 360;
-    // Perfect orbital radius for 145px width phones
-    return Math.min(155, Math.max(125, Math.round(window.innerWidth * 0.38)));
+    // Harmonious orbital radius for 170px width mobile phones
+    return Math.min(180, Math.max(140, Math.round(window.innerWidth * 0.42)));
   }
 
   function updatePositions() {
