@@ -48,7 +48,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1100">
+  <link rel="stylesheet" href="style.css?v=1110">
   
   <style>
     .app-slide-scrollable {
@@ -119,9 +119,73 @@
       .studio-hero-badge {
         margin-bottom: 6px !important;
       }
-      .kwikezee-features-strip .feature-chip {
-        padding: 5px 12px !important;
+    /* RESPONSIVE 3D PHONE PORTFOLIO ON MOBILE */
+    @media (max-width: 768px) {
+      .portfolio-section {
+        padding: 6px 0 15px 0 !important;
+      }
+      .portfolio-section .section-header {
+        margin-bottom: 4px !important;
+      }
+      .portfolio-section .section-title {
+        font-size: clamp(1.2rem, 4.4vw, 1.55rem) !important;
+        margin-bottom: 2px !important;
+      }
+      .portfolio-section .section-sub {
+        display: none !important;
+      }
+      .phone-3d-stage {
+        height: 295px !important;
+        margin: 0 auto !important;
+      }
+      .phone-3d-carousel {
+        width: 145px !important;
+        height: 290px !important;
+      }
+      .circular-phone-item {
+        width: 145px !important;
+        height: 290px !important;
+      }
+      .iphone-frame-box {
+        border-radius: 26px !important;
+        padding: 5px !important;
+        border-width: 2px !important;
+      }
+      .iphone-screen-area {
+        border-radius: 20px !important;
+      }
+      .iphone-notch {
+        width: 48px !important;
+        height: 11px !important;
+        top: 9px !important;
+      }
+      .iphone-overlay-badge {
+        bottom: 10px !important;
+        left: 8px !important;
+        right: 8px !important;
+        padding: 6px 8px !important;
+      }
+      .iphone-badge-tag {
+        font-size: 8px !important;
+      }
+      .iphone-badge-title {
+        font-size: 11px !important;
+      }
+      .phone-3d-controls {
+        margin-top: 10px !important;
+        gap: 12px !important;
+        z-index: 30 !important;
+        position: relative !important;
+      }
+      .phone-3d-controls .btn {
+        padding: 9px 18px !important;
         font-size: 12.5px !important;
+        white-space: nowrap !important;
+      }
+      .phone-nav-btn {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 14px !important;
       }
     }
     .app-slide-item .reveal {
@@ -1110,6 +1174,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=990"></script>
+  <script src="script.js?v=1000"></script>
 </body>
 </html>
