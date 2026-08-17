@@ -1196,8 +1196,8 @@ function initCircularPhoneCarousel() {
 
   function getRadius() {
     if (window.innerWidth >= 768) return 360;
-    // Optimized radius so side phones orbit cleanly without overlapping
-    return Math.min(200, Math.max(160, Math.round(window.innerWidth * 0.47)));
+    // Balanced radius for all mobile screen widths
+    return Math.min(190, Math.max(150, Math.round(window.innerWidth * 0.45)));
   }
 
   function updatePositions() {
