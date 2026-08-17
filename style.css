@@ -6405,7 +6405,7 @@ body.app-slider-mode {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  padding-top: 55px;
+  padding-top: 70px;
   padding-bottom: 95px;
   box-sizing: border-box;
   display: flex;
