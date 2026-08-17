@@ -48,7 +48,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1040">
+  <link rel="stylesheet" href="style.css?v=1050">
   
   <style>
     .app-slide-item .reveal {
@@ -79,6 +79,53 @@
       position: relative !important;
       text-align: left !important;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    /* SHINY DOMINANT PRIMARY CTA & CLEAN SECONDARY CTA */
+    .shiny-cta-btn {
+      background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%) !important;
+      color: #000000 !important;
+      font-weight: 800 !important;
+      border: 1px solid rgba(255, 255, 255, 0.4) !important;
+      box-shadow: 0 6px 22px rgba(245, 158, 11, 0.38) !important;
+      position: relative !important;
+      overflow: hidden !important;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .shiny-cta-btn:hover {
+      transform: translateY(-2px) scale(1.02) !important;
+      box-shadow: 0 10px 30px rgba(245, 158, 11, 0.55), 0 0 20px rgba(245, 158, 11, 0.3) !important;
+      color: #000000 !important;
+    }
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.05) !important;
+      border: 1px solid rgba(255, 255, 255, 0.22) !important;
+      color: #FFFFFF !important;
+      backdrop-filter: blur(8px) !important;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+      border-color: rgba(255, 255, 255, 0.45) !important;
+      color: #FFFFFF !important;
+      transform: translateY(-2px) !important;
+    }
+
+    /* PORTFOLIO PHONE BADGES */
+    .iphone-badge-tag {
+      font-size: 9px !important;
+      letter-spacing: 1px !important;
+      color: #D4AF37 !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      display: block !important;
+      margin-bottom: 2px !important;
+    }
+    .iphone-badge-title {
+      font-size: 13.5px !important;
+      font-weight: 800 !important;
+      color: #FFFFFF !important;
+      display: block !important;
     }
 
     .audience-card:hover {
@@ -873,6 +920,9 @@
                     <span>Semak Pakej Harga &rarr;</span>
                   </a>
                 </div>
+                <p style="font-size: 13px; color: #94A3B8; margin-top: 16px; margin-bottom: 0; display: inline-flex; align-items: center; gap: 6px;">
+                  <span>🔒</span> Tiada komitmen untuk bertanya.
+                </p>
               </div>
             </div>
           </section>
@@ -917,6 +967,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=950"></script>
+  <script src="script.js?v=960"></script>
 </body>
 </html>
