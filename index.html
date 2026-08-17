@@ -48,7 +48,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1160">
+  <link rel="stylesheet" href="style.css?v=1170">
   
   <style>
     .app-slide-scrollable {
@@ -156,43 +156,43 @@
         display: block !important;
         line-height: 1.3 !important;
       }
-      /* Use vh units so phones scale to available screen height */
+      /* Phone width drives the layout — height follows at ~2:1 ratio */
       .phone-3d-stage {
-        height: clamp(240px, 48vh, 400px) !important;
+        height: clamp(310px, 52vh, 400px) !important;
         margin: 6px auto 0 auto !important;
       }
       .phone-3d-carousel {
-        width: clamp(130px, 22vw, 190px) !important;
-        height: clamp(260px, 46vh, 380px) !important;
+        width: clamp(155px, 42vw, 190px) !important;
+        height: clamp(310px, 52vh, 380px) !important;
       }
       .circular-phone-item {
-        width: clamp(130px, 22vw, 190px) !important;
-        height: clamp(260px, 46vh, 380px) !important;
+        width: clamp(155px, 42vw, 190px) !important;
+        height: clamp(310px, 52vh, 380px) !important;
       }
       .iphone-frame-box {
-        border-radius: clamp(24px, 4vw, 36px) !important;
-        padding: clamp(5px, 1vw, 8px) !important;
+        border-radius: clamp(28px, 4vw, 36px) !important;
+        padding: clamp(6px, 1vw, 8px) !important;
         border-width: 2.5px !important;
       }
       .iphone-screen-area {
-        border-radius: clamp(18px, 3vw, 28px) !important;
+        border-radius: clamp(22px, 3vw, 28px) !important;
       }
       .iphone-notch {
-        width: clamp(44px, 7vw, 60px) !important;
-        height: clamp(10px, 1.5vw, 14px) !important;
-        top: clamp(8px, 1.2vw, 11px) !important;
+        width: clamp(50px, 7vw, 60px) !important;
+        height: clamp(12px, 1.5vw, 14px) !important;
+        top: clamp(9px, 1.2vw, 11px) !important;
       }
       .iphone-overlay-badge {
-        bottom: clamp(8px, 1.5vw, 14px) !important;
-        left: clamp(6px, 1vw, 10px) !important;
-        right: clamp(6px, 1vw, 10px) !important;
-        padding: clamp(5px, 0.8vw, 8px) clamp(6px, 1vw, 10px) !important;
+        bottom: clamp(10px, 1.5vw, 14px) !important;
+        left: clamp(8px, 1vw, 10px) !important;
+        right: clamp(8px, 1vw, 10px) !important;
+        padding: clamp(6px, 0.8vw, 8px) clamp(8px, 1vw, 10px) !important;
       }
       .iphone-badge-tag {
-        font-size: clamp(7px, 1.2vw, 9px) !important;
+        font-size: clamp(8px, 1.2vw, 9.5px) !important;
       }
       .iphone-badge-title {
-        font-size: clamp(9px, 1.5vw, 11.5px) !important;
+        font-size: clamp(10px, 1.5vw, 12px) !important;
       }
       .phone-3d-controls {
         margin-top: clamp(8px, 1.5vh, 18px) !important;
@@ -1197,6 +1197,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=1040"></script>
+  <script src="script.js?v=1050"></script>
 </body>
 </html>
