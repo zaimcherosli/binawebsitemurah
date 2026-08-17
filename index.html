@@ -48,7 +48,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1080">
+  <link rel="stylesheet" href="style.css?v=1090">
   
   <style>
     .app-slide-scrollable {
@@ -56,8 +56,64 @@
       padding-bottom: 95px !important;
     }
     .app-slide-item[data-slide-index="0"] .app-slide-scrollable {
-      padding-top: 42px !important;
-      padding-bottom: 6px !important;
+      padding-top: 48px !important;
+      padding-bottom: 8px !important;
+      overflow-y: hidden !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      height: 100% !important;
+    }
+
+    @media (max-width: 900px) {
+      .solehin-hero-section {
+        padding-top: 6px !important;
+        padding-bottom: 0px !important;
+        min-height: 0 !important;
+        flex: 1 1 auto !important;
+      }
+      .solehin-hero-bg-layer {
+        top: 25px !important;
+        opacity: 0.58 !important;
+      }
+      .solehin-hero-bg-img {
+        height: 58% !important;
+        max-height: 42vh !important;
+        object-fit: contain !important;
+        object-position: center top !important;
+        margin-top: 20px !important;
+        transform: translateX(4%) !important;
+      }
+      .solehin-hero-title {
+        font-size: clamp(1.24rem, 4.6vw, 1.65rem) !important;
+        margin-bottom: 4px !important;
+      }
+      .solehin-hero-desc {
+        font-size: 0.8rem !important;
+        margin: 0 auto 6px auto !important;
+        line-height: 1.35 !important;
+        max-width: 90% !important;
+      }
+      .solehin-btn-row {
+        margin-bottom: 4px !important;
+        gap: 8px !important;
+      }
+      .studio-hero-badge {
+        margin-bottom: 6px !important;
+      }
+      .kwikezee-features-strip {
+        padding: 6px 0 10px 0 !important;
+        margin-top: auto !important;
+        margin-bottom: 0px !important;
+        position: relative !important;
+        z-index: 25 !important;
+        flex-shrink: 0 !important;
+        display: block !important;
+      }
+      .kwikezee-features-strip .feature-chip {
+        padding: 6px 14px !important;
+        font-size: 13px !important;
+      }
     }
     .app-slide-item .reveal {
       opacity: 1 !important;
