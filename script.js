@@ -1195,7 +1195,7 @@ function initCircularPhoneCarousel() {
   let isPaused = false;
 
   function getRadius() {
-    return window.innerWidth < 768 ? 145 : 360;
+    return window.innerWidth < 768 ? 165 : 360;
   }
 
   function updatePositions() {
