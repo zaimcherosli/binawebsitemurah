@@ -943,15 +943,10 @@
 
   <script>
 
-    // CONFIGURATION FOR TELEGRAM BOT
-    const TELEGRAM_BOT_TOKEN = '8835682085:AAEC7gvdmvOax1Vu5LaDZgOkHMc-ZigTfMg';
-    const TELEGRAM_CHAT_ID = '124275768';
-
-    // CONFIGURATION FOR EMAILJS
+    // CONFIGURATION FOR NOTIFICATIONS
     const EMAILJS_PUBLIC_KEY = 'SiXqH3RhPtQKJEsWn';
     const EMAILJS_SERVICE_ID = 'service_wes7tzl';
     const EMAILJS_TEMPLATE_ID = 'template_kdl64bl';
-    const EMAILJS_PRIVATE_KEY = '97LHbwNpU-KZUT1A15XIf'; // Private key for accessToken auth
 
     // Tab switching
     function switchTab(type) {
@@ -1237,37 +1232,20 @@
       submitBtn.disabled = true;
       submitBtn.innerHTML = '⏳ Menghantar Butiran & Resit...';
 
-      // 1. Send via Telegram Bot API
-      if (TELEGRAM_BOT_TOKEN && TELEGRAM_BOT_TOKEN !== 'YOUR_BOT_TOKEN_HERE' && TELEGRAM_CHAT_ID && TELEGRAM_CHAT_ID !== 'YOUR_CHAT_ID_HERE') {
-        try {
-          const isPhoto = receiptFile && receiptFile.type.startsWith('image/');
-          const endpointMethod = isPhoto ? 'sendPhoto' : (receiptFile ? 'sendDocument' : 'sendMessage');
-          const endpoint = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/${endpointMethod}`;
-
-          const formData = new FormData();
-          formData.append('chat_id', TELEGRAM_CHAT_ID);
-
-          if (receiptFile) {
-            formData.append(isPhoto ? 'photo' : 'document', receiptFile);
-            formData.append('caption', captionText);
-            formData.append('parse_mode', 'HTML');
-          } else {
-            formData.append('text', captionText);
-            formData.append('parse_mode', 'HTML');
-          }
-
-          const response = await fetch(endpoint, {
-            method: 'POST',
-            body: formData
-          });
-
-          const resData = await response.json();
-          if (!resData.ok) {
-            console.error('Ralat Telegram API:', resData);
-          }
-        } catch (err) {
-          console.error('Network Error Telegram:', err);
+      // 1. Send via Secure Backend Notification API (/api/notify)
+      try {
+        const notifyData = new FormData();
+        notifyData.append('caption', captionText);
+        if (receiptFile) {
+          const isPhoto = receiptFile.type.startsWith('image/');
+          notifyData.append(isPhoto ? 'photo' : 'document', receiptFile);
         }
+        await fetch('/api/notify', {
+          method: 'POST',
+          body: notifyData
+        });
+      } catch (err) {
+        console.warn('Backend notification notice:', err);
       }
 
       // 2. Send via EmailJS REST API directly (no SDK)
@@ -1277,7 +1255,6 @@
             service_id: EMAILJS_SERVICE_ID,
             template_id: EMAILJS_TEMPLATE_ID,
             user_id: EMAILJS_PUBLIC_KEY,
-            accessToken: EMAILJS_PRIVATE_KEY,
             template_params: {
               client_name: name,
               client_email: email,
