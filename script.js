@@ -1196,8 +1196,8 @@ function initCircularPhoneCarousel() {
 
   function getRadius() {
     if (window.innerWidth >= 768) return 360;
-    // Scale radius proportionally: 140px at 320w, 180px at 430w
-    return Math.min(180, Math.max(140, Math.round(window.innerWidth * 0.42)));
+    // Scale radius proportionally: wider phones need more orbit spacing
+    return Math.min(200, Math.max(155, Math.round(window.innerWidth * 0.47)));
   }
 
   function updatePositions() {
