@@ -48,9 +48,195 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1020">
+  <link rel="stylesheet" href="style.css?v=1030">
   
   <style>
+    /* CRITICAL STYLES FOR AUDIENCE GRID & BENEFIT CARDS (SLIDES 2 & 4) */
+    .audience-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 16px !important;
+      max-width: 1080px !important;
+      margin: 0 auto !important;
+      width: 100% !important;
+    }
+
+    .audience-card {
+      background: rgba(18, 18, 22, 0.8) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      border-radius: 18px !important;
+      padding: 22px 20px !important;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      position: relative !important;
+      text-align: left !important;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    .audience-card:hover {
+      transform: translateY(-4px) !important;
+      border-color: #f59e0b !important;
+      background: rgba(24, 24, 30, 0.95) !important;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.15) !important;
+    }
+
+    .audience-card-icon {
+      font-size: 24px !important;
+      margin-bottom: 12px !important;
+      width: 44px !important;
+      height: 44px !important;
+      border-radius: 12px !important;
+      background: rgba(212, 175, 55, 0.1) !important;
+      border: 1px solid rgba(212, 175, 55, 0.3) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    .audience-card h3 {
+      font-family: var(--font-headings, 'Outfit', sans-serif) !important;
+      font-size: 17px !important;
+      font-weight: 800 !important;
+      color: #FFFFFF !important;
+      margin-bottom: 6px !important;
+    }
+
+    .audience-card p {
+      font-size: 13px !important;
+      color: #94A3B8 !important;
+      line-height: 1.5 !important;
+      margin: 0 !important;
+    }
+
+    .benefits-grid {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 20px !important;
+      max-width: 1040px !important;
+      margin: 0 auto !important;
+      width: 100% !important;
+    }
+
+    .benefit-card {
+      background: rgba(18, 18, 22, 0.8) !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      border-radius: 20px !important;
+      padding: 26px 22px !important;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      display: flex !important;
+      align-items: flex-start !important;
+      gap: 18px !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      position: relative !important;
+      text-align: left !important;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-4px) !important;
+      border-color: #f59e0b !important;
+      background: rgba(24, 24, 30, 0.95) !important;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.15) !important;
+    }
+
+    .benefit-card-icon {
+      font-size: 24px !important;
+      width: 50px !important;
+      height: 50px !important;
+      border-radius: 14px !important;
+      background: rgba(212, 175, 55, 0.1) !important;
+      border: 1px solid rgba(212, 175, 55, 0.3) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      flex-shrink: 0 !important;
+    }
+
+    .benefit-card-content h3 {
+      font-family: var(--font-headings, 'Outfit', sans-serif) !important;
+      font-size: 18px !important;
+      font-weight: 800 !important;
+      color: #FFFFFF !important;
+      margin-bottom: 8px !important;
+    }
+
+    .benefit-card-content p {
+      font-size: 14px !important;
+      color: #94A3B8 !important;
+      line-height: 1.55 !important;
+      margin: 0 !important;
+    }
+
+    @media (max-width: 900px) {
+      .audience-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+      }
+      .audience-card {
+        padding: 16px 14px !important;
+        border-radius: 14px !important;
+      }
+      .audience-card h3 {
+        font-size: 15px !important;
+      }
+      .audience-card p {
+        font-size: 12px !important;
+      }
+      .audience-card-icon {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 18px !important;
+        margin-bottom: 8px !important;
+      }
+      .benefits-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+      }
+      .benefit-card {
+        padding: 18px 16px !important;
+        gap: 14px !important;
+      }
+      .benefit-card-icon {
+        width: 42px !important;
+        height: 42px !important;
+        font-size: 20px !important;
+      }
+      .benefit-card-content h3 {
+        font-size: 16px !important;
+        margin-bottom: 4px !important;
+      }
+      .benefit-card-content p {
+        font-size: 13px !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .audience-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+      }
+      .audience-card {
+        padding: 12px 10px !important;
+      }
+      .audience-card h3 {
+        font-size: 13px !important;
+        margin-bottom: 3px !important;
+      }
+      .audience-card p {
+        font-size: 11px !important;
+        line-height: 1.35 !important;
+      }
+      .audience-card-icon {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: 15px !important;
+        margin-bottom: 6px !important;
+      }
+    }
     @keyframes featuresPillScroll {
       0% {
         transform: translate3d(0, 0, 0);
@@ -464,9 +650,9 @@
            ========================================== -->
       <div class="app-slide-item" data-slide-index="2">
         <div class="app-slide-scrollable">
-          <section class="advantages-section" style="padding: 20px 0 40px 0; flex: 1;">
+          <section class="advantages-section" style="padding: 20px 0 40px 0; flex: 1; display: flex; flex-direction: column; justify-content: center;">
             <div class="container">
-              <div class="section-header text-center reveal">
+              <div class="section-header text-center reveal" style="text-align: center; margin-bottom: 25px;">
                 <span class="section-eyebrow">UNTUK SIAPA?</span>
                 <h2 class="section-title">Website Untuk <span class="text-grad-gold">Bisnes Seperti Anda</span></h2>
                 <p class="section-sub">Tak kira anda jual produk, servis atau pengalaman — kami bina website mengikut cara customer anda membuat keputusan.</p>
@@ -606,9 +792,9 @@
            ========================================== -->
       <div class="app-slide-item" data-slide-index="4">
         <div class="app-slide-scrollable">
-          <section class="advantages-section" style="padding: 20px 0 40px 0; flex: 1;">
+          <section class="advantages-section" style="padding: 20px 0 40px 0; flex: 1; display: flex; flex-direction: column; justify-content: center;">
             <div class="container">
-              <div class="section-header text-center reveal">
+              <div class="section-header text-center reveal" style="text-align: center; margin-bottom: 25px;">
                 <span class="section-eyebrow">LEBIH DARIPADA WEBSITE</span>
                 <h2 class="section-title">Website Anda Boleh Buat Lebih Daripada <span class="text-grad-gold">Sekadar Nampak Cantik</span></h2>
                 <p class="section-sub">Website yang baik bukan hanya untuk nampak profesional — ia membantu customer faham, percaya dan bertindak.</p>
