@@ -1448,8 +1448,11 @@ function initAppSlideNavigation() {
     }
   });
 
-  // Touch Swipe Gestures
+  // Touch Swipe & Instagram Story Tap Gestures
+  let touchStartTime = 0;
+
   stage.addEventListener('touchstart', (e) => {
+    touchStartTime = Date.now();
     stopAutoSlideTimer();
     // If touching inside interactive 3D carousel or draggable FAB, let their handlers run
     if (e.target.closest('#phone3dStage') || e.target.closest('.floating-menu-fab') || e.target.closest('.nav-overlay')) {
@@ -1486,13 +1489,17 @@ function initAppSlideNavigation() {
     }
   }, { passive: false });
 
-  stage.addEventListener('touchend', () => {
+  stage.addEventListener('touchend', (e) => {
+    const touchDuration = Date.now() - touchStartTime;
+    const isQuickTap = touchDuration < 300 && Math.abs(deltaX) < 12 && Math.abs(deltaY) < 12;
+
     if (!isSwiping) {
       startAutoSlideTimer();
       return;
     }
     isSwiping = false;
 
+    // 1. Horizontal Swipe Gesture
     if (isHorizontalSwipe) {
       const threshold = 45; // min px to trigger slide
       if (deltaX < -threshold) {
@@ -1503,8 +1510,41 @@ function initAppSlideNavigation() {
         goToSlide(currentSlide - 1);
       }
     }
+    // 2. Instagram Story Tap Gesture (Tap Right = Next, Tap Left = Prev)
+    else if (isQuickTap) {
+      const target = e.target;
+      const isInteractive = target.closest('a, button, input, textarea, select, .btn, #phone3dStage, .floating-menu-fab, .nav-overlay, .story-progress-container, .pwa-install-modal-backdrop, .pwa-install-sheet, .dock-cta-wa, .phone-nav-btn');
+      
+      if (!isInteractive) {
+        const clientX = startX;
+        const screenWidth = window.innerWidth;
+        if (clientX < screenWidth * 0.35) {
+          // Tap Left 35% -> Previous Slide
+          goToSlide(currentSlide - 1);
+        } else {
+          // Tap Right 65% -> Next Slide
+          goToSlide(currentSlide + 1);
+        }
+      }
+    }
+
     isHorizontalSwipe = null;
     startAutoSlideTimer();
+  });
+
+  // Desktop Click Navigation (Instagram Story style on background tap)
+  stage.addEventListener('click', (e) => {
+    const target = e.target;
+    if (target.closest('a, button, input, textarea, select, .btn, #phone3dStage, .floating-menu-fab, .nav-overlay, .story-progress-container, .pwa-install-modal-backdrop, .pwa-install-sheet, .audience-card, .benefit-card, .journey-step-card, .dock-cta-wa, .phone-nav-btn')) {
+      return;
+    }
+    const clientX = e.clientX;
+    const screenWidth = window.innerWidth;
+    if (clientX < screenWidth * 0.35) {
+      goToSlide(currentSlide - 1);
+    } else {
+      goToSlide(currentSlide + 1);
+    }
   });
 
   // Global Helper for Menu Links
