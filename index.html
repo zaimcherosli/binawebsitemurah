@@ -48,7 +48,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1090">
+  <link rel="stylesheet" href="style.css?v=1100">
   
   <style>
     .app-slide-scrollable {
@@ -65,10 +65,28 @@
       height: 100% !important;
     }
 
+    /* ABSOLUTE BOTTOM ANCHORED MARQUEE STRIP (GUARANTEED VISIBILITY ON ALL MOBILE SCREENS) */
+    .app-slide-item[data-slide-index="0"] .kwikezee-features-strip {
+      position: absolute !important;
+      bottom: 8px !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      z-index: 40 !important;
+      padding: 4px 0 !important;
+      margin: 0 !important;
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      overflow: hidden !important;
+    }
+
     @media (max-width: 900px) {
       .solehin-hero-section {
         padding-top: 6px !important;
-        padding-bottom: 0px !important;
+        padding-bottom: 45px !important;
         min-height: 0 !important;
         flex: 1 1 auto !important;
       }
@@ -77,19 +95,19 @@
         opacity: 0.58 !important;
       }
       .solehin-hero-bg-img {
-        height: 58% !important;
-        max-height: 42vh !important;
+        height: 56% !important;
+        max-height: 40vh !important;
         object-fit: contain !important;
         object-position: center top !important;
-        margin-top: 20px !important;
+        margin-top: 18px !important;
         transform: translateX(4%) !important;
       }
       .solehin-hero-title {
-        font-size: clamp(1.24rem, 4.6vw, 1.65rem) !important;
+        font-size: clamp(1.22rem, 4.5vw, 1.62rem) !important;
         margin-bottom: 4px !important;
       }
       .solehin-hero-desc {
-        font-size: 0.8rem !important;
+        font-size: 0.78rem !important;
         margin: 0 auto 6px auto !important;
         line-height: 1.35 !important;
         max-width: 90% !important;
@@ -101,18 +119,9 @@
       .studio-hero-badge {
         margin-bottom: 6px !important;
       }
-      .kwikezee-features-strip {
-        padding: 6px 0 10px 0 !important;
-        margin-top: auto !important;
-        margin-bottom: 0px !important;
-        position: relative !important;
-        z-index: 25 !important;
-        flex-shrink: 0 !important;
-        display: block !important;
-      }
       .kwikezee-features-strip .feature-chip {
-        padding: 6px 14px !important;
-        font-size: 13px !important;
+        padding: 5px 12px !important;
+        font-size: 12.5px !important;
       }
     }
     .app-slide-item .reveal {
