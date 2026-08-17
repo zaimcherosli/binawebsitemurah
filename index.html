@@ -48,7 +48,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1170">
+  <link rel="stylesheet" href="style.css?v=1180">
   
   <style>
     .app-slide-scrollable {
@@ -62,6 +62,15 @@
       display: flex !important;
       flex-direction: column !important;
       justify-content: space-between !important;
+      height: 100% !important;
+    }
+    /* SLIDE 1 (PORTFOLIO) — FILL FULL SCREEN */
+    .app-slide-item[data-slide-index="1"] .app-slide-scrollable {
+      padding-top: 58px !important;
+      padding-bottom: 20px !important;
+      overflow-y: hidden !important;
+      display: flex !important;
+      flex-direction: column !important;
       height: 100% !important;
     }
 
@@ -137,13 +146,26 @@
       overflow: hidden !important;
     }
 
-    /* TRULY RESPONSIVE 3D PHONE PORTFOLIO — SCALES TO FIT ANY DEVICE */
+    /* TRULY RESPONSIVE 3D PHONE PORTFOLIO — FILLS FULL SCREEN ON ALL DEVICES */
     @media (max-width: 768px) {
       .portfolio-section {
-        padding: 4px 0 10px 0 !important;
+        padding: 0 !important;
+        flex: 1 1 auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100% !important;
+        min-height: 0 !important;
+      }
+      .portfolio-section > .container {
+        flex: 1 1 auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100% !important;
+        min-height: 0 !important;
       }
       .portfolio-section .section-header {
         margin-bottom: 6px !important;
+        flex-shrink: 0 !important;
       }
       .portfolio-section .section-title {
         font-size: clamp(1.15rem, 4.5vw, 1.55rem) !important;
@@ -156,18 +178,22 @@
         display: block !important;
         line-height: 1.3 !important;
       }
-      /* Phone width drives the layout — height follows at ~2:1 ratio */
+      /* Phone carousel fills remaining space */
       .phone-3d-stage {
-        height: clamp(310px, 52vh, 400px) !important;
-        margin: 6px auto 0 auto !important;
+        flex: 1 1 auto !important;
+        height: auto !important;
+        min-height: 0 !important;
+        margin: 0 auto !important;
       }
       .phone-3d-carousel {
         width: clamp(155px, 42vw, 190px) !important;
-        height: clamp(310px, 52vh, 380px) !important;
+        height: 100% !important;
+        max-height: 380px !important;
       }
       .circular-phone-item {
         width: clamp(155px, 42vw, 190px) !important;
-        height: clamp(310px, 52vh, 380px) !important;
+        height: 100% !important;
+        max-height: 380px !important;
       }
       .iphone-frame-box {
         border-radius: clamp(28px, 4vw, 36px) !important;
@@ -195,10 +221,12 @@
         font-size: clamp(10px, 1.5vw, 12px) !important;
       }
       .phone-3d-controls {
-        margin-top: clamp(8px, 1.5vh, 18px) !important;
+        margin-top: 10px !important;
+        margin-bottom: 4px !important;
         gap: 12px !important;
         z-index: 30 !important;
         position: relative !important;
+        flex-shrink: 0 !important;
       }
       .phone-3d-controls .btn {
         padding: 9px 18px !important;
@@ -814,7 +842,7 @@
            ========================================== -->
       <div class="app-slide-item" data-slide-index="1">
         <div class="app-slide-scrollable">
-          <section class="portfolio-section" style="padding: 10px 0 25px 0; overflow: hidden; flex: 1; display: flex; flex-direction: column; justify-content: flex-start;">
+          <section class="portfolio-section" style="overflow: hidden; flex: 1; display: flex; flex-direction: column;">
             <div class="container">
               <div class="section-header text-center reveal">
                 <span class="section-eyebrow">PORTFOLIO TERPILIH</span>
@@ -1197,6 +1225,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=1050"></script>
+  <script src="script.js?v=1060"></script>
 </body>
 </html>
