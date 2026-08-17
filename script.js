@@ -1117,10 +1117,10 @@ function initTypewriterEffect() {
   if (!textEl) return;
 
   const roles = [
-    'Web Designer & Developer.',
-    'Landing Page Specialist.',
-    'PWA Mobile App Builder.',
-    'Siap Dalam 5 Hari.'
+    'Untuk Bisnes Yang Nak Nampak Serius.',
+    'Siap Pantas Dalam 5 Hari.',
+    '100% Mobile-First & Laju.',
+    'Tanpa Sebarang Yuran Bulanan.'
   ];
 
   let roleIndex = 0;
