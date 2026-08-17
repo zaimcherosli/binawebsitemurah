@@ -1163,7 +1163,7 @@ function initTypewriterEffect() {
    INTERACTIVE SPOTLIGHT CARDS (APPLE / LINEAR EFFECT)
    ========================================== */
 function initSpotlightCards() {
-  const cards = document.querySelectorAll('.spotlight-card, .advantage-card, .showcase-mini-card, .journey-step-card, .pricing-card');
+  const cards = document.querySelectorAll('.spotlight-card, .advantage-card, .showcase-mini-card, .journey-step-card, .pricing-card, .audience-card, .benefit-card');
   cards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();

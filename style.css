@@ -6362,7 +6362,7 @@ body.app-slider-mode {
 
 .app-slides-track {
   display: flex;
-  width: 500vw;
+  width: 600vw;
   height: 100%;
   transition: transform 0.52s cubic-bezier(0.2, 0.9, 0.3, 1);
   will-change: transform;
@@ -6397,8 +6397,8 @@ body.app-slider-mode {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  padding-top: 60px;
-  padding-bottom: 75px;
+  padding-top: 55px;
+  padding-bottom: 95px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -6406,7 +6406,7 @@ body.app-slider-mode {
 }
 
 .app-slide-item[data-slide-index="0"] .app-slide-scrollable {
-  padding-top: 50px !important;
+  padding-top: 48px !important;
   padding-bottom: 0px !important;
   overflow-y: hidden !important;
   display: flex !important;
@@ -6662,4 +6662,211 @@ body.app-slider-mode {
     padding: 6px 14px !important;
     font-size: 13px !important;
   }
+}
 
+/* ==========================================================================
+   CUSTOMER-FIRST AUDIENCE & BUSINESS BENEFIT CARDS (SLIDES 3 & 5)
+   ========================================================================== */
+.hero-founder-cred {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 6px 16px;
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #E2E8F0;
+  margin-bottom: 20px;
+  backdrop-filter: blur(8px);
+}
+
+.hero-founder-cred .cred-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--gold-secondary);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--gold-secondary);
+  display: inline-block;
+}
+
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.audience-card {
+  background: rgba(18, 18, 22, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 22px 20px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(10px);
+  position: relative;
+  text-align: left;
+}
+
+.audience-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-secondary);
+  background: rgba(24, 24, 30, 0.9);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.12);
+}
+
+.audience-card-icon {
+  font-size: 24px;
+  margin-bottom: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.audience-card h3 {
+  font-family: var(--font-headings);
+  font-size: 17px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 6px;
+}
+
+.audience-card p {
+  font-size: 13px;
+  color: #94A3B8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.benefit-card {
+  background: rgba(18, 18, 22, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 26px 22px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  backdrop-filter: blur(10px);
+  position: relative;
+  text-align: left;
+}
+
+.benefit-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-secondary);
+  background: rgba(24, 24, 30, 0.9);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.12);
+}
+
+.benefit-card-icon {
+  font-size: 24px;
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.benefit-card-content h3 {
+  font-family: var(--font-headings);
+  font-size: 18px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+}
+
+.benefit-card-content p {
+  font-size: 14px;
+  color: #94A3B8;
+  line-height: 1.55;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .audience-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .audience-card {
+    padding: 16px 14px;
+    border-radius: 14px;
+  }
+  .audience-card h3 {
+    font-size: 15px;
+  }
+  .audience-card p {
+    font-size: 12px;
+  }
+  .audience-card-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .benefit-card {
+    padding: 18px 16px;
+    gap: 14px;
+  }
+  .benefit-card-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 20px;
+  }
+  .benefit-card-content h3 {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+  .benefit-card-content p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .audience-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .audience-card {
+    padding: 12px 10px;
+  }
+  .audience-card h3 {
+    font-size: 13px;
+    margin-bottom: 3px;
+  }
+  .audience-card p {
+    font-size: 11px;
+    line-height: 1.35;
+  }
+  .audience-card-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+}
