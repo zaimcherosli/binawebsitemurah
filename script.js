@@ -1341,6 +1341,12 @@ function initAppSlideNavigation() {
     // Update Progress Pills
     pills.forEach((pill, i) => {
       pill.classList.remove('active', 'completed');
+      const fill = pill.querySelector('.story-pill-fill');
+      if (fill) {
+        fill.style.animation = 'none';
+        void fill.offsetWidth; // Trigger reflow
+        fill.style.animation = '';
+      }
       if (i < currentSlide) {
         pill.classList.add('completed');
       } else if (i === currentSlide) {
@@ -1369,9 +1375,11 @@ function initAppSlideNavigation() {
   // Smart Auto-Slide Timer (Auto-advance every 8s with background tab pause protection)
   let autoSlideTimer = null;
   const autoSlideDelay = 8000;
+  const progressContainer = document.getElementById('storyProgressContainer');
 
   function startAutoSlideTimer() {
     stopAutoSlideTimer();
+    if (progressContainer) progressContainer.classList.remove('is-paused');
     if (document.hidden) return;
     autoSlideTimer = setInterval(() => {
       let nextIndex = currentSlide + 1;
@@ -1381,6 +1389,7 @@ function initAppSlideNavigation() {
   }
 
   function stopAutoSlideTimer() {
+    if (progressContainer) progressContainer.classList.add('is-paused');
     if (autoSlideTimer) {
       clearInterval(autoSlideTimer);
       autoSlideTimer = null;

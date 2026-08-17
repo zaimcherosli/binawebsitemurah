@@ -48,7 +48,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1070">
+  <link rel="stylesheet" href="style.css?v=1080">
   
   <style>
     .app-slide-scrollable {
@@ -64,6 +64,62 @@
       transform: none !important;
       visibility: visible !important;
     }
+
+    /* INSTAGRAM STORY PROGRESS BAR TIMER ANIMATION */
+    @keyframes storyFillAnim {
+      0% {
+        width: 0%;
+      }
+      100% {
+        width: 100%;
+      }
+    }
+
+    .story-pill.active .story-pill-fill {
+      width: 0%;
+      background: linear-gradient(90deg, #F59E0B, #D4AF37) !important;
+      animation: storyFillAnim 8s linear forwards !important;
+    }
+
+    .app-slider-stage:hover ~ .story-progress-container .story-pill.active .story-pill-fill,
+    .story-progress-container.is-paused .story-pill.active .story-pill-fill {
+      animation-play-state: paused !important;
+    }
+
+    .story-pill.completed .story-pill-fill {
+      width: 100% !important;
+      animation: none !important;
+      background: rgba(255, 255, 255, 0.85) !important;
+    }
+
+    /* CARD STAGGER ENTRANCE ANIMATION ON ACTIVE SLIDE */
+    @keyframes slideCardIn {
+      0% {
+        opacity: 0;
+        transform: translateY(18px) scale(0.96);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .app-slide-item.active .audience-card:nth-child(1) { animation: slideCardIn 0.4s 0.04s cubic-bezier(0.16, 1, 0.3, 1) both !important; }
+    .app-slide-item.active .audience-card:nth-child(2) { animation: slideCardIn 0.4s 0.08s cubic-bezier(0.16, 1, 0.3, 1) both !important; }
+    .app-slide-item.active .audience-card:nth-child(3) { animation: slideCardIn 0.4s 0.12s cubic-bezier(0.16, 1, 0.3, 1) both !important; }
+    .app-slide-item.active .audience-card:nth-child(4) { animation: slideCardIn 0.4s 0.16s cubic-bezier(0.16, 1, 0.3, 1) both !important; }
+    .app-slide-item.active .audience-card:nth-child(5) { animation: slideCardIn 0.4s 0.20s cubic-bezier(0.16, 1, 0.3, 1) both !important; }
+    .app-slide-item.active .audience-card:nth-child(6) { animation: slideCardIn 0.4s 0.24s cubic-bezier(0.16, 1, 0.3, 1) both !important; }
+
+    .app-slide-item.active .benefit-card:nth-child(1) { animation: slideCardIn 0.4s 0.05s cubic-bezier(0.16, 1, 0.3, 1) both !important; }
+    .app-slide-item.active .benefit-card:nth-child(2) { animation: slideCardIn 0.4s 0.11s cubic-bezier(0.16, 1, 0.3, 1) both !important; }
+    .app-slide-item.active .benefit-card:nth-child(3) { animation: slideCardIn 0.4s 0.17s cubic-bezier(0.16, 1, 0.3, 1) both !important; }
+    .app-slide-item.active .benefit-card:nth-child(4) { animation: slideCardIn 0.4s 0.23s cubic-bezier(0.16, 1, 0.3, 1) both !important; }
+
+    .app-slide-item.active .timeline-step-row:nth-child(2) { animation: slideCardIn 0.4s 0.06s cubic-bezier(0.16, 1, 0.3, 1) both !important; }
+    .app-slide-item.active .timeline-step-row:nth-child(3) { animation: slideCardIn 0.4s 0.13s cubic-bezier(0.16, 1, 0.3, 1) both !important; }
+    .app-slide-item.active .timeline-step-row:nth-child(4) { animation: slideCardIn 0.4s 0.20s cubic-bezier(0.16, 1, 0.3, 1) both !important; }
+    .app-slide-item.active .timeline-step-row:nth-child(5) { animation: slideCardIn 0.4s 0.27s cubic-bezier(0.16, 1, 0.3, 1) both !important; }
     /* CRITICAL STYLES FOR AUDIENCE GRID & BENEFIT CARDS (SLIDES 2 & 4) */
     .audience-grid {
       display: grid !important;
@@ -724,9 +780,9 @@
            ========================================== -->
       <div class="app-slide-item" data-slide-index="2">
         <div class="app-slide-scrollable">
-          <section class="advantages-section" style="padding: 20px 0 40px 0; flex: 1; display: flex; flex-direction: column; justify-content: center;">
+          <section class="advantages-section" style="padding: 10px 0 40px 0; flex: 1; display: flex; flex-direction: column; justify-content: flex-start;">
             <div class="container">
-              <div class="section-header text-center reveal" style="text-align: center; margin-bottom: 25px;">
+              <div class="section-header text-center reveal" style="text-align: center; margin-bottom: 22px;">
                 <span class="section-eyebrow">UNTUK SIAPA?</span>
                 <h2 class="section-title">Website Untuk <span class="text-grad-gold">Bisnes Seperti Anda</span></h2>
                 <p class="section-sub">Tak kira anda jual produk, servis atau pengalaman — kami bina website mengikut cara customer anda membuat keputusan.</p>
@@ -989,6 +1045,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=980"></script>
+  <script src="script.js?v=990"></script>
 </body>
 </html>
