@@ -1362,42 +1362,22 @@ function initAppSlideNavigation() {
     // Toggle Arrow States
     if (prevBtn) prevBtn.style.opacity = currentSlide === 0 ? '0.3' : '1';
     if (nextBtn) nextBtn.style.opacity = currentSlide === totalSlides - 1 ? '0.3' : '1';
-
-    resetAutoSlideTimer();
   }
 
-  // Smart Auto-Slide Timer (Auto advance every 8s like Instagram Story)
-  let autoSlideTimer = null;
-  const autoSlideDelay = 8000;
-
-  function startAutoSlideTimer() {
-    stopAutoSlideTimer();
-    autoSlideTimer = setInterval(() => {
-      let nextIndex = currentSlide + 1;
-      if (nextIndex >= totalSlides) nextIndex = 0;
-      goToSlide(nextIndex);
-    }, autoSlideDelay);
-  }
-
-  function stopAutoSlideTimer() {
-    if (autoSlideTimer) {
-      clearInterval(autoSlideTimer);
-      autoSlideTimer = null;
+  // Handle tab switch, focus, or window resize to prevent black screen / out-of-sync position
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+      goToSlide(currentSlide);
     }
-  }
+  });
 
-  function resetAutoSlideTimer() {
-    startAutoSlideTimer();
-  }
+  window.addEventListener('resize', () => {
+    goToSlide(currentSlide);
+  });
 
-  // Start auto-slide on load
-  startAutoSlideTimer();
-
-  // Pause on user mouse hover (desktop)
-  if (stage) {
-    stage.addEventListener('mouseenter', stopAutoSlideTimer);
-    stage.addEventListener('mouseleave', startAutoSlideTimer);
-  }
+  window.addEventListener('pageshow', () => {
+    goToSlide(currentSlide);
+  });
 
   // Pill Click Navigation
   pills.forEach((pill, idx) => {
@@ -1430,7 +1410,6 @@ function initAppSlideNavigation() {
 
   // Touch Swipe Gestures
   stage.addEventListener('touchstart', (e) => {
-    stopAutoSlideTimer();
     // If touching inside interactive 3D carousel or draggable FAB, let their handlers run
     if (e.target.closest('#phone3dStage') || e.target.closest('.floating-menu-fab') || e.target.closest('.nav-overlay')) {
       return;
@@ -1467,10 +1446,7 @@ function initAppSlideNavigation() {
   }, { passive: false });
 
   stage.addEventListener('touchend', () => {
-    if (!isSwiping) {
-      startAutoSlideTimer();
-      return;
-    }
+    if (!isSwiping) return;
     isSwiping = false;
 
     if (isHorizontalSwipe) {
@@ -1484,7 +1460,6 @@ function initAppSlideNavigation() {
       }
     }
     isHorizontalSwipe = null;
-    startAutoSlideTimer();
   });
 
   // Global Helper for Menu Links
