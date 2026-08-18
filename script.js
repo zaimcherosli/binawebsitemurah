@@ -1117,10 +1117,10 @@ function initTypewriterEffect() {
   if (!textEl) return;
 
   const roles = [
-    'Untuk Bisnes Yang Nak Nampak Serius.',
-    'Siap Pantas Dalam 5 Hari.',
-    '100% Mobile-First & Laju.',
-    'Tanpa Sebarang Yuran Bulanan.'
+    'Bukan Sekadar Cantik.',
+    'Bina Kredibiliti.',
+    'Permudahkan Enquiry.',
+    'Bantu Bisnes Berkembang.'
   ];
 
   let roleIndex = 0;
