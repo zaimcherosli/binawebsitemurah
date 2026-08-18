@@ -1328,15 +1328,25 @@ function initAppSlideNavigation() {
   let isSwiping = false;
   let startX = 0;
   let startY = 0;
-  let deltaX = 0;
-  let deltaY = 0;
-  let isHorizontalSwipe = null;
+  function isDesktop() {
+    return window.innerWidth > 900;
+  }
 
   function goToSlide(index) {
     if (index < 0) index = 0;
     if (index >= totalSlides) index = totalSlides - 1;
 
     currentSlide = index;
+
+    if (isDesktop()) {
+      // On Desktop: Smooth scroll directly to the selected section
+      if (slides[currentSlide]) {
+        slides[currentSlide].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      return;
+    }
+
+    // On Mobile: Horizontal App Story Slide Transition
     const offset = -(currentSlide * 100);
     track.style.transform = `translateX(${offset}vw)`;
 
@@ -1356,7 +1366,7 @@ function initAppSlideNavigation() {
       }
     });
 
-    // Ensure window scroll is always 0
+    // Ensure window scroll is always 0 on mobile
     window.scrollTo(0, 0);
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
@@ -1385,33 +1395,13 @@ function initAppSlideNavigation() {
     resetAutoSlideTimer();
   }
 
-  // Desktop Mouse Wheel Smooth Slide Navigation
-  let isWheelThrottled = false;
-  window.addEventListener('wheel', (e) => {
-    // If inside an active popup modal or drawer menu, ignore
-    if (document.getElementById('pwa-install-modal')?.classList.contains('active')) return;
-    if (document.getElementById('nav-mobile-menu')?.classList.contains('active')) return;
-    
-    if (isWheelThrottled) return;
-    if (Math.abs(e.deltaY) > 10) {
-      isWheelThrottled = true;
-      if (e.deltaY > 0) {
-        goToSlide(currentSlide + 1);
-      } else {
-        goToSlide(currentSlide - 1);
-      }
-      setTimeout(() => {
-        isWheelThrottled = false;
-      }, 450);
-    }
-  }, { passive: true });
-
-  // Smart Auto-Slide Timer (Auto-advance every 8s with background tab pause protection)
+  // Smart Auto-Slide Timer (Runs only on Mobile)
   let autoSlideTimer = null;
   const autoSlideDelay = 8000;
   const progressContainer = document.getElementById('storyProgressContainer');
 
   function startAutoSlideTimer() {
+    if (isDesktop()) return; // No auto-slide jumping on desktop
     stopAutoSlideTimer();
     if (progressContainer) progressContainer.classList.remove('is-paused');
     if (document.hidden) return;
@@ -1434,8 +1424,10 @@ function initAppSlideNavigation() {
     startAutoSlideTimer();
   }
 
-  // Start auto-slide on load
-  startAutoSlideTimer();
+  // Start auto-slide on load (mobile)
+  if (!isDesktop()) {
+    startAutoSlideTimer();
+  }
 
   // Pause on user mouse hover (desktop)
   if (stage) {
@@ -1575,8 +1567,9 @@ function initAppSlideNavigation() {
     startAutoSlideTimer();
   });
 
-  // Desktop Click Navigation (Instagram Story style on background tap)
+  // Mobile Tap Navigation (Instagram Story style on background tap)
   stage.addEventListener('click', (e) => {
+    if (isDesktop()) return; // Native click behavior on desktop
     const target = e.target;
     if (target.closest('a, button, input, textarea, select, .btn, #phone3dStage, .floating-menu-fab, .nav-overlay, .story-progress-container, .pwa-install-modal-backdrop, .pwa-install-sheet, .audience-card, .benefit-card, .journey-step-card, .dock-cta-wa, .phone-nav-btn')) {
       return;
