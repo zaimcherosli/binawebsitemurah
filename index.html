@@ -48,7 +48,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1290">
+  <link rel="stylesheet" href="style.css?v=1300">
   
   <style>
     html, body.app-slider-mode {
@@ -62,18 +62,29 @@
       margin: 0 !important;
       padding: 0 !important;
     }
+
+    /* ALL SLIDES BASE STYLES */
+    .app-slide-item {
+      overflow: hidden !important;
+      height: 100% !important;
+    }
     .app-slide-scrollable {
       padding-top: 72px !important;
       padding-bottom: 95px !important;
+      height: 100% !important;
+      box-sizing: border-box !important;
     }
+
+    /* DESKTOP VIEWPORT (>= 901px): 100% FIT IN 1 SCREEN (ZERO VERTICAL SCROLL DRIFT) */
     @media (min-width: 901px) {
       .app-slide-scrollable {
-        padding-top: 40px !important;
-        padding-bottom: 30px !important;
+        padding-top: 35px !important;
+        padding-bottom: 25px !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
         align-items: center !important;
+        overflow: hidden !important;
         overflow-y: hidden !important;
         overflow-x: hidden !important;
         height: 100% !important;
@@ -81,36 +92,62 @@
       }
       .app-slide-item[data-slide-index="0"] .app-slide-scrollable {
         justify-content: space-between !important;
-        padding-top: 40px !important;
+        padding-top: 35px !important;
         padding-bottom: 0px !important;
+      }
+      .app-slide-item[data-slide-index="1"] .app-slide-scrollable {
+        padding-top: 45px !important;
+        padding-bottom: 30px !important;
+        overflow: hidden !important;
+        overflow-y: hidden !important;
+        justify-content: center !important;
       }
       .advantages-section, .timeline-journey-section, .portfolio-section {
         width: 100% !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
+        min-height: 0 !important;
+        height: 100% !important;
+        padding: 0 !important;
       }
-    }
-    .app-slide-item[data-slide-index="0"] .app-slide-scrollable {
-      padding-top: 48px !important;
-      padding-bottom: 8px !important;
-      overflow-y: hidden !important;
-      display: flex !important;
-      flex-direction: column !important;
-      justify-content: space-between !important;
-      height: 100% !important;
-    }
-    /* SLIDE 1 (PORTFOLIO) — PERFECT CLEARANCE TOP AND BOTTOM */
-    .app-slide-item[data-slide-index="1"] .app-slide-scrollable {
-      padding-top: 58px !important;
-      padding-bottom: 72px !important;
-      overflow-y: auto !important;
-      -webkit-overflow-scrolling: touch;
-      display: flex !important;
-      flex-direction: column !important;
-      justify-content: space-between !important;
-      height: 100% !important;
-      box-sizing: border-box !important;
+      /* Slide 1 Desktop Phone Scaling */
+      .portfolio-section .phone-3d-stage {
+        height: clamp(340px, 46vh, 430px) !important;
+        margin: 6px auto !important;
+      }
+      .portfolio-section .phone-3d-carousel, 
+      .portfolio-section .circular-phone-item {
+        width: clamp(170px, 14vw, 205px) !important;
+        height: clamp(320px, 44vh, 400px) !important;
+      }
+      .portfolio-section .section-header {
+        margin-bottom: 8px !important;
+      }
+      .portfolio-section .phone-3d-controls {
+        margin-top: 8px !important;
+      }
+      /* Slide 2 & 4 Desktop Grid Scaling */
+      .audience-grid, .benefits-grid {
+        gap: 16px !important;
+        max-width: 880px !important;
+      }
+      .audience-card {
+        padding: 16px 20px !important;
+      }
+      .benefit-card {
+        padding: 18px 22px !important;
+      }
+      /* Slide 3 Desktop Timeline Scaling */
+      .timeline-track-container {
+        padding: 10px 0 10px 48px !important;
+      }
+      .timeline-step-row {
+        margin-bottom: 16px !important;
+      }
+      .journey-step-card {
+        padding: 14px 20px !important;
+      }
     }
 
     /* ABSOLUTE BOTTOM ANCHORED MARQUEE STRIP (GUARANTEED VISIBILITY ONLY ON SLIDE 0) */
@@ -1472,6 +1509,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=1160"></script>
+  <script src="script.js?v=1170"></script>
 </body>
 </html>
