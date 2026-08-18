@@ -48,7 +48,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1240">
+  <link rel="stylesheet" href="style.css?v=1250">
   
   <style>
     .app-slide-scrollable {
@@ -131,6 +131,8 @@
       .studio-hero-badge {
         margin-bottom: 6px !important;
       }
+    }
+
     /* ABSOLUTE BOTTOM ANCHORED MARQUEE STRIP (GUARANTEED VISIBILITY ON ALL SCREENS) */
     .kwikezee-features-strip {
       position: absolute !important;
@@ -317,29 +319,91 @@
     .app-slide-item.active .timeline-step-row:nth-child(3) { animation: slideCardIn 0.4s 0.13s cubic-bezier(0.16, 1, 0.3, 1) both !important; }
     .app-slide-item.active .timeline-step-row:nth-child(4) { animation: slideCardIn 0.4s 0.20s cubic-bezier(0.16, 1, 0.3, 1) both !important; }
     .app-slide-item.active .timeline-step-row:nth-child(5) { animation: slideCardIn 0.4s 0.27s cubic-bezier(0.16, 1, 0.3, 1) both !important; }
-    /* CRITICAL STYLES FOR AUDIENCE GRID & BENEFIT CARDS (SLIDES 2 & 4) */
+
+    /* PREMIUM 2-COLUMN AUDIENCE GRID (SLIDE 2) — MATCHING GOLD DESIGN */
     .audience-grid {
       display: grid !important;
-      grid-template-columns: repeat(3, 1fr) !important;
+      grid-template-columns: repeat(2, 1fr) !important;
       gap: 16px !important;
-      max-width: 1080px !important;
+      max-width: 880px !important;
       margin: 0 auto !important;
       width: 100% !important;
     }
 
     .audience-card {
-      background: rgba(18, 18, 22, 0.8) !important;
-      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      background: rgba(18, 18, 22, 0.85) !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
       border-radius: 18px !important;
-      padding: 22px 20px !important;
+      padding: 18px 20px !important;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
       display: flex !important;
-      flex-direction: column !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 16px !important;
       backdrop-filter: blur(12px) !important;
       -webkit-backdrop-filter: blur(12px) !important;
       position: relative !important;
       text-align: left !important;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    .audience-card:hover {
+      transform: translateY(-3px) !important;
+      border-color: rgba(212, 175, 55, 0.6) !important;
+      background: rgba(24, 24, 30, 0.95) !important;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.15) !important;
+    }
+
+    .audience-icon-ring {
+      width: 52px !important;
+      height: 52px !important;
+      min-width: 52px !important;
+      border-radius: 50% !important;
+      border: 1.5px solid #D4AF37 !important;
+      background: rgba(212, 175, 55, 0.06) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #D4AF37 !important;
+      box-shadow: 0 0 14px rgba(212, 175, 55, 0.15) !important;
+      flex-shrink: 0 !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .audience-card:hover .audience-icon-ring {
+      background: rgba(212, 175, 55, 0.16) !important;
+      box-shadow: 0 0 22px rgba(212, 175, 55, 0.35) !important;
+      transform: scale(1.05) !important;
+    }
+
+    .audience-card-body {
+      flex: 1 !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    .audience-card h3 {
+      font-family: var(--font-headings, 'Outfit', sans-serif) !important;
+      font-size: 16px !important;
+      font-weight: 700 !important;
+      color: #FFFFFF !important;
+      margin: 0 0 4px 0 !important;
+      line-height: 1.25 !important;
+    }
+
+    .audience-card p {
+      font-size: 12.5px !important;
+      color: #94A3B8 !important;
+      line-height: 1.45 !important;
+      margin: 0 0 8px 0 !important;
+    }
+
+    .audience-gold-line {
+      width: 28px !important;
+      height: 2px !important;
+      background: #D4AF37 !important;
+      border-radius: 2px !important;
+      opacity: 0.85 !important;
     }
 
     /* SHINY DOMINANT PRIMARY CTA & CLEAN SECONDARY CTA */
@@ -403,59 +467,25 @@
       display: block !important;
     }
 
-    .audience-card:hover {
-      transform: translateY(-4px) !important;
-      border-color: #f59e0b !important;
-      background: rgba(24, 24, 30, 0.95) !important;
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.15) !important;
-    }
-
-    .audience-card-icon {
-      font-size: 24px !important;
-      margin-bottom: 12px !important;
-      width: 44px !important;
-      height: 44px !important;
-      border-radius: 12px !important;
-      background: rgba(212, 175, 55, 0.1) !important;
-      border: 1px solid rgba(212, 175, 55, 0.3) !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-    }
-
-    .audience-card h3 {
-      font-family: var(--font-headings, 'Outfit', sans-serif) !important;
-      font-size: 17px !important;
-      font-weight: 800 !important;
-      color: #FFFFFF !important;
-      margin-bottom: 6px !important;
-    }
-
-    .audience-card p {
-      font-size: 13px !important;
-      color: #94A3B8 !important;
-      line-height: 1.5 !important;
-      margin: 0 !important;
-    }
-
+    /* SLIDE 4: BENEFITS GRID */
     .benefits-grid {
       display: grid !important;
       grid-template-columns: repeat(2, 1fr) !important;
-      gap: 20px !important;
-      max-width: 1040px !important;
+      gap: 18px !important;
+      max-width: 960px !important;
       margin: 0 auto !important;
       width: 100% !important;
     }
 
     .benefit-card {
-      background: rgba(18, 18, 22, 0.8) !important;
-      border: 1px solid rgba(255, 255, 255, 0.12) !important;
-      border-radius: 20px !important;
-      padding: 26px 22px !important;
+      background: rgba(18, 18, 22, 0.85) !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      border-radius: 18px !important;
+      padding: 22px 20px !important;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
       display: flex !important;
       align-items: flex-start !important;
-      gap: 18px !important;
+      gap: 16px !important;
       backdrop-filter: blur(12px) !important;
       -webkit-backdrop-filter: blur(12px) !important;
       position: relative !important;
@@ -464,104 +494,108 @@
     }
 
     .benefit-card:hover {
-      transform: translateY(-4px) !important;
-      border-color: #f59e0b !important;
+      transform: translateY(-3px) !important;
+      border-color: rgba(212, 175, 55, 0.6) !important;
       background: rgba(24, 24, 30, 0.95) !important;
       box-shadow: 0 14px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.15) !important;
     }
 
     .benefit-card-icon {
-      font-size: 24px !important;
-      width: 50px !important;
-      height: 50px !important;
-      border-radius: 14px !important;
-      background: rgba(212, 175, 55, 0.1) !important;
-      border: 1px solid rgba(212, 175, 55, 0.3) !important;
+      width: 48px !important;
+      height: 48px !important;
+      min-width: 48px !important;
+      border-radius: 50% !important;
+      background: rgba(212, 175, 55, 0.06) !important;
+      border: 1.5px solid #D4AF37 !important;
+      color: #D4AF37 !important;
+      box-shadow: 0 0 14px rgba(212, 175, 55, 0.15) !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
       flex-shrink: 0 !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .benefit-card:hover .benefit-card-icon {
+      background: rgba(212, 175, 55, 0.16) !important;
+      box-shadow: 0 0 22px rgba(212, 175, 55, 0.35) !important;
+      transform: scale(1.05) !important;
     }
 
     .benefit-card-content h3 {
       font-family: var(--font-headings, 'Outfit', sans-serif) !important;
-      font-size: 18px !important;
-      font-weight: 800 !important;
+      font-size: 16.5px !important;
+      font-weight: 700 !important;
       color: #FFFFFF !important;
-      margin-bottom: 8px !important;
+      margin-bottom: 6px !important;
+      line-height: 1.3 !important;
     }
 
     .benefit-card-content p {
-      font-size: 14px !important;
+      font-size: 13px !important;
       color: #94A3B8 !important;
-      line-height: 1.55 !important;
+      line-height: 1.5 !important;
       margin: 0 !important;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 768px) {
       .audience-grid {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 10px !important;
       }
       .audience-card {
-        padding: 16px 14px !important;
-        border-radius: 14px !important;
-      }
-      .audience-card h3 {
-        font-size: 15px !important;
-      }
-      .audience-card p {
-        font-size: 12px !important;
-      }
-      .audience-card-icon {
-        width: 36px !important;
-        height: 36px !important;
-        font-size: 18px !important;
-        margin-bottom: 8px !important;
-      }
-      .benefits-grid {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-      }
-      .benefit-card {
-        padding: 18px 16px !important;
-        gap: 14px !important;
-      }
-      .benefit-card-icon {
-        width: 42px !important;
-        height: 42px !important;
-        font-size: 20px !important;
-      }
-      .benefit-card-content h3 {
-        font-size: 16px !important;
-        margin-bottom: 4px !important;
-      }
-      .benefit-card-content p {
-        font-size: 13px !important;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .audience-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 8px !important;
-      }
-      .audience-card {
         padding: 12px 10px !important;
+        border-radius: 14px !important;
+        gap: 10px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+      }
+      .audience-icon-ring {
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+      }
+      .audience-icon-ring svg {
+        width: 18px !important;
+        height: 18px !important;
       }
       .audience-card h3 {
         font-size: 13px !important;
-        margin-bottom: 3px !important;
+        margin-bottom: 2px !important;
       }
       .audience-card p {
         font-size: 11px !important;
         line-height: 1.35 !important;
-      }
-      .audience-card-icon {
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 15px !important;
         margin-bottom: 6px !important;
+      }
+      .audience-gold-line {
+        width: 20px !important;
+        height: 1.5px !important;
+      }
+      .benefits-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+      }
+      .benefit-card {
+        padding: 14px 12px !important;
+        border-radius: 14px !important;
+        gap: 12px !important;
+      }
+      .benefit-card-icon {
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+      }
+      .benefit-card-icon svg {
+        width: 18px !important;
+        height: 18px !important;
+      }
+      .benefit-card-content h3 {
+        font-size: 14.5px !important;
+        margin-bottom: 3px !important;
+      }
+      .benefit-card-content p {
+        font-size: 12px !important;
       }
     }
     @keyframes featuresPillScroll {
@@ -988,44 +1022,110 @@
               <div class="audience-grid">
                 <!-- Card 1: Ejen Hartanah -->
                 <div class="audience-card reveal">
-                  <div class="audience-card-icon">🏢</div>
-                  <h3>Ejen Hartanah</h3>
-                  <p>Profile, listing, property showcase &amp; WhatsApp enquiry.</p>
+                  <div class="audience-icon-ring">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="4" width="10" height="17" rx="1.5"/>
+                      <rect x="13" y="10" width="8" height="11" rx="1.5"/>
+                      <line x1="6" y1="8" x2="6.01" y2="8"/>
+                      <line x1="10" y1="8" x2="10.01" y2="8"/>
+                      <line x1="6" y1="12" x2="6.01" y2="12"/>
+                      <line x1="10" y1="12" x2="10.01" y2="12"/>
+                      <line x1="6" y1="16" x2="6.01" y2="16"/>
+                      <line x1="10" y1="16" x2="10.01" y2="16"/>
+                      <line x1="16" y1="14" x2="16.01" y2="14"/>
+                      <line x1="16" y1="17" x2="16.01" y2="17"/>
+                    </svg>
+                  </div>
+                  <div class="audience-card-body">
+                    <h3>Ejen Hartanah</h3>
+                    <p>Profile, listing, property showcase &amp; WhatsApp enquiry.</p>
+                    <div class="audience-gold-line"></div>
+                  </div>
                 </div>
 
                 <!-- Card 2: Renovation & Contractor -->
                 <div class="audience-card reveal">
-                  <div class="audience-card-icon">🔨</div>
-                  <h3>Renovation &amp; Contractor</h3>
-                  <p>Servis, portfolio projek, kawasan coverage &amp; quotation enquiry.</p>
+                  <div class="audience-icon-ring">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14.5 4.5l5 5"/>
+                      <path d="M18.5 2.5l3 3-2 2-1-1-6 6-2-2 6-6-1-1 3-3z"/>
+                      <path d="M10.5 10.5L3 18c-.8.8-.8 2.2 0 3s2.2.8 3 0l7.5-7.5"/>
+                    </svg>
+                  </div>
+                  <div class="audience-card-body">
+                    <h3>Renovation &amp; Contractor</h3>
+                    <p>Servis, portfolio projek, kawasan coverage &amp; quotation enquiry.</p>
+                    <div class="audience-gold-line"></div>
+                  </div>
                 </div>
 
                 <!-- Card 3: F&B & Restaurant -->
                 <div class="audience-card reveal">
-                  <div class="audience-card-icon">🍜</div>
-                  <h3>F&amp;B &amp; Restaurant</h3>
-                  <p>Menu, lokasi, promo &amp; reservation enquiry.</p>
+                  <div class="audience-icon-ring">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 4V2"/>
+                      <path d="M10 2h4"/>
+                      <path d="M4 17a8 8 0 0 1 16 0H4z"/>
+                      <line x1="2" y1="20" x2="22" y2="20"/>
+                    </svg>
+                  </div>
+                  <div class="audience-card-body">
+                    <h3>F&amp;B &amp; Restaurant</h3>
+                    <p>Menu, lokasi, promo &amp; reservation enquiry.</p>
+                    <div class="audience-gold-line"></div>
+                  </div>
                 </div>
 
                 <!-- Card 4: Homestay -->
                 <div class="audience-card reveal">
-                  <div class="audience-card-icon">🏡</div>
-                  <h3>Homestay</h3>
-                  <p>Property showcase, kemudahan, lokasi &amp; booking enquiry.</p>
+                  <div class="audience-icon-ring">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9.5z"/>
+                      <path d="M7 17v-4h10v4"/>
+                      <path d="M7 14h10"/>
+                      <circle cx="9" cy="12" r="1"/>
+                    </svg>
+                  </div>
+                  <div class="audience-card-body">
+                    <h3>Homestay</h3>
+                    <p>Property showcase, kemudahan, lokasi &amp; booking enquiry.</p>
+                    <div class="audience-gold-line"></div>
+                  </div>
                 </div>
 
                 <!-- Card 5: Automotif -->
                 <div class="audience-card reveal">
-                  <div class="audience-card-icon">🚗</div>
-                  <h3>Automotif</h3>
-                  <p>Model kenderaan, promo, spesifikasi &amp; WhatsApp enquiry.</p>
+                  <div class="audience-icon-ring">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 11l1.5-5.5A2 2 0 0 1 8.4 4h7.2a2 2 0 0 1 1.9 1.5L19 11"/>
+                      <rect x="3" y="11" width="18" height="8" rx="2"/>
+                      <circle cx="7" cy="15" r="1.5"/>
+                      <circle cx="17" cy="15" r="1.5"/>
+                      <line x1="10" y1="15" x2="14" y2="15"/>
+                    </svg>
+                  </div>
+                  <div class="audience-card-body">
+                    <h3>Automotif</h3>
+                    <p>Model kenderaan, promo, spesifikasi &amp; WhatsApp enquiry.</p>
+                    <div class="audience-gold-line"></div>
+                  </div>
                 </div>
 
                 <!-- Card 6: SME, Freelancer & Consultant -->
                 <div class="audience-card reveal">
-                  <div class="audience-card-icon">💼</div>
-                  <h3>SME, Freelancer &amp; Consultant</h3>
-                  <p>Company profile, servis, portfolio &amp; lead generation.</p>
+                  <div class="audience-icon-ring">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="7" width="18" height="13" rx="2"/>
+                      <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                      <path d="M12 12v2"/>
+                      <rect x="10" y="12" width="4" height="3" rx="0.5"/>
+                    </svg>
+                  </div>
+                  <div class="audience-card-body">
+                    <h3>SME, Freelancer &amp; Consultant</h3>
+                    <p>Company profile, servis, portfolio &amp; lead generation.</p>
+                    <div class="audience-gold-line"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1130,7 +1230,13 @@
               <div class="benefits-grid">
                 <!-- Benefit 1 -->
                 <div class="benefit-card reveal">
-                  <div class="benefit-card-icon">📈</div>
+                  <div class="benefit-card-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 3v18h18"/>
+                      <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                      <polyline points="15 8 19 8 19 12"/>
+                    </svg>
+                  </div>
                   <div class="benefit-card-content">
                     <h3>Dapatkan Lebih Banyak Enquiry</h3>
                     <p>Customer boleh terus WhatsApp atau isi borang tanpa perlu mencari maklumat di banyak tempat.</p>
@@ -1139,7 +1245,12 @@
 
                 <!-- Benefit 2 -->
                 <div class="benefit-card reveal">
-                  <div class="benefit-card-icon">🛡️</div>
+                  <div class="benefit-card-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                      <path d="m9 12 2 2 4-4"/>
+                    </svg>
+                  </div>
                   <div class="benefit-card-content">
                     <h3>Bina Kepercayaan</h3>
                     <p>Paparkan servis, portfolio, testimoni, lokasi dan maklumat bisnes secara profesional.</p>
@@ -1148,7 +1259,11 @@
 
                 <!-- Benefit 3 -->
                 <div class="benefit-card reveal">
-                  <div class="benefit-card-icon">⚡</div>
+                  <div class="benefit-card-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                    </svg>
+                  </div>
                   <div class="benefit-card-content">
                     <h3>Online 24/7</h3>
                     <p>Customer boleh mendapatkan maklumat tentang bisnes anda pada bila-bila masa.</p>
@@ -1157,7 +1272,13 @@
 
                 <!-- Benefit 4 -->
                 <div class="benefit-card reveal">
-                  <div class="benefit-card-icon">🌐</div>
+                  <div class="benefit-card-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"/>
+                      <line x1="2" y1="12" x2="22" y2="12"/>
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                  </div>
                   <div class="benefit-card-content">
                     <h3>Bina Online Presence</h3>
                     <p>Miliki platform sendiri yang boleh berkembang bersama bisnes anda.</p>
@@ -1242,6 +1363,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=1120"></script>
+  <script src="script.js?v=1130"></script>
 </body>
 </html>
