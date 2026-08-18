@@ -48,7 +48,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1420">
+  <link rel="stylesheet" href="style.css?v=1430">
   
   <style>
     /* ANIMATED FLOWING GLOW BEAM ON TIMELINE TRACK */
@@ -444,21 +444,39 @@
       -webkit-text-fill-color: transparent !important;
     }
 
-    .hero-micro-trust {
-      display: inline-flex !important;
+    .hero-cta-wrapper {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      width: fit-content !important;
+      max-width: 100% !important;
+    }
+
+    .solehin-btn-row {
+      display: flex !important;
       align-items: center !important;
+      gap: 12px !important;
+      width: 100% !important;
+    }
+
+    .hero-micro-trust {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
       gap: 10px !important;
-      font-size: 12.5px !important;
+      font-size: 12px !important;
       font-weight: 600 !important;
-      color: #94A3B8 !important;
+      color: #A1A1AA !important;
       letter-spacing: 0.2px !important;
       margin-top: 10px !important;
       margin-bottom: 24px !important;
       background: rgba(255, 255, 255, 0.04) !important;
       border: 1px solid rgba(255, 255, 255, 0.08) !important;
-      padding: 5px 14px !important;
+      padding: 6px 14px !important;
       border-radius: 99px !important;
-      width: fit-content !important;
+      text-align: center !important;
     }
 
     .hero-micro-trust .trust-bullet {
@@ -1277,20 +1295,22 @@
                   Pelanggan hari ini akan Google bisnes anda sebelum berurusan. Kami bina website custom yang profesional, pantas di telefon dan disusun untuk membantu pelanggan faham, percaya dan bertindak.
                 </p>
 
-                <div class="solehin-btn-row">
-                  <a href="https://wa.me/60108118559?text=Hai%20Kwikezee%20Studio,%20saya%20berminat%20nak%20bincang%20projek%20website%20anda" target="_blank" rel="noopener" class="btn btn-primary shiny-cta-btn">
-                    <span>Bincang Projek Anda &rarr;</span>
-                  </a>
-                  <button type="button" onclick="goToAppSlide(1)" class="btn btn-outline">
-                    <span>Lihat Portfolio &rarr;</span>
-                  </button>
-                </div>
+                <div class="hero-cta-wrapper">
+                  <div class="solehin-btn-row">
+                    <a href="https://wa.me/60108118559?text=Hai%20Kwikezee%20Studio,%20saya%20berminat%20nak%20bincang%20projek%20website%20anda" target="_blank" rel="noopener" class="btn btn-primary shiny-cta-btn">
+                      <span>Bincang Projek Anda &rarr;</span>
+                    </a>
+                    <button type="button" onclick="goToAppSlide(1)" class="btn btn-outline">
+                      <span>Lihat Portfolio &rarr;</span>
+                    </button>
+                  </div>
 
-                <!-- Micro-trust note underneath CTA -->
-                <div class="hero-micro-trust">
-                  <span>Konsultasi awal percuma</span>
-                  <span class="trust-bullet">•</span>
-                  <span>Tiada komitmen</span>
+                  <!-- Micro-trust note underneath CTA matching exact width -->
+                  <div class="hero-micro-trust">
+                    <span>Konsultasi awal percuma</span>
+                    <span class="trust-bullet">•</span>
+                    <span>Tiada komitmen</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1838,6 +1858,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=1260"></script>
+  <script src="script.js?v=1270"></script>
 </body>
 </html>
