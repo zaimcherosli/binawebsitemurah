@@ -1686,6 +1686,16 @@ function initCreativeParallaxAnd3DTilt() {
       });
     });
   }
+
+  // 4. Spotlight Card Radial Glow Mouse Tracker
+  const spotlightCards = document.querySelectorAll('.spotlight-card, .journey-step-card, .showcase-mini-card, .audience-card, .benefit-card');
+  spotlightCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+      card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+    });
+  });
 }
 
 
