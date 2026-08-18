@@ -1388,11 +1388,12 @@ function initAppSlideNavigation() {
   // Desktop Mouse Wheel Smooth Slide Navigation
   let isWheelThrottled = false;
   window.addEventListener('wheel', (e) => {
-    // If inside an open modal or menu, ignore
-    if (document.getElementById('pwa-install-modal')?.style.display === 'flex') return;
+    // If inside an active popup modal or drawer menu, ignore
+    if (document.getElementById('pwa-install-modal')?.classList.contains('active')) return;
+    if (document.getElementById('nav-mobile-menu')?.classList.contains('active')) return;
     
     if (isWheelThrottled) return;
-    if (Math.abs(e.deltaY) > 15) {
+    if (Math.abs(e.deltaY) > 10) {
       isWheelThrottled = true;
       if (e.deltaY > 0) {
         goToSlide(currentSlide + 1);
@@ -1401,7 +1402,7 @@ function initAppSlideNavigation() {
       }
       setTimeout(() => {
         isWheelThrottled = false;
-      }, 550);
+      }, 450);
     }
   }, { passive: true });
 
