@@ -1195,7 +1195,7 @@ function initCircularPhoneCarousel() {
   let isPaused = false;
 
   function getRadius() {
-    if (window.innerWidth >= 768) return 360;
+    if (window.innerWidth >= 768) return 270;
     // Harmonious orbital radius for 170px width mobile phones
     return Math.min(180, Math.max(140, Math.round(window.innerWidth * 0.42)));
   }
@@ -1208,7 +1208,7 @@ function initCircularPhoneCarousel() {
       
       const cosVal = Math.cos(rad);
       const zIndex = Math.round(100 + cosVal * 100);
-      const scale = window.innerWidth < 768 ? (0.85 + cosVal * 0.15) : (0.82 + cosVal * 0.18);
+      const scale = window.innerWidth < 768 ? (0.85 + cosVal * 0.15) : (0.78 + cosVal * 0.12);
       const opacity = 0.35 + Math.max(0, cosVal) * 0.65;
       
       item.style.transform = `rotateY(${itemAngle}deg) translateZ(${radius}px) scale(${scale})`;
