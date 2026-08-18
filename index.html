@@ -48,28 +48,43 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1270">
+  <link rel="stylesheet" href="style.css?v=1280">
   
   <style>
+    html, body.app-slider-mode {
+      overflow: hidden !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+      width: 100vw !important;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
     .app-slide-scrollable {
       padding-top: 72px !important;
       padding-bottom: 95px !important;
     }
-    @media (min-width: 769px) {
+    @media (min-width: 901px) {
       .app-slide-scrollable {
-        padding-top: 65px !important;
-        padding-bottom: 50px !important;
+        padding-top: 40px !important;
+        padding-bottom: 30px !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
         align-items: center !important;
-        overflow-y: auto !important;
+        overflow-y: hidden !important;
+        overflow-x: hidden !important;
+        height: 100% !important;
         box-sizing: border-box !important;
       }
       .app-slide-item[data-slide-index="0"] .app-slide-scrollable {
         justify-content: space-between !important;
+        padding-top: 40px !important;
+        padding-bottom: 0px !important;
       }
-      .advantages-section, .timeline-journey-section {
+      .advantages-section, .timeline-journey-section, .portfolio-section {
         width: 100% !important;
         display: flex !important;
         flex-direction: column !important;
@@ -1457,6 +1472,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=1140"></script>
+  <script src="script.js?v=1150"></script>
 </body>
 </html>

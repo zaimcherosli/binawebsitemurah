@@ -1356,6 +1356,11 @@ function initAppSlideNavigation() {
       }
     });
 
+    // Ensure window scroll is always 0
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
     // Reset scroll position of all slide scrollables so new slide starts perfectly at top
     slides.forEach(slide => {
       const scrollable = slide.querySelector('.app-slide-scrollable');
@@ -1386,17 +1391,8 @@ function initAppSlideNavigation() {
     // If inside an open modal or menu, ignore
     if (document.getElementById('pwa-install-modal')?.style.display === 'flex') return;
     
-    // Check if the current slide container has actual internal scrollable overflow
-    const activeScrollable = slides[currentSlide]?.querySelector('.app-slide-scrollable');
-    if (activeScrollable && activeScrollable.scrollHeight > activeScrollable.clientHeight + 10) {
-      const atTop = activeScrollable.scrollTop <= 2;
-      const atBottom = activeScrollable.scrollTop + activeScrollable.clientHeight >= activeScrollable.scrollHeight - 5;
-      if (e.deltaY > 0 && !atBottom) return; // Allow normal downward scroll inside long content
-      if (e.deltaY < 0 && !atTop) return;    // Allow normal upward scroll inside long content
-    }
-
     if (isWheelThrottled) return;
-    if (Math.abs(e.deltaY) > 25) {
+    if (Math.abs(e.deltaY) > 15) {
       isWheelThrottled = true;
       if (e.deltaY > 0) {
         goToSlide(currentSlide + 1);
@@ -1405,7 +1401,7 @@ function initAppSlideNavigation() {
       }
       setTimeout(() => {
         isWheelThrottled = false;
-      }, 650);
+      }, 550);
     }
   }, { passive: true });
 
