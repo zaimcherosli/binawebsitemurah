@@ -48,7 +48,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1400">
+  <link rel="stylesheet" href="style.css?v=1410">
   
   <style>
     /* ANIMATED FLOWING GLOW BEAM ON TIMELINE TRACK */
@@ -357,31 +357,39 @@
         padding: 0 40px !important;
       }
       .solehin-hero-left {
-        max-width: 580px !important;
-        width: 55% !important;
+        max-width: 660px !important;
+        width: 58% !important;
         text-align: left !important;
         align-items: flex-start !important;
         z-index: 10 !important;
       }
       .solehin-hero-title {
-        font-size: clamp(2.4rem, 4.2vw, 3.6rem) !important;
-        line-height: 1.15 !important;
+        font-size: clamp(1.85rem, 2.7vw, 2.85rem) !important;
+        line-height: 1.22 !important;
         text-align: left !important;
-        margin-bottom: 16px !important;
+        margin-bottom: 14px !important;
+        white-space: normal !important;
       }
-      .solehin-hero-title .line-1,
+      .solehin-hero-title .line-1 {
+        display: block !important;
+        white-space: nowrap !important;
+        text-align: left !important;
+      }
       .solehin-hero-title .line-2 {
+        display: block !important;
+        white-space: nowrap !important;
         text-align: left !important;
       }
       .solehin-hero-desc {
         font-size: 1.05rem !important;
         line-height: 1.6 !important;
         text-align: left !important;
-        margin: 0 0 24px 0 !important;
-        max-width: 520px !important;
+        margin: 0 0 20px 0 !important;
+        max-width: 540px !important;
       }
       .solehin-btn-row {
         justify-content: flex-start !important;
+        margin-bottom: 4px !important;
       }
       .solehin-hero-bg-layer {
         position: absolute !important;
@@ -418,10 +426,10 @@
       display: flex !important;
       align-items: center !important;
       font-family: var(--font-headings, 'Outfit', sans-serif) !important;
-      font-size: clamp(1.25rem, 2.3vw, 1.7rem) !important;
+      font-size: clamp(1.2rem, 2.2vw, 1.65rem) !important;
       font-weight: 800 !important;
       letter-spacing: -0.3px !important;
-      margin: 6px 0 16px 0 !important;
+      margin: 4px 0 14px 0 !important;
       padding: 0 !important;
       background: transparent !important;
       border: none !important;
@@ -437,15 +445,20 @@
     }
 
     .hero-micro-trust {
-      display: flex !important;
+      display: inline-flex !important;
       align-items: center !important;
-      justify-content: center;
-      gap: 8px !important;
+      gap: 10px !important;
       font-size: 12.5px !important;
       font-weight: 600 !important;
       color: #94A3B8 !important;
       letter-spacing: 0.2px !important;
-      margin-top: 6px !important;
+      margin-top: 10px !important;
+      margin-bottom: 24px !important;
+      background: rgba(255, 255, 255, 0.04) !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      padding: 5px 14px !important;
+      border-radius: 99px !important;
+      width: fit-content !important;
     }
 
     .hero-micro-trust .trust-bullet {
@@ -1830,6 +1843,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=1240"></script>
+  <script src="script.js?v=1250"></script>
 </body>
 </html>
