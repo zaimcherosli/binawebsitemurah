@@ -48,7 +48,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1260">
+  <link rel="stylesheet" href="style.css?v=1270">
   
   <style>
     .app-slide-scrollable {
@@ -98,7 +98,7 @@
       box-sizing: border-box !important;
     }
 
-    /* ABSOLUTE BOTTOM ANCHORED MARQUEE STRIP (GUARANTEED VISIBILITY ON ALL MOBILE SCREENS) */
+    /* ABSOLUTE BOTTOM ANCHORED MARQUEE STRIP (GUARANTEED VISIBILITY ONLY ON SLIDE 0) */
     .app-slide-item[data-slide-index="0"] .kwikezee-features-strip {
       position: absolute !important;
       bottom: 8px !important;
@@ -114,6 +114,83 @@
       visibility: visible !important;
       pointer-events: auto !important;
       overflow: hidden !important;
+    }
+
+    /* DESKTOP HERO: BEAUTIFUL 2-COLUMN SIDE-BY-SIDE LAYOUT */
+    @media (min-width: 901px) {
+      .solehin-hero-section {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        position: relative !important;
+        padding: 30px 0 60px 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+      .solehin-hero-container {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        max-width: 1200px !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        position: relative !important;
+        z-index: 10 !important;
+        padding: 0 40px !important;
+      }
+      .solehin-hero-left {
+        max-width: 580px !important;
+        width: 55% !important;
+        text-align: left !important;
+        align-items: flex-start !important;
+        z-index: 10 !important;
+      }
+      .solehin-hero-title {
+        font-size: clamp(2.4rem, 4.2vw, 3.6rem) !important;
+        line-height: 1.15 !important;
+        text-align: left !important;
+        margin-bottom: 16px !important;
+      }
+      .solehin-hero-title .line-1,
+      .solehin-hero-title .line-2 {
+        text-align: left !important;
+      }
+      .solehin-hero-desc {
+        font-size: 1.05rem !important;
+        line-height: 1.6 !important;
+        text-align: left !important;
+        margin: 0 0 24px 0 !important;
+        max-width: 520px !important;
+      }
+      .solehin-btn-row {
+        justify-content: flex-start !important;
+      }
+      .solehin-hero-bg-layer {
+        position: absolute !important;
+        right: 4% !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        width: 440px !important;
+        height: 85% !important;
+        max-height: 520px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        pointer-events: none !important;
+        z-index: 5 !important;
+        opacity: 1 !important;
+      }
+      .solehin-hero-bg-img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+        object-position: center bottom !important;
+        filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 30px rgba(212, 175, 55, 0.25)) !important;
+      }
+      .solehin-hero-overlay {
+        display: none !important;
+      }
     }
 
     @media (max-width: 900px) {
@@ -154,22 +231,18 @@
       }
     }
 
-    /* ABSOLUTE BOTTOM ANCHORED MARQUEE STRIP (GUARANTEED VISIBILITY ON ALL SCREENS) */
-    .kwikezee-features-strip {
-      position: absolute !important;
-      bottom: 8px !important;
-      left: 0 !important;
-      right: 0 !important;
-      width: 100% !important;
-      max-width: 100% !important;
-      z-index: 99 !important;
-      padding: 4px 0 !important;
+    /* FOOTER CLEAN DARK STYLING */
+    .main-footer {
+      background: transparent !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+      padding: 16px 20px !important;
+      text-align: center !important;
+      box-shadow: none !important;
+    }
+    .main-footer p {
+      color: #71717A !important;
+      font-size: 12px !important;
       margin: 0 !important;
-      display: block !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-      pointer-events: auto !important;
-      overflow: hidden !important;
     }
 
     /* TRULY RESPONSIVE 3D PHONE PORTFOLIO — GUARANTEED VISIBILITY ACROSS ALL DEVICES */

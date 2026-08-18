@@ -6295,7 +6295,7 @@ body.admin-body .no-submissions svg {
    CLEAN MINIMAL DARK FOOTER
    ========================================================================== */
 .main-footer {
-  background: #000000 !important;
+  background: transparent !important;
   border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
   padding: 16px 12px 75px 12px !important;
   text-align: center;
