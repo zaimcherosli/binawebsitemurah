@@ -1356,6 +1356,12 @@ function initAppSlideNavigation() {
       }
     });
 
+    // Reset scroll position of all slide scrollables so new slide starts perfectly at top
+    slides.forEach(slide => {
+      const scrollable = slide.querySelector('.app-slide-scrollable');
+      if (scrollable) scrollable.scrollTop = 0;
+    });
+
     // Update Slide Items Active State
     slides.forEach((slide, i) => {
       if (i === currentSlide) {
@@ -1373,6 +1379,35 @@ function initAppSlideNavigation() {
 
     resetAutoSlideTimer();
   }
+
+  // Desktop Mouse Wheel Smooth Slide Navigation
+  let isWheelThrottled = false;
+  window.addEventListener('wheel', (e) => {
+    // If inside an open modal or menu, ignore
+    if (document.getElementById('pwa-install-modal')?.style.display === 'flex') return;
+    
+    // Check if the current slide container has actual internal scrollable overflow
+    const activeScrollable = slides[currentSlide]?.querySelector('.app-slide-scrollable');
+    if (activeScrollable && activeScrollable.scrollHeight > activeScrollable.clientHeight + 10) {
+      const atTop = activeScrollable.scrollTop <= 2;
+      const atBottom = activeScrollable.scrollTop + activeScrollable.clientHeight >= activeScrollable.scrollHeight - 5;
+      if (e.deltaY > 0 && !atBottom) return; // Allow normal downward scroll inside long content
+      if (e.deltaY < 0 && !atTop) return;    // Allow normal upward scroll inside long content
+    }
+
+    if (isWheelThrottled) return;
+    if (Math.abs(e.deltaY) > 25) {
+      isWheelThrottled = true;
+      if (e.deltaY > 0) {
+        goToSlide(currentSlide + 1);
+      } else {
+        goToSlide(currentSlide - 1);
+      }
+      setTimeout(() => {
+        isWheelThrottled = false;
+      }, 650);
+    }
+  }, { passive: true });
 
   // Smart Auto-Slide Timer (Auto-advance every 8s with background tab pause protection)
   let autoSlideTimer = null;
