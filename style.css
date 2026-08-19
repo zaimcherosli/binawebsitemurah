@@ -6777,52 +6777,131 @@ body.app-slider-mode {
 }
 
 .benefit-card {
-  background: rgba(18, 18, 22, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 26px 22px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background: linear-gradient(145deg, rgba(22, 22, 28, 0.85) 0%, rgba(14, 14, 18, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 22px;
+  padding: 24px 24px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
-  align-items: flex-start;
-  gap: 18px;
-  backdrop-filter: blur(10px);
+  flex-direction: column;
+  justify-content: space-between;
+  backdrop-filter: blur(14px);
   position: relative;
+  overflow: hidden;
   text-align: left;
+}
+
+.benefit-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
 }
 
 .benefit-card:hover {
   transform: translateY(-4px);
-  border-color: var(--gold-secondary);
-  background: rgba(24, 24, 30, 0.9);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.12);
+  border-color: rgba(212, 175, 55, 0.45);
+  background: linear-gradient(145deg, rgba(28, 28, 36, 0.95) 0%, rgba(18, 18, 24, 0.98) 100%);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.15);
+}
+
+.benefit-card:hover::before {
+  opacity: 1;
+}
+
+.bento-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  width: 100%;
+}
+
+.bento-tag {
+  font-family: var(--font-headings);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-secondary, #D4AF37);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  padding: 4px 10px;
+  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .benefit-card-icon {
-  font-size: 24px;
-  width: 50px;
-  height: 50px;
-  border-radius: 14px;
-  background: rgba(212, 175, 55, 0.1);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: var(--gold-secondary, #D4AF37);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.benefit-card:hover .benefit-card-icon {
+  transform: scale(1.08) rotate(3deg);
+  background: rgba(212, 175, 55, 0.2);
+  border-color: var(--gold-secondary);
+}
+
+.benefit-card-content {
+  flex: 1;
 }
 
 .benefit-card-content h3 {
   font-family: var(--font-headings);
-  font-size: 18px;
+  font-size: 17.5px;
   font-weight: 800;
   color: #FFFFFF;
   margin-bottom: 8px;
+  line-height: 1.35;
 }
 
 .benefit-card-content p {
-  font-size: 14px;
+  font-size: 13.5px;
   color: #94A3B8;
   line-height: 1.55;
-  margin: 0;
+  margin: 0 0 14px 0;
+}
+
+.bento-spec-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11.5px;
+  color: #E2E8F0;
+  font-weight: 600;
+  flex-wrap: wrap;
+  width: fit-content;
+}
+
+.spec-dot {
+  color: var(--gold-secondary, #D4AF37);
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.spec-arrow {
+  color: var(--gold-secondary, #D4AF37);
+  font-weight: bold;
+  font-size: 12px;
 }
 
 @media (max-width: 900px) {
@@ -6879,19 +6958,32 @@ body.app-slider-mode {
   }
   .benefit-card {
     padding: 18px 16px;
-    gap: 14px;
+    border-radius: 16px;
+  }
+  .bento-card-header {
+    margin-bottom: 10px;
+  }
+  .bento-tag {
+    font-size: 10px;
+    padding: 3px 8px;
   }
   .benefit-card-icon {
-    width: 42px;
-    height: 42px;
-    font-size: 20px;
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
   }
   .benefit-card-content h3 {
-    font-size: 16px;
-    margin-bottom: 4px;
+    font-size: 15.5px;
+    margin-bottom: 6px;
   }
   .benefit-card-content p {
-    font-size: 13px;
+    font-size: 12.5px;
+    margin-bottom: 10px;
+  }
+  .bento-spec-badge {
+    font-size: 11px;
+    padding: 4px 10px;
+    gap: 5px;
   }
 }
 
