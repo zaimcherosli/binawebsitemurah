@@ -18,7 +18,288 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=890">
+  <link rel="stylesheet" href="style.css?v=1530">
+
+  <style>
+    /* EXECUTIVE TESTIMONIAL & STATS BAR STYLES */
+    .testimoni-stats-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      background: linear-gradient(145deg, rgba(24, 24, 30, 0.85) 0%, rgba(14, 14, 18, 0.95) 100%);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 20px;
+      padding: 20px 24px;
+      max-width: 860px;
+      margin: 0 auto 30px auto;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 25px rgba(212, 175, 55, 0.1);
+      backdrop-filter: blur(14px);
+    }
+    .tstat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .tstat-num {
+      font-family: var(--font-headings, 'Outfit', sans-serif);
+      font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .tstat-label {
+      font-size: 12.5px;
+      color: #94A3B8;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .tstat-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .casestudy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .casestudy-card {
+      background: linear-gradient(145deg, rgba(22, 22, 28, 0.9) 0%, rgba(13, 13, 17, 0.96) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 22px;
+      padding: 28px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .casestudy-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.7), transparent);
+      opacity: 0.4;
+      transition: opacity 0.3s ease;
+    }
+    .casestudy-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(212, 175, 55, 0.55);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 30px rgba(212, 175, 55, 0.18);
+    }
+    .casestudy-card:hover::before {
+      opacity: 1;
+    }
+
+    .cs-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .cs-badge {
+      font-family: var(--font-headings);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #D4AF37;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .cs-duration {
+      font-size: 12px;
+      color: #64748B;
+      font-weight: 500;
+    }
+
+    .cs-quote {
+      margin: 0 0 18px 0;
+      padding: 0;
+      border: none;
+      background: none;
+    }
+    .cs-stars {
+      color: #F59E0B;
+      font-size: 15px;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .cs-quote-text {
+      font-size: 14.5px;
+      color: #F8FAFC;
+      line-height: 1.55;
+      font-weight: 500;
+      font-style: italic;
+      margin-bottom: 14px;
+    }
+    .cs-author-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .cs-author-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(245, 158, 11, 0.1));
+      border: 1.5px solid rgba(212, 175, 55, 0.5);
+      color: #D4AF37;
+      font-family: var(--font-headings);
+      font-weight: 800;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .cs-author-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .cs-author-name {
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .cs-author-role {
+      color: #94A3B8;
+      font-size: 12px;
+    }
+
+    .cs-metrics-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .cs-metric-chip {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .cs-metric-label {
+      font-size: 11px;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .cs-metric-val {
+      font-family: var(--font-headings);
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+    .emerald-val {
+      color: #10B981 !important;
+    }
+
+    .cs-compare-box {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .cs-compare-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+    .cs-compare-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .cs-compare-item.before .cs-compare-label {
+      background: rgba(239, 68, 68, 0.15);
+      color: #F87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .cs-compare-item.before p {
+      color: #94A3B8;
+      margin: 0;
+    }
+    .cs-compare-item.after .cs-compare-label {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .cs-compare-item.after p {
+      color: #E2E8F0;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .cs-proof-btn {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      color: #D4AF37;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      width: fit-content;
+    }
+    .cs-proof-btn:hover {
+      background: rgba(212, 175, 55, 0.2);
+      border-color: #D4AF37;
+      color: #FFFFFF;
+      transform: translateX(3px);
+    }
+
+    @media (max-width: 900px) {
+      .testimoni-stats-bar {
+        padding: 14px 16px;
+        gap: 8px;
+      }
+      .tstat-num {
+        font-size: 1.6rem;
+      }
+      .tstat-label {
+        font-size: 11px;
+      }
+      .casestudy-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .casestudy-card {
+        padding: 20px 18px;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -81,14 +362,14 @@
   </header>
 
   <!-- PAGE HEADER BANNER -->
-  <section class="page-banner" style="padding: 150px 0 40px 0; text-align: center;">
+  <section class="page-banner" style="padding: 140px 0 30px 0; text-align: center;">
     <div class="container">
-      <div class="studio-hero-badge" style="margin-bottom: 16px;">
+      <div class="studio-hero-badge" style="margin-bottom: 14px;">
         <span class="pulse-dot"></span>
         <span>BUKTI KEPUASAN KLIEN &amp; FAQ</span>
       </div>
-      <h1 class="section-title" style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 14px; color: #FFFFFF;">
-        Testimoni &amp; <span class="text-grad-gold">Soalan Lazim</span>
+      <h1 class="section-title" style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 12px; color: #FFFFFF;">
+        Testimoni &amp; <span class="text-grad-gold">Kajian Kes</span>
       </h1>
       <p class="section-sub" style="max-width: 620px; margin: 0 auto; color: #94A3B8;">
         Lihat bagaimana usahawan dan perniagaan di Malaysia melonjakkan jualan serta membina kredibiliti dengan laman web Kwikezee Studio.
@@ -96,25 +377,55 @@
     </div>
   </section>
 
+  <!-- AUTHORITY NUMBERS STRIP -->
+  <div class="container">
+    <div class="testimoni-stats-bar reveal">
+      <div class="tstat-item">
+        <span class="tstat-num text-grad-gold">50+</span>
+        <span class="tstat-label">Projek Siap &amp; Live</span>
+      </div>
+      <div class="tstat-divider"></div>
+      <div class="tstat-item">
+        <span class="tstat-num text-grad-gold">99.4%</span>
+        <span class="tstat-label">Kepuasan Klien</span>
+      </div>
+      <div class="tstat-divider"></div>
+      <div class="tstat-item">
+        <span class="tstat-num text-grad-gold">5 Hari</span>
+        <span class="tstat-label">Purata Siap</span>
+      </div>
+    </div>
+  </div>
+
   <!-- CASE STUDIES / TESTIMONIALS SECTION -->
-  <section id="kajian-kes" class="casestudy-section" style="padding-top: 20px; padding-bottom: 60px;">
+  <section id="kajian-kes" class="casestudy-section" style="padding-top: 10px; padding-bottom: 60px;">
     <div class="container">
       
       <div class="casestudy-grid">
         
-        <!-- Case Study 1: Property -->
+        <!-- Case Study 1: Property (Zulkifli REN) -->
         <div class="casestudy-card reveal">
-          <div class="card-glow"></div>
-          <div class="cs-badge">HARTANAH / REAL ESTATE</div>
-          <div class="cs-client-profile">
-            <h3>Ejen Hartanah REN (Listing Bungalow Bangi)</h3>
-            <p class="cs-duration">Tempoh Ujian: 14 Hari Kempen FB Ads</p>
+          <div class="cs-top-bar">
+            <span class="cs-badge">HARTANAH</span>
+            <span class="cs-duration">14 Hari Kempen FB Ads</span>
           </div>
+          
+          <blockquote class="cs-quote">
+            <div class="cs-stars">★★★★★</div>
+            <p class="cs-quote-text">"Dulu spent ads banyak tapi prospek yang hubungi WhatsApp suka main-main. Lepas pakai landing page Kwikezee, kualiti lead sangat tinggi dan terus bersedia dengan bajet!"</p>
+            <div class="cs-author-box">
+              <div class="cs-author-avatar">Z</div>
+              <div class="cs-author-info">
+                <strong class="cs-author-name">En. Zulkifli</strong>
+                <span class="cs-author-role">Ejen Hartanah REN • Bangi Real Estate</span>
+              </div>
+            </div>
+          </blockquote>
           
           <div class="cs-metrics-row">
             <div class="cs-metric-chip">
               <span class="cs-metric-label">WhatsApp Leads</span>
-              <span class="cs-metric-val">+150%</span>
+              <span class="cs-metric-val text-grad-gold">+150%</span>
             </div>
             <div class="cs-metric-chip">
               <span class="cs-metric-label">Kos Per Lead (CPL)</span>
@@ -122,36 +433,41 @@
             </div>
           </div>
           
-          <div class="cs-details">
-            <div class="cs-detail-box">
-              <strong>Masalah Sebelum:</strong>
-              <p>Menggunakan borang templated standard pihak ketiga. Halaman loading lambat (4.5 saat) menyebabkan pembaziran klik iklan, dan prospek WhatsApp tidak berkualiti.</p>
+          <div class="cs-compare-box">
+            <div class="cs-compare-item before">
+              <span class="cs-compare-label">SEBELUM</span>
+              <p>Borang pihak ketiga loading lambat (4.5s), leads tidak ditapis &amp; kos iklan bocor.</p>
             </div>
-            <div class="cs-detail-box">
-              <strong>Solusi Kwikezee:</strong>
-              <p>Landing page PWA obsidian gelap berstruktur tinggi dengan borang kelayakan leads (pre-qualifying form) sebelum dialihkan ke WhatsApp.</p>
+            <div class="cs-compare-item after">
+              <span class="cs-compare-label">SOLUSI</span>
+              <p>Landing page PWA obsidian kelajuan sub-saat dengan borang pra-kelayakan bajet.</p>
             </div>
+          </div>
+        </div>
+
+        <!-- Case Study 2: Renovasi (Shah Plaster Siling) -->
+        <div class="casestudy-card reveal">
+          <div class="cs-top-bar">
+            <span class="cs-badge">KONTRAKTOR</span>
+            <span class="cs-duration">30 Hari Kempen TikTok Ads</span>
           </div>
           
           <blockquote class="cs-quote">
-            "Dulu spent ads banyak tapi prospek yang hubungi WhatsApp suka main-main. Lepas pakai landing page Kwikezee, kualiti lead sangat tinggi, prospek betul-betul bersedia dengan bajet!"
-            <cite>&mdash; Zulkifli, REN Bangi</cite>
+            <div class="cs-stars">★★★★★</div>
+            <p class="cs-quote-text">"Pelanggan lebih yakin bila tengok website kita yang kemas dan profesional. Sangat mudah nak tunjuk draf plaster siling kami dan terus close deal bernilai tinggi!"</p>
+            <div class="cs-author-box">
+              <div class="cs-author-avatar">S</div>
+              <div class="cs-author-info">
+                <strong class="cs-author-name">En. Shahriman</strong>
+                <span class="cs-author-role">Pengasas • Shah Plaster Siling &amp; Renovation</span>
+              </div>
+            </div>
           </blockquote>
-        </div>
-
-        <!-- Case Study 2: Renovasi -->
-        <div class="casestudy-card reveal">
-          <div class="card-glow"></div>
-          <div class="cs-badge">KONTRAKTOR / RENOVASI</div>
-          <div class="cs-client-profile">
-            <h3>Shah Plaster Siling &amp; Renovation</h3>
-            <p class="cs-duration">Tempoh Ujian: 30 Hari Kempen TikTok Ads</p>
-          </div>
           
           <div class="cs-metrics-row">
             <div class="cs-metric-chip">
               <span class="cs-metric-label">Pertanyaan WhatsApp</span>
-              <span class="cs-metric-val">+220%</span>
+              <span class="cs-metric-val text-grad-gold">+220%</span>
             </div>
             <div class="cs-metric-chip">
               <span class="cs-metric-label">Kadar Closing Deal</span>
@@ -159,21 +475,100 @@
             </div>
           </div>
           
-          <div class="cs-details">
-            <div class="cs-detail-box">
-              <strong>Masalah Sebelum:</strong>
-              <p>Hanya menghantar trafik iklan ke PM Facebook Page. Kontraktor terpaksa menjawab soalan berulang tentang sebut harga dan tiada tempat memaparkan kualiti portfolio projek.</p>
+          <div class="cs-compare-box">
+            <div class="cs-compare-item before">
+              <span class="cs-compare-label">SEBELUM</span>
+              <p>Trafik iklan ke PM Facebook, jawab soalan berulang tanpa galeri portfolio tersusun.</p>
             </div>
-            <div class="cs-detail-box">
-              <strong>Solusi Kwikezee:</strong>
-              <p>Seni bina laman web khusus dengan paparan portfolio before-after yang interaktif dan borang anggaraan kos (cost estimator) terbina.</p>
+            <div class="cs-compare-item after">
+              <span class="cs-compare-label">SOLUSI</span>
+              <p>Website galeri before-after interaktif dengan anggaran sebut harga automatik.</p>
             </div>
+          </div>
+        </div>
+
+        <!-- Case Study 3: Homestay (InapVibe Luxe) -->
+        <div class="casestudy-card reveal">
+          <div class="cs-top-bar">
+            <span class="cs-badge">HOSPITALITI</span>
+            <span class="cs-duration">Kempen Penginapan &amp; Cuti</span>
           </div>
           
           <blockquote class="cs-quote">
-            "Pelanggan lebih yakin bila tengok website kita yang kemas dan profesional. Sangat mudah nak tunjuk draf plaster siling kami dan terus close deal besar!"
-            <cite>&mdash; Shah, Pengasas Shah Renovation</cite>
+            <div class="cs-stars">★★★★★</div>
+            <p class="cs-quote-text">"Sebelum ni bergantung pada platform luar yang potong komisen tinggi. Sekarang tetamu terus semak tarikh ketersediaan dan bayar deposit dalam website rasmi kami."</p>
+            <div class="cs-author-box">
+              <div class="cs-author-avatar">R</div>
+              <div class="cs-author-info">
+                <strong class="cs-author-name">En. Razali</strong>
+                <span class="cs-author-role">Pengurus Operasi • InapVibe Luxe Homestays</span>
+              </div>
+            </div>
           </blockquote>
+          
+          <div class="cs-metrics-row">
+            <div class="cs-metric-chip">
+              <span class="cs-metric-label">Tempahan Terus</span>
+              <span class="cs-metric-val text-grad-gold">+180%</span>
+            </div>
+            <div class="cs-metric-chip">
+              <span class="cs-metric-label">Komisen Platform Luar</span>
+              <span class="cs-metric-val emerald-val">0% Potongan</span>
+            </div>
+          </div>
+          
+          <div class="cs-compare-box">
+            <div class="cs-compare-item before">
+              <span class="cs-compare-label">SEBELUM</span>
+              <p>Hilang 15% - 20% margin keuntungan kepada komisen platform tempahan luar.</p>
+            </div>
+            <div class="cs-compare-item after">
+              <span class="cs-compare-label">SOLUSI</span>
+              <p>Sistem tempahan langsung tanpa orang tengah dengan integrasi DuitNow QR.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case Study 4: F&B (Crimson Dragon) -->
+        <div class="casestudy-card reveal">
+          <div class="cs-top-bar">
+            <span class="cs-badge">F&amp;B &amp; RESTORAN</span>
+            <span class="cs-duration">Pelancaran Menu Interaktif</span>
+          </div>
+          
+          <blockquote class="cs-quote">
+            <div class="cs-stars">★★★★★</div>
+            <p class="cs-quote-text">"Menu digital Kwikezee sangat laju dan visual gambar makanan nampak sangat eksklusif. Customer scan QR di meja je terus nampak promosi dan buat tempahan!"</p>
+            <div class="cs-author-box">
+              <div class="cs-author-avatar">A</div>
+              <div class="cs-author-info">
+                <strong class="cs-author-name">Chef Adrian</strong>
+                <span class="cs-author-role">Pemilik Bersama • Crimson Dragon Hot Pot</span>
+              </div>
+            </div>
+          </blockquote>
+          
+          <div class="cs-metrics-row">
+            <div class="cs-metric-chip">
+              <span class="cs-metric-label">Tempahan Meja</span>
+              <span class="cs-metric-val text-grad-gold">+310%</span>
+            </div>
+            <div class="cs-metric-chip">
+              <span class="cs-metric-label">Kelajuan Muat Menu</span>
+              <span class="cs-metric-val emerald-val">&lt; 0.6 Saat</span>
+            </div>
+          </div>
+          
+          <div class="cs-compare-box">
+            <div class="cs-compare-item before">
+              <span class="cs-compare-label">SEBELUM</span>
+              <p>Menu PDF berat susah dibaca di telefon, pelanggan menunggu lama untuk muat turun.</p>
+            </div>
+            <div class="cs-compare-item after">
+              <span class="cs-compare-label">SOLUSI</span>
+              <p>Web menu digital ultra-pantas dengan navigasi kategori dan butang tempahan terus.</p>
+            </div>
+          </div>
         </div>
 
       </div>
