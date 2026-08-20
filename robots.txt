@@ -1,4 +1,14 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /invoice
+Disallow: /invoice.html
+Disallow: /quotation
+Disallow: /quotation.html
+Disallow: /receipt
+Disallow: /resit
+Disallow: /sample-niche-preview
 
 Sitemap: https://kwikezee.my/sitemap.xml
+
