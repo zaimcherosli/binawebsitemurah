@@ -104,9 +104,51 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1550">
+  <link rel="stylesheet" href="style.css?v=1560">
   
   <style>
+    /* QUANTUM PARTICLE UNIVERSE CANVAS (ACTIVE ON SLIDES 1 TO 5) */
+    .quantum-slide-canvas {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: 0 !important;
+      pointer-events: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s ease !important;
+      will-change: opacity, transform !important;
+    }
+
+    .app-slider-stage.quantum-active .quantum-slide-canvas {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    /* Slides 1..5 have transparent backgrounds so quantum physics shines through */
+    .app-slide-item[data-slide-index="1"],
+    .app-slide-item[data-slide-index="2"],
+    .app-slide-item[data-slide-index="3"],
+    .app-slide-item[data-slide-index="4"],
+    .app-slide-item[data-slide-index="5"] {
+      background: transparent !important;
+    }
+
+    .app-slide-scrollable {
+      position: relative !important;
+      z-index: 2 !important;
+    }
+
+    /* Cinematic Glassmorphism Enhancement for Slide Cards over Quantum Particles */
+    .app-slide-item[data-slide-index="2"] .audience-card,
+    .app-slide-item[data-slide-index="3"] .journey-step-card,
+    .app-slide-item[data-slide-index="4"] .benefit-card {
+      backdrop-filter: blur(16px) saturate(180%) !important;
+      -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+    }
+
     /* ANIMATED FLOWING GLOW BEAM ON TIMELINE TRACK */
     @keyframes beamFlow {
       0% { top: 0%; opacity: 0; }
@@ -1525,6 +1567,9 @@
        APP SLIDER STAGE (FULL SCREEN HORIZONTAL SWIPE)
        ========================================== -->
   <main class="app-slider-stage" id="appSliderStage">
+    <!-- Fixed Interactive Quantum Particle Universe Canvas (Slides 1 to 5) -->
+    <canvas id="quantumSlideCanvas" class="quantum-slide-canvas" aria-hidden="true"></canvas>
+
     <div class="app-slides-track" id="appSlidesTrack">
 
       <!-- ==========================================
@@ -2166,6 +2211,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=1390"></script>
+  <script src="script.js?v=1400"></script>
 </body>
 </html>

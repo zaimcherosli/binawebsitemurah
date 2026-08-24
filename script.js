@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCircularPhoneCarousel();
   initAppSlideNavigation();
   initCreativeParallaxAnd3DTilt();
+  initQuantumSlideUniverse();
 });
 
 /* ==========================================
@@ -1109,6 +1110,234 @@ function initConstellationCanvas() {
   animate();
 }
 
+/* ==========================================================================
+   QUANTUM PARTICLE UNIVERSE ENGINE (INTERACTIVE PHYSICS FOR SLIDES 1 TO 5)
+   ========================================================================== */
+function initQuantumSlideUniverse() {
+  const canvas = document.getElementById('quantumSlideCanvas');
+  const stage = document.getElementById('appSliderStage');
+  if (!canvas || !stage) return;
+
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let particles = [];
+  let isRunning = false;
+  let animId = null;
+
+  // Responsive Configuration
+  const isMobile = window.innerWidth <= 768;
+  const particleCount = isMobile ? 55 : 110;
+  const connectionRadius = isMobile ? 85 : 125;
+  let speedMultiplier = 0.85;
+
+  // Quantum Palette: Kwikezee Luxury Gold, Ice Cyan & Quantum Violet
+  const palette = [
+    { color: '#D4AF37', glow: 'rgba(212, 175, 55, 0.9)' },  // Luxury Gold
+    { color: '#F59E0B', glow: 'rgba(245, 158, 11, 0.9)' },  // Amber Glow
+    { color: '#00F0FF', glow: 'rgba(0, 240, 255, 0.8)' },   // Cyan Spark
+    { color: '#38B6FF', glow: 'rgba(56, 182, 255, 0.8)' },  // Ice Blue
+    { color: '#8B5CF6', glow: 'rgba(139, 92, 246, 0.8)' },  // Quantum Violet
+    { color: '#FFFFFF', glow: 'rgba(255, 255, 255, 0.95)' } // Pure Diamond
+  ];
+
+  const mouse = {
+    x: null,
+    y: null,
+    radius: isMobile ? 120 : 180
+  };
+
+  function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // Mouse & Touch Tracking
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches[0]) {
+      mouse.x = e.touches[0].clientX;
+      mouse.y = e.touches[0].clientY;
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchend', () => {
+    mouse.x = null;
+    mouse.y = null;
+  });
+
+  window.addEventListener('mouseleave', () => {
+    mouse.x = null;
+    mouse.y = null;
+  });
+
+  // Particle Class with Real-time Physics
+  class QuantumParticle {
+    constructor() {
+      this.reset();
+    }
+
+    reset() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 0.75 + 0.3;
+      this.vx = Math.cos(angle) * speed;
+      this.vy = Math.sin(angle) * speed;
+      this.radius = Math.random() * 2.2 + 1.2;
+      
+      const pData = palette[Math.floor(Math.random() * palette.length)];
+      this.color = pData.color;
+      this.glow = pData.glow;
+      this.baseAlpha = Math.random() * 0.55 + 0.35;
+      this.pulseSpeed = Math.random() * 0.03 + 0.01;
+      this.pulse = Math.random() * Math.PI;
+    }
+
+    update() {
+      this.x += this.vx * speedMultiplier;
+      this.y += this.vy * speedMultiplier;
+      this.pulse += this.pulseSpeed;
+
+      // Wrap around edges smoothly
+      if (this.x < -20) this.x = width + 20;
+      else if (this.x > width + 20) this.x = -20;
+      if (this.y < -20) this.y = height + 20;
+      else if (this.y > height + 20) this.y = -20;
+
+      // Mouse Physics Gravitation
+      if (mouse.x !== null && mouse.y !== null) {
+        const dx = mouse.x - this.x;
+        const dy = mouse.y - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < mouse.radius && dist > 1) {
+          const force = (mouse.radius - dist) / mouse.radius;
+          const angle = Math.atan2(dy, dx);
+          this.x -= Math.cos(angle) * force * 2.4;
+          this.y -= Math.sin(angle) * force * 2.4;
+        }
+      }
+    }
+
+    draw() {
+      const currentAlpha = this.baseAlpha + Math.sin(this.pulse) * 0.15;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = Math.max(0.15, Math.min(1, currentAlpha));
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = this.glow;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+  }
+
+  // Populate particles
+  for (let i = 0; i < particleCount; i++) {
+    particles.push(new QuantumParticle());
+  }
+
+  // Render Loop
+  function render() {
+    if (!isRunning) return;
+    ctx.clearRect(0, 0, width, height);
+
+    // Laser Constellation Connections
+    const pLen = particles.length;
+    for (let i = 0; i < pLen; i++) {
+      const p1 = particles[i];
+      for (let j = i + 1; j < pLen; j++) {
+        const p2 = particles[j];
+        const dx = p1.x - p2.x;
+        const dy = p1.y - p2.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < connectionRadius) {
+          const opacity = (1 - dist / connectionRadius) * 0.28;
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          
+          // Hybrid Gold to Cyan gradient line
+          ctx.strokeStyle = (i % 2 === 0) 
+            ? `rgba(212, 175, 55, ${opacity})` 
+            : `rgba(0, 240, 255, ${opacity * 0.85})`;
+          ctx.lineWidth = 0.9;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Update & Draw Particles
+    for (let i = 0; i < pLen; i++) {
+      particles[i].update();
+      particles[i].draw();
+    }
+
+    animId = requestAnimationFrame(render);
+  }
+
+  function start() {
+    if (isRunning) return;
+    isRunning = true;
+    stage.classList.add('quantum-active');
+    render();
+  }
+
+  function stop() {
+    if (!isRunning) return;
+    isRunning = false;
+    stage.classList.remove('quantum-active');
+    if (animId) cancelAnimationFrame(animId);
+    ctx.clearRect(0, 0, width, height);
+  }
+
+  // Hook for slide changes
+  window.updateQuantumStateForSlide = function(slideIndex) {
+    if (slideIndex > 0) {
+      start();
+    } else {
+      stop();
+    }
+  };
+
+  // Click shockwave trigger on interactive elements
+  window.triggerQuantumBurst = function(clickX, clickY) {
+    if (!isRunning) return;
+    const cx = clickX || width / 2;
+    const cy = clickY || height / 2;
+    particles.forEach(p => {
+      const dx = p.x - cx;
+      const dy = p.y - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      const force = Math.min(220 / dist, 8);
+      p.vx += (dx / dist) * force;
+      p.vy += (dy / dist) * force;
+    });
+  };
+
+  document.addEventListener('click', (e) => {
+    if (stage.classList.contains('quantum-active')) {
+      window.triggerQuantumBurst(e.clientX, e.clientY);
+    }
+  });
+
+  // Handle visibility state change (e.g. background tab)
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (isRunning && animId) cancelAnimationFrame(animId);
+    } else {
+      if (isRunning) render();
+    }
+  });
+}
+
 /* ==========================================
    DYNAMIC TYPEWRITER & ROLE SWITCHER (OPTION 1)
    ========================================== */
@@ -1343,6 +1572,9 @@ function initAppSlideNavigation() {
       if (slides[currentSlide]) {
         slides[currentSlide].scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
+      if (typeof window.updateQuantumStateForSlide === 'function') {
+        window.updateQuantumStateForSlide(currentSlide);
+      }
       return;
     }
 
@@ -1391,6 +1623,10 @@ function initAppSlideNavigation() {
     // Toggle Arrow States
     if (prevBtn) prevBtn.style.opacity = currentSlide === 0 ? '0.3' : '1';
     if (nextBtn) nextBtn.style.opacity = currentSlide === totalSlides - 1 ? '0.3' : '1';
+
+    if (typeof window.updateQuantumStateForSlide === 'function') {
+      window.updateQuantumStateForSlide(currentSlide);
+    }
 
     resetAutoSlideTimer();
   }
@@ -1606,6 +1842,22 @@ function initAppSlideNavigation() {
       });
     }
   });
+
+  // Desktop Scroll Observer for Quantum Canvas
+  if ('IntersectionObserver' in window) {
+    const slideObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
+          const idx = parseInt(entry.target.getAttribute('data-slide-index'), 10);
+          if (!isNaN(idx) && typeof window.updateQuantumStateForSlide === 'function') {
+            window.updateQuantumStateForSlide(idx);
+          }
+        }
+      });
+    }, { threshold: [0.35, 0.65] });
+
+    slides.forEach(slide => slideObserver.observe(slide));
+  }
 
   // Initialize first slide
   goToSlide(0);
