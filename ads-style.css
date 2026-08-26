@@ -893,26 +893,245 @@ h1, h2, h3, h4, .font-heading {
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding: 0 18px;
+  }
+  
+  /* Header */
+  .site-header {
+    padding: 12px 0;
+  }
   .nav-links {
     display: none;
   }
+  .brand-group {
+    gap: 10px;
+  }
+  .brand-logo-ring {
+    width: 34px;
+    height: 34px;
+  }
+  .brand-title {
+    font-size: 15px;
+  }
+  .brand-subtitle {
+    font-size: 9.5px;
+    letter-spacing: 0.03em;
+  }
+  .nav-cta-btn {
+    padding: 8px 14px;
+    font-size: 11.5px;
+    gap: 4px;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding: 38px 0 30px 0;
+  }
+  .eyebrow-badge {
+    padding: 6px 14px;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    margin-bottom: 16px;
+    max-width: 100%;
+    line-height: 1.35;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+  }
   .hero-title {
-    font-size: 2.1rem;
+    font-size: clamp(1.65rem, 6.8vw, 2.15rem);
+    line-height: 1.24;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
   }
   .hero-desc {
-    font-size: 14px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+    padding: 0 2px;
   }
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .btn {
+    width: 100%;
+    padding: 13px 20px;
+    font-size: 14px;
+    border-radius: 12px;
+    justify-content: center;
+  }
+  .hero-micro-trust {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 11.5px;
+  }
+
+  /* Metrics Strip */
   .metrics-strip {
     grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 18px 14px;
+    margin-top: 28px;
+    border-radius: 16px;
+  }
+  .metric-number {
+    font-size: 1.65rem;
+  }
+  .metric-label {
+    font-size: 10.5px;
+    line-height: 1.3;
+  }
+
+  /* Section Header */
+  .section-header {
+    margin-bottom: 30px;
+  }
+  .section-title {
+    font-size: clamp(1.5rem, 6vw, 1.95rem);
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+  .section-sub {
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  /* Pain vs Solution */
+  .pain-sol-section {
+    padding: 42px 0;
+  }
+  .pain-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .pain-card {
     padding: 18px 16px;
+    border-radius: 16px;
+    gap: 12px;
+  }
+  .pain-title {
+    font-size: 15px;
+  }
+  .pain-box, .sol-box {
+    font-size: 12.5px;
+    padding: 8px 12px;
+  }
+
+  /* Calculator Section */
+  .calc-section {
+    padding: 42px 0;
+  }
+  .calc-container {
+    padding: 22px 16px;
+    border-radius: 20px;
+    gap: 24px;
+  }
+  .industry-select-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+  .industry-btn {
+    padding: 8px 4px;
+    font-size: 11px;
+    border-radius: 8px;
+  }
+  .calc-output-card {
+    padding: 20px 16px;
+    border-radius: 16px;
+    gap: 14px;
+  }
+  .calc-res-label {
+    font-size: 12.5px;
+  }
+  .calc-res-val {
+    font-size: 19px;
+  }
+  .calc-res-val.highlight {
+    font-size: 23px;
+  }
+
+  /* Process Section */
+  .process-section {
+    padding: 42px 0;
   }
   .process-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
-  .calc-container {
-    padding: 24px 18px;
+  .process-card {
+    padding: 18px 16px;
+    border-radius: 16px;
+  }
+
+  /* Pricing Section */
+  .pricing-section {
+    padding: 42px 0;
+  }
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    max-width: 100%;
+  }
+  .pricing-card {
+    padding: 26px 20px;
+    border-radius: 20px;
+  }
+  .pkg-price {
+    font-size: 34px;
+  }
+
+  /* FAQ Section */
+  .faq-section {
+    padding: 42px 0;
+  }
+  .faq-btn {
+    padding: 16px 16px;
+    font-size: 14.5px;
+    gap: 10px;
+  }
+  .faq-answer {
+    font-size: 13px;
+    padding: 0 16px 16px 16px;
+  }
+
+  /* Final CTA */
+  .cta-banner-section {
+    padding: 35px 0 85px 0;
+  }
+  .cta-banner-card {
+    padding: 28px 18px;
+    border-radius: 20px;
+  }
+
+  /* Floating WA */
+  .floating-wa-fab {
+    bottom: 16px;
+    right: 16px;
+    padding: 10px 18px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-title {
+    font-size: 1.55rem;
+  }
+  .brand-title {
+    font-size: 13.5px;
+  }
+  .brand-subtitle {
+    display: none;
+  }
+  .nav-cta-btn {
+    padding: 7px 10px;
+    font-size: 11px;
   }
   .industry-select-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
