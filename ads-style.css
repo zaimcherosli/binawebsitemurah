@@ -1222,11 +1222,12 @@ h1, h2, h3, h4, .font-heading {
   .brand-subtitle {
     display: none !important;
   }
-  .nav-cta-btn {
-    padding: 6px 10px !important;
-    font-size: 10.5px !important;
-  }
   .industry-select-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+  }
+  .industry-btn {
+    padding: 8px 4px !important;
+    font-size: 11px !important;
   }
 }

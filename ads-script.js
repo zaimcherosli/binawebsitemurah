@@ -4,6 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initQuantumParticles();
+  initMetricCounters();
   initRoiCalculator();
   initFaqAccordion();
 });
@@ -184,7 +185,7 @@ function initRoiCalculator() {
     const estClosing = Math.max(1, Math.floor(estLeads * data.closeRate));
     const estPipeline = estClosing * data.avgTicket;
 
-    if (resLeads) resLeads.textContent = `${estLeads} Prospek WhatsApp`;
+    if (resLeads) resLeads.textContent = `${estLeads} Prospek`;
     if (resCpl) resCpl.textContent = `RM ${data.cpl.toFixed(2)}`;
     if (resPipeline) resPipeline.textContent = `RM ${estPipeline.toLocaleString()}`;
   }
@@ -193,7 +194,61 @@ function initRoiCalculator() {
 }
 
 /* ==========================================
-   3. FAQ ACCORDION
+   3. SCROLL-TRIGGERED METRIC NUMBER COUNTER
+   ========================================== */
+function initMetricCounters() {
+  const metricCards = document.querySelectorAll('.metric-number[data-counter]');
+  if (!metricCards.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseFloat(el.getAttribute('data-counter'));
+        const prefix = el.getAttribute('data-prefix') || '';
+        const suffix = el.getAttribute('data-suffix') || '';
+        const isDecimal = el.hasAttribute('data-decimals');
+        const decimals = isDecimal ? parseInt(el.getAttribute('data-decimals'), 10) : 0;
+        
+        let start = 0;
+        const duration = 1500; // ms
+        const startTime = performance.now();
+
+        function updateCounter(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          // Ease-out cubic animation
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          const currentVal = start + (target - start) * easeOut;
+
+          if (isDecimal) {
+            el.textContent = `${prefix}${currentVal.toFixed(decimals)}${suffix}`;
+          } else {
+            el.textContent = `${prefix}${Math.round(currentVal)}${suffix}`;
+          }
+
+          if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+          } else {
+            if (isDecimal) {
+              el.textContent = `${prefix}${target.toFixed(decimals)}${suffix}`;
+            } else {
+              el.textContent = `${prefix}${target}${suffix}`;
+            }
+          }
+        }
+
+        requestAnimationFrame(updateCounter);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.25 });
+
+  metricCards.forEach(el => observer.observe(el));
+}
+
+/* ==========================================
+   4. FAQ ACCORDION
    ========================================== */
 function initFaqAccordion() {
   const faqItems = document.querySelectorAll('.faq-item');
