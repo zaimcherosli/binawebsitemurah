@@ -5506,11 +5506,11 @@ body.admin-body .no-submissions svg {
 /* ==========================================================================
    SPOTLIGHT CARD HOVER EFFECT (APPLE / LINEAR STYLE)
    ========================================================================== */
-.showcase-mini-card, .journey-step-card, .spotlight-card {
+.showcase-mini-card, .spotlight-card {
   position: relative;
   overflow: hidden;
-  background: #0B0B0E !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: rgba(18, 18, 24, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
 }
@@ -5545,7 +5545,7 @@ body.admin-body .no-submissions svg {
    ========================================================================== */
 .advantage-card {
   position: relative;
-  background: #0B0B0E !important;
+  background: rgba(18, 18, 24, 0.75) !important;
   border-radius: 22px !important;
   padding: 32px 28px !important;
   z-index: 1;
@@ -5602,7 +5602,7 @@ body.admin-body .no-submissions svg {
 .timeline-journey-section {
   padding: 45px 0 45px 0;
   position: relative;
-  background: #000000;
+  background: transparent !important;
   border-top: none;
 }
 
@@ -5690,10 +5690,14 @@ body.admin-body .no-submissions svg {
 
 .journey-step-card {
   padding: 28px 32px;
-  background: #0B0B0E;
+  background: rgba(18, 18, 24, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
   border-radius: 20px;
   position: relative;
   z-index: 2;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
 
 .journey-step-badge-row {
