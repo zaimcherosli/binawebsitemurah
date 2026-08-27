@@ -32,26 +32,382 @@
     </div>
   </div>
 
-  <!-- Header Admin Ringkas -->
+  <!-- Header Admin Ringkas & Polished Theme -->
   <style>
-    body.admin-body { padding-top: 70px !important; }
-    .admin-desktop-nav { display: flex; align-items: center; gap: 6px; }
-    .admin-desktop-nav .admin-tab-btn { font-size: 13px; padding: 7px 14px; white-space: nowrap; }
-    .admin-desktop-logout { background: rgba(239,68,68,0.10); border: 1.5px solid rgba(239,68,68,0.3); color: #DC2626; font-weight: 800; font-size: 13px; padding: 7px 14px; border-radius: 20px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
-    #btn-hamburger { display: none; }
+    /* Global Admin Refinements */
+    body.admin-body {
+      background-color: #F8FAFC !important;
+      color: #0F172A !important;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      padding-top: 76px !important;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.admin-body .container {
+      max-width: 1180px !important;
+      width: 100% !important;
+      margin: 0 auto !important;
+      padding: 0 16px !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Fixed Header Bar */
+    .admin-header {
+      background: rgba(255, 255, 255, 0.96) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+      height: 68px !important;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100% !important;
+      z-index: 1000 !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+
+    .admin-header .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .admin-header .nav-logo-img {
+      width: 38px !important;
+      height: 38px !important;
+      border-radius: 50% !important;
+      border: 1.5px solid #D4AF37 !important;
+    }
+
+    .admin-header .logo-text {
+      font-family: 'Outfit', sans-serif !important;
+      font-weight: 800 !important;
+      font-size: 17px !important;
+      color: #0F172A !important;
+      letter-spacing: -0.02em;
+    }
+
+    /* Segmented Navigation (Desktop) */
+    .admin-desktop-nav {
+      display: flex;
+      align-items: center;
+      background: #F1F5F9;
+      padding: 4px;
+      border-radius: 12px;
+      border: 1px solid #E2E8F0;
+      gap: 4px;
+    }
+
+    .admin-desktop-nav .admin-tab-btn {
+      background: transparent;
+      border: none;
+      color: #64748B;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .admin-desktop-nav .admin-tab-btn.active {
+      background: #0F172A !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
+    }
+
+    .admin-desktop-logout {
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      color: #DC2626;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 7px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .admin-desktop-logout:hover {
+      background: #FEE2E2;
+    }
+
+    /* Mobile Hamburger */
+    #btn-hamburger {
+      display: none;
+      background: #F8FAFC;
+      border: 1.5px solid #E2E8F0;
+      color: #0F172A;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
     #admin-drawer { display: none; }
     #admin-drawer-overlay { display: none; }
+
+    /* Quotation Builder Header & Presets */
+    .qb-header {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 20px;
+      padding: 24px 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .qb-header-eyebrow {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #D4AF37;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .qb-header h2 {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: clamp(20px, 3.5vw, 24px) !important;
+      font-weight: 800 !important;
+      color: #0F172A !important;
+      margin: 0 0 6px 0 !important;
+      letter-spacing: -0.02em !important;
+    }
+
+    .qb-header p {
+      color: #64748B !important;
+      font-size: 13.5px !important;
+      line-height: 1.5 !important;
+      margin: 0 !important;
+    }
+
+    .qb-presets-wrap {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-preset-pill {
+      font-weight: 700;
+      font-size: 12.5px;
+      padding: 8px 16px;
+      border-radius: 99px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid transparent;
+    }
+    .btn-preset-pill.preset-blue {
+      background: #F0F9FF;
+      border-color: #BAE6FD;
+      color: #0369A1;
+    }
+    .btn-preset-pill.preset-blue:hover {
+      background: #E0F2FE;
+    }
+    .btn-preset-pill.preset-amber {
+      background: #FFFBEB;
+      border-color: #FDE68A;
+      color: #B45309;
+    }
+    .btn-preset-pill.preset-amber:hover {
+      background: #FEF3C7;
+    }
+
+    /* Section Cards */
+    .qb-form-section {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      border-radius: 20px !important;
+      padding: 24px 22px !important;
+      margin-bottom: 20px !important;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03) !important;
+    }
+
+    .qb-section-title {
+      font-family: 'Outfit', sans-serif !important;
+      color: #0F172A !important;
+      font-size: 15px !important;
+      font-weight: 800 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.03em !important;
+      border-bottom: 1px solid #F1F5F9 !important;
+      padding-bottom: 12px !important;
+      margin-bottom: 18px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+    }
+
+    .qb-step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #0F172A;
+      color: #FFFFFF;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    /* Form Fields */
+    .form-group-pay label {
+      color: #475569 !important;
+      font-weight: 700 !important;
+      font-size: 12px !important;
+      margin-bottom: 6px !important;
+      display: block !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.03em !important;
+    }
+
+    body.admin-body input[type="text"],
+    body.admin-body input[type="email"],
+    body.admin-body input[type="number"],
+    body.admin-body input[type="date"],
+    body.admin-body input[type="password"],
+    body.admin-body select {
+      width: 100% !important;
+      height: 46px !important;
+      background-color: #F8FAFC !important;
+      border: 1.5px solid #E2E8F0 !important;
+      color: #0F172A !important;
+      font-weight: 600 !important;
+      font-size: 14px !important;
+      border-radius: 12px !important;
+      padding: 0 14px !important;
+      box-sizing: border-box !important;
+      transition: all 0.2s ease !important;
+      box-shadow: none !important;
+    }
+
+    body.admin-body textarea,
+    body.admin-body .qb-auto-textarea {
+      width: 100% !important;
+      min-height: 46px !important;
+      background-color: #F8FAFC !important;
+      border: 1.5px solid #E2E8F0 !important;
+      color: #0F172A !important;
+      font-weight: 600 !important;
+      font-size: 14px !important;
+      border-radius: 12px !important;
+      padding: 10px 14px !important;
+      box-sizing: border-box !important;
+      transition: all 0.2s ease !important;
+      box-shadow: none !important;
+    }
+
+    body.admin-body input:focus,
+    body.admin-body select:focus,
+    body.admin-body textarea:focus {
+      background-color: #FFFFFF !important;
+      border-color: #D4AF37 !important;
+      outline: none !important;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15) !important;
+    }
+
+    /* Scope Items & Add Button */
+    .qb-item-row {
+      background: #F8FAFC !important;
+      border: 1.5px solid #E2E8F0 !important;
+      border-radius: 16px !important;
+      padding: 18px !important;
+      margin-bottom: 14px !important;
+    }
+
+    .btn-add-scope-bottom {
+      background: #F8FAFC !important;
+      border: 2px dashed #CBD5E1 !important;
+      color: #0F172A !important;
+      font-weight: 800 !important;
+      font-size: 13.5px !important;
+      padding: 14px !important;
+      border-radius: 14px !important;
+      width: 100% !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-add-scope-bottom:hover {
+      background: #F1F5F9 !important;
+      border-color: #94A3B8 !important;
+    }
+
+    /* Live Summary Box */
+    .qb-total-summary-box {
+      background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%) !important;
+      border: 1.5px solid #FCD34D !important;
+      border-radius: 18px !important;
+      padding: 22px 20px !important;
+      margin-top: 18px !important;
+      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.08) !important;
+    }
+
+    /* Submit Button */
+    #btn-submit-generate {
+      background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%) !important;
+      color: #000000 !important;
+      font-weight: 800 !important;
+      font-size: 15px !important;
+      height: 52px !important;
+      border-radius: 14px !important;
+      border: 1px solid rgba(255, 255, 255, 0.4) !important;
+      box-shadow: 0 10px 28px rgba(245, 158, 11, 0.35) !important;
+      cursor: pointer !important;
+      transition: all 0.25s ease !important;
+      width: 100% !important;
+    }
+    #btn-submit-generate:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px rgba(245, 158, 11, 0.5) !important;
+    }
+
+    /* Mobile Breakpoint */
     @media (max-width: 768px) {
+      body.admin-body { padding-top: 74px !important; }
+      body.admin-body .container { padding: 0 14px !important; }
       .admin-desktop-nav { display: none !important; }
       .admin-desktop-logout-wrap { display: none !important; }
       #btn-hamburger { display: inline-flex !important; }
+      .qb-header { padding: 18px 16px !important; border-radius: 16px !important; margin-bottom: 14px !important; }
+      .qb-form-section { padding: 18px 14px !important; border-radius: 16px !important; margin-bottom: 14px !important; }
+      .qb-grid-2, .qb-grid-3 { display: flex !important; flex-direction: column !important; gap: 12px !important; }
+      .qb-item-row { padding: 14px 12px !important; border-radius: 14px !important; }
+      .qb-total-summary-box { padding: 16px 14px !important; border-radius: 14px !important; }
+      .btn-preset-pill { font-size: 11.5px !important; padding: 7px 12px !important; }
     }
   </style>
-  <header class="brief-header admin-header no-print" style="background: #FFFFFF !important; border-bottom: 1.5px solid #CBD5E1 !important; height: 70px !important; display: flex !important; align-items: center !important; position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; z-index: 1000 !important;">
-    <div class="container header-inner" style="display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: center !important; max-width: 1280px !important; width: 100% !important; height: 100% !important; margin: 0 auto !important; padding: 0 16px !important; gap: 16px; box-sizing: border-box !important;">
-      <a href="https://binawebsitemurah-by.zaimrosli.my" class="nav-logo" style="display: flex !important; flex-direction: row !important; align-items: center !important; gap: 10px !important; text-decoration: none !important; flex-shrink: 0;">
-        <img src="images/logo-round.jpg" alt="Kwikezee Studio" class="nav-logo-img" style="width: 40px !important; height: 40px !important; border-radius: 50% !important; border: 2px solid var(--gold-primary) !important; flex-shrink: 0 !important;">
-        <span class="logo-text" style="color: #000000 !important; font-family: var(--font-headings) !important; font-weight: 800 !important; font-size: 18px !important; white-space: nowrap !important;">Kwikezee <em style="color: #b8860b !important; font-style: normal !important;">Studio</em></span>
+
+  <header class="brief-header admin-header no-print">
+    <div class="container header-inner" style="display: flex; justify-content: space-between; align-items: center;">
+      <a href="https://kwikezee.my" class="nav-logo">
+        <img src="images/logo-round.jpg" alt="Kwikezee Studio" class="nav-logo-img">
+        <span class="logo-text">Kwikezee <em style="color: #D4AF37; font-style: normal;">Studio</em></span>
       </a>
 
       <!-- Desktop Nav (≥769px) -->
@@ -68,8 +424,8 @@
       </div>
 
       <!-- Hamburger (≤768px only) -->
-      <button id="btn-hamburger" aria-label="Menu" onclick="toggleAdminMenu()" style="background: #F1F5F9; border: 1.5px solid #CBD5E1; color: #0F172A; width: 44px; height: 44px; border-radius: 12px; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: all 0.2s;">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <button id="btn-hamburger" aria-label="Menu" onclick="toggleAdminMenu()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="3" y1="6" x2="21" y2="6"></line>
           <line x1="3" y1="12" x2="21" y2="12"></line>
           <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -79,25 +435,25 @@
   </header>
 
   <!-- Mobile Drawer Menu (≤768px) -->
-  <div id="admin-drawer" style="position: fixed; top: 70px; left: 0; right: 0; width: 100%; background: #FFFFFF; border-bottom: 1.5px solid #CBD5E1; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 999; padding: 16px; box-sizing: border-box;">
+  <div id="admin-drawer" style="position: fixed; top: 68px; left: 0; right: 0; width: 100%; background: #FFFFFF; border-bottom: 1px solid #E2E8F0; box-shadow: 0 12px 30px rgba(0,0,0,0.08); z-index: 999; padding: 16px; box-sizing: border-box;">
     <div style="display: flex; flex-direction: column; gap: 8px;">
-      <button class="admin-tab-btn active" id="tab-btn-submissions-m" onclick="switchAdminTab('submissions'); toggleAdminMenu()" style="width:100%; text-align:left; justify-content:flex-start; padding: 12px 16px; border-radius: 10px;">
+      <button class="admin-tab-btn active" id="tab-btn-submissions-m" onclick="switchAdminTab('submissions'); toggleAdminMenu()" style="width:100%; text-align:left; justify-content:flex-start; padding: 12px 16px; border-radius: 10px; font-weight: 700; border: none; background: #0F172A; color: #FFF;">
         📋 Client Requests
       </button>
-      <button class="admin-tab-btn" id="tab-btn-quotation-m" onclick="switchAdminTab('quotation'); toggleAdminMenu()" style="width:100%; text-align:left; justify-content:flex-start; padding: 12px 16px; border-radius: 10px;">
+      <button class="admin-tab-btn" id="tab-btn-quotation-m" onclick="switchAdminTab('quotation'); toggleAdminMenu()" style="width:100%; text-align:left; justify-content:flex-start; padding: 12px 16px; border-radius: 10px; font-weight: 700; border: 1px solid #E2E8F0; background: #F8FAFC; color: #0F172A;">
         📄 Quotation Generator
       </button>
-      <button class="admin-tab-btn" id="tab-btn-history-m" onclick="switchAdminTab('history'); toggleAdminMenu()" style="width:100%; text-align:left; justify-content:flex-start; padding: 12px 16px; border-radius: 10px;">
+      <button class="admin-tab-btn" id="tab-btn-history-m" onclick="switchAdminTab('history'); toggleAdminMenu()" style="width:100%; text-align:left; justify-content:flex-start; padding: 12px 16px; border-radius: 10px; font-weight: 700; border: 1px solid #E2E8F0; background: #F8FAFC; color: #0F172A;">
         📜 Archive (<span id="history-count-m">0</span>)
       </button>
-      <hr style="border: none; border-top: 1.5px solid #E2E8F0; margin: 4px 0;">
-      <button id="btn-logout-m" style="width:100%; text-align:center; justify-content:center; background: rgba(239,68,68,0.08); border: 1.5px solid rgba(239,68,68,0.25); color: #DC2626; font-weight: 800; font-size: 14px; padding: 12px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+      <hr style="border: none; border-top: 1px solid #E2E8F0; margin: 4px 0;">
+      <button id="btn-logout-m" style="width:100%; text-align:center; justify-content:center; background: #FEF2F2; border: 1px solid #FECACA; color: #DC2626; font-weight: 700; font-size: 14px; padding: 12px 16px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 8px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
         Log Out
       </button>
     </div>
   </div>
-  <div id="admin-drawer-overlay" onclick="toggleAdminMenu()" style="position:fixed; inset:0; z-index:998; background: transparent;"></div>
+  <div id="admin-drawer-overlay" onclick="toggleAdminMenu()" style="position:fixed; inset:0; z-index:998; background: rgba(0,0,0,0.2);"></div>
 
   <script>
     function toggleAdminMenu() {
@@ -109,9 +465,8 @@
     }
   </script>
 
-
-  <main class="brief-main no-print" style="padding: 4px 0 !important; width: 100% !important; box-sizing: border-box !important;">
-    <div class="container" style="max-width: 1280px !important; width: 100% !important; margin: 0 auto !important; padding: 0 16px !important; box-sizing: border-box !important;">
+  <main class="brief-main no-print" style="padding: 14px 0 60px 0 !important; width: 100% !important; box-sizing: border-box !important;">
+    <div class="container">
       
 
 
@@ -130,17 +485,18 @@
       <!-- TAB 2: GENERATOR SEBUT HARGA (QUOTATION BUILDER) -->
       <div id="admin-tab-quotation" class="admin-tab-content">
         <div class="quotation-builder-card">
-          <div class="qb-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;">
+          <div class="qb-header">
             <div>
-              <h2>Bina Sebut Harga Rasmi (Quotation Generator)</h2>
-              <p>Isi maklumat projek di bawah untuk menjana dokumen sebut harga rasmi A4 bertema mewah.</p>
+              <div class="qb-header-eyebrow">DOKUMEN RASMI &amp; INVOIS</div>
+              <h2>Bina Sebut Harga Rasmi</h2>
+              <p>Lengkapkan maklumat projek di bawah untuk menjana dokumen sebut harga rasmi A4 bertaraf profesional.</p>
             </div>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-              <button type="button" class="btn-preset-hartanah" onclick="loadEnFarisPreset()" style="background: #E0F2FE; border: 1.5px solid #0284C7; color: #075985; font-weight: 800; font-size: 13px; padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px;">
-                ⚡ Isi Otomatik En Faris (RM1,000)
+            <div class="qb-presets-wrap">
+              <button type="button" class="btn-preset-pill preset-blue" onclick="loadEnFarisPreset()">
+                ⚡ Templat En Faris (RM1,000)
               </button>
-              <button type="button" class="btn-preset-hartanah" onclick="loadAbgWanPreset()" style="background: #FEF3C7; border: 1.5px solid #F59E0B; color: #92400E; font-weight: 800; font-size: 13px; padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px;">
-                ⚡ Isi Otomatik Abg Wan
+              <button type="button" class="btn-preset-pill preset-amber" onclick="loadAbgWanPreset()">
+                ⚡ Templat Abg Wan
               </button>
             </div>
           </div>
@@ -148,27 +504,27 @@
           <form id="quotation-form" onsubmit="generateQuotationDocument(event)">
             <!-- Meta Dokumen -->
             <div class="qb-form-section">
-              <h3 class="qb-section-title">1. Meta Dokumen</h3>
+              <h3 class="qb-section-title"><span class="qb-step-num">1</span> Meta Dokumen</h3>
               <div class="qb-grid-2" style="margin-bottom: 16px;">
                 <div class="form-group-pay">
-                  <label style="font-weight: 800; color: #0F172A;">Jenis Dokumen</label>
-                  <select id="doc-type" onchange="handleDocTypeChange()" style="background: #F8FAFC; border: 2px solid #CBD5E1; border-radius: 10px; height: 44px; font-weight: 800; color: #0F172A; width: 100%; padding: 0 12px;">
+                  <label>Jenis Dokumen</label>
+                  <select id="doc-type" onchange="handleDocTypeChange()">
                     <option value="QT" selected>📄 Sebut Harga (Quotation)</option>
                     <option value="INV">🧾 Invois Rasmi (Invoice)</option>
                   </select>
                 </div>
                 <div class="form-group-pay" id="ref-qt-group">
-                  <label style="font-weight: 700; color: #475569;">No. Rujukan QT (Jika ada)</label>
-                  <input type="text" id="qt-ref-no" placeholder="Contoh: KZ-QT-2026-002" style="background: #F8FAFC; border: 1.5px solid #CBD5E1; border-radius: 10px; height: 44px; padding: 0 12px;">
+                  <label>No. Rujukan QT (Jika ada)</label>
+                  <input type="text" id="qt-ref-no" placeholder="Contoh: KZ-QT-2026-002">
                 </div>
               </div>
               <div class="qb-grid-3">
                 <div class="form-group-pay">
                   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; min-height: 24px;">
-                    <label style="margin: 0; font-weight: 800;"><span id="lbl-doc-no">No. Sebut Harga</span></label>
+                    <label style="margin: 0;"><span id="lbl-doc-no">No. Sebut Harga</span></label>
                   </div>
                   <div style="position: relative; display: flex; align-items: center; width: 100%;">
-                    <input type="text" id="qt-no" required placeholder="KZ-QT-2026-001" oninput="checkQtNoUnique()" onchange="checkQtNoUnique()" style="padding-right: 125px !important; width: 100%;">
+                    <input type="text" id="qt-no" required placeholder="KZ-QT-2026-001" oninput="checkQtNoUnique()" onchange="checkQtNoUnique()" style="padding-right: 125px !important;">
                     <div style="position: absolute; right: 6px; display: flex; gap: 4px; z-index: 2;">
                       <button type="button" onclick="makeDocRevision()" style="background: #FEF3C7; border: 1px solid #FCD34D; padding: 4px 7px; border-radius: 6px; font-size: 11px; font-weight: 700; color: #92400E; cursor: pointer; white-space: nowrap;" title="Tukar ke versi pindaan (-R1, -R2)">✏️ -R1</button>
                       <button type="button" onclick="generateNextQtNo()" style="background: #E2E8F0; border: none; padding: 4px 7px; border-radius: 6px; font-size: 11px; font-weight: 700; color: #0F172A; cursor: pointer; white-space: nowrap;" title="Jana nombor dokumen baru automatik">🔄 Auto</button>
@@ -177,13 +533,13 @@
                 </div>
                 <div class="form-group-pay">
                   <div style="display: flex; align-items: center; margin-bottom: 6px; min-height: 24px;">
-                    <label style="margin: 0; font-weight: 800;">Tarikh Dikeluarkan</label>
+                    <label style="margin: 0;">Tarikh Dikeluarkan</label>
                   </div>
                   <input type="date" id="qt-date" required>
                 </div>
                 <div class="form-group-pay">
                   <div style="display: flex; align-items: center; margin-bottom: 6px; min-height: 24px;">
-                    <label style="margin: 0; font-weight: 800;">Tarikh Tamat Sah</label>
+                    <label style="margin: 0;">Tarikh Tamat Sah</label>
                   </div>
                   <input type="date" id="qt-valid-until" required>
                 </div>
@@ -192,7 +548,7 @@
 
             <!-- Maklumat Klien -->
             <div class="qb-form-section">
-              <h3 class="qb-section-title">2. Maklumat Pelanggan</h3>
+              <h3 class="qb-section-title"><span class="qb-step-num">2</span> Maklumat Pelanggan</h3>
               <div class="qb-grid-2">
                 <div class="form-group-pay">
                   <label>Nama Klien / Syarikat</label>
@@ -215,7 +571,7 @@
 
             <!-- Skop & Fungsi Website (Dinamik) -->
             <div class="qb-form-section">
-              <h3 class="qb-section-title">3. Skop Kerja &amp; Fungsi Laman Web</h3>
+              <h3 class="qb-section-title"><span class="qb-step-num">3</span> Skop Kerja &amp; Fungsi Laman Web</h3>
               
               <div id="quotation-items-list" class="qb-items-list">
                 <!-- Baris Skop Pertama (Default) -->
@@ -228,7 +584,7 @@
 
             <!-- Syarat Pembayaran & Diskaun -->
             <div class="qb-form-section">
-              <h3 class="qb-section-title">4. Syarat Pembayaran &amp; Tempoh Siap</h3>
+              <h3 class="qb-section-title"><span class="qb-step-num">4</span> Syarat Pembayaran &amp; Tempoh Siap</h3>
               <div class="qb-grid-2">
                 <div class="form-group-pay">
                   <label>Mod Pembayaran</label>
@@ -245,34 +601,34 @@
 
               <!-- Live Total Summary & Discount Box -->
               <div class="qb-total-summary-box">
-                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-bottom: 1.5px dashed #CBD5E1; padding-bottom: 12px; margin-bottom: 12px;">
-                  <span style="color: #000; font-weight: 800; font-size: 15px;">JUMLAH SKOP KERJA:</span>
-                  <strong id="qb-summary-subtotal" style="color: #000; font-size: 18px; font-weight: 900;">RM0</strong>
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-bottom: 1.5px dashed #FCD34D; padding-bottom: 12px; margin-bottom: 12px;">
+                  <span style="color: #451A03; font-weight: 800; font-size: 13.5px; text-transform: uppercase; letter-spacing: 0.04em;">Jumlah Skop Kerja:</span>
+                  <strong id="qb-summary-subtotal" style="color: #0F172A; font-size: 18px; font-weight: 900;">RM0</strong>
                 </div>
 
                 <!-- Diskaun Input Row directly under Jumlah Skop -->
-                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 12px; gap: 15px; flex-wrap: wrap;">
-                  <label for="qt-discount" style="color: #000; font-weight: 800; font-size: 14px; margin: 0; text-transform: none;">Diskaun Khas (RM):</label>
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="font-weight: 800; color: #DC2626; font-size: 15px;">-RM</span>
-                    <input type="number" id="qt-discount" value="0" min="0" placeholder="0" oninput="updateQtFormTotals()" style="width: 130px !important; min-width: 100px !important; height: 42px !important; min-height: 42px !important; text-align: right; font-weight: 800; border-color: #F59E0B !important; color: #000 !important; background: #FFF !important;">
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 12px; gap: 12px; flex-wrap: wrap;">
+                  <label for="qt-discount" style="color: #451A03; font-weight: 800; font-size: 13px; margin: 0; text-transform: uppercase; letter-spacing: 0.03em;">Diskaun Khas (RM):</label>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <span style="font-weight: 800; color: #DC2626; font-size: 14px;">-RM</span>
+                    <input type="number" id="qt-discount" value="0" min="0" placeholder="0" oninput="updateQtFormTotals()" style="width: 120px !important; height: 40px !important; min-height: 40px !important; text-align: right; font-weight: 800; border-radius: 10px !important; border: 1.5px solid #F59E0B !important; color: #0F172A !important; background: #FFFFFF !important;">
                   </div>
                 </div>
 
-                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-top: 2.5px solid #000; padding-top: 12px; margin-top: 4px;">
-                  <span style="color: #000; font-weight: 900; font-size: 16px;">JUMLAH BERSIH:</span>
-                  <strong id="qb-summary-total" style="color: #000; font-size: 22px; font-weight: 900;">RM0</strong>
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; border-top: 2px solid #D97706; padding-top: 12px; margin-top: 4px;">
+                  <span style="color: #78350F; font-weight: 900; font-size: 15px; text-transform: uppercase; letter-spacing: 0.03em;">Jumlah Bersih:</span>
+                  <strong id="qb-summary-total" style="color: #0F172A; font-size: 24px; font-weight: 900;">RM0</strong>
                 </div>
 
-                <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; margin-top: 12px; border-top: 1px dashed #CBD5E1; padding-top: 12px;">
+                <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; margin-top: 14px; border-top: 1px dashed #FCD34D; padding-top: 14px;">
                   <!-- Deposit Row (Top) -->
-                  <div style="display: flex; justify-content: space-between; align-items: center; background: #ECFDF5; border: 1.5px solid #A7F3D0; border-radius: 8px; padding: 10px 14px; width: 100%; box-sizing: border-box;">
-                    <span style="color: #065F46; font-weight: 800; font-size: 13px;">DEPOSIT 50% (BAYAR SEKARANG):</span>
+                  <div style="display: flex; justify-content: space-between; align-items: center; background: #ECFDF5; border: 1.5px solid #A7F3D0; border-radius: 10px; padding: 10px 14px; width: 100%; box-sizing: border-box;">
+                    <span style="color: #065F46; font-weight: 800; font-size: 12.5px;">DEPOSIT 50% (BAYAR SEKARANG):</span>
                     <strong id="qb-summary-deposit" style="color: #059669; font-size: 17px; font-weight: 900;">RM0</strong>
                   </div>
                   <!-- Baki Row (Bottom) -->
-                  <div style="display: flex; justify-content: space-between; align-items: center; background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 8px; padding: 8px 14px; width: 100%; box-sizing: border-box;">
-                    <span style="color: #475569; font-weight: 700; font-size: 12.5px;">BAKI 50% (SELEPAS SIAP):</span>
+                  <div style="display: flex; justify-content: space-between; align-items: center; background: #FFFFFF; border: 1.5px solid #E2E8F0; border-radius: 10px; padding: 10px 14px; width: 100%; box-sizing: border-box;">
+                    <span style="color: #64748B; font-weight: 700; font-size: 12.5px;">BAKI 50% (SELEPAS SIAP):</span>
                     <strong id="qb-summary-balance" style="color: #0F172A; font-size: 15px; font-weight: 800;">RM0</strong>
                   </div>
                 </div>
@@ -281,7 +637,7 @@
 
             <!-- Terma & Nota Khas -->
             <div class="qb-form-section">
-              <h3 class="qb-section-title">5. Terma &amp; Nota Tambahan</h3>
+              <h3 class="qb-section-title"><span class="qb-step-num">5</span> Terma &amp; Catatan Tambahan</h3>
               <div class="form-group-pay">
                 <label>Terma &amp; Catatan Tambahan (Akan Terpapar Di Sebut Harga)</label>
                 <textarea id="qt-notes" rows="3" placeholder="Sila masukkan terma khusus jika ada...">1. Pembangunan laman web akan bermula serta-merta selepas bayaran deposit 50% disahkan.
