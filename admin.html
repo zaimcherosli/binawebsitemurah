@@ -52,7 +52,8 @@
     }
 
     /* Fixed Header Bar */
-    .admin-header {
+    .admin-header,
+    body.admin-body .admin-header {
       background: rgba(255, 255, 255, 0.96) !important;
       backdrop-filter: blur(16px) !important;
       -webkit-backdrop-filter: blur(16px) !important;
@@ -67,6 +68,18 @@
       z-index: 1000 !important;
       display: flex !important;
       align-items: center !important;
+    }
+
+    .admin-header .header-inner,
+    body.admin-body .admin-header .header-inner,
+    body.admin-body .header-inner {
+      display: flex !important;
+      flex-direction: row !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      width: 100% !important;
+      height: 100% !important;
+      box-sizing: border-box !important;
     }
 
     .admin-header .nav-logo {
@@ -404,8 +417,8 @@
   </style>
 
   <header class="brief-header admin-header no-print">
-    <div class="container header-inner" style="display: flex; justify-content: space-between; align-items: center;">
-      <a href="https://kwikezee.my" class="nav-logo">
+    <div class="container header-inner" style="display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: center !important; width: 100% !important;">
+      <a href="https://kwikezee.my" class="nav-logo" style="display: flex !important; flex-direction: row !important; align-items: center !important; gap: 10px !important;">
         <img src="images/logo-round.jpg" alt="Kwikezee Studio" class="nav-logo-img">
         <span class="logo-text">Kwikezee <em style="color: #D4AF37; font-style: normal;">Studio</em></span>
       </a>

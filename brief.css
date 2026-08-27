@@ -573,24 +573,24 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-/* Responsive adjustment */
+/* Responsive adjustment for client brief page */
 @media (max-width: 600px) {
-  .brief-header {
+  body:not(.admin-body) .brief-header {
     height: auto;
     padding: 16px 0;
   }
-  .header-inner {
+  body:not(.admin-body) .header-inner {
     flex-direction: column;
     gap: 10px;
     align-items: center;
     text-align: center;
   }
-  .nav-logo {
+  body:not(.admin-body) .nav-logo {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .logo-text {
+  body:not(.admin-body) .logo-text {
     white-space: nowrap;
   }
   .header-badge {
