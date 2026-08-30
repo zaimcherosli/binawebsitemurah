@@ -176,6 +176,50 @@ function initNavbar() {
     });
   }
 
+    // Desktop Mouse Wheel Horizontal Scrolling for Bottom / Top Dock
+  if (floatingMenuFab) {
+    floatingMenuFab.addEventListener('wheel', (e) => {
+      if (floatingMenuFab.classList.contains('pos-bottom') || floatingMenuFab.classList.contains('pos-top')) {
+        if (e.deltaY !== 0) {
+          e.preventDefault();
+          floatingMenuFab.scrollLeft += e.deltaY;
+        }
+      }
+    }, { passive: false });
+
+    // Desktop Mouse Drag-To-Scroll
+    let isDockDown = false;
+    let dockStartX = 0;
+    let dockScrollStart = 0;
+
+    floatingMenuFab.addEventListener('mousedown', (e) => {
+      if (e.target.closest('a, button, input, select')) return;
+      isDockDown = true;
+      dockStartX = e.pageX - floatingMenuFab.offsetLeft;
+      dockScrollStart = floatingMenuFab.scrollLeft;
+      floatingMenuFab.style.cursor = 'grabbing';
+      floatingMenuFab.style.userSelect = 'none';
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isDockDown) {
+        isDockDown = false;
+        if (floatingMenuFab) {
+          floatingMenuFab.style.cursor = '';
+          floatingMenuFab.style.userSelect = '';
+        }
+      }
+    });
+
+    floatingMenuFab.addEventListener('mousemove', (e) => {
+      if (!isDockDown) return;
+      e.preventDefault();
+      const x = e.pageX - floatingMenuFab.offsetLeft;
+      const walk = (x - dockStartX) * 1.5;
+      floatingMenuFab.scrollLeft = dockScrollStart - walk;
+    });
+  }
+
   // Close desktop dock when clicking outside
   document.addEventListener('click', (e) => {
     if (floatingMenuFab && floatingMenuFab.classList.contains('expanded')) {
