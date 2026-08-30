@@ -144,17 +144,17 @@ function renderSubmissions(submissions) {
       <div class="submission-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px;">
         <div class="sub-client-info">
           <h3 style="margin: 0 0 4px 0; font-size: 18px; font-weight: 800; color: #0f172a;">${escapeHtml(sub.company_name || 'Klien Baru')}</h3>
-          <span class="sub-date" style="font-size: 12.5px; color: #64748b; font-weight: 600;">📅 Dihantar pada: ${formattedDate}</span>
+          <span class="sub-date" style="font-size: 12.5px; color: #64748b; font-weight: 600;">Dihantar pada: ${formattedDate}</span>
         </div>
         <div class="submission-actions" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
           <button type="button" class="btn-create-qt-from-sub" onclick="convertSubToQt(${sub.id})" style="background: #FEF3C7; border: 1.5px solid #F59E0B; color: #92400E; font-weight: 800; font-size: 12.5px; padding: 6px 14px; border-radius: 20px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
-            ⚡ Bina Sebut Harga
+            Bina Sebut Harga
           </button>
           <a href="${waUrl}" target="_blank" class="action-btn wa-btn" style="background: #25D366; color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 12.5px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
-            📱 WhatsApp
+            WhatsApp
           </a>
           <button class="action-btn delete-btn" onclick="deleteSubmission(${sub.id})" style="background: #fee2e2; border: 1px solid #fca5a5; color: #dc2626; padding: 6px 12px; border-radius: 20px; font-size: 12.5px; font-weight: 700; cursor: pointer;">
-            🗑️ Padam
+            Padam
           </button>
         </div>
       </div>
@@ -504,7 +504,7 @@ window.checkQtNoUnique = function() {
     warningEl.style.background = '#FEF2F2';
     warningEl.style.border = '1.5px solid #FCA5A5';
     warningEl.style.color = '#991B1B';
-    warningEl.innerHTML = `⚠️ Nombor <strong>${val}</strong> dah wujud dlm Arkib. Sila klik <button type="button" onclick="generateNextQtNo()" style="background:#0F172A;color:#FFF;border:none;border-radius:4px;padding:2px 6px;font-size:11px;cursor:pointer;margin:0 2px;">🔄 Auto No. Baru</button> atau guna <button type="button" onclick="makeDocRevision()" style="background:#92400E;color:#FFF;border:none;border-radius:4px;padding:2px 6px;font-size:11px;cursor:pointer;">✏️ -R1 Pindaan</button>`;
+    warningEl.innerHTML = `Nombor <strong>${val}</strong> dah wujud dlm Arkib. Sila klik <button type="button" onclick="generateNextQtNo()" style="background:#0F172A;color:#FFF;border:none;border-radius:4px;padding:2px 6px;font-size:11px;cursor:pointer;margin:0 2px;">Auto No. Baru</button> atau guna <button type="button" onclick="makeDocRevision()" style="background:#92400E;color:#FFF;border:none;border-radius:4px;padding:2px 6px;font-size:11px;cursor:pointer;">-R1 Pindaan</button>`;
     qtNoEl.style.borderColor = '#EF4444';
     return false;
   } else {
@@ -524,12 +524,12 @@ window.handleDocTypeChange = function() {
   if (docType === 'INV') {
     if (lbl) lbl.innerText = 'No. Invois';
     if (input) input.placeholder = 'KZ-INV-2026-001';
-    if (btnSubmit) btnSubmit.innerHTML = '✨ Jana Pratonton Invois Rasmi (Invoice)';
+    if (btnSubmit) btnSubmit.innerHTML = 'Jana Pratonton Invois Rasmi (Invoice)';
     generateNextQtNo('KZ-INV');
   } else {
     if (lbl) lbl.innerText = 'No. Sebut Harga';
     if (input) input.placeholder = 'KZ-QT-2026-001';
-    if (btnSubmit) btnSubmit.innerHTML = '✨ Jana Pratonton Sebut Harga (Quotation)';
+    if (btnSubmit) btnSubmit.innerHTML = 'Jana Pratonton Sebut Harga (Quotation)';
     generateNextQtNo('KZ-QT');
   }
 };
@@ -796,7 +796,7 @@ window.generateQuotationDocument = async function(event) {
   const qtNo = document.getElementById('qt-no').value.trim();
   const isUnique = checkQtNoUnique();
   if (!isUnique) {
-    alert(`❌ Nombor Dokumen '${qtNo}' telah pernah digunakan dalam Arkib.\n\nSila klik '🔄 Auto No. Baru' untuk jana nombor unik seterusnya, atau '✏️ -R1 Pindaan' untuk versi pindaan.`);
+    alert(`❌ Nombor Dokumen '${qtNo}' telah pernah digunakan dalam Arkib.\n\nSila klik 'Auto No. Baru' untuk jana nombor unik seterusnya, atau '-R1 Pindaan' untuk versi pindaan.`);
     return;
   }
   const qtDate = document.getElementById('qt-date').value;
@@ -962,13 +962,13 @@ function renderQuotationDocument(qtData) {
     setSafeText('a4-deposit-label', 'JUMLAH BAYARAN PENUH (100%):');
     setSafeText('a4-deposit-amount', `RM ${total.toLocaleString()}`);
     if (balanceRow) balanceRow.style.display = 'none';
-    if (bankTitle) bankTitle.innerText = '💳 MAKLUMAT AKAUN PEMBAYARAN:';
+    if (bankTitle) bankTitle.innerText = 'MAKLUMAT AKAUN PEMBAYARAN:';
   } else {
     setSafeText('a4-deposit-label', 'DEPOSIT 50% (BAYAR SEKARANG):');
     setSafeText('a4-deposit-amount', `RM ${deposit.toLocaleString()}`);
     setSafeText('a4-balance-amount', `RM ${balance.toLocaleString()}`);
     if (balanceRow) balanceRow.style.display = 'flex';
-    if (bankTitle) bankTitle.innerText = '💳 MAKLUMAT AKAUN PEMBAYARAN DEPOSIT:';
+    if (bankTitle) bankTitle.innerText = 'MAKLUMAT AKAUN PEMBAYARAN DEPOSIT:';
   }
 
   setSafeText('a4-duration', qtData.duration || '5 - 7 Hari Bekerja');
@@ -1417,7 +1417,7 @@ function renderHistoryItemsUI(history, container) {
             
             <!-- Pin Button -->
             <button type="button" onclick="togglePinQt('${qtNo}')" title="${isPinned ? 'Unpin card' : 'Pin card to top'}" style="background: ${isPinned ? '#FEF3C7' : '#F1F5F9'}; border: 1px solid ${isPinned ? '#F59E0B' : '#CBD5E1'}; border-radius: 6px; padding: 3px 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 800; color: ${isPinned ? '#92400E' : '#64748B'}; flex-shrink: 0; transition: all 0.2s;">
-              ${isPinned ? '⭐ Pinned' : '☆ Pin'}
+              ${isPinned ? 'Pinned' : 'Pin'}
             </button>
           </div>
 
