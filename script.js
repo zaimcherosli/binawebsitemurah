@@ -1611,18 +1611,7 @@ function initAppSlideNavigation() {
 
     currentSlide = index;
 
-    if (isDesktop()) {
-      // On Desktop: Smooth scroll directly to the selected section
-      if (slides[currentSlide]) {
-        slides[currentSlide].scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-      if (typeof window.updateQuantumStateForSlide === 'function') {
-        window.updateQuantumStateForSlide(currentSlide);
-      }
-      return;
-    }
-
-    // On Mobile: Horizontal App Story Slide Transition
+    // Horizontal App Story Slide Transition (Desktop & Mobile)
     const offset = -(currentSlide * 100);
     track.style.transform = `translateX(${offset}vw)`;
 
@@ -1762,6 +1751,47 @@ function initAppSlideNavigation() {
       goToSlide(currentSlide - 1);
     }
   });
+
+  // Desktop Mouse Wheel Navigation between slides
+  let isSlideWheelThrottled = false;
+  window.addEventListener('wheel', (e) => {
+    // Ignore if inside dock menu or 3d phone interactive stage
+    if (e.target.closest('.floating-menu-fab') || e.target.closest('#phone3dStage')) return;
+
+    const currentSlideEl = slides[currentSlide];
+    const scrollable = currentSlideEl ? currentSlideEl.querySelector('.app-slide-scrollable') : null;
+
+    if (scrollable && scrollable.scrollHeight > scrollable.clientHeight + 10) {
+      const atTop = scrollable.scrollTop <= 5;
+      const atBottom = scrollable.scrollTop + scrollable.clientHeight >= scrollable.scrollHeight - 5;
+
+      if (e.deltaY > 0 && !atBottom) {
+        // Still has content to scroll down inside current slide
+        return;
+      }
+      if (e.deltaY < 0 && !atTop) {
+        // Still has content to scroll up inside current slide
+        return;
+      }
+    }
+
+    if (Math.abs(e.deltaY) < 18) return;
+    if (isSlideWheelThrottled) return;
+
+    if (e.deltaY > 0) {
+      if (currentSlide < totalSlides - 1) {
+        isSlideWheelThrottled = true;
+        goToSlide(currentSlide + 1);
+        setTimeout(() => { isSlideWheelThrottled = false; }, 600);
+      }
+    } else if (e.deltaY < 0) {
+      if (currentSlide > 0) {
+        isSlideWheelThrottled = true;
+        goToSlide(currentSlide - 1);
+        setTimeout(() => { isSlideWheelThrottled = false; }, 600);
+      }
+    }
+  }, { passive: true });
 
   // Touch Swipe & Instagram Story Tap Gestures
   let touchStartTime = 0;
