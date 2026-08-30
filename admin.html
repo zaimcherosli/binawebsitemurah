@@ -400,8 +400,98 @@
       box-shadow: 0 14px 34px rgba(245, 158, 11, 0.5) !important;
     }
 
+        /* Executive Overview Metrics Strip */
+    .admin-metrics-overview {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .metric-card {
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 18px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 18px -2px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.06);
+    }
+
+    .metric-card.metric-sales {
+      background: linear-gradient(135deg, #ECFDF5 0%, #F0FDF4 100%);
+      border-color: #A7F3D0;
+    }
+    .metric-card.metric-sales .metric-eyebrow { color: #065F46; }
+    .metric-card.metric-sales .metric-value { color: #047857; font-size: clamp(20px, 2vw, 24px); }
+    .metric-card.metric-sales .metric-sub { color: #059669; }
+
+    .metric-card.metric-inv {
+      background: #FFFFFF;
+      border-left: 4px solid #3B82F6;
+    }
+    .metric-card.metric-qt {
+      background: #FFFFFF;
+      border-left: 4px solid #F59E0B;
+    }
+    .metric-card.metric-subm {
+      background: #FFFFFF;
+      border-left: 4px solid #8B5CF6;
+    }
+
+    .metric-eyebrow {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #64748B;
+      margin-bottom: 6px;
+    }
+
+    .metric-value {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: clamp(22px, 2.2vw, 26px);
+      font-weight: 900;
+      color: #0F172A;
+      line-height: 1.15;
+      margin-bottom: 4px;
+      letter-spacing: -0.02em;
+    }
+
+    .metric-sub {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #94A3B8;
+    }
+
     /* Mobile Breakpoint */
     @media (max-width: 768px) {
+            .admin-metrics-overview {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        margin-bottom: 16px !important;
+      }
+      .metric-card {
+        padding: 14px 14px !important;
+        border-radius: 14px !important;
+      }
+      .metric-value {
+        font-size: 18px !important;
+      }
+      .metric-card.metric-sales {
+        grid-column: span 2 !important;
+      }
+      .metric-card.metric-sales .metric-value {
+        font-size: 22px !important;
+      }
       body.admin-body { padding-top: 74px !important; }
       body.admin-body .container { padding: 0 14px !important; }
       .admin-desktop-nav { display: none !important; }
@@ -486,6 +576,34 @@
 
       <!-- TAB 1: SENARAI PERMOHONAN KLIEN -->
       <div id="admin-tab-submissions" class="admin-tab-content active">
+        <!-- Executive Overview Metrics -->
+        <div class="admin-metrics-overview">
+          <div class="metric-card metric-sales" onclick="switchAdminTab('history'); setArkibCategoryFilter('inv', document.querySelector('[data-cat=inv]'))" title="Lihat semua invois">
+            <div class="metric-eyebrow">Jumlah Jualan Invois</div>
+            <div class="metric-value" id="overview-sales-val">RM 0</div>
+            <div class="metric-sub" id="overview-sales-sub">Berdasarkan 0 Invois Rasmi</div>
+          </div>
+          <div class="metric-card metric-inv" onclick="switchAdminTab('history'); setArkibCategoryFilter('inv', document.querySelector('[data-cat=inv]'))" title="Lihat Arkib Invois">
+            <div class="metric-eyebrow">Invois Rasmi</div>
+            <div class="metric-value" id="overview-inv-val">0</div>
+            <div class="metric-sub">Invois Dijana</div>
+          </div>
+          <div class="metric-card metric-qt" onclick="switchAdminTab('history'); setArkibCategoryFilter('qt', document.querySelector('[data-cat=qt]'))" title="Lihat Arkib Sebut Harga">
+            <div class="metric-eyebrow">Sebut Harga</div>
+            <div class="metric-value" id="overview-qt-val">0</div>
+            <div class="metric-sub">Sebut Harga Dijana</div>
+          </div>
+          <div class="metric-card metric-subm" onclick="switchAdminTab('submissions')" title="Lihat Permohonan Klien">
+            <div class="metric-eyebrow">Permohonan Klien</div>
+            <div class="metric-value" id="overview-subm-val">0</div>
+            <div class="metric-sub">Leads Dari Borang</div>
+          </div>
+        </div>
+
+        <div class="submissions-header-row" style="display: flex; justify-content: space-between; align-items: center; margin: 18px 0 12px 0;">
+          <h3 style="font-size: 16px; font-weight: 800; color: #0F172A; margin: 0;">Permohonan Klien Terkini</h3>
+          <span style="font-size: 12px; font-weight: 700; color: #64748B; background: #F1F5F9; padding: 3px 10px; border-radius: 99px;" id="overview-subm-badge">0 Rekod</span>
+        </div>
         <div class="submissions-list" id="submissions-list">
           <div style="text-align: center; padding: 40px;" id="admin-loader">
             <div class="spinner"></div>

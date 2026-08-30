@@ -25,6 +25,7 @@ function initAdminDashboard() {
     loadSubmissions();
     renderQuotationHistory();
     updateHistoryCountBadge();
+    updateDashboardMetrics();
   }
 
   // Pengesahan Passcode
@@ -40,6 +41,7 @@ function initAdminDashboard() {
       loadSubmissions();
       renderQuotationHistory();
       updateHistoryCountBadge();
+      updateDashboardMetrics();
     });
   }
 
@@ -92,6 +94,7 @@ function loadSubmissions(callback) {
     if (json.success) {
       _submissionsCache = json.data || [];
       renderSubmissions(_submissionsCache);
+      updateDashboardMetrics();
       if (callback) callback(true);
     } else {
       throw new Error(json.message || 'Gagal memuat permohonan');
@@ -1177,10 +1180,12 @@ async function saveQuotationToHistory(qtData) {
 
     await renderQuotationHistory();
     updateHistoryCountBadge();
+    updateDashboardMetrics();
   } catch (e) {
     console.error('API error semasa simpan QT:', e);
     await renderQuotationHistory();
     updateHistoryCountBadge();
+    updateDashboardMetrics();
   }
 }
 
@@ -1310,6 +1315,7 @@ function applyArkibFiltersAndRender() {
 
   // Update counts on filter buttons
   updateCategoryCounts(list, pinnedList);
+  updateDashboardMetrics();
 
   // 1. Filter by Search Query
   if (window._arkibSearchQuery) {
@@ -1814,3 +1820,35 @@ function normalizeQtFromApi(qt) {
 document.addEventListener('DOMContentLoaded', () => {
   initQuotationForm();
 });
+
+
+function updateDashboardMetrics() {
+  const allQt = Array.isArray(_qtHistoryCache) ? _qtHistoryCache : [];
+  const allSub = Array.isArray(_submissionsCache) ? _submissionsCache : [];
+
+  // Filter Invoices vs Quotations
+  const invList = allQt.filter(q => (q.qt_no || q.qtNo || '').startsWith('KZ-INV'));
+  const qtList = allQt.filter(q => !(q.qt_no || q.qtNo || '').startsWith('KZ-INV'));
+
+  // Calculate Total Sales based on all invoices
+  let totalSales = 0;
+  invList.forEach(inv => {
+    const rawVal = inv.total !== undefined ? inv.total : (inv.subtotal || 0);
+    const num = typeof rawVal === 'number' ? rawVal : parseFloat(String(rawVal).replace(/[^0-9.]/g, '')) || 0;
+    totalSales += num;
+  });
+
+  const salesEl = document.getElementById('overview-sales-val');
+  const salesSubEl = document.getElementById('overview-sales-sub');
+  const invEl = document.getElementById('overview-inv-val');
+  const qtEl = document.getElementById('overview-qt-val');
+  const submEl = document.getElementById('overview-subm-val');
+  const submBadgeEl = document.getElementById('overview-subm-badge');
+
+  if (salesEl) salesEl.innerText = `RM ${totalSales.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
+  if (salesSubEl) salesSubEl.innerText = `Berdasarkan ${invList.length} Invois Rasmi`;
+  if (invEl) invEl.innerText = `${invList.length}`;
+  if (qtEl) qtEl.innerText = `${qtList.length}`;
+  if (submEl) submEl.innerText = `${allSub.length}`;
+  if (submBadgeEl) submBadgeEl.innerText = `${allSub.length} Rekod`;
+}
