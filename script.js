@@ -2,6 +2,16 @@
    Kwikezee Studio - Interactivity, PWA & Slider Logic
    ========================================== */
 
+// Early Global Navigation Helper for Slide and Section transitions
+window.goToAppSlide = window.goToAppSlide || function(slideIndex) {
+  const targetSlide = document.querySelector(`.app-slide-item[data-slide-index="${slideIndex}"]`) || document.getElementById('mockup-section');
+  if (targetSlide) {
+    targetSlide.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    window.location.href = 'portfolio';
+  }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize all modules
   initNavbar();
@@ -1893,8 +1903,22 @@ function initAppSlideNavigation() {
     }
   });
 
-  // Global Helper for Menu Links
+  // Global Helper for Menu Links and In-Page Action Buttons
   window.goToAppSlide = function(slideIndex) {
+    if (isDesktop()) {
+      const targetSlide = document.querySelector(`.app-slide-item[data-slide-index="${slideIndex}"]`) || document.getElementById('mockup-section');
+      if (targetSlide) {
+        targetSlide.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        slides.forEach((s, i) => {
+          if (i === slideIndex) s.classList.add('active');
+          else s.classList.remove('active');
+        });
+        if (typeof window.updateQuantumStateForSlide === 'function') {
+          window.updateQuantumStateForSlide(slideIndex);
+        }
+        return;
+      }
+    }
     goToSlide(slideIndex);
   };
 
