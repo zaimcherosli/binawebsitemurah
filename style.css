@@ -2746,20 +2746,26 @@ input:focus, select:focus, textarea:focus {
 .pwa-install-sheet {
   position: relative;
   width: 100%;
-  max-width: 440px;
+  max-width: 380px;
+  max-height: 88vh;
+  max-height: 88dvh;
+  overflow-y: auto;
   background: rgba(18, 18, 22, 0.98);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
-  border: 1.5px solid rgba(212, 175, 55, 0.5);
-  border-radius: 28px;
-  padding: 24px 22px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(212, 175, 55, 0.25);
-  transform: translateY(40px) scale(0.96);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1.5px solid rgba(212, 175, 55, 0.75);
+  border-radius: 24px;
+  padding: 22px 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(212, 175, 55, 0.3);
+  transform: scale(0.92);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: auto;
+  bottom: auto;
+  top: auto;
 }
 
 .pwa-install-modal-backdrop.active .pwa-install-sheet {
-  transform: translateY(0) scale(1);
+  transform: scale(1);
 }
 
 .pwa-sheet-drag-bar {
@@ -3057,14 +3063,6 @@ input:focus, select:focus, textarea:focus {
     right: 20px;
     width: 48px;
     height: 48px;
-  }
-  
-  .pwa-install-sheet {
-    bottom: -400px;
-    border-radius: 20px 20px 0 0;
-  }
-  .pwa-install-sheet.show {
-    bottom: 64px; /* Align right above bottom nav */
   }
 }
 
